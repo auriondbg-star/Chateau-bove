@@ -1,0 +1,1380 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Château de la Bôve (Aisne) : mariages, séminaires, gîte et appartement, à 35 min de Reims.">
+<style>html,body{margin:0}</style>
+<title>Château de la Bôve</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Jost:wght@400;500&display=swap">
+<style>
+/* Layout: "l'axe" — the page follows the château's central alley: a single vertical axis, symmetric sections, the gravel path as a thin rule down the middle. */
+:root{
+  --stone:#EEEDE6;      /* tuffeau, pale limestone */
+  --stone-2:#E2E1D7;
+  --ink:#1E2622;        /* ardoise verte, deep slate */
+  --muted:#5B6560;
+  --buis:#2F4A35;       /* boxwood green, accent */
+  --buis-soft:#D7DFD2;
+  --sem-soft:#EFE3C4;   /* séminaires */
+  --gilt:#9A7B3F;       /* wrought-iron gilding */
+  --line:#C9CABE;
+  --card:#F7F6F1;
+  --display:"Libre Caslon Display","Didot","Bodoni 72",Georgia,serif;
+  --serif:"Libre Caslon Text",Georgia,"Times New Roman",serif;
+  --sans:"Jost","Futura","Avenir Next","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --stone:#141A17;--stone-2:#1B2320;--ink:#E6E6DD;--muted:#A3ABA4;--buis:#9DBB9F;--buis-soft:#22312A;--sem-soft:#3A3120;--gilt:#C9A866;--line:#2F3A35;--card:#19211E;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --stone:#141A17;--stone-2:#1B2320;--ink:#E6E6DD;--muted:#A3ABA4;--buis:#9DBB9F;--buis-soft:#22312A;--sem-soft:#3A3120;--gilt:#C9A866;--line:#2F3A35;--card:#19211E;color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--stone);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.inner{max-width:1120px;margin-inline:auto}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;line-height:1.08}
+h2{font-size:clamp(2.1rem,5vw,3.4rem)}
+h3{font-size:1.55rem}
+p{margin:0}
+.eyebrow{font-family:var(--sans);font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gilt);font-weight:500}
+.ph{border-bottom:1px dashed var(--gilt);color:inherit}
+.ph-note{font-family:var(--sans);font-size:.7rem;letter-spacing:.06em;color:var(--gilt);text-transform:uppercase}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gilt);outline-offset:3px}
+
+/* nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--stone)}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--stone) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.mark{font-family:var(--display);font-size:1.35rem;text-decoration:none;letter-spacing:.02em}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-family:var(--sans);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+.nav ul a{text-decoration:none;color:var(--muted)}
+.nav ul a:hover{color:var(--ink)}
+.nav-act{display:flex;align-items:center;gap:14px}
+.acct{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;color:var(--muted);transition:color .2s,background .2s}
+.acct:hover{color:var(--ink);background:var(--stone-2)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:.78rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;padding:13px 22px;border:1px solid var(--buis);background:var(--buis);color:var(--stone);cursor:pointer;transition:background .25s,color .25s}
+.btn:hover{background:transparent;color:var(--buis)}
+.btn.ghost{background:transparent;color:var(--buis)}
+.btn.ghost:hover{background:var(--buis);color:var(--stone)}
+@media (max-width:820px){.nav ul{display:none}}
+
+/* hero */
+.hero{position:relative;color:#F4F3EC}
+.hero figure{margin:0;position:relative;height:min(86vh,820px);min-height:520px;overflow:hidden}
+.hero figure>img{display:none}
+/* fixed background photo: stays still while the page scrolls over it */
+.bgfix{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--ink)}
+.bgfix img{width:100%;height:100%;object-fit:cover;object-position:50% 55%;display:block;animation:settle 2.4s cubic-bezier(.2,.7,.2,1) both}
+section,footer{position:relative;z-index:1;background:var(--stone)}
+section.hero,.fenetre{background:transparent}
+.fenetre{position:relative;z-index:1;min-height:62vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#F4F3EC;padding-block:72px}
+.fenetre::before{content:"";position:absolute;inset:0;background:rgba(14,20,16,.38)}
+.fenetre p{position:relative;font-family:var(--display);font-size:clamp(1.8rem,4.6vw,3.2rem);line-height:1.15;max-width:22ch;text-wrap:balance;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.fenetre p span{display:block;font-family:var(--sans);font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:#E9D9AE;margin-top:18px}
+@keyframes settle{from{transform:scale(1.06)}to{transform:scale(1)}}
+.hero figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,20,16,.55) 0%,rgba(14,20,16,.05) 38%,rgba(14,20,16,.1) 60%,rgba(14,20,16,.72) 100%)}
+.hero .copy{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;padding-block:48px 56px}
+.hero .copy .eyebrow{color:#E9D9AE}
+.hero h1{font-size:clamp(3rem,10vw,7.4rem);letter-spacing:-.01em;text-shadow:0 2px 30px rgba(0,0,0,.25)}
+.hero h1 em{font-family:var(--serif);font-style:italic;font-size:.42em;display:block;letter-spacing:.02em;margin-bottom:.2em}
+.hero .lede{max-width:34ch;font-size:1.12rem;margin:18px auto 26px;color:#ECEBE2}
+.hero .btn{background:#F4F3EC;border-color:#F4F3EC;color:#1E2622}
+.hero .btn:hover{background:transparent;color:#F4F3EC}
+
+/* axis rule */
+.axis{width:1px;height:96px;background:var(--line);margin:0 auto}
+
+/* intro */
+.intro{padding-block:88px 40px;text-align:center}
+.intro h2{max-width:18ch;margin:18px auto 28px}
+.intro p.big{max-width:60ch;margin:0 auto;font-size:1.15rem;color:var(--muted)}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);margin-top:64px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts div{padding:28px 12px;display:flex;flex-direction:column;gap:6px;align-items:center}
+.facts div+div{border-left:1px solid var(--line)}
+.facts b{font-family:var(--display);font-weight:400;font-size:2.4rem;line-height:1;font-variant-numeric:tabular-nums}
+.facts span{font-family:var(--sans);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:560px){.facts{grid-template-columns:1fr}.facts div+div{border-left:0;border-top:1px solid var(--line)}}
+
+/* split */
+.split{padding-block:96px;display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(32px,6vw,88px);align-items:center}
+.split figure{margin:0}
+.split img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.split figcaption{font-family:var(--sans);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+.split .txt{display:flex;flex-direction:column;gap:20px;min-width:0}
+.split .txt p{color:var(--muted);max-width:52ch}
+@media (max-width:820px){.split{grid-template-columns:1fr;padding-block:64px}}
+
+/* espaces */
+.espaces{background:var(--stone-2);padding-block:96px}
+.head{text-align:center;display:flex;flex-direction:column;gap:16px;align-items:center;margin-bottom:56px}
+.head p{max-width:56ch;color:var(--muted)}
+.lieux{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.lieu{background:var(--card);display:flex;flex-direction:column}
+.lieu img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+.lieu .b{padding:24px 24px 28px;display:flex;flex-direction:column;gap:12px;flex:1}
+.lieu .b p{color:var(--muted);font-size:.98rem}
+.lieu dl{margin:auto 0 0;padding-top:16px;border-top:1px solid var(--line);display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-family:var(--sans);font-size:.85rem}
+.lieu dt{color:var(--muted);letter-spacing:.06em}
+.lieu dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:900px){.lieux{grid-template-columns:1fr;max-width:560px;margin-inline:auto}}
+.chapelle{margin-top:28px;background:var(--card);display:grid;grid-template-columns:1.25fr 1fr;align-items:stretch}
+.chapelle .ph2{display:grid;grid-template-columns:1fr 1fr;gap:4px;min-height:0}
+.chapelle .ph2 figure{margin:0;position:relative;min-height:260px}
+.chapelle .ph2 img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.chapelle .ph2 figcaption{position:absolute;left:10px;bottom:10px;font-family:var(--sans);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#F4F3EC;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.chapelle .b{padding:clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:14px;justify-content:center;min-width:0}
+.chapelle .b p{color:var(--muted)}
+@media (max-width:900px){.chapelle{grid-template-columns:1fr;max-width:560px;margin-inline:auto}.chapelle .ph2 figure{min-height:0;aspect-ratio:3/4}.chapelle .ph2 img{position:static}}
+.more{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:12px;font-family:var(--sans);font-size:.78rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--buis);border-bottom:1px solid var(--buis);padding-bottom:4px;align-self:flex-start}
+.more:focus-visible{outline:2px solid var(--gilt);outline-offset:4px}
+.more .arr{display:inline-block;transition:transform .35s ease;font-size:1.1rem;line-height:1}
+.more[aria-expanded="true"] .arr{transform:rotate(90deg)}
+.hist-intro{padding-block:16px 96px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px}
+.hist-intro h2{max-width:20ch}
+.hist-intro p{max-width:60ch;color:var(--muted)}
+.hist-intro .more{align-self:center}
+.histoire{padding-block:0 96px;scroll-margin-top:72px}
+.histoire .panel{max-width:820px;margin:0 auto;border-top:1px solid var(--line);padding-top:48px;display:flex;flex-direction:column;gap:22px}
+.histoire .panel h3{text-align:center}
+.chrono{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column}
+.chrono li{display:grid;grid-template-columns:130px 1fr;gap:24px;padding-block:18px;border-bottom:1px solid var(--line)}
+.chrono .y{font-family:var(--display);font-size:1.6rem;line-height:1.1;color:var(--buis);font-variant-numeric:tabular-nums}
+.chrono p{color:var(--muted)}
+.chrono b{font-family:var(--serif);font-weight:400;color:var(--ink)}
+@media (max-width:560px){.chrono li{grid-template-columns:1fr;gap:6px}}
+
+
+/* galerie */
+.galerie{padding-block:96px}
+.top3{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:14px}
+.top3 button{all:unset;display:block;cursor:zoom-in;overflow:hidden;aspect-ratio:4/5;max-width:100%}
+.top3 button:first-child{aspect-ratio:auto}
+.top3 button:focus-visible{outline:2px solid var(--gilt);outline-offset:3px}
+.top3 img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.top3 button:hover img{transform:scale(1.03)}
+@media (max-width:760px){.top3{grid-template-columns:1fr 1fr}.top3 button:first-child{grid-column:1/-1;aspect-ratio:16/10}}
+.more-row{display:flex;justify-content:center;padding-block:32px 8px}
+.grid{columns:3 240px;column-gap:14px;margin-top:24px}
+.grid button{all:unset;display:block;margin-bottom:14px;cursor:zoom-in;break-inside:avoid;overflow:hidden}
+.grid button:focus-visible{outline:2px solid var(--gilt);outline-offset:3px}
+.grid img{width:100%;display:block;transition:transform .6s ease}
+.grid button:hover img{transform:scale(1.03)}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(10,14,12,.94);display:flex;align-items:center;justify-content:center;padding:max(24px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(24px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lb img{max-height:100%;max-width:100%;object-fit:contain}
+.lb button{position:absolute;background:none;border:0;color:#F4F3EC;font-family:var(--sans);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;padding:12px}
+.lb .x{top:calc(env(safe-area-inset-top,0px) + 8px);right:calc(env(safe-area-inset-right,0px) + 8px)}
+.lb .p{left:calc(env(safe-area-inset-left,0px) + 4px);top:50%;font-size:2rem}
+.lb .n{right:calc(env(safe-area-inset-right,0px) + 4px);top:50%;font-size:2rem}
+
+/* réservation */
+.resa{background:var(--buis);color:#EEF0E8;padding-block:96px}
+.resa .eyebrow{color:#D9C38E}
+.resa-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(32px,6vw,80px);align-items:start}
+.resa-grid>div{min-width:0}
+.resa h2{margin:16px 0 20px}
+.resa .intro-r{color:#C9D3C6;max-width:42ch}
+.resa ul.inc{list-style:none;padding:0;margin:28px 0 0;display:flex;flex-direction:column;gap:10px;font-size:.98rem}
+.resa ul.inc li{display:flex;gap:12px;align-items:baseline}
+.sem{padding-block:96px}
+.sem-top{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(32px,6vw,80px);align-items:center}
+.sem-top>*{min-width:0}
+.sem-top .txt{display:flex;flex-direction:column;gap:20px}
+.sem-top .txt p{color:var(--muted);max-width:52ch}
+.sem-top figure{margin:0}
+.sem-top img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.sem-top figcaption{font-family:var(--sans);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+.sem-facts{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sem-facts div{padding:18px 8px;display:flex;flex-direction:column;gap:4px}
+.sem-facts div+div{border-left:1px solid var(--line);padding-left:18px}
+.sem-facts b{font-family:var(--display);font-weight:400;font-size:1.7rem;line-height:1}
+.sem-facts span{font-family:var(--sans);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.formats{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:64px}
+.format{border-top:1px solid var(--ink);padding-top:22px;display:flex;flex-direction:column;gap:10px}
+.format p{color:var(--muted);font-size:.98rem}
+.format .when{font-family:var(--sans);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gilt)}
+@media (max-width:860px){.sem-top{grid-template-columns:1fr}.formats{grid-template-columns:1fr}}
+@media (max-width:480px){.sem-facts{grid-template-columns:1fr}.sem-facts div+div{border-left:0;border-top:1px solid var(--line);padding-left:8px}}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--buis)}
+.seg label{all:unset;position:relative;cursor:pointer;text-align:center;padding:12px 8px;font-family:var(--sans);font-size:.78rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--buis)}
+.seg input{position:absolute;left:0;top:0;width:1px;height:1px;margin:0;opacity:0;pointer-events:none}
+.seg label:has(input:checked){background:var(--buis);color:var(--card)}
+.seg label:has(input:focus-visible){outline:2px solid var(--gilt);outline-offset:2px}
+.cal-g button.conf.k-seminaire{background:var(--sem-soft)}
+.cal-g button.man.k-seminaire{background:repeating-linear-gradient(-45deg,var(--sem-soft) 0 6px,var(--card) 6px 12px)}
+.cal-g button.wk{background:var(--stone-2)}
+.cal-g button.rng,.cal-g button.we.rng{background:color-mix(in srgb,var(--buis) 45%,var(--card));color:var(--ink)}
+.cal-g small.one{max-width:100%}
+.typef{display:flex;gap:8px;flex-wrap:wrap}
+.typef button{all:unset;cursor:pointer;font-family:var(--sans);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--line);color:var(--muted)}
+.typef button[aria-pressed="true"]{border-color:var(--buis);color:var(--buis);background:var(--card)}
+.typef button:focus-visible{outline:2px solid var(--gilt);outline-offset:2px}
+.kind{font-family:var(--sans);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;white-space:nowrap}
+.kind-mariage{background:var(--buis-soft)}
+.kind-seminaire{background:var(--sem-soft)}
+.resa ul.inc li::before{content:"";width:7px;height:7px;flex:none;border:1px solid #D9C38E;transform:rotate(45deg) translateY(-2px)}
+form{background:var(--card);color:var(--ink);padding:clamp(22px,4vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:18px 18px}
+form .full{grid-column:1/-1}
+label{display:flex;flex-direction:column;gap:6px;font-family:var(--sans);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);min-width:0}
+input,select,textarea{font:inherit;font-family:var(--serif);font-size:1rem;letter-spacing:0;text-transform:none;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--line);padding:8px 0;border-radius:0;width:100%}
+textarea{resize:vertical;min-height:90px}
+input:focus,select:focus,textarea:focus{outline:none;border-bottom-color:var(--buis)}
+.chk{flex-direction:row;align-items:center;gap:10px;text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:.95rem;color:var(--ink)}
+.chk input{width:auto}
+.addday{display:flex;gap:8px;align-items:stretch}.addday input{flex:1;min-width:0}.addday .btn{padding:10px 14px;letter-spacing:.1em;white-space:nowrap}
+.days{grid-column:1/-1;list-style:none;display:flex;flex-wrap:wrap;gap:6px;padding:0;margin:0}.days:empty{display:none}
+.days li{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:.8rem;padding:6px 6px 6px 12px;background:var(--buis);color:var(--stone)}
+.days li button{all:unset;cursor:pointer;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:1rem;line-height:1}
+.days li button:focus-visible{outline:2px solid var(--gilt)}
+.seg3{grid-template-columns:repeat(3,1fr)}
+.vis-intro{font-family:var(--sans);font-size:.85rem;color:var(--muted);margin:0}
+.kind-visite{background:color-mix(in srgb,var(--ink) 8%,var(--card))}
+.season{grid-column:1/-1;font-family:var(--sans);font-size:.82rem;padding:12px 14px;background:var(--buis-soft);color:var(--ink);min-height:44px}
+.err{grid-column:1/-1;color:#A3412E;font-family:var(--sans);font-size:.85rem}
+form .btn{justify-self:start}
+.merci{background:var(--card);color:var(--ink);padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:16px}
+.merci dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:8px 0 0;font-size:.98rem}
+.merci dt{font-family:var(--sans);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-top:4px}
+.merci dd{margin:0}
+@media (max-width:860px){.resa-grid{grid-template-columns:1fr}}
+@media (max-width:520px){form{grid-template-columns:1fr}}
+
+
+/* espace propriétaire */
+body.admin>*:not(#admin):not(script):not(style):not(link):not(title):not(meta){display:none!important}
+#admin{min-height:100vh;background:var(--stone)}
+.adm-bar{background:var(--buis);color:#EEF0E8}
+.adm-bar .inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:16px;flex-wrap:wrap}
+.adm-bar .mark{color:#EEF0E8}
+.adm-bar .mark small{font-family:var(--sans);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:#D9C38E;margin-left:12px}
+.adm-bar nav{display:flex;gap:18px;align-items:center;font-family:var(--sans);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+.adm-bar a,.adm-bar button.lnk{all:unset;cursor:pointer;color:#EEF0E8;border-bottom:1px solid transparent}
+.adm-bar a:hover,.adm-bar button.lnk:hover{border-bottom-color:#D9C38E}
+.adm-bar a:focus-visible,.adm-bar button.lnk:focus-visible{outline:2px solid #D9C38E;outline-offset:3px}
+.login{max-width:420px;margin:72px auto;background:var(--card);padding:36px;display:flex;flex-direction:column;gap:18px}
+.login h2{font-size:2rem}
+.login .hint{font-family:var(--sans);font-size:.8rem;background:var(--buis-soft);padding:12px 14px;line-height:1.5}
+.login .btn{justify-content:center}
+.adm-main{padding-block:40px 80px;display:flex;flex-direction:column;gap:28px}
+.adm-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.adm-head h2{font-size:clamp(1.8rem,4vw,2.6rem)}
+.demo{font-family:var(--sans);font-size:.78rem;color:var(--muted);max-width:60ch}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);background:var(--card)}
+.kpis button{all:unset;cursor:pointer;padding:18px 20px;display:flex;flex-direction:column;gap:4px}
+.kpis button+button{border-left:1px solid var(--line)}
+.kpis button[aria-pressed="true"]{background:var(--buis-soft)}
+.kpis button:focus-visible{outline:2px solid var(--gilt);outline-offset:-2px}
+.kpis b{font-family:var(--display);font-weight:400;font-size:2.2rem;line-height:1;font-variant-numeric:tabular-nums}
+.kpis span{font-family:var(--sans);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:640px){.kpis{grid-template-columns:repeat(2,1fr)}.kpis button:nth-child(3){border-left:0}.kpis button:nth-child(n+3){border-top:1px solid var(--line)}}
+.adm-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:start}
+.adm-grid>*{min-width:0}
+@media (max-width:900px){.adm-grid{grid-template-columns:1fr}}
+.tbl-wrap{background:var(--card);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+th{text-align:left;font-family:var(--sans);font-weight:500;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:14px 16px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--stone)}
+tbody tr[aria-selected="true"]{background:var(--buis-soft)}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill{display:inline-block;font-family:var(--sans);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border:1px solid currentColor;white-space:nowrap}
+.st-nouvelle{color:var(--gilt)}
+.st-en-cours{color:var(--muted)}
+.st-confirmee{color:var(--buis)}
+.st-refusee{color:#A3412E}
+.tag{font-family:var(--sans);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-left:6px}
+.detail{background:var(--card);padding:28px;display:flex;flex-direction:column;gap:16px;position:sticky;top:16px}
+.detail h3{font-size:1.7rem}
+.detail dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:0;font-size:.98rem}
+.detail dt{font-family:var(--sans);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.detail dd{margin:0;overflow-wrap:anywhere}
+.detail .msg{border-left:2px solid var(--line);padding-left:14px;color:var(--muted);font-style:italic}
+.detail .visite{font-family:var(--sans);font-size:.85rem;padding:10px 12px;background:var(--stone);border:1px solid var(--line)}.detail .visite input{accent-color:var(--buis);width:18px;height:18px}
+.vis-ok{font-family:var(--sans);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--buis)}.vis-no{font-family:var(--sans);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gilt)}
+.detail .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn.sm{padding:9px 14px;font-size:.7rem}
+.empty{padding:40px 24px;text-align:center;color:var(--muted)}
+/* espace propriétaire : liste compacte */
+.adm-main{gap:18px}
+.kpis button{padding:10px 16px;flex-direction:row;align-items:baseline;gap:10px}
+.kpis b{font-size:1.5rem}
+.kpis span{font-size:.66rem}
+.typef button{padding:6px 12px;font-size:.66rem}
+.adm-grid{gap:18px}@media (min-width:901px){.adm-grid{grid-template-columns:1.7fr 1fr}}
+.tbl-wrap table{font-size:.86rem;table-layout:auto}
+.tbl-wrap th{padding:9px 10px;font-size:.62rem;letter-spacing:.12em}
+.tbl-wrap td{padding:7px 10px;vertical-align:middle;line-height:1.3}
+.tbl-wrap td:nth-child(3){white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis}
+.tbl-wrap td:nth-child(4),.tbl-wrap td:nth-child(5){white-space:nowrap}
+.tbl-wrap .pill{font-size:.6rem;padding:2px 7px;letter-spacing:.08em}
+.tbl-wrap .kind{font-size:.6rem;padding:2px 6px}
+.tbl-wrap .tag{font-size:.56rem;margin-left:4px}
+.detail{padding:20px;gap:12px}
+.detail h3{font-size:1.4rem}
+.detail dl{gap:6px 14px;font-size:.9rem}
+.cal-side{padding:16px;gap:8px}
+.cal-side ul{font-size:.85rem;gap:6px}
+.cal-side li{padding-bottom:6px}
+/* calendrier */
+.cal{background:var(--card);color:var(--ink);padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.cal-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cal-h b{font-family:var(--display);font-weight:400;font-size:1.35rem;text-transform:capitalize}
+.cal-h button{all:unset;cursor:pointer;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--muted);border:1px solid var(--line)}
+.cal-h button:hover{color:var(--ink);border-color:var(--ink)}
+.cal-h button:focus-visible,.cal-g button:focus-visible{outline:2px solid var(--gilt);outline-offset:1px}
+.cal-h button:disabled{opacity:.3;cursor:default}
+.cal-g{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+.cal-g .dow{font-family:var(--sans);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center;padding-bottom:4px}
+.cal-g button,.cal-g .pad{all:unset;box-sizing:border-box;min-height:48px;padding:5px 6px;display:flex;flex-direction:column;justify-content:space-between;font-family:var(--sans);font-size:.85rem;font-variant-numeric:tabular-nums;border:1px solid transparent;min-width:0;overflow:hidden}
+.cal-g button{cursor:pointer;background:var(--stone)}
+.cal-g button.we{background:var(--stone-2)}
+.cal-g button:hover:not(:disabled){border-color:var(--buis)}
+.cal-g button:disabled{cursor:default;color:var(--line)}
+.cal-g button.sel{background:var(--buis);color:var(--stone)}
+.cal-g button.busy{background:repeating-linear-gradient(-45deg,var(--stone-2) 0 6px,var(--card) 6px 12px);color:var(--muted)}
+.cal-g button.conf{background:var(--buis-soft);color:var(--ink)}
+.cal-g button.man{background:repeating-linear-gradient(-45deg,var(--buis-soft) 0 6px,var(--card) 6px 12px)}
+.cal-g button{position:relative;overflow:visible}
+.cal-g small{position:absolute;left:50%;bottom:5px;transform:translateX(-50%);z-index:1;max-width:290%;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
+.cal-leg{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:var(--sans);font-size:.75rem;color:var(--muted)}
+.cal-leg i{display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-2px;border:1px solid var(--line)}
+.cal-note{font-family:var(--sans);font-size:.8rem;color:var(--muted)}
+.cal-wrap{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
+.cal-wrap>*{min-width:0}
+.cal-side{background:var(--card);padding:22px;display:flex;flex-direction:column;gap:12px}
+.cal-side ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:.95rem}
+.cal-side li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.cal-side .unblock{all:unset;cursor:pointer;margin-top:6px;color:var(--buis);border-bottom:1px solid var(--buis);font-size:.68rem}
+.cal-side .unblock:focus-visible{outline:2px solid var(--gilt);outline-offset:2px}
+.cal-side li span:last-child{text-align:right;font-family:var(--sans);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+@media (max-width:900px){.cal-wrap{grid-template-columns:1fr}}
+@media (max-width:420px){.cal{padding:12px}.cal-g button,.cal-g .pad{min-height:42px;padding:4px}.cal-g small{font-size:.56rem;bottom:4px}}
+.adm-sec{display:flex;flex-direction:column;gap:16px}
+.acc-wrap{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}.acc-wrap>*{min-width:0}
+@media (max-width:900px){.acc-wrap{grid-template-columns:1fr}}
+.acc-form .btn{justify-self:start}
+.ok{font-family:var(--sans);font-size:.85rem;color:var(--buis);margin:0}
+.adm-sec h3{font-size:1.8rem}
+
+.contact{padding-block:96px}
+.contact .inner{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(32px,6vw,88px);align-items:start}
+.contact .inner>*{min-width:0}
+.contact h2{color:var(--buis)}
+.contact .lead{color:var(--muted);font-size:1.1rem;margin:22px 0 40px;max-width:40ch;line-height:1.8}
+.coord{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:30px}
+.coord li{display:grid;grid-template-columns:28px 1fr;gap:20px;align-items:start}
+.coord svg{color:var(--buis);margin-top:3px}
+.coord p{color:var(--muted);line-height:1.75;overflow-wrap:anywhere}
+.coord p b{font-weight:400;color:var(--ink)}
+.map{background:var(--card);border:1px solid var(--line);position:relative;display:flex;flex-direction:column}
+.map svg{display:block;width:100%;height:auto}
+.map-img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;max-width:100%}
+.map .road{stroke:var(--line);fill:none;stroke-width:3}
+.map .river{stroke:color-mix(in srgb,var(--buis) 35%,var(--card));fill:none;stroke-width:4;stroke-linecap:round}
+.map .cdd{stroke:var(--gilt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+.map .town{fill:var(--muted)}
+.map text{font-family:var(--sans);font-size:15px;fill:var(--muted);letter-spacing:.04em}
+.map text.big{font-family:var(--display);font-size:24px;fill:var(--ink);letter-spacing:0}
+.map text.lbl{font-size:12px;letter-spacing:.16em;text-transform:uppercase;fill:var(--gilt)}
+.map .pin{fill:var(--buis)}
+.map .card{position:absolute;top:16px;left:16px;background:var(--stone);padding:14px 16px;display:flex;flex-direction:column;gap:4px;max-width:calc(100% - 32px);box-shadow:0 6px 24px rgba(0,0,0,.08)}
+.map .card b{font-family:var(--serif);font-weight:400;font-size:1.05rem}
+.map .card span{font-family:var(--sans);font-size:.8rem;color:var(--muted)}
+.map .open{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-top:1px solid var(--line);font-family:var(--sans);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--buis);flex-wrap:wrap}
+.map .open:hover{background:var(--stone)}
+@media (max-width:860px){.contact .inner{grid-template-columns:1fr}}
+@media (max-width:480px){.map .card{position:static;box-shadow:none;max-width:none;border-bottom:1px solid var(--line)}}
+.gite{padding-block:96px;background:var(--stone-2)}
+.gite-top{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,6vw,80px);align-items:start}
+.gite-top>*{min-width:0}
+.gite-top .txt{display:flex;flex-direction:column;gap:18px}
+.gite-top .txt p{color:var(--muted);max-width:56ch}
+.gite-facts{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.gite-facts div{padding:16px 8px;display:flex;flex-direction:column;gap:4px}
+.gite-facts div+div{border-left:1px solid var(--line);padding-left:14px}
+.gite-facts b{font-family:var(--display);font-weight:400;font-size:1.8rem;line-height:1;font-variant-numeric:tabular-nums}
+.gite-facts span{font-family:var(--sans);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:520px){.gite-facts{grid-template-columns:repeat(2,1fr)}.gite-facts div:nth-child(3){border-left:0;padding-left:8px}.gite-facts div:nth-child(n+3){border-top:1px solid var(--line)}}
+.lodgs{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.lodg{background:var(--card);display:flex;flex-direction:column;min-width:0}
+.lodg-b{padding:28px;display:flex;flex-direction:column;gap:16px}
+.lodg-b>p{color:var(--muted)}
+.lodg .gite-facts div{padding-block:12px}
+.lodg .gite-facts b{font-size:1.5rem}
+.lodg-ph .gite-photo{border:0;border-bottom:1px dashed var(--gilt)}
+.lodg-ph .strip{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:4px;aspect-ratio:16/10;max-width:100%}
+.lodg-ph .strip button{all:unset;cursor:zoom-in;overflow:hidden;min-height:0}
+.lodg-ph .strip button:first-child{grid-row:1/3}
+.lodg-ph .strip button{position:relative}
+.lodg-ph .more-n{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(14,20,16,.45);color:#F4F3EC;font-family:var(--sans);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+.lodg-ph .strip img{width:100%;height:100%;object-fit:cover;display:block}
+.lodg-ph .strip button:focus-visible{outline:2px solid var(--gilt);outline-offset:-2px}
+@media (max-width:900px){.lodgs{grid-template-columns:1fr;max-width:620px;margin-inline:auto}}
+.gite-card{background:var(--card);padding:28px;display:flex;flex-direction:column;gap:18px}
+.gite-photo{aspect-ratio:16/10;max-width:100%;background:repeating-linear-gradient(-45deg,var(--stone-2) 0 10px,var(--card) 10px 20px);display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;font-family:var(--sans);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gilt);border:1px dashed var(--gilt)}
+.rooms{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.rooms li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.rooms li span:first-child{font-family:var(--sans);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.equip{display:flex;flex-wrap:wrap;gap:8px}
+.equip span{font-family:var(--sans);font-size:.78rem;padding:6px 12px;border:1px solid var(--line);background:var(--card)}
+.near{columns:2 220px;column-gap:28px;margin:0;padding:0;list-style:none;color:var(--muted);font-size:.95rem}
+.near li{padding:6px 0;break-inside:avoid;border-bottom:1px solid var(--line)}
+.near b{font-weight:400;color:var(--ink)}
+.gite-book{margin-top:64px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.gite-book>*{min-width:0}
+.gite-book form{grid-template-columns:1fr 1fr}
+.stay{grid-column:1/-1;font-family:var(--sans);font-size:.85rem;padding:12px 14px;background:var(--buis-soft);color:var(--ink)}
+@media (max-width:900px){.gite-top,.gite-book{grid-template-columns:1fr}}
+@media (max-width:520px){.gite-book form{grid-template-columns:1fr}}
+.kind-appart{background:color-mix(in srgb,var(--buis) 14%,var(--card))}
+.kind-gite{background:color-mix(in srgb,var(--gilt) 18%,var(--card))}
+.cal-g button.conf.k-gite{background:color-mix(in srgb,var(--gilt) 22%,var(--card))}
+.cal-g button.man.k-gite{background:repeating-linear-gradient(-45deg,color-mix(in srgb,var(--gilt) 22%,var(--card)) 0 6px,var(--card) 6px 12px)}
+.scope{max-width:620px;grid-template-columns:1.6fr 1fr 1.3fr}
+@media (max-width:480px){.scope label{font-size:.66rem;letter-spacing:.08em;padding:10px 4px}}
+footer{padding-block:56px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;color:var(--muted);font-family:var(--sans);font-size:.85rem}
+footer .mark{color:var(--ink);font-size:1.6rem}
+</style>
+<script src="supabase-2.118.0.js"></script>
+<script src="config.js"></script>
+</head>
+<body>
+<div class="bgfix" aria-hidden="true"><img src="aerien-domaine-v2.jpg" alt=""></div>
+
+<header class="nav wrap">
+  <div class="inner">
+    <a class="mark" href="#top">La Bôve</a>
+    <ul>
+      <li><a href="#domaine">Le domaine</a></li>
+      <li><a href="#espaces">Les espaces</a></li>
+      <li><a href="#seminaires">Séminaires</a></li>
+      <li><a href="#reserver" data-type="mariage">Mariage</a></li>
+      <li><a href="#logements">Logements</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+    </ul>
+    <div class="nav-act">
+      <a class="acct" href="#admin" aria-label="Espace propriétaire" title="Espace propriétaire"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20.5c1.4-3.6 4.4-5.5 8-5.5s6.6 1.9 8 5.5"/></svg></a>
+      <a class="btn" href="#reserver">Réserver</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <figure>
+    <img src="aerien-domaine-v2.jpg" alt="Vue aérienne du château au cœur de sa forêt, l'allée de buis menant à la cour d'honneur">
+    <div class="copy wrap">
+      <span class="eyebrow">Mariages &amp; réceptions · Aisne</span>
+      <div>
+        <h1><em>Château de</em>la Bôve</h1>
+        <p class="lede">Un château classique au bout de son allée de buis, posé sur la forêt. Pour un jour qui ne ressemble qu'à vous.</p>
+        <a class="btn" href="#reserver">Demander une date</a>
+      </div>
+    </div>
+  </figure>
+</section>
+
+<section class="wrap" id="domaine">
+  <div class="inner intro">
+    <span class="eyebrow">Le domaine</span>
+    <h2>Une perspective à la française, ouverte sur la vallée</h2>
+    <p class="big">Dans l'Aisne, à deux heures de Paris et trente-cinq minutes de Reims. Depuis la grille, une allée de gravier bordée de buis taillés mène tout droit à la façade. Derrière, la cour d'honneur domine la forêt à perte de vue. Le domaine vous est confié en extérieur : l'allée, la cour, le parc et l'orangerie.</p>
+    <div class="facts">
+      <div><b>200</b><span>Invités assis max.</span></div>
+      <div><b>2 h</b><span>De Paris</span></div>
+      <div><b>35 min</b><span>De Reims</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="inner split">
+    <figure>
+      <img src="facade.jpg" alt="Façade du château, balcon en fer forgé et toit d'ardoise" loading="lazy">
+      <figcaption>La façade sur la cour d'honneur</figcaption>
+    </figure>
+    <div class="txt">
+      <span class="eyebrow">L'architecture</span>
+      <h3>Un décor de pierre et d'ardoise pour toutes vos photos</h3>
+      <p>La façade s'ordonne autour d'un avant-corps central coiffé d'un fronton sculpté et d'un balcon en fer forgé, sous un toit d'ardoise à la Mansart. Elle offre un fond idéal pour la photo de groupe sur la cour de gravier.</p>
+      <p>Le château lui-même n'est pas ouvert à la réception : ce sont ses extérieurs qui vous accueillent, de l'allée de buis jusqu'à l'orangerie où se tient le dîner.</p>
+      <div><a class="btn ghost" href="#espaces">Découvrir les espaces</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="histoire-intro">
+  <div class="inner hist-intro">
+    <span class="eyebrow">Histoire</span>
+    <h2>Le château qui a donné son nom au Chemin des Dames</h2>
+    <p>À la veille de la Révolution, la Bôve appartient à Françoise de Châlus, duchesse de Narbonne, dame d'honneur de Madame Adélaïde. Les filles de Louis XV, Mesdames Adélaïde et Victoire, viennent si souvent lui rendre visite que la route empruntée par leurs carrosses prend un nom resté dans l'histoire : le Chemin des Dames.</p>
+    <p>Plus d'un siècle plus tard, ce même plateau devient l'un des lieux les plus marquants de la Grande Guerre. Le domaine porte aujourd'hui cette double mémoire, entre art de vivre à la française et souvenir de 1917.</p>
+    <button class="more" id="more" type="button" aria-expanded="false" aria-controls="histoire">Lire l'histoire complète <span class="arr" aria-hidden="true">→</span></button>
+  </div>
+</section>
+
+<section class="histoire wrap" id="histoire" hidden>
+  <div class="inner panel">
+    <span class="eyebrow" style="text-align:center">L'histoire complète</span>
+    <h3>De Mesdames de France à aujourd'hui</h3>
+    <ol class="chrono">
+      <li><span class="y">Origines</span><p><b>Une demeure classique au-dessus de la vallée.</b> Le château de la Bôve s'élève à Bouconville-Vauclair, face à la vallée de l'Ailette, au pied du plateau qui sépare l'Ailette de l'Aisne. <span class="ph">Date de construction et premiers propriétaires à préciser.</span></p></li>
+      <li><span class="y">1776–1789</span><p><b>Mesdames sur la route de la Bôve.</b> Le domaine appartient à Françoise de Châlus, duchesse de Narbonne-Lara, ancienne dame d'honneur de Madame Adélaïde. Mesdames Adélaïde et Victoire, filles de Louis XV, empruntent souvent pour lui rendre visite la route de crête entre Laon et Soissons, alors peu adaptée aux voitures. On l'appelle bientôt le Chemin des Dames.</p></li>
+      <li><span class="y">1814</span><p><b>La bataille de Craonne.</b> Tout près du domaine, Napoléon affronte les armées prussienne et russe le 7 mars 1814. Parmi les soldats français, de très jeunes recrues surnommées les « Marie-Louise ».</p></li>
+      <li><span class="y">1917</span><p><b>Le Chemin des Dames dans la Grande Guerre.</b> Au printemps 1917, l'offensive française se brise sur le plateau, qui reste l'un des champs de bataille les plus meurtriers du conflit. <span class="ph">Sort du château pendant la guerre à préciser.</span></p></li>
+      <li><span class="y">Après-guerre</span><p><b>La renaissance du domaine.</b> <span class="ph">Reconstruction, restauration du parc et de la chapelle : dates et personnes à préciser.</span></p></li>
+      <li><span class="y">Aujourd'hui</span><p><b>Un lieu de fête et de mémoire.</b> Le domaine ouvre ses extérieurs, sa chapelle et son orangerie aux mariages, à deux heures de Paris et trente-cinq minutes de Reims.</p></li>
+    </ol>
+    <p class="ph-note" style="text-align:center">Passages en pointillés à compléter avec l'histoire de la famille</p>
+    <button class="more" id="less" type="button" aria-expanded="true" aria-controls="histoire" style="align-self:center">Refermer <span class="arr" aria-hidden="true">↑</span></button>
+  </div>
+</section>
+
+<div class="fenetre wrap" role="presentation"><p>Une allée, une façade, une forêt à perte de vue.<span>Aisne · 2 h de Paris</span></p></div>
+
+<section class="espaces wrap" id="espaces">
+  <div class="inner">
+    <div class="head">
+      <span class="eyebrow">Les espaces</span>
+      <h2>Trois lieux pour une même journée</h2>
+      <p>Chaque moment a son décor, toujours en extérieur, avec l'orangerie pour le repas assis.</p>
+    </div>
+    <div class="lieux">
+      <article class="lieu">
+        <img src="allee-buis.jpg" alt="L'allée de buis menant au château" loading="lazy">
+        <div class="b">
+          <span class="eyebrow">Cérémonie</span>
+          <h3>L'allée de buis</h3>
+          <p>Une cérémonie laïque dans l'axe du château, les invités de part et d'autre de l'allée, la façade en toile de fond. Pour une cérémonie religieuse, la chapelle du parc peut être mise à disposition.</p>
+          <dl><dt>Saison</dt><dd>Mai à septembre</dd></dl>
+        </div>
+      </article>
+      <article class="lieu">
+        <img src="aerien-cour.jpg" alt="La cour d'honneur vue du ciel, entourée du parc" loading="lazy">
+        <div class="b">
+          <span class="eyebrow">Vin d'honneur</span>
+          <h3>La cour d'honneur</h3>
+          <p>Une vaste terrasse de gravier en belvédère au-dessus de la forêt, idéale pour le cocktail au coucher du soleil.</p>
+          <dl><dt>Repli</dt><dd>Orangerie</dd></dl>
+        </div>
+      </article>
+      <article class="lieu">
+        <img src="aerien-parc-v2.jpg" alt="Le parc boisé vu du ciel (photo de l'orangerie à venir)" loading="lazy">
+        <div class="b">
+          <span class="eyebrow">Dîner &amp; soirée</span>
+          <h3>L'orangerie</h3>
+          <p>Une verrière lumineuse au cœur du parc pour le dîner assis, puis la soirée dansante jusqu'au bout de la nuit.</p>
+          <dl><dt>Dîner assis</dt><dd>150 à 200 couverts</dd><dt>Photo</dt><dd class="ph">À venir</dd></dl>
+        </div>
+      </article>
+    </div>
+    <article class="chapelle" id="chapelle">
+      <div class="ph2">
+        <figure><img src="chapelle-1.jpg" alt="La chapelle au bout de ses terrasses de buis, en été" loading="lazy"><figcaption>En été</figcaption></figure>
+        <figure><img src="chapelle-2.jpg" alt="La chapelle et le parc sous le givre" loading="lazy" style="object-position:58% 50%"><figcaption>Sous le givre</figcaption></figure>
+      </div>
+      <div class="b">
+        <span class="eyebrow">Cérémonie religieuse</span>
+        <h3>La chapelle du parc</h3>
+        <p>Au sommet de terrasses de buis et de gravier, une petite chapelle classique se dresse sous les grands arbres. Elle peut être mise à disposition pour célébrer une cérémonie religieuse, avant de rejoindre la cour d'honneur pour le vin d'honneur.</p>
+        <dl style="margin:0;padding-top:14px;border-top:1px solid var(--line);display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-family:var(--sans);font-size:.85rem"><dt style="color:var(--muted)">Mise à disposition</dt><dd style="margin:0;text-align:right">Sur demande</dd><dt style="color:var(--muted)">Toutes saisons</dt><dd style="margin:0;text-align:right">Été comme hiver</dd></dl>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="galerie wrap" id="galerie">
+  <div class="inner">
+    <div class="head">
+      <span class="eyebrow">Galerie</span>
+      <h2>Le domaine en images</h2>
+    </div>
+    <div class="top3" id="top3"></div>
+    <div class="more-row"><button class="more" id="more-photos" type="button" aria-expanded="false" aria-controls="grid">Voir les autres photos <span class="arr" aria-hidden="true">→</span></button></div>
+    <div class="grid" id="grid" hidden></div>
+  </div>
+</section>
+
+<section class="sem wrap" id="seminaires">
+  <div class="inner">
+    <div class="sem-top">
+      <div class="txt">
+        <span class="eyebrow">Séminaires &amp; entreprises</span>
+        <h2>Réunir vos équipes en semaine, loin des bureaux</h2>
+        <p>En semaine comme le week-end, le domaine accueille vos séminaires et journées d'entreprise. L'orangerie devient une salle de réunion baignée de lumière, et le parc se prête aux ateliers en plein air, aux pauses dans l'allée de buis et aux activités de cohésion.</p>
+        <p>À deux heures de Paris et trente-cinq minutes de Reims, vos équipes changent d'air sans perdre de temps sur la route.</p>
+        <div class="sem-facts">
+          <div><b>200</b><span>Personnes max.</span></div>
+          <div><b>35 min</b><span>De Reims</span></div>
+        </div>
+        <div><a class="btn" href="#reserver" data-type="seminaire">Demander un devis séminaire</a></div>
+      </div>
+      <figure>
+        <img src="aerien-parc-v2.jpg" alt="Le parc boisé du domaine vu du ciel" loading="lazy">
+        <figcaption>Le parc, pour les ateliers en plein air</figcaption>
+      </figure>
+    </div>
+    <div class="formats">
+      <article class="format"><span class="when">1 jour</span><h3>Journée d'étude</h3><p>Réunion plénière dans l'orangerie, déjeuner, pauses dans le parc. Vos équipes arrivent le matin et repartent le soir.</p></article>
+      <article class="format"><span class="when">2 à 3 jours</span><h3>Séminaire sur plusieurs jours</h3><p>Plusieurs journées consécutives, en semaine ou le week-end, pour alterner travail en salle et ateliers dans le parc.</p></article>
+      <article class="format"><span class="when">En soirée</span><h3>Événement d'entreprise</h3><p>Lancement de produit, soirée de fin d'année ou dîner de clients sous la verrière, avec la façade illuminée.</p></article>
+    </div>
+    <p class="ph-note" style="margin-top:28px">Équipements de l'orangerie (vidéoprojecteur, sonorisation, wifi) et tarifs à préciser</p>
+  </div>
+</section>
+
+<section class="gite wrap" id="logements">
+  <div class="inner">
+    <div class="head">
+      <span class="eyebrow">Hébergement</span>
+      <h2>Nos logements</h2>
+      <p>Deux logements indépendants pour prolonger votre séjour au domaine, en famille, entre amis ou pour vos invités de mariage. Ils peuvent se réserver ensemble.</p>
+    </div>
+    <div class="lodgs">
+      <article class="lodg" id="gite">
+        <div class="lodg-ph" data-slot="gite"><div class="gite-photo">Photos du gîte à venir</div></div>
+        <div class="lodg-b">
+          <span class="eyebrow">Jusqu'à 11 voyageurs</span>
+          <h3>Le Gîte de la Bôve</h3>
+          <p>À 500 mètres du château, à la ferme de la Bôve, le gîte est une maison entière avec jardin, au calme. Les pièces sont lumineuses et une cheminée réchauffe les soirées d'hiver.</p>
+          <div class="gite-facts"><div><b>11</b><span>Voyageurs</span></div><div><b>5</b><span>Chambres</span></div><div><b>8</b><span>Lits</span></div><div><b>2</b><span>Salles de bain</span></div></div>
+          <ul class="rooms">
+            <li><span>Chambre 1</span><span>1 lit double, 1 lit simple</span></li>
+            <li><span>Chambres 2 et 3</span><span>2 lits simples chacune</span></li>
+            <li><span>Chambres 4 et 5</span><span>1 lit double chacune</span></li>
+          </ul>
+          <div class="equip" aria-label="Équipements"><span>Cuisine équipée</span><span>Cheminée</span><span>Jardin</span><span>Barbecue</span><span>Lave-linge</span><span>Télévision</span><span>Parking gratuit</span></div>
+          <p class="ph-note">4,82 sur 5 sur Airbnb (50 avis) · Linge de lit et serviettes en supplément ou à apporter</p>
+          <div><a class="btn" href="#gite-resa" data-prop="gite">Réserver le gîte</a></div>
+        </div>
+      </article>
+      <article class="lodg" id="appart">
+        <div class="lodg-ph" data-slot="appart"><div class="gite-photo">Photos de l'appartement à venir</div></div>
+        <div class="lodg-b">
+          <span class="eyebrow">Jusqu'à 4 voyageurs</span>
+          <h3>L'Appartement de la Bôve</h3>
+          <p>À 500 mètres du château, un logement spacieux et serein, baigné de lumière, dans un cadre rural tranquille. Idéal pour un moment de détente ou pour travailler, avec un poêle à bois pour les soirées fraîches.</p>
+          <div class="gite-facts"><div><b>4</b><span>Voyageurs</span></div><div><b>1</b><span>Chambre</span></div><div><b>2</b><span>Lits</span></div><div><b>1</b><span>Salle de bain</span></div></div>
+          <ul class="rooms">
+            <li><span>Chambre</span><span>1 lit double, 1 lit bébé</span></li>
+            <li><span>Salon</span><span>1 lit double</span></li>
+          </ul>
+          <div class="equip" aria-label="Équipements"><span>Cuisine</span><span>Poêle à bois</span><span>Télévision</span><span>Sèche-cheveux</span><span>Parking gratuit</span></div>
+          <p class="ph-note">Besoin de plus de place ? Combinez-le avec les 11 couchages du gîte.</p>
+          <div><a class="btn" href="#gite-resa" data-prop="appart">Réserver l'appartement</a></div>
+        </div>
+      </article>
+    </div>
+    <ul class="near" aria-label="À proximité" style="margin-top:48px">
+      <li><b>Château de la Bôve</b> · 500 m du gîte et de l'appartement</li><li><b>Laon</b> · 18 km</li><li><b>Reims</b> · 35 km</li><li><b>Autoroute A26</b> · 12 km (Guignicourt)</li><li><b>Chemin des Dames</b> et abbaye de Vauclair</li><li><b>Golf de l'Ailette</b> et vignoble de Champagne</li>
+    </ul>
+
+<div class="gite-book" id="gite-resa">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span class="eyebrow">Réserver un logement</span>
+        <h3>Choisissez vos dates</h3>
+        <div class="seg" role="radiogroup" aria-label="Logement">
+          <label><input type="radio" name="prop" value="gite" checked>Gîte · 11 pers.</label>
+          <label><input type="radio" name="prop" value="appart">Appartement · 4 pers.</label>
+        </div>
+        <p style="color:var(--muted)">Cliquez sur votre jour d'arrivée, puis sur votre jour de départ.</p>
+        <div class="cal" id="g-cal" aria-label="Disponibilités du logement"></div>
+      </div>
+      <div>
+        <form id="g-f" novalidate>
+          <p class="stay" id="g-stay">Aucune date choisie.</p>
+          <label>Nom<input id="g-nom" autocomplete="name" placeholder="Votre nom"></label>
+          <label>Voyageurs<select id="g-voy"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></label>
+          <label>E-mail<input id="g-email" type="email" autocomplete="email" placeholder="vous@exemple.fr"></label>
+          <label>Téléphone<input id="g-tel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78"></label>
+          <label class="full">Message<textarea id="g-msg" placeholder="Heure d'arrivée, location de linge, questions…"></textarea></label>
+          <p class="err" id="g-err" hidden></p>
+          <button class="btn full" type="submit">Demander ce séjour</button>
+        </form>
+        <div class="merci" id="g-merci" hidden>
+          <span class="eyebrow">Demande reçue</span>
+          <h3>Merci, nous vous confirmons le séjour très vite.</h3>
+          <p id="g-recap" style="color:var(--muted)"></p>
+          <div><button class="btn ghost" id="g-again" type="button">Nouvelle demande</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="fenetre wrap" role="presentation"><p>Votre mariage sur le Chemin des Dames.<span>Château de la Bôve</span></p></div>
+
+<section class="resa wrap" id="reserver">
+  <div class="inner resa-grid">
+    <div>
+      <span class="eyebrow">Réservation</span>
+      <h2>Demandez votre date</h2>
+      <p class="intro-r">Mariage ou séminaire : choisissez vos jours, un par un, dans le calendrier. Vous pouvez aussi simplement demander une visite du domaine. Nous revenons vers vous sous 48 heures avec une proposition adaptée.</p>
+      <ul class="inc">
+        <li>Mise à disposition du site et de ses extérieurs</li>
+        <li>Orangerie pour 150 à 200 invités assis</li>
+        <li>Séminaires en semaine comme le week-end</li>
+        <li>Visite du château sur rendez-vous</li>
+        <li>Liste de traiteurs et prestataires partenaires</li>
+        <li><span><span class="ph">Tarifs à préciser</span> selon la saison et le nombre d'invités</span></li>
+      </ul>
+    </div>
+    <div>
+      <form id="f" novalidate>
+        <div class="seg full seg3" role="radiogroup" aria-label="Type de demande">
+          <label><input type="radio" name="type" id="t-mariage" value="mariage" checked>Mariage</label>
+          <label><input type="radio" name="type" id="t-seminaire" value="seminaire">Séminaire</label>
+          <label><input type="radio" name="type" id="t-visite" value="visite">Demande de visite</label>
+        </div>
+        <p class="full vis-only vis-intro" hidden>Venez découvrir le domaine avant de choisir vos dates. Laissez-nous vos coordonnées et vos remarques, nous vous rappelons pour fixer la visite ensemble.</p>
+        <label><span id="noms-l">Prénoms des mariés</span><input id="noms" name="noms" placeholder="Claire et Thomas" autocomplete="off"></label>
+        <label class="full ev-only">Dates souhaitées<span class="addday"><input id="date" name="date" type="date" aria-label="Jour à ajouter"><button class="btn ghost" id="add-day" type="button">Ajouter ce jour</button></span></label>
+        <ul class="days ev-only" id="days" aria-label="Jours choisis"></ul>
+        <div class="full cal ev-only" id="cal-client" aria-label="Disponibilités"></div>
+        <p class="season full ev-only" id="season">Choisissez une date dans le calendrier pour voir la saison correspondante.</p>
+        <label class="vis-only" hidden>Votre projet<select id="projet" name="projet"><option>Mariage</option><option>Séminaire</option><option>Autre événement</option><option>Pas encore décidé</option></select></label>
+        <label class="ev-only"><span id="invites-l">Nombre d'invités</span><select id="invites" name="invites"></select></label>
+        <label class="ev-only">Formule<select id="formule" name="formule"></select></label>
+        <label id="ceremonie-w">Cérémonie<select id="ceremonie" name="ceremonie"><option>Laïque, dans l'allée</option><option>Religieuse, à la chapelle</option><option>Les deux</option><option>Pas encore décidé</option></select></label>
+        <label class="chk ev-only"><input id="flex" type="checkbox"> Nos dates sont flexibles</label>
+        <label>E-mail<input id="email" name="email" type="email" placeholder="vous@exemple.fr" autocomplete="email"></label>
+        <label>Téléphone<input id="tel" name="tel" type="tel" placeholder="06 12 34 56 78" autocomplete="tel"></label>
+        <label class="full"><span id="msg-l">Votre projet</span><textarea id="msg" name="msg" placeholder="Parlez-nous de votre mariage : ambiance, cérémonie, traiteur…"></textarea></label>
+        <p class="err" id="err" hidden></p>
+        <button class="btn full" type="submit">Envoyer ma demande</button>
+      </form>
+      <div class="merci" id="merci" hidden>
+        <span class="eyebrow">Demande reçue</span>
+        <h3>Merci, nous revenons vers vous très vite.</h3>
+        <dl id="recap"></dl>
+        <p class="ph-note">Prototype : la demande est visible dans l'espace propriétaire, sur cet appareil uniquement.</p>
+        <div><button class="btn ghost" id="again" type="button">Nouvelle demande</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact wrap" id="contact">
+  <div class="inner">
+    <div>
+      <h2>Contactez-nous</h2>
+      <p class="lead">Besoin de plus d'informations, ou envie de visiter le domaine ? Écrivez-nous ou appelez-nous, nous vous répondons rapidement.</p>
+      <ul class="coord">
+        <li><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 21.5s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <p><b>Château de la Bôve</b><br>02860 Bouconville-Vauclair<br>Aisne, France<br><span class="ph-note">Adresse exacte à confirmer</span></p></li>
+        <li><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 3.5h3.5l1.8 4.5-2.3 1.4a11 11 0 0 0 6.6 6.6l1.4-2.3 4.5 1.8V19a1.5 1.5 0 0 1-1.6 1.5C10.6 20 4 13.4 3.5 5.1A1.5 1.5 0 0 1 5 3.5z"/></svg>
+          <p><b class="ph">Numéro de téléphone à venir</b></p></li>
+        <li><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13"/><path d="M3.5 6l8.5 7 8.5-7"/></svg>
+          <p><b class="ph">Adresse e-mail à venir</b></p></li>
+      </ul>
+    </div>
+    <figure class="map" style="margin:0" aria-label="Situation du château entre Laon, Soissons et Reims">
+      <img class="map-img" src="aerien-cour.jpg" alt="Vue aérienne du château de la Bôve, de sa cour et de son parc" loading="lazy">
+      <div class="card"><b>Château de la Bôve</b><span>02860 Bouconville-Vauclair, Aisne</span></div>
+      <a class="open" href="https://www.google.com/maps/search/?api=1&amp;query=Ch%C3%A2teau+de+la+B%C3%B4ve%2C+Bouconville-Vauclair" target="_blank" rel="noopener">Ouvrir dans Google Maps <span aria-hidden="true">→</span></a>
+    </figure>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span class="mark">Château de la Bôve</span>
+  <span>Aisne · 2 h de Paris · 35 min de Reims</span>
+  <span>Visites sur rendez-vous</span>
+</footer>
+
+
+<div id="admin" hidden>
+  <div class="adm-bar wrap"><div class="inner">
+    <span class="mark">La Bôve<small>Espace propriétaire</small></span>
+    <nav><a href="#top">Voir le site</a><button class="lnk" id="logout" type="button" hidden>Se déconnecter</button></nav>
+  </div></div>
+
+  <div class="wrap" id="login-view">
+    <form class="login" id="login" novalidate>
+      <span class="eyebrow">Accès réservé</span>
+      <h2>Connexion</h2>
+      <label>Adresse e-mail<input id="l-email" type="email" autocomplete="username" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="email"></label>
+      <label>Mot de passe<input id="l-pass" type="password" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false"></label>
+      <label class="chk"><input id="l-remember" type="checkbox"> Se souvenir de moi sur cet appareil</label>
+      <p class="err" id="l-err" hidden>E-mail ou mot de passe incorrect.</p>
+      <button class="btn" type="submit" id="l-btn">Se connecter</button>
+      <p class="hint">Espace réservé au propriétaire du domaine.</p>
+    </form>
+  </div>
+
+  <div class="wrap" id="dash-view" hidden>
+    <div class="inner adm-main">
+      <div class="adm-head">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span class="eyebrow">Demandes de réservation</span>
+          <h2>Tableau de bord</h2>
+        </div>
+        <p class="demo" id="dash-note">Les lignes marquées « exemple » sont fictives. Les demandes que vous envoyez depuis le formulaire du site s'ajoutent ici, sur cet appareil uniquement, tant que le site n'est pas en ligne.</p>
+      </div>
+      <p class="err" id="rem-warn" hidden></p>
+      <div class="seg scope" role="radiogroup" aria-label="Espace">
+        <label><input type="radio" name="scope" value="event" checked>Mariages &amp; séminaires</label>
+        <label><input type="radio" name="scope" value="gite">Gîte</label>
+        <label><input type="radio" name="scope" value="appart">Appartement</label>
+      </div>
+      <div class="kpis" id="kpis"></div>
+      <div class="typef" id="typef"></div>
+      <div class="adm-grid">
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Date</th><th>Type</th><th>Client</th><th>Visite</th><th>Personnes</th><th>Statut</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table><p class="empty" id="empty" hidden>Aucune demande dans cette catégorie.</p></div>
+        <aside class="detail" id="detail"><p class="empty">Sélectionnez une demande pour voir le détail.</p></aside>
+      </div>
+      <section class="adm-sec" id="g-sec" aria-labelledby="g-cal-t" style="background:transparent" hidden>
+        <span class="eyebrow" id="g-eyebrow">Calendrier du gîte</span>
+        <h3 id="g-cal-t">Séjours au gîte</h3>
+        <p class="demo">Indépendant des mariages et des séminaires. Un séjour se bloque tout seul quand vous le confirmez. Pour bloquer vous-même, cliquez sur la première nuit puis sur la dernière nuit ; deux clics sur le même jour bloquent une seule nuit. Un clic sur une nuit bloquée retire son blocage. Les clients voient seulement «&nbsp;Réservé&nbsp;».</p>
+        <p class="err" id="g-cal-msg" hidden></p>
+        <div class="cal-wrap">
+          <div class="cal" id="g-cal-admin"></div>
+          <aside class="cal-side"><span class="eyebrow">Nuits prises</span><ul id="g-cal-list"></ul></aside>
+        </div>
+      </section>
+      <section class="adm-sec" id="e-sec" aria-labelledby="cal-t" style="background:transparent">
+        <span class="eyebrow">Calendrier</span>
+        <h3 id="cal-t">Mariages et séminaires</h3>
+        <p class="demo">Un jour n'accueille qu'un seul événement : un mariage prend tout le week-end (vendredi au dimanche), un séminaire prend ses jours, en semaine comme le week-end. Une demande ne peut être confirmée qu'après la visite du site (case à cocher dans le détail). Quand vous la confirmez, les jours choisis par le client se bloquent tout seuls. Pour bloquer vous-même, choisissez «&nbsp;mariage&nbsp;» ou «&nbsp;séminaire&nbsp;», cliquez sur le premier jour puis sur le dernier jour de la période (par exemple du 2 au 8 décembre). Deux clics sur le même jour bloquent ce jour seul, ou tout le week-end pour un mariage. Un clic sur un jour bloqué retire son blocage. Les clients voient seulement «&nbsp;Réservé&nbsp;».</p>
+        <div class="seg" role="radiogroup" aria-label="Type de blocage" style="max-width:420px">
+          <label><input type="radio" name="bkind" value="mariage" checked>Bloquer un mariage</label>
+          <label><input type="radio" name="bkind" value="seminaire">Bloquer un séminaire</label>
+        </div>
+        <p class="err" id="cal-msg" hidden></p>
+        <div class="cal-wrap">
+          <div class="cal" id="cal-admin"></div>
+          <aside class="cal-side"><span class="eyebrow">Dates prises</span><ul id="cal-list"></ul></aside>
+        </div>
+      </section>
+      <section class="adm-sec" id="acc-sec" aria-labelledby="acc-t" hidden>
+        <span class="eyebrow">Sécurité</span>
+        <h3 id="acc-t">Accès à l'espace propriétaire</h3>
+        <p class="demo" id="acc-note">Créez un accès pour une personne de confiance : elle se connectera avec son e-mail et son mot de passe. Seule une empreinte chiffrée du mot de passe est enregistrée, jamais le mot de passe lui-même. Vous seul pouvez créer ou retirer un accès.</p>
+        <div class="acc-wrap">
+          <form class="acc-form" id="acc-form" novalidate>
+            <label class="full">E-mail<input id="acc-email" type="email" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="prenom@exemple.fr"></label>
+            <label>Mot de passe<input id="acc-pass" type="password" autocomplete="new-password" placeholder="8 caractères minimum"></label>
+            <label>Confirmer<input id="acc-pass2" type="password" autocomplete="new-password"></label>
+            <p class="err full" id="acc-err" hidden></p>
+            <p class="ok full" id="acc-ok" hidden></p>
+            <button class="btn full" type="submit" id="acc-btn">Créer l'accès</button>
+          </form>
+          <aside class="cal-side"><span class="eyebrow">Accès existants</span><ul id="acc-list"><li><span>Vous (propriétaire)</span><span>Principal</span></li></ul></aside>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Photo agrandie">
+  <img id="lbimg" alt="">
+  <button class="x" id="lbx" type="button">Fermer</button>
+  <button class="p" id="lbp" type="button" aria-label="Photo précédente">‹</button>
+  <button class="n" id="lbn" type="button" aria-label="Photo suivante">›</button>
+</div>
+
+<script>
+const photos=[
+ ['aerien-allee-v2','Le château et son allée, vus du ciel'],
+ ['allee-nuages','L\'allée de buis sous un ciel d\'été'],
+ ['chapelle-1','La chapelle en été'],
+ ['facade','La façade sur cour'],
+ ['aerien-cour','La cour d\'honneur en belvédère'],
+ ['allee-buis','La perspective depuis la grille'],
+ ['chapelle-2','La chapelle sous le givre'],
+];
+const grid=document.getElementById('grid'),thumbs=[];
+photos.forEach(([f,a],i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Agrandir : '+a);
+ b.innerHTML=`<img src="${f}.jpg" alt="${a}" loading="lazy">`;b.onclick=()=>open(i);(i<3?document.getElementById('top3'):grid).appendChild(b);thumbs.push(b)});
+const mp=document.getElementById('more-photos');
+mp.onclick=()=>{const o=grid.hidden;grid.hidden=!o;mp.setAttribute('aria-expanded',String(o));mp.firstChild.textContent=o?'Masquer les autres photos ':'Voir les autres photos '};
+const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg');let cur=0;
+let lbList=null,lbBack=null;
+function show(){const L=lbList||photos;const[f,a]=L[cur];lbimg.src=`${f}.jpg`;lbimg.alt=a}
+function open(i,list,back){lbList=list||null;lbBack=back||null;cur=i;show();lb.hidden=false;document.getElementById('lbx').focus()}
+function close(){lb.hidden=true;if(lbBack){lbBack.focus();return}thumbs[cur]?.offsetParent&&thumbs[cur].focus()}
+document.getElementById('lbx').onclick=close;
+document.getElementById('lbp').onclick=()=>{const n=(lbList||photos).length;cur=(cur+n-1)%n;show()};
+document.getElementById('lbn').onclick=()=>{const n=(lbList||photos).length;cur=(cur+1)%n;show()};
+// galeries des logements
+const LPHOTOS={gite:[['gite-14','Le gîte et son jardin au soleil'],['gite-17','La façade du gîte côté jardin'],['gite-24','La ferme de la Bôve vue du ciel'],['gite-15','La table du jardin'],['gite-19','Le jardin et sa grande table'],['gite-18','Le jardin ouvert sur la campagne'],['gite-20','L\'allée de la ferme'],['gite-23','La campagne autour de la Bôve vue du ciel'],['gite-21','Le domaine sous la neige'],['gite-4','La grande pièce de vie, salle à manger et salon'],['gite-5','La salle à manger, la cheminée et l\'escalier'],['gite-1','Le salon'],['gite-2','La cuisine équipée'],['gite-3','Le mur de miroirs de la salle à manger'],['gite-16','L\'entrée et le parking'],['gite-22','Le hall d\'entrée carrelé'],['gite-6','Chambre avec lits simples'],['gite-7','Chambre aux lits jumeaux'],['gite-8','Chambre aux lits jumeaux, autre vue'],['gite-9','Chambre avec deux lits simples'],['gite-10','Chambre avec lit double'],['gite-11','Chambre mansardée'],['gite-12','Salle de bain avec baignoire'],['gite-13','Salle de bain et table à langer']],appart:[['appart-6','Le salon lumineux, bibliothèque et poêle à bois'],['appart-7','Le salon et son escalier en colimaçon'],['appart-2','La chambre, lit double'],['appart-5','La salle à manger et le coin cuisine'],['appart-3','La table et la cuisine'],['appart-4','Le coin repas près de la fenêtre'],['appart-1',"La salle d'eau avec douche"]]};
+document.querySelectorAll('.lodg-ph[data-slot]').forEach(slot=>{const L=LPHOTOS[slot.dataset.slot];if(!L)return;
+ const strip=el('div',{class:'strip'});
+ L.slice(0,3).forEach(([f,a],i)=>{const b=el('button',{type:'button','aria-label':'Agrandir : '+a+' ('+(i+1)+' sur '+L.length+')'});b.innerHTML=`<img src="${f}.jpg" alt="${a}" loading="lazy">`;
+  if(i===2&&L.length>3)b.append(el('span',{class:'more-n'},'+'+(L.length-3)+' photos'));b.onclick=()=>open(i,L,b);strip.append(b)});
+ slot.replaceChildren(strip)});
+lb.addEventListener('click',e=>{if(e.target===lb)close()});
+document.addEventListener('keydown',e=>{if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')document.getElementById('lbn').click();if(e.key==='ArrowLeft')document.getElementById('lbp').click()});
+
+// histoire
+const more=document.getElementById('more'),hist=document.getElementById('histoire');
+function setH(o){hist.hidden=!o;more.setAttribute('aria-expanded',o);if(o)hist.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});else more.focus()}
+more.onclick=()=>setH(hist.hidden);document.getElementById('less').onclick=()=>setH(false);
+// formulaire
+const $=id=>document.getElementById(id);
+const d=new Date();d.setDate(d.getDate()+30);$('date').min=d.toISOString().slice(0,10);
+const TYPES={
+ mariage:{label:'Mariage',nom:'Prénoms des mariés',ph:'Claire et Thomas',inv:"Nombre d'invités",invOpts:['Moins de 80','80 à 150','150 à 200'],form:['Week-end complet','Journée','Cérémonie et cocktail'],msg:'Parlez-nous de votre mariage : ambiance, cérémonie, traiteur…'},
+ visite:{label:'Demande de visite',nom:'Nom et prénom',ph:'Claire Martin',inv:'',invOpts:[],form:[],msgl:'Vos remarques',msg:'Quand souhaiteriez-vous visiter ? Votre projet, vos questions…'},
+ seminaire:{label:'Séminaire',nom:'Entreprise',ph:'Nom de votre société',inv:'Participants',invOpts:['Moins de 30','30 à 80','80 à 150','150 à 200'],form:["Journée d'étude",'Séminaire sur plusieurs jours',"Événement d'entreprise"],msg:'Parlez-nous de votre séminaire : programme, besoins techniques, repas…'}};
+const fType=()=>$('t-visite').checked?'visite':$('t-seminaire').checked?'seminaire':'mariage';
+function setType(t){$('t-'+t).checked=true;const T=TYPES[t];
+ $('noms-l').textContent=T.nom;$('noms').placeholder=T.ph;$('invites-l').textContent=T.inv;
+ $('invites').replaceChildren(new Option('Choisir',''),...T.invOpts.map(o=>new Option(o)));
+ $('formule').replaceChildren(...T.form.map(o=>new Option(o)));
+ $('ceremonie-w').hidden=t!=='mariage';$('msg').placeholder=T.msg;$('msg-l').textContent=T.msgl||'Votre projet';
+ document.querySelectorAll('#f .ev-only').forEach(x=>x.hidden=t==='visite');document.querySelectorAll('#f .vis-only').forEach(x=>x.hidden=t!=='visite');
+ $('f').querySelector('button[type=submit]').textContent=t==='visite'?'Demander une visite':'Envoyer ma demande';
+ refreshDays()}
+function saisonDe(v){const m=D(v).getMonth()+1;return(m>=6&&m<=9)?'haute saison (juin à septembre)':(m===5||m===10)?'moyenne saison (mai, octobre)':'basse saison (novembre à avril)'}
+function saison(){if(!selDays.length)return'Cliquez sur chaque jour souhaité dans le calendrier, ou ajoutez-les un par un avec le champ ci-dessus.';
+ const n=selDays.length,ss=[...new Set(selDays.map(saisonDe))];
+ const t=n+' jour'+(n>1?'s':'')+' choisi'+(n>1?'s':'')+' · '+daysTxt(selDays);
+ return fType()==='seminaire'?t:t+' · '+ss.join(' et ')}
+// jours choisis par le client, un par un
+let selDays=[];
+function runs(ds){const out=[];ds.slice().sort().forEach(d=>{const l=out[out.length-1];if(l&&rangeDays(l[1],d).length===2)l[1]=d;else out.push([d,d])});return out}
+function daysTxt(ds){return runs(ds).map(([a,b],i)=>{const p=periode(a,b);return i?p[0].toLowerCase()+p.slice(1):p}).join(', ')}
+function toggleDay(v){selDays=selDays.includes(v)?selDays.filter(x=>x!==v):[...selDays,v].sort();refreshDays()}
+function refreshDays(){const bm=blockedMap();selDays=selDays.filter(v=>!bm.has(v));
+ $('days').replaceChildren(...selDays.map(v=>el('li',{},longDate(v),el('button',{type:'button','aria-label':'Retirer le '+longDate(v),onclick:()=>toggleDay(v)},'×'))));
+ $('season').textContent=saison();renderCal($('cal-client'),'client')}
+function addDay(){const v=$('date').value,min=$('date').min;$('err').hidden=true;if(!v)return;
+ let pb='';if(v<min)pb='Ce jour est trop proche : choisissez une date à partir du '+longDate(min)+'.';else if(blockedMap().has(v))pb='Le '+longDate(v)+' est déjà réservé.';
+ if(pb){$('err').textContent=pb;$('err').hidden=false;return}
+ if(!selDays.includes(v))selDays=[...selDays,v].sort();$('date').value='';calState.client=v.slice(0,7)+'-01';refreshDays()}
+// règles de dates : un jour ne peut accueillir qu'un seul événement.
+// Un mariage le week-end occupe vendredi, samedi et dimanche ; un séminaire occupe ses jours.
+function semDays(v,n){const out=[];const x=D(v);for(let i=0;i<n;i++){out.push(iso(x));x.setDate(x.getDate()+1)}return out}
+function weDays(v){const sat=D(wkKey(v));if(sat.getDay()!==6)return[v];const f=new Date(sat),su=new Date(sat);f.setDate(f.getDate()-1);su.setDate(su.getDate()+1);return[iso(f),iso(sat),iso(su)]}
+function daysFor(t,v,n){return t==='seminaire'?semDays(v,n||1):weDays(v)}
+function dateOk(v,t,bm){bm=bm||blockedMap();return!bm.has(v)}
+document.querySelectorAll('input[name=type]').forEach(r=>r.addEventListener('change',()=>setType(fType())));
+document.querySelectorAll('a[data-type]').forEach(a=>a.addEventListener('click',()=>setType(a.dataset.type)));
+$('add-day').onclick=addDay;
+$('date').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addDay()}});
+$('date').addEventListener('input',e=>{const v=e.target.value;if(v){calState.client=v.slice(0,7)+'-01';renderCal($('cal-client'),'client')}});
+$('f').addEventListener('submit',e=>{e.preventDefault();const t=fType(),T=TYPES[t];
+ if(t==='visite'){const miss=[];if(!$('noms').value.trim())miss.push('votre nom');if(!/^\S+@\S+\.\S+$/.test($('email').value))miss.push('une adresse e-mail valide');
+  if(miss.length){$('err').textContent='Il manque '+miss.join(', ')+'.';$('err').hidden=false;return}
+  $('err').hidden=true;
+  const rows=[['Type','Demande de visite'],['Nom',$('noms').value],['Projet',$('projet').value],['Contact',$('email').value+($('tel').value?' · '+$('tel').value:'')],...($('msg').value.trim()?[['Remarques',$('msg').value.trim()]]:[])];
+  $('recap').replaceChildren(...rows.flatMap(([k,v])=>{const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;return[dt,dd]}));
+  saveReq({id:'v'+Date.now(),type:'visite',recu:new Date().toISOString().slice(0,10),noms:$('noms').value.trim(),date:'',projet:$('projet').value,invites:'—',formule:'Visite du domaine',email:$('email').value.trim(),tel:$('tel').value.trim(),msg:$('msg').value.trim(),statut:'nouvelle'});
+  $('f').hidden=true;$('merci').hidden=false;return}
+ const miss=[];if(!$('noms').value.trim())miss.push(t==='mariage'?'vos prénoms':'le nom de votre entreprise');
+ const bm0=blockedMap();if(!selDays.length&&!$('flex').checked)miss.push('au moins un jour (ou cochez « dates flexibles »)');
+ if(selDays.some(v=>bm0.has(v)))miss.push('d\'autres jours : certains viennent d\'être réservés');
+ if(!/^\S+@\S+\.\S+$/.test($('email').value))miss.push('une adresse e-mail valide');
+ if(miss.length){$('err').textContent='Il manque '+miss.join(', ')+'.';$('err').hidden=false;return}
+ $('err').hidden=true;
+ const rows=[['Type',T.label],[T.nom,$('noms').value],[selDays.length>1?'Dates':'Date',selDays.length?daysTxt(selDays):'Flexible'],[T.inv,$('invites').value||'Non précisé'],['Formule',$('formule').value],t==='mariage'?['Cérémonie',$('ceremonie').value]:['Durée',selDays.length?selDays.length+' jour'+(selDays.length>1?'s':''):'À définir'],['Contact',$('email').value+($('tel').value?' · '+$('tel').value:'')]];
+ $('recap').replaceChildren(...rows.flatMap(([k,v])=>{const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;return[dt,dd]}));
+ saveReq({id:'d'+Date.now(),type:t,recu:new Date().toISOString().slice(0,10),noms:$('noms').value.trim(),date:selDays[0]||'',dates:selDays.slice(),jours:selDays.length||undefined,flex:$('flex').checked,invites:$('invites').value||'Non précisé',formule:$('formule').value,ceremonie:t==='mariage'?$('ceremonie').value:'',email:$('email').value.trim(),tel:$('tel').value.trim(),msg:$('msg').value.trim(),statut:'nouvelle'});
+ $('f').hidden=true;$('merci').hidden=false;selDays=[];refreshDays()});
+$('again').onclick=()=>{$('merci').hidden=true;$('f').hidden=false};
+// ---------- espace propriétaire (maquette) ----------
+const KEY='bove-demandes';
+const EXEMPLES=[
+ {id:'ex1',ex:1,type:'mariage',recu:'2026-10-28',noms:'Claire et Thomas',date:'2027-06-19',invites:'150 à 200',formule:'Week-end complet',ceremonie:'Religieuse, à la chapelle',email:'claire.exemple@mail.fr',tel:'06 00 00 00 01',msg:'Nous aimerions une cérémonie à la chapelle puis le dîner dans l\'orangerie.',statut:'nouvelle'},
+ {id:'ex2',ex:1,type:'mariage',recu:'2026-10-21',noms:'Inès et Hugo',date:'2027-07-03',invites:'80 à 150',formule:'Journée',ceremonie:'Laïque, dans l\'allée',email:'ines.exemple@mail.fr',tel:'',msg:'Possibilité de visiter en décembre ?',statut:'en-cours'},
+ {id:'ex3',ex:1,type:'mariage',recu:'2026-09-30',noms:'Louise et Antoine',date:'2027-09-11',invites:'150 à 200',formule:'Week-end complet',ceremonie:'Les deux',visite:true,email:'louise.exemple@mail.fr',tel:'06 00 00 00 03',msg:'',statut:'confirmee'},
+ {id:'ex4',ex:1,type:'mariage',recu:'2026-09-12',noms:'Sarah et Paul',date:'',flex:true,invites:'Moins de 80',formule:'Cérémonie et cocktail',ceremonie:'Pas encore décidé',email:'sarah.exemple@mail.fr',tel:'',msg:'Dates flexibles entre mai et juin 2027.',statut:'refusee'},
+ {id:'ex5',ex:1,type:'seminaire',recu:'2026-10-30',noms:'Société Exemple',date:'2027-03-16',jours:2,invites:'30 à 80',formule:'Séminaire sur plusieurs jours',visite:true,email:'rh.exemple@mail.fr',tel:'01 00 00 00 05',msg:'Séminaire de direction, besoin d\'un vidéoprojecteur et d\'un déjeuner sur place.',statut:'confirmee'},
+ {id:'ex7',ex:1,type:'gite',recu:'2026-11-01',noms:'Famille Exemple',date:'2027-04-23',depart:'2027-04-26',invites:'9 voyageurs',formule:'Séjour au gîte',email:'famille.exemple@mail.fr',tel:'',msg:'Arrivée vers 18 h.',statut:'confirmee'},
+ {id:'ex8',ex:1,type:'gite',recu:'2026-11-03',noms:'Marc Exemple',date:'2027-05-14',depart:'2027-05-16',invites:'4 voyageurs',formule:'Séjour au gîte',email:'marc.exemple@mail.fr',tel:'06 00 00 00 08',msg:'',statut:'nouvelle'},
+ {id:'ex9',ex:1,type:'appart',recu:'2026-11-04',noms:'Julie Exemple',date:'2027-04-16',depart:'2027-04-18',invites:'2 voyageurs',formule:"Séjour : l'appartement",email:'julie.exemple@mail.fr',tel:'',msg:'',statut:'nouvelle'},
+ {id:'ex10',ex:1,type:'visite',recu:'2026-11-04',noms:'Camille Exemple',date:'',projet:'Mariage',invites:'—',formule:'Visite du domaine',email:'camille.exemple@mail.fr',tel:'06 00 00 00 10',msg:'Nous aimerions visiter un samedi matin en décembre, avant de choisir une date pour l\'été 2027.',statut:'nouvelle'},
+ {id:'ex6',ex:1,type:'seminaire',recu:'2026-11-02',noms:'Cabinet Exemple',date:'2027-05-11',jours:1,invites:'Moins de 30',formule:"Journée d'étude",email:'contact.exemple@mail.fr',tel:'',msg:'',statut:'nouvelle'},
+];
+const ST={'nouvelle':'Nouvelle','en-cours':'En cours','confirmee':'Confirmée','refusee':'Refusée'};
+function norm(r){if(!r.type)r.type='mariage';return r}
+// ---------- Supabase : base partagée entre tous les appareils ----------
+const CFG=window.BOVE_CONFIG||{};
+const CLOUD=!!(CFG.url&&CFG.anonKey&&window.supabase);
+const SB=CLOUD?window.supabase.createClient(CFG.url,CFG.anonKey,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'bove-session'}}):null;
+const C={reqs:[],kv:{},occ:null,synced:{}};
+function kvGet(k){const v=C.kv[k];return Array.isArray(v)?v.map(x=>({...x,days:(x.days||[]).slice()})):[]}
+function kvSet(k,v){C.kv[k]=v;SB.from('etat').upsert({cle:k,valeur:v,maj:new Date().toISOString()}).then(({error})=>{if(error)cloudErr()});pushOcc()}
+function cloudErr(){const w=$('rem-warn');if(w){w.textContent="Une modification n'a pas pu être enregistrée. Vérifiez la connexion internet puis rechargez la page.";w.hidden=false}}
+let occT=null;
+function pushOcc(){if(!logged())return;clearTimeout(occT);occT=setTimeout(()=>{
+ const pick=m=>[...m].map(([k,v])=>[k,{type:v.type,kind:v.kind,show:!!v.show}]);
+ const occ={event:pick(blockedMap()),gite:pick(gMap('gite')),appart:pick(gMap('appart'))};C.occ=occ;
+ SB.from('etat').upsert({cle:'occupation',valeur:occ,maj:new Date().toISOString()}).then(({error})=>{if(error)cloudErr()})},250)}
+function occMap(sc){const m=new Map();((C.occ||{})[sc]||[]).forEach(([k,v])=>m.set(k,{...v,label:'Réservé',id:null,g:-1}));return m}
+async function loadOcc(){try{const{data}=await SB.from('etat').select('valeur').eq('cle','occupation').maybeSingle();C.occ=data?data.valeur:null}catch(e){}}
+async function cloudRefresh(){
+ const[d,e]=await Promise.all([SB.from('demandes').select('id,data').order('created_at',{ascending:false}),SB.from('etat').select('cle,valeur')]);
+ if(d.error||e.error){cloudErr();return}
+ C.reqs=d.data.map(x=>x.data);C.synced={};d.data.forEach(x=>C.synced[x.id]=JSON.stringify(x.data));
+ C.kv={};e.data.forEach(x=>C.kv[x.cle]=x.valeur);C.occ=C.kv.occupation||null;
+ reqs=load();if(logged()&&location.hash==='#admin')renderDash()}
+function load(){if(CLOUD)return C.reqs.map(r=>norm({...r}));try{const v=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(v)){if(!v.some(r=>r.id==='ex5'))v.push(...EXEMPLES.filter(x=>x.type==='seminaire').map(x=>({...x})));if(!v.some(r=>r.id==='ex7'))v.push(...EXEMPLES.filter(x=>x.type==='gite').map(x=>({...x})));if(!v.some(r=>r.id==='ex9'))v.push(...EXEMPLES.filter(x=>x.type==='appart').map(x=>({...x})));return v.map(norm)}}catch(e){}return EXEMPLES.map(x=>({...x}))}
+function save(list){if(CLOUD){C.reqs=list.map(r=>({...r}));list.forEach(r=>{const j=JSON.stringify(r);if(C.synced[r.id]!==j){C.synced[r.id]=j;SB.from('demandes').update({data:r}).eq('id',r.id).then(({error})=>{if(error)cloudErr()})}});pushOcc();return}try{localStorage.setItem(KEY,JSON.stringify(list))}catch(e){}}
+let reqs=load(),filtre='toutes',ftype='tous',sel=null;
+function saveReq(r){if(CLOUD){SB.from('demandes').insert({id:r.id,data:r}).then(({error})=>{if(error)sendFail(isLodg(r.type))});return}reqs=load();reqs.unshift(r);save(reqs)}
+function sendFail(g){const m=$(g?'g-merci':'merci'),f=$(g?'g-f':'f'),e=$(g?'g-err':'err');m.hidden=true;f.hidden=false;e.textContent="Votre demande n'a pas pu être envoyée. Vérifiez votre connexion internet puis réessayez.";e.hidden=false}
+function fmt(d){if(!d)return'Flexible';const t=new Date(d+'T12:00');return t.toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'})}
+function el(tag,attrs={},...kids){const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==='class')e.className=v;else if(k.startsWith('on'))e[k]=v;else e.setAttribute(k,v)}kids.flat().forEach(k=>e.append(k));return e}
+// ---------- calendrier ----------
+const BKEY='bove-bloques';
+// un blocage manuel = {kind, days:[...]} ; les anciens formats sont convertis
+function loadBlocks(){if(CLOUD)return kvGet('bloques');let v=null;try{v=JSON.parse(localStorage.getItem(BKEY))}catch(e){}
+ if(!Array.isArray(v))v=[{k:'2027-06-26',kind:'mariage'},{k:'2027-04-14',kind:'seminaire'}];
+ return v.map(x=>typeof x==='string'?{kind:'mariage',days:weDays(x)}:x.days?x:{kind:x.kind,days:x.kind==='mariage'?weDays(x.k):[x.k]})}
+function saveBlocks(a){if(CLOUD)return kvSet('bloques',a);try{localStorage.setItem(BKEY,JSON.stringify(a))}catch(e){}}
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const D=v=>new Date(v+'T12:00');
+// un vendredi, samedi ou dimanche appartient au week-end de son samedi ; un jour du lundi au jeudi reste seul
+function wkKey(v){const d=D(v),w=d.getDay();if(w===5)d.setDate(d.getDate()+1);else if(w===0)d.setDate(d.getDate()-1);return iso(d)}
+function isWE(d){const w=d.getDay();return w===5||w===6||w===0}
+function reqKeys(r){if(!isLodg(r.type)&&r.dates&&r.dates.length)return r.dates.slice().sort();if(!r.date)return[];if(isLodg(r.type))return r.depart?nights(r.date,r.depart):[];return daysFor(r.type,r.date,r.jours)}
+// carte jour par jour : date -> {type: conf|man, kind: mariage|seminaire, label, id, first}
+function blockedMap(){if(CLOUD&&!logged())return occMap('event');const m=new Map();
+ loadBlocks().forEach((b,gi)=>b.days.forEach((k,i)=>m.set(k,{type:'man',kind:b.kind,label:b.kind==='seminaire'?'Séminaire':'Mariage',g:gi,show:b.kind==='mariage'?D(k).getDay()===6||b.days.length===1:true})));
+ load().filter(r=>r.statut==='confirmee'&&!isLodg(r.type)).forEach(r=>{const ks=reqKeys(r),st=r.dates&&r.dates.length?new Set(runs(ks).map(x=>x[0])):null;ks.forEach(k=>m.set(k,{type:'conf',kind:r.type,label:r.noms,id:r.id,show:st?st.has(k):r.type==='mariage'?D(k).getDay()===6||ks.length===1:true}))});
+ return m}
+const calState={client:null,admin:null};
+function monthStart(v){const d=v?D(v):new Date();return iso(new Date(d.getFullYear(),d.getMonth(),1,12))}
+function renderCal(box,mode){
+ if(!box)return;const key=mode;if(!calState[key])calState[key]=monthStart(mode==='client'?$('date').min:null);
+ const m0=D(calState[key]),y=m0.getFullYear(),mo=m0.getMonth();
+ const bm=blockedMap(),min=mode==='client'?$('date').min:'',t=fType();
+ const prev=el('button',{type:'button','aria-label':'Mois précédent'},'‹'),next=el('button',{type:'button','aria-label':'Mois suivant'},'›');
+ const firstAllowed=min?monthStart(min):'';if(firstAllowed&&calState[key]<=firstAllowed)prev.disabled=true;
+ prev.onclick=()=>{calState[key]=iso(new Date(y,mo-1,1,12));renderCal(box,mode)};next.onclick=()=>{calState[key]=iso(new Date(y,mo+1,1,12));renderCal(box,mode)};
+ const title=m0.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+ const g=el('div',{class:'cal-g',role:'grid'});['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'].forEach(x=>g.append(el('span',{class:'dow'},x)));
+ const lead=(m0.getDay()+6)%7;for(let i=0;i<lead;i++)g.append(el('span',{class:'pad','aria-hidden':'true'}));
+ const days=new Date(y,mo+1,0).getDate();
+ const blockKind=(document.querySelector('input[name=bkind]:checked')||{}).value||'mariage';
+ for(let i=1;i<=days;i++){const d=new Date(y,mo,i,12),v=iso(d),we=isWE(d),b=bm.get(v);
+  const btn=el('button',{type:'button'},el('span',{},String(i)));
+  const lab=txt=>el('small',{class:(b&&b.kind==='mariage'&&we)?'':'one'},txt);
+  if(we)btn.classList.add('we');
+  if(mode==='client'){
+   const past=min&&v<min;
+   if(b){btn.classList.add('busy');btn.disabled=true;if(b.show)btn.append(lab('Réservé'));btn.setAttribute('aria-label',i+' : réservé')}
+   else if(past||!dateOk(v,t,bm)){btn.disabled=true}
+   else{const on=selDays.includes(v);if(on)btn.classList.add('sel');
+    btn.setAttribute('aria-pressed',String(on));btn.setAttribute('aria-label',d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+(on?', choisi : cliquer pour retirer':''));
+    btn.onclick=()=>{$('err').hidden=true;toggleDay(v)}}
+  }else{
+   if(b){btn.classList.add(b.type,'k-'+b.kind);if(b.show)btn.append(lab(b.type==='conf'?b.label:b.label+' · bloqué'));btn.title=(b.kind==='seminaire'?'Séminaire : ':'Mariage : ')+b.label}
+   if(b&&b.type==='conf'){btn.onclick=()=>{sel=b.id;renderDash();$('detail').scrollIntoView({block:'nearest'})};btn.setAttribute('aria-label',i+' : '+(b.kind==='seminaire'?'séminaire':'mariage')+' confirmé, '+b.label)}
+   else if(b){btn.setAttribute('aria-label',i+' : bloqué, cliquer pour débloquer');
+    btn.onclick=()=>{const a=loadBlocks();a.splice(b.g,1);saveBlocks(a);renderDash()}}
+   else{if(calAnchor===v)btn.classList.add('sel');else if(calAnchor&&calHover&&v>=[calAnchor,calHover].sort()[0]&&v<=[calAnchor,calHover].sort()[1])btn.classList.add('rng');
+    btn.setAttribute('aria-label',i+(calAnchor?' : cliquer pour terminer la période':' : libre, cliquer pour commencer un blocage ('+(blockKind==='mariage'?'mariage':'séminaire')+')'));
+    btn.onmouseenter=()=>{if(calAnchor&&calHover!==v){calHover=v;renderCal(box,mode)}};
+    btn.onclick=()=>{
+     if(!calAnchor){calAnchor=v;calHover=null;calMsg('Début : '+longDate(v)+'. Cliquez sur le dernier jour de la période, ou de nouveau sur ce jour pour le bloquer seul.');renderCal(box,mode);return}
+     const [a0,a1]=[calAnchor,v].sort();
+     const want=a0===a1?(blockKind==='mariage'?weDays(v):[v]):rangeDays(a0,a1);
+     const clash=want.find(x=>bm.has(x));calAnchor=null;calHover=null;
+     if(clash){calMsg('Impossible : le '+longDate(clash)+' est déjà pris ('+(bm.get(clash).kind==='seminaire'?'séminaire':'mariage')+'). Rien n\'a été bloqué.',true);renderCal(box,mode);return}
+     const a=loadBlocks();a.push({kind:blockKind,days:want});saveBlocks(a);calMsg('');renderDash()}}
+  }
+  g.append(btn)}
+ const sw=s=>el('i',{style:'background:'+s});
+ const leg=mode==='client'
+  ?el('div',{class:'cal-leg'},el('span',{},sw('var(--stone-2)'),'Week-end'),el('span',{},sw('repeating-linear-gradient(-45deg,var(--stone-2) 0 3px,var(--card) 3px 6px)'),'Réservé'),el('span',{},sw('var(--buis)'),'Vos jours'))
+  :el('div',{class:'cal-leg'},el('span',{},sw('var(--buis-soft)'),'Mariage confirmé'),el('span',{},sw('var(--sem-soft)'),'Séminaire confirmé'),el('span',{},sw('repeating-linear-gradient(-45deg,var(--buis-soft) 0 3px,var(--card) 3px 6px)'),'Mariage bloqué'),el('span',{},sw('repeating-linear-gradient(-45deg,var(--sem-soft) 0 3px,var(--card) 3px 6px)'),'Séminaire bloqué'));
+ box.replaceChildren(el('div',{class:'cal-h'},prev,el('b',{},title),next),g,leg);
+}
+let calAnchor=null,calHover=null;
+const longDate=v=>D(v).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+function rangeDays(a,b){const out=[];const x=D(a);while(iso(x)<=b){out.push(iso(x));x.setDate(x.getDate()+1)}return out}
+function calMsg(t,err){const e=$('cal-msg');if(!e)return;e.textContent=t;e.hidden=!t;e.style.color=err?'':'var(--ink)'}
+function periode(a,b){const da=D(a),db=D(b);const y=db.getFullYear();
+ if(a===b)return'Le '+da.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+ const sameM=da.getMonth()===db.getMonth()&&da.getFullYear()===y;
+ return'Du '+(sameM?da.getDate():da.toLocaleDateString('fr-FR',{day:'numeric',month:'long',...(da.getFullYear()!==y?{year:'numeric'}:{})}))+' au '+db.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}
+function renderCalList(){const ul=$('cal-list');if(!ul)return;
+ const items=[];
+ // demandes confirmées : une ligne par demande
+ load().filter(r=>r.statut==='confirmee'&&r.date&&!isLodg(r.type)).forEach(r=>{const ks=reqKeys(r);(r.dates&&r.dates.length?runs(ks):[[ks[0],ks[ks.length-1]]]).forEach(([a,b])=>items.push({a,b,kind:r.type,label:r.noms}))});
+ // blocages manuels : jours qui se suivent regroupés en une seule période, par type
+ ['mariage','seminaire'].forEach(kind=>{
+  const days=[...new Set(loadBlocks().filter(x=>x.kind===kind).flatMap(x=>x.days))].sort();
+  let start=null,prev=null;const flush=()=>{if(start)items.push({a:start,b:prev,kind,label:'Bloqué',man:1})};
+  days.forEach(d=>{if(prev&&rangeDays(prev,d).length===2){prev=d}else{flush();start=d;prev=d}});flush()});
+ items.sort((x,y)=>x.a.localeCompare(y.a));
+ ul.replaceChildren(...(items.length?items.map(it=>{
+  const n=rangeDays(it.a,it.b).length;
+  const kids=[el('span',{},periode(it.a,it.b)+(n>1?' · '+n+' jours':''),el('br'),el('span',{class:'kind kind-'+it.kind},it.kind==='seminaire'?'Séminaire':'Mariage'))];
+  if(it.man){const x=el('button',{type:'button',class:'unblock','aria-label':'Débloquer '+periode(it.a,it.b).toLowerCase()},'Débloquer');
+   x.onclick=()=>{const rd=rangeDays(it.a,it.b);saveBlocks(loadBlocks().map(g=>g.kind===it.kind?{...g,days:g.days.filter(d=>!rd.includes(d))}:g).filter(g=>g.days.length));renderDash()};
+   kids.push(el('span',{},'Bloqué',el('br'),x))}
+  else kids.push(el('span',{},it.label));
+  return el('li',{},...kids)}):[el('li',{},el('span',{},'Aucune date prise pour le moment.'))]))}
+function renderDash(){
+ const inType=r=>isLodg(scope)?r.type===scope:!isLodg(r.type)&&(ftype==='tous'||r.type===ftype);
+ $('typef').hidden=isLodg(scope);$('e-sec').hidden=isLodg(scope);$('g-sec').hidden=!isLodg(scope);
+ if(isLodg(scope)){$('g-cal-t').textContent=scope==='gite'?'Séjours au gîte':"Séjours à l'appartement";$('g-eyebrow').textContent='Calendrier : '+(scope==='gite'?'Gîte de la Bôve':'Appartement de la Bôve')}
+ const counts={toutes:reqs.filter(inType).length};Object.keys(ST).forEach(k=>counts[k]=reqs.filter(r=>inType(r)&&r.statut===k).length);
+ $('kpis').replaceChildren(...[['toutes','Toutes'],['nouvelle','Nouvelles'],['en-cours','En cours'],['confirmee','Confirmées']].map(([k,l])=>el('button',{type:'button','aria-pressed':String(filtre===k),onclick:()=>{filtre=k;renderDash()}},el('b',{},String(counts[k])),el('span',{},l))));
+ $('typef').replaceChildren(...[['tous','Tous'],['mariage','Mariages'],['seminaire','Séminaires'],['visite','Visites']].map(([k,l])=>el('button',{type:'button','aria-pressed':String(ftype===k),onclick:()=>{ftype=k;renderDash()}},l)));
+ const list=reqs.filter(r=>inType(r)&&(filtre==='toutes'||r.statut===filtre)).sort((a,b)=>(a.date||'9999').localeCompare(b.date||'9999'));
+ $('rows').replaceChildren(...list.map(r=>el('tr',{tabindex:'0','aria-selected':String(sel===r.id),onclick:()=>{sel=r.id;renderDash()},onkeydown:e=>{if(e.key==='Enter'){sel=r.id;renderDash()}}},
+   el('td',{class:'num'},r.type==='visite'?'À fixer':isLodg(r.type)&&r.depart?fmt(r.date)+' → '+fmt(r.depart):fmt(r.date)),el('td',{},el('span',{class:'kind kind-'+r.type},KLAB[r.type])),el('td',{},r.noms,r.ex?el('span',{class:'tag'},'exemple'):''),el('td',{class:'num'},isLodg(r.type)||r.type==='visite'?'—':r.visite?el('span',{class:'vis-ok'},'Faite'):el('span',{class:'vis-no'},'À faire')),el('td',{class:'num'},r.invites),el('td',{},el('span',{class:'pill st-'+r.statut},ST[r.statut])))));
+ $('empty').hidden=list.length>0;
+ const r=reqs.find(x=>x.id===sel);
+ if(!r){$('detail').replaceChildren(el('p',{class:'empty'},'Sélectionnez une demande pour voir le détail.'));return}
+ const status=el('select',{id:'d-statut','aria-label':'Statut'},...Object.entries(ST).map(([k,l])=>{const o=el('option',{value:k},l);if(k===r.statut)o.selected=true;return o}));
+ const alertMsg=el('p',{class:'err',hidden:''});
+ status.onchange=()=>{
+  if(status.value==='confirmee'&&!isLodg(r.type)&&r.type!=='visite'&&!r.visite){status.value=r.statut;alertMsg.textContent='Cochez « Visite du site effectuée » avant de confirmer et de bloquer ces dates.';alertMsg.hidden=false;return}
+  if(status.value==='confirmee'){const G=isLodg(r.type),bm=G?gMap(r.type):blockedMap();const clash=reqKeys(r).map(k=>bm.get(k)).find(b=>b&&b.type==='conf'&&b.id!==r.id);
+   if(clash){status.value=r.statut;alertMsg.textContent='Ces dates sont déjà confirmées pour '+clash.label+'.';alertMsg.hidden=false;return}
+   const ks=reqKeys(r);if(G)gSaveBlocks(gLoadBlocks(r.type).filter(x=>!x.days.some(k=>ks.includes(k))),r.type);else saveBlocks(loadBlocks().filter(x=>!x.days.some(k=>ks.includes(k))))}
+  r.statut=status.value;save(reqs);renderDash()};
+ const visBox=el('input',{type:'checkbox'});visBox.checked=!!r.visite;if(r.statut==='confirmee'){visBox.disabled=true;visBox.title='Repassez la demande en « En cours » pour modifier'}
+ visBox.onchange=()=>{r.visite=visBox.checked;save(reqs);renderDash()};
+ const visite=el('label',{class:'chk visite'},visBox,'Visite du site effectuée');
+ const copy=el('button',{class:'btn ghost sm',type:'button'},"Copier l'e-mail");
+ copy.onclick=()=>{navigator.clipboard?.writeText(r.email).then(()=>copy.textContent='Copié',()=>copy.textContent=r.email)};
+ const sem=r.type==='seminaire',gi=isLodg(r.type);
+ if(gi){const n=r.depart?nights(r.date,r.depart).length:0;
+  $('detail').replaceChildren(el('span',{class:'eyebrow'},KLAB[r.type]+' · reçue le '+fmt(r.recu)+(r.ex?' · exemple':'')),el('h3',{},r.noms),
+   el('dl',{},el('dt',{},'Séjour'),el('dd',{},r.depart?periode(r.date,r.depart)+' · '+n+' nuit'+(n>1?'s':''):'Non précisé'),el('dt',{},'Voyageurs'),el('dd',{},r.invites),el('dt',{},'E-mail'),el('dd',{},r.email),el('dt',{},'Téléphone'),el('dd',{},r.tel||'Non renseigné')),
+   r.msg?el('p',{class:'msg'},r.msg):'',el('label',{},'Statut',status),alertMsg,
+   r.statut==='confirmee'?el('p',{class:'cal-note'},'Nuits bloquées automatiquement dans le calendrier de '+LODG[r.type].nom+'.'):'',el('div',{class:'row'},copy));return}
+ if(r.type==='visite'){$('detail').replaceChildren(el('span',{class:'eyebrow'},'Demande de visite · reçue le '+fmt(r.recu)+(r.ex?' · exemple':'')),el('h3',{},r.noms),
+   el('dl',{},el('dt',{},'Projet'),el('dd',{},r.projet||'Non précisé'),el('dt',{},'E-mail'),el('dd',{},r.email),el('dt',{},'Téléphone'),el('dd',{},r.tel||'Non renseigné')),
+   r.msg?el('p',{class:'msg'},r.msg):'',el('label',{},'Statut',status),
+   el('p',{class:'cal-note'},'Une demande de visite ne bloque aucune date. Passez-la en « Confirmée » une fois le rendez-vous fixé.'),el('div',{class:'row'},copy));return}
+ const when=!r.date?'Dates flexibles':r.dates&&r.dates.length?daysTxt(r.dates)+' · '+r.dates.length+' jour'+(r.dates.length>1?'s':''):sem?(()=>{const ds=semDays(r.date,r.jours||1);return fmt(ds[0])+(ds.length>1?' au '+fmt(ds[ds.length-1]):'')+' · '+ds.length+' jour'+(ds.length>1?'s':'')})():(()=>{const j=D(r.date).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});return j[0].toUpperCase()+j.slice(1)})();
+ $('detail').replaceChildren(
+  el('span',{class:'eyebrow'},(sem?'Séminaire':'Mariage')+' · reçue le '+fmt(r.recu)+(r.ex?' · exemple':'')),
+  el('h3',{},r.noms),
+  el('dl',{},el('dt',{},'Date'),el('dd',{},when),el('dt',{},sem?'Participants':'Invités'),el('dd',{},r.invites),el('dt',{},'Formule'),el('dd',{},r.formule),
+   ...(sem?[]:[el('dt',{},'Cérémonie'),el('dd',{},r.ceremonie||'Non précisé')]),
+   el('dt',{},'E-mail'),el('dd',{},r.email),el('dt',{},'Téléphone'),el('dd',{},r.tel||'Non renseigné')),
+  r.msg?el('p',{class:'msg'},r.msg):'',
+  visite,el('label',{},'Statut',status),alertMsg,
+  !r.visite&&r.statut!=='confirmee'?el('p',{class:'cal-note'},'La demande ne peut être confirmée, et ses dates bloquées, qu\'après la visite du site.'):'',
+  r.statut==='confirmee'&&r.date?el('p',{class:'cal-note'},sem||(r.dates&&r.dates.length)?'Jours bloqués automatiquement dans le calendrier.':'Week-end bloqué automatiquement dans le calendrier.'):'',
+  el('div',{class:'row'},copy));
+}
+// connexion (maquette : vérification locale, pas une vraie sécurité)
+// Compte propriétaire : ni l'e-mail ni le mot de passe ne sont stockés, seulement une empreinte PBKDF2 salée des deux.
+const OWNER={salt:'2a9d13ec0b1652303d7b95c7e0e7c34c',iter:310000,hash:'2088bb0deed65bbe6b9039548b60ca703f89ef15703ca47b8d73d11ced7b5648'};
+const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+async function pbk(email,pw,saltHex,iter){
+ if(!window.crypto?.subtle)throw new Error('nocrypto');
+ const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(email+'\n'+pw),'PBKDF2',false,['deriveBits']);
+ const salt=new Uint8Array(saltHex.match(/../g).map(x=>parseInt(x,16)));
+ return hex(await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt,iterations:iter},key,256))}
+// accès supplémentaires : stockés dans la base partagée de la page (empreintes seulement), créés par le propriétaire
+let DB=null,USER=null;
+const dbReady=(async()=>{try{DB=await window.claude?.use?.('db')||null;USER=await window.claude?.use?.('user')||null}catch(e){}})();
+async function emailId(email){return hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('bove:'+email)))}
+const maskEmail=e=>{const [u,d]=e.split('@');return (u.length<=2?u[0]+'…':u.slice(0,2)+'…')+'@'+d};
+// renvoie 'owner', 'acces' ou ''
+async function checkLogin(email,pw){
+ if(await pbk(email,pw,OWNER.salt,OWNER.iter)===OWNER.hash)return'owner';
+ await dbReady;if(!DB)return'';
+ try{const snap=await DB.doc('acces/'+await emailId(email)).get();if(!snap.exists)return'';const a=snap.data();
+  return await pbk(email,pw,a.salt,a.iter)===a.hash?'acces':''}catch(e){return''}}
+// Session : « se souvenir » garde la session ouverte sur cet appareil (le mot de passe n'est jamais enregistré).
+// chaque accès au stockage est protégé séparément : si le navigateur bloque le stockage, la session reste ouverte tant que la page l'est
+function sGet(st,k){try{return window[st].getItem(k)}catch(e){return null}}
+function sSet(st,k,v){try{const S=window[st];v==null?S.removeItem(k):S.setItem(k,v);return true}catch(e){return false}}
+function role(){if(CLOUD)return window._role||'';if(window._auth===0)return'';if(window._role)return window._role;const v=sGet('sessionStorage','bove-auth')||sGet('localStorage','bove-auth');return v==='1'?'owner':v==='2'?'acces':''}
+function logged(){return!!role()}
+function setLogged(v,remember){window._auth=v?1:0;window._role=v||'';sSet('sessionStorage','bove-auth',null);sSet('localStorage','bove-auth',null);
+ if(!v)return true;const code=v==='owner'?'1':'2';const okS=sSet('sessionStorage','bove-auth',code);return remember?sSet('localStorage','bove-auth',code):okS}
+{const em=sGet('localStorage','bove-email');if(em){$('l-email').value=em;$('l-remember').checked=true}}
+let remWarn='';
+$('login').addEventListener('submit',async e=>{e.preventDefault();if(CLOUD)return cloudLogin();
+ const em=$('l-email').value.replace(/\s+/g,'').toLowerCase(),pw=$('l-pass').value,err=$('l-err'),btn=$('l-btn');
+ if(!em||!pw){err.textContent='Saisissez votre e-mail et votre mot de passe.';err.hidden=false;return}
+ btn.disabled=true;btn.textContent='Vérification…';err.hidden=true;let ok=false;
+ try{ok=await checkLogin(em,pw)||(pw.trim()!==pw?await checkLogin(em,pw.trim()):'')}
+ catch(x){btn.disabled=false;btn.textContent='Se connecter';err.textContent='Ce navigateur bloque la vérification sécurisée. Ouvrez le site dans Safari ou Chrome à jour.';err.hidden=false;return}
+ btn.disabled=false;btn.textContent='Se connecter';
+ if(!ok){err.textContent='E-mail ou mot de passe incorrect. Attention aux majuscules du mot de passe.';err.hidden=false;return}
+ const rem=$('l-remember').checked,stored=setLogged(ok,rem);
+ sSet('localStorage','bove-email',rem?em:null);
+ remWarn=rem&&!stored?'Connecté. Ce navigateur ne permet pas de garder la session : il faudra vous reconnecter à la prochaine visite.':'';
+ $('l-pass').value='';route()});
+$('logout').onclick=()=>{if(CLOUD){SB.auth.signOut();window._role='';C.reqs=[];C.kv={};remWarn='';route();return}setLogged(false);remWarn='';route()};
+function accMsg(id,t){const e=$(id);e.textContent=t;e.hidden=!t}
+async function renderAccess(){if(CLOUD)return cloudAccess();await dbReady;const owner=USER?await USER.isOwner().catch(()=>false):false;
+ if(!DB||!owner){$('acc-form').hidden=true;$('acc-note').textContent=!DB?'La création d\'accès fonctionne sur le site publié, quand vous êtes connecté à votre compte. Elle n\'est pas disponible dans cet aperçu.':'Seul le propriétaire du site peut créer ou retirer un accès.';return}
+ $('acc-form').hidden=false;
+ try{const snap=await DB.collection('acces').orderBy('cree').get();
+  const own=el('li',{},el('span',{},'Vous (propriétaire)'),el('span',{},'Principal'));
+  $('acc-list').replaceChildren(own,...snap.docs.map(d=>{const a=d.data();const rm=el('button',{type:'button',class:'unblock'},'Retirer');
+   rm.onclick=async()=>{if(rm.dataset.sure!=='1'){rm.dataset.sure='1';rm.textContent='Confirmer le retrait';return}rm.disabled=true;try{await DB.doc('acces/'+d.id).delete();renderAccess()}catch(e){rm.textContent='Échec, réessayez';rm.disabled=false;rm.dataset.sure=''}};
+   return el('li',{},el('span',{},a.label||'Accès',el('br'),el('small',{class:'tag',style:'margin:0'},'créé le '+fmt(a.cree))),el('span',{},rm))}))}
+ catch(e){accMsg('acc-err','Impossible de lire la liste des accès pour le moment.')}}
+$('acc-form').addEventListener('submit',async e=>{e.preventDefault();if(CLOUD)return cloudAcc();accMsg('acc-err','');accMsg('acc-ok','');
+ const em=$('acc-email').value.replace(/\s+/g,'').toLowerCase(),pw=$('acc-pass').value,pw2=$('acc-pass2').value;
+ if(!/^\S+@\S+\.\S+$/.test(em))return accMsg('acc-err','Saisissez une adresse e-mail valide.');
+ if(pw.length<8)return accMsg('acc-err','Le mot de passe doit faire au moins 8 caractères.');
+ if(pw!==pw2)return accMsg('acc-err','Les deux mots de passe ne sont pas identiques.');
+ await dbReady;if(!DB)return accMsg('acc-err','La création d\'accès n\'est pas disponible ici.');
+ const btn=$('acc-btn');btn.disabled=true;btn.textContent='Création…';
+ try{const salt=hex(crypto.getRandomValues(new Uint8Array(16))),iter=310000,id=await emailId(em);
+  const ex=await DB.doc('acces/'+id).get();
+  await DB.doc('acces/'+id).set({label:maskEmail(em),salt,iter,hash:await pbk(em,pw,salt,iter),cree:iso(new Date())});
+  $('acc-form').reset();accMsg('acc-ok',(ex.exists?'Mot de passe mis à jour pour ':'Accès créé pour ')+em+'. Communiquez-lui son mot de passe de vive voix.');renderAccess()}
+ catch(x){accMsg('acc-err','L\'accès n\'a pas pu être créé. Vérifiez que vous êtes connecté à votre compte, puis réessayez.')}
+ btn.disabled=false;btn.textContent='Créer l\'accès'});
+function route(){
+ const adm=location.hash==='#admin';document.body.classList.toggle('admin',adm);$('admin').hidden=!adm;
+ if(!adm)return;window.scrollTo(0,0);
+ const ok=logged();$('login-view').hidden=ok;$('dash-view').hidden=!ok;$('logout').hidden=!ok;
+ $('rem-warn').textContent=remWarn;$('rem-warn').hidden=!(ok&&remWarn);
+ $('acc-sec').hidden=!(ok&&role()==='owner');
+ if(ok){reqs=load();renderDash();if(CLOUD)cloudRefresh();if(role()==='owner')renderAccess()}else ($('l-email').value?$('l-pass'):$('l-email')).focus();
+}
+
+// ---------- gîte : calendrier indépendant (une clé = une nuit) ----------
+const KLAB={visite:'Visite',mariage:'Mariage',seminaire:'Séminaire',gite:'Gîte',appart:'Appartement'};
+const LODG={gite:{nom:'le gîte',max:11},appart:{nom:"l'appartement",max:4}};
+const isLodg=t=>t==='gite'||t==='appart';
+let gProp='gite';
+const lp=()=>isLodg(scope)?scope:'gite';
+let scope='event';
+const GK=p=>'bove-'+p+'-bloques';
+function gLoadBlocks(p){p=p||lp();if(CLOUD)return kvGet(p+'-bloques');try{const v=JSON.parse(localStorage.getItem(GK(p)));if(Array.isArray(v))return v}catch(e){}return[]}
+function gSaveBlocks(a,p){p=p||lp();if(CLOUD)return kvSet(p+'-bloques',a);try{localStorage.setItem(GK(p),JSON.stringify(a))}catch(e){}}
+function nights(a,b){return rangeDays(a,b).slice(0,-1)}
+function gMap(p){p=p||lp();if(CLOUD&&!logged())return occMap(p);const m=new Map();
+ gLoadBlocks(p).forEach((g,gi)=>g.days.forEach((k,i)=>m.set(k,{type:'man',kind:p,label:'Bloqué',g:gi,show:i===0||D(k).getDate()===1})));
+ load().filter(r=>r.type===p&&r.statut==='confirmee'&&r.date&&r.depart).forEach(r=>nights(r.date,r.depart).forEach((k,i)=>m.set(k,{type:'conf',kind:p,label:r.noms,id:r.id,show:i===0||D(k).getDate()===1})));
+ return m}
+const gState={};let gSel={a:null,b:null},gAnchor=null;
+function gMsg(t){const e=$('g-cal-msg');if(!e)return;e.textContent=t;e.hidden=!t;e.style.color=''}
+function gStay(){const e=$('g-stay');if(!gSel.a){e.textContent='Aucune date choisie.';return}
+ if(!gSel.b){e.textContent='Arrivée le '+D(gSel.a).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+'. Choisissez maintenant votre jour de départ.';return}
+ const n=nights(gSel.a,gSel.b).length;e.textContent=periode(gSel.a,gSel.b)+' · '+n+' nuit'+(n>1?'s':'')}
+function renderGCal(box,mode){
+ if(!box)return;const P=mode==='client'?gProp:lp(),SK=mode+P;if(!gState[SK])gState[SK]=monthStart(mode==='client'?$('date').min:null);
+ const m0=D(gState[SK]),y=m0.getFullYear(),mo=m0.getMonth(),bm=gMap(P),min=mode==='client'?iso(new Date()):'';
+ const prev=el('button',{type:'button','aria-label':'Mois précédent'},'‹'),next=el('button',{type:'button','aria-label':'Mois suivant'},'›');
+ if(mode==='client'&&gState[SK]<=monthStart(min))prev.disabled=true;
+ prev.onclick=()=>{gState[SK]=iso(new Date(y,mo-1,1,12));renderGCal(box,mode)};next.onclick=()=>{gState[SK]=iso(new Date(y,mo+1,1,12));renderGCal(box,mode)};
+ const g=el('div',{class:'cal-g',role:'grid'});['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'].forEach(x=>g.append(el('span',{class:'dow'},x)));
+ const lead=(m0.getDay()+6)%7;for(let i=0;i<lead;i++)g.append(el('span',{class:'pad','aria-hidden':'true'}));
+ const days=new Date(y,mo+1,0).getDate();
+ for(let i=1;i<=days;i++){const d=new Date(y,mo,i,12),v=iso(d),b=bm.get(v);
+  const btn=el('button',{type:'button'},el('span',{},String(i)));if(isWE(d))btn.classList.add('we');
+  if(mode==='client'){
+   const canDepart=gSel.a&&!gSel.b&&v>gSel.a&&nights(gSel.a,v).every(x=>!bm.has(x));
+   if(gSel.a&&v>=gSel.a&&v<=(gSel.b||gSel.a))btn.classList.add(v===gSel.a||v===gSel.b?'sel':'rng');
+   if(b&&!canDepart){btn.classList.add('busy');btn.disabled=true;if(b.show)btn.append(el('small',{class:'one'},'Réservé'))}
+   else if(v<min&&!canDepart)btn.disabled=true;
+   else{btn.onclick=()=>{
+     if(canDepart){gSel.b=v}else{gSel={a:v,b:null}}
+     $('g-err').hidden=true;gStay();renderGCal(box,mode)}}
+   btn.setAttribute('aria-label',d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+(b?' : réservé':''));
+  }else{
+   if(b){btn.classList.add(b.type,'k-gite');if(b.show)btn.append(el('small',{class:'one'},b.label));btn.title=b.label}
+   if(b&&b.type==='conf'){btn.onclick=()=>{sel=b.id;renderDash();$('detail').scrollIntoView({block:'nearest'})}}
+   else if(b){btn.onclick=()=>{const a=gLoadBlocks(P);a.splice(b.g,1);gSaveBlocks(a,P);gMsg('');renderDash()}}
+   else{if(gAnchor===v)btn.classList.add('sel');
+    btn.onclick=()=>{
+     if(!gAnchor){gAnchor=v;gMsg('');const e=$('g-cal-msg');e.textContent='Première nuit : '+longDate(v)+'. Cliquez sur la dernière nuit, ou de nouveau sur ce jour pour bloquer une seule nuit.';e.hidden=false;e.style.color='var(--ink)';renderGCal(box,mode);return}
+     const [a0,a1]=[gAnchor,v].sort(),want=rangeDays(a0,a1);gAnchor=null;
+     const clash=want.find(x=>bm.has(x));if(clash){gMsg('Impossible : la nuit du '+longDate(clash)+' est déjà prise. Rien n\'a été bloqué.');renderGCal(box,mode);return}
+     const a=gLoadBlocks(P);a.push({days:want});gSaveBlocks(a,P);gMsg('');renderDash()}}
+  }
+  g.append(btn)}
+ const sw=s=>el('i',{style:'background:'+s});
+ const leg=mode==='client'?el('div',{class:'cal-leg'},el('span',{},sw('repeating-linear-gradient(-45deg,var(--stone-2) 0 3px,var(--card) 3px 6px)'),'Réservé'),el('span',{},sw('var(--buis)'),'Votre séjour'))
+  :el('div',{class:'cal-leg'},el('span',{},sw('color-mix(in srgb,var(--gilt) 22%,var(--card))'),'Séjour confirmé'),el('span',{},sw('repeating-linear-gradient(-45deg,color-mix(in srgb,var(--gilt) 22%,var(--card)) 0 3px,var(--card) 3px 6px)'),'Nuits bloquées'));
+ box.replaceChildren(el('div',{class:'cal-h'},prev,el('b',{},m0.toLocaleDateString('fr-FR',{month:'long',year:'numeric'})),next),g,leg)}
+function renderGList(){const ul=$('g-cal-list');if(!ul)return;const items=[];
+ load().filter(r=>r.type===lp()&&r.statut==='confirmee'&&r.date&&r.depart).forEach(r=>items.push({a:r.date,b:r.depart,label:r.noms,stay:1}));
+ const days=[...new Set(gLoadBlocks().flatMap(x=>x.days))].sort();let st=null,pv=null;
+ const flush=()=>{if(st){const nx=D(pv);nx.setDate(nx.getDate()+1);items.push({a:st,b:iso(nx),label:'Bloqué',man:1,last:pv})}};
+ days.forEach(d=>{if(pv&&rangeDays(pv,d).length===2)pv=d;else{flush();st=d;pv=d}});flush();
+ items.sort((x,y)=>x.a.localeCompare(y.a));
+ ul.replaceChildren(...(items.length?items.map(it=>{const n=nights(it.a,it.b).length;
+  const kids=[el('span',{},periode(it.a,it.b)+' · '+n+' nuit'+(n>1?'s':''))];
+  if(it.man){const x=el('button',{type:'button',class:'unblock'},'Débloquer');x.onclick=()=>{const rd=rangeDays(it.a,it.last);gSaveBlocks(gLoadBlocks().map(g=>({days:g.days.filter(d=>!rd.includes(d))})).filter(g=>g.days.length));renderDash()};kids.push(el('span',{},'Bloqué',el('br'),x))}
+  else kids.push(el('span',{},it.label));return el('li',{},...kids)}):[el('li',{},el('span',{},'Aucune nuit prise pour le moment.'))]))}
+$('g-f').addEventListener('submit',e=>{e.preventDefault();const miss=[];
+ if(!gSel.a||!gSel.b)miss.push('vos dates d\'arrivée et de départ');if(!$('g-nom').value.trim())miss.push('votre nom');
+ if(!/^\S+@\S+\.\S+$/.test($('g-email').value))miss.push('une adresse e-mail valide');
+ if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).some(x=>gMap(gProp).has(x)))miss.push('d\'autres dates : une partie du séjour est déjà réservée');
+ if(miss.length){$('g-err').textContent='Il manque '+miss.join(', ')+'.';$('g-err').hidden=false;return}
+ saveReq({id:'g'+Date.now(),type:gProp,recu:iso(new Date()),noms:$('g-nom').value.trim(),date:gSel.a,depart:gSel.b,invites:$('g-voy').value+' voyageur'+($('g-voy').value>1?'s':''),formule:'Séjour : '+LODG[gProp].nom,email:$('g-email').value.trim(),tel:$('g-tel').value.trim(),msg:$('g-msg').value.trim(),statut:'nouvelle'});
+ $('g-recap').textContent=KLAB[gProp]+' · '+$('g-stay').textContent+' · '+$('g-voy').value+' voyageur(s).';$('g-f').hidden=true;$('g-merci').hidden=false});
+$('g-again').onclick=()=>{gSel={a:null,b:null};gStay();$('g-merci').hidden=true;$('g-f').hidden=false;renderGCal($('g-cal'),'client')};
+document.querySelectorAll('input[name=scope]').forEach(r=>r.addEventListener('change',()=>{scope=r.value;sel=null;filtre='toutes';renderDash()}));
+function setProp(p){gProp=p;const r=document.querySelector('input[name=prop][value='+p+']');if(r)r.checked=true;gSel={a:null,b:null};gStay();
+ const v=$('g-voy'),cur=+v.value||2;v.replaceChildren(...Array.from({length:LODG[p].max},(_,i)=>new Option(String(i+1))));v.value=String(Math.min(cur,LODG[p].max));
+ $('g-err').hidden=true;renderGCal($('g-cal'),'client')}
+document.querySelectorAll('input[name=prop]').forEach(r=>r.addEventListener('change',()=>setProp(r.value)));
+document.querySelectorAll('a[data-prop]').forEach(a=>a.addEventListener('click',()=>setProp(a.dataset.prop)));
+const _rd=renderDash;renderDash=function(){_rd();renderCal($('cal-admin'),'admin');renderCalList();renderCal($('cal-client'),'client');renderGCal($('g-cal-admin'),'admin');renderGList();renderGCal($('g-cal'),'client')};
+document.querySelectorAll('input[name=bkind]').forEach(r=>r.addEventListener('change',()=>{calAnchor=null;calHover=null;calMsg('');renderCal($('cal-admin'),'admin')}));
+window.addEventListener('hashchange',route);setType('mariage');setProp('gite');if(!CLOUD)route();
+
+// ---------- Supabase : connexion et accès ----------
+async function cloudRole(user){const em=(user&&user.email||'').toLowerCase();if(!em)return'';
+ const{data}=await SB.from('equipe').select('role').eq('email',em).maybeSingle();return data?data.role:''}
+async function cloudLogin(){
+ const em=$('l-email').value.replace(/\s+/g,'').toLowerCase(),pw=$('l-pass').value,err=$('l-err'),btn=$('l-btn');
+ if(!em||!pw){err.textContent='Saisissez votre e-mail et votre mot de passe.';err.hidden=false;return}
+ btn.disabled=true;btn.textContent='Vérification…';err.hidden=true;
+ const{data,error}=await SB.auth.signInWithPassword({email:em,password:pw});
+ let r='';if(!error)r=await cloudRole(data.user).catch(()=>'');
+ btn.disabled=false;btn.textContent='Se connecter';
+ if(error||!r){if(!error)await SB.auth.signOut();
+  err.textContent=error?(/confirm/i.test(error.message)?"Confirmez d'abord votre adresse e-mail avec le lien reçu.":'E-mail ou mot de passe incorrect. Attention aux majuscules du mot de passe.'):"Ce compte n'a pas accès à l'espace propriétaire.";err.hidden=false;return}
+ const rem=$('l-remember').checked;sSet('localStorage','bove-noremember',rem?null:'1');sSet('sessionStorage','bove-live','1');
+ sSet('localStorage','bove-email',rem?em:null);window._role=r;remWarn='';$('l-pass').value='';route()}
+async function cloudAccess(){
+ $('acc-note').textContent="Créez un accès pour une personne de confiance : elle se connectera avec son e-mail et son mot de passe. Si Supabase demande une confirmation, elle recevra un e-mail avec un lien à ouvrir avant sa première connexion. Vous seul pouvez créer ou retirer un accès.";
+ $('acc-form').hidden=false;
+ const{data,error}=await SB.from('equipe').select('email,role,cree').order('cree');
+ if(error){accMsg('acc-err','Impossible de lire la liste des accès pour le moment.');return}
+ $('acc-list').replaceChildren(...data.map(a=>{if(a.role==='owner')return el('li',{},el('span',{},maskEmail(a.email)),el('span',{},'Propriétaire'));
+  const rm=el('button',{type:'button',class:'unblock'},'Retirer');
+  rm.onclick=async()=>{if(rm.dataset.sure!=='1'){rm.dataset.sure='1';rm.textContent='Confirmer le retrait';return}rm.disabled=true;
+   const{error}=await SB.from('equipe').delete().eq('email',a.email);if(error){rm.textContent='Échec, réessayez';rm.disabled=false;rm.dataset.sure=''}else cloudAccess()};
+  return el('li',{},el('span',{},maskEmail(a.email),el('br'),el('small',{class:'tag',style:'margin:0'},'créé le '+fmt(a.cree))),el('span',{},rm))}))}
+async function cloudAcc(){accMsg('acc-err','');accMsg('acc-ok','');
+ const em=$('acc-email').value.replace(/\s+/g,'').toLowerCase(),pw=$('acc-pass').value,pw2=$('acc-pass2').value;
+ if(!/^\S+@\S+\.\S+$/.test(em))return accMsg('acc-err','Saisissez une adresse e-mail valide.');
+ if(pw.length<8)return accMsg('acc-err','Le mot de passe doit faire au moins 8 caractères.');
+ if(pw!==pw2)return accMsg('acc-err','Les deux mots de passe ne sont pas identiques.');
+ const btn=$('acc-btn');btn.disabled=true;btn.textContent='Création…';
+ try{const ins=await SB.from('equipe').insert({email:em,role:'acces'});
+  if(ins.error&&ins.error.code!=='23505')throw ins.error;
+  const tmp=window.supabase.createClient(CFG.url,CFG.anonKey,{auth:{persistSession:false,autoRefreshToken:false,storageKey:'bove-tmp'}});
+  const{data,error}=await tmp.auth.signUp({email:em,password:pw});if(error)throw error;
+  const existait=data.user&&Array.isArray(data.user.identities)&&data.user.identities.length===0;
+  $('acc-form').reset();
+  accMsg('acc-ok',existait?'Accès ouvert pour '+em+". Ce compte existait déjà : la personne garde son mot de passe actuel.":'Accès créé pour '+em+(data.session?'. Communiquez-lui son mot de passe de vive voix.':". Cette personne doit d'abord ouvrir le lien de confirmation reçu par e-mail. Communiquez-lui son mot de passe de vive voix."));
+  cloudAccess()}
+ catch(x){accMsg('acc-err',"L'accès n'a pas pu être créé ("+(x&&x.message||'erreur')+').')}
+ btn.disabled=false;btn.textContent="Créer l'accès"}
+async function cloudInit(){
+ {const n=$('dash-note');if(n)n.textContent='Les demandes envoyées depuis le site arrivent ici, sur tous vos appareils.'}
+ try{let{data:{session}}=await SB.auth.getSession();
+  if(session&&sGet('localStorage','bove-noremember')==='1'&&!sGet('sessionStorage','bove-live')){await SB.auth.signOut();session=null}
+  if(session){window._role=await cloudRole(session.user).catch(()=>'');if(!window._role)await SB.auth.signOut()}}catch(e){}
+ await loadOcc();renderCal($('cal-client'),'client');renderGCal($('g-cal'),'client');route()}
+if(CLOUD)cloudInit();
+</script>
+
+</body>
+</html>
