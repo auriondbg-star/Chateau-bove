@@ -446,6 +446,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
 <script src="config.js"></script>
 </head>
 <body>
+<form name="demande" data-netlify="true" netlify-honeypot="bot-field" hidden><input name="type"><input name="noms"><input name="dates"><input name="depart"><input name="invites"><input name="formule"><input name="ceremonie"><input name="projet"><input name="flex"><input name="email"><input name="tel"><textarea name="msg"></textarea><input name="bot-field"></form>
 <div class="bgfix" aria-hidden="true"><img src="aerien-domaine-v2.jpg" alt=""></div>
 
 <header class="nav wrap">
@@ -1023,7 +1024,8 @@ async function cloudRefresh(){
 function load(){if(CLOUD)return C.reqs.map(r=>norm({...r}));try{const v=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(v)){if(!v.some(r=>r.id==='ex5'))v.push(...EXEMPLES.filter(x=>x.type==='seminaire').map(x=>({...x})));if(!v.some(r=>r.id==='ex7'))v.push(...EXEMPLES.filter(x=>x.type==='gite').map(x=>({...x})));if(!v.some(r=>r.id==='ex9'))v.push(...EXEMPLES.filter(x=>x.type==='appart').map(x=>({...x})));return v.map(norm)}}catch(e){}return EXEMPLES.map(x=>({...x}))}
 function save(list){if(CLOUD){C.reqs=list.map(r=>({...r}));list.forEach(r=>{const j=JSON.stringify(r);if(C.synced[r.id]!==j){C.synced[r.id]=j;SB.from('demandes').update({data:r}).eq('id',r.id).then(({error})=>{if(error)cloudErr()})}});pushOcc();return}try{localStorage.setItem(KEY,JSON.stringify(list))}catch(e){}}
 let reqs=load(),filtre='toutes',ftype='tous',sel=null;
-function saveReq(r){if(CLOUD){SB.from('demandes').insert({id:r.id,data:r}).then(({error})=>{if(error)sendFail(isLodg(r.type))});return}reqs=load();reqs.unshift(r);save(reqs)}
+function notify(r){try{const L={mariage:'Mariage',seminaire:'Séminaire',visite:'Demande de visite',gite:'Séjour au gîte',appart:"Séjour à l'appartement"};const ds=(r.dates&&r.dates.length?r.dates:(r.date?[r.date]:[])).join(', ');const b=new URLSearchParams({'form-name':'demande',type:L[r.type]||r.type,noms:r.noms||'',dates:ds||(r.flex?'Flexible':''),depart:r.depart||'',invites:r.invites||'',formule:r.formule||'',ceremonie:r.ceremonie||'',projet:r.projet||'',flex:r.flex?'oui':'',email:r.email||'',tel:r.tel||'',msg:r.msg||''});fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:b.toString()}).catch(()=>{})}catch(e){}}
+function saveReq(r){if(CLOUD){SB.from('demandes').insert({id:r.id,data:r}).then(({error})=>{if(error)sendFail(isLodg(r.type));else notify(r)});return}reqs=load();reqs.unshift(r);save(reqs)}
 function sendFail(g){const m=$(g?'g-merci':'merci'),f=$(g?'g-f':'f'),e=$(g?'g-err':'err');m.hidden=true;f.hidden=false;e.textContent="Votre demande n'a pas pu être envoyée. Vérifiez votre connexion internet puis réessayez.";e.hidden=false}
 function fmt(d){if(!d)return'Flexible';const t=new Date(d+'T12:00');return t.toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'})}
 function el(tag,attrs={},...kids){const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==='class')e.className=v;else if(k.startsWith('on'))e[k]=v;else e.setAttribute(k,v)}kids.flat().forEach(k=>e.append(k));return e}
