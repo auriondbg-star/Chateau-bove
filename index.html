@@ -4,7 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Château de la Bôve (Aisne) : mariages, séminaires, gîte et appartement, à 35 min de Reims.">
-<style>html,body{margin:0}</style>
+<style>html,body{margin:0}.pw{position:relative;display:block}
+.pw input{width:100%;box-sizing:border-box;padding-right:48px}
+.pw-eye{position:absolute;right:2px;top:50%;transform:translateY(-50%);width:44px;height:40px;display:grid;place-items:center;background:none;border:0;padding:0;color:var(--muted);cursor:pointer}
+.pw-eye:hover,.pw-eye[aria-pressed="true"]{color:var(--buis)}
+.pw-eye:focus-visible{outline:2px solid var(--buis);outline-offset:-2px}
+.pw-eye svg{width:20px;height:20px}
+</style>
 <title>Château de la Bôve</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1376,6 +1382,14 @@ async function cloudInit(){
   if(session){window._role=await cloudRole(session.user).catch(()=>'');if(!window._role)await SB.auth.signOut()}}catch(e){}
  await loadOcc();renderCal($('cal-client'),'client');renderGCal($('g-cal'),'client');route()}
 if(CLOUD)cloudInit();
+
+// ---------- afficher / masquer le mot de passe ----------
+(function(){const EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+ const OFF='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7c2 0 3.8.7 5.2 1.6M22 12s-3.6 7-10 7c-2 0-3.8-.7-5.2-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="M3 3l18 18"/></svg>';
+ document.querySelectorAll('input[type=password]').forEach(inp=>{const w=document.createElement('span');w.className='pw';inp.parentNode.insertBefore(w,inp);w.appendChild(inp);
+  const b=document.createElement('button');b.type='button';b.className='pw-eye';const set=on=>{inp.type=on?'text':'password';b.setAttribute('aria-pressed',String(on));b.setAttribute('aria-label',on?'Masquer le mot de passe':'Afficher le mot de passe');b.title=b.getAttribute('aria-label');b.innerHTML=on?OFF:EYE};set(false);
+  b.addEventListener('click',()=>{const pos=inp.selectionStart;set(inp.type==='password');inp.focus();try{inp.setSelectionRange(pos,pos)}catch(e){}});w.appendChild(b);
+  inp.form&&inp.form.addEventListener('submit',()=>set(false))})})();
 </script>
 
 </body>
