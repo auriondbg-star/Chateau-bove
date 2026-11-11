@@ -381,6 +381,7 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 .coord p b{font-weight:400;color:var(--ink)}
 .map{background:var(--card);border:1px solid var(--line);position:relative;display:flex;flex-direction:column}
 .map svg{display:block;width:100%;height:auto}
+.map-frame{border:0;height:auto;background:var(--line)}
 .map-img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;max-width:100%}
 .map .road{stroke:var(--line);fill:none;stroke-width:3}
 .map .river{stroke:color-mix(in srgb,var(--buis) 35%,var(--card));fill:none;stroke-width:4;stroke-linecap:round}
@@ -781,9 +782,8 @@ footer .mark{color:var(--ink);font-size:1.6rem}
           <p><b class="ph">Adresse e-mail à venir</b></p></li>
       </ul>
     </div>
-    <figure class="map" style="margin:0" aria-label="Situation du château entre Laon, Soissons et Reims">
-      <img class="map-img" src="aerien-cour.jpg" alt="Vue aérienne du château de la Bôve, de sa cour et de son parc" loading="lazy">
-      <div class="card"><b>Château de la Bôve</b><span>02860 Bouconville-Vauclair, Aisne</span></div>
+    <figure class="map" style="margin:0" aria-label="Plan satellite du château de la Bôve">
+      <iframe class="map-img map-frame" src="https://maps.google.com/maps?q=Ch%C3%A2teau%20de%20la%20B%C3%B4ve%2C%2002860%20Bouconville-Vauclair&amp;t=k&amp;z=16&amp;hl=fr&amp;output=embed" title="Vue satellite du château de la Bôve, Bouconville-Vauclair" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       <a class="open" href="https://www.google.com/maps/search/?api=1&amp;query=Ch%C3%A2teau+de+la+B%C3%B4ve%2C+Bouconville-Vauclair" target="_blank" rel="noopener">Ouvrir dans Google Maps <span aria-hidden="true">→</span></a>
     </figure>
   </div>
