@@ -702,7 +702,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
           <label>Téléphone<input id="g-tel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78"></label>
           <label class="full">Message<textarea id="g-msg" placeholder="Heure d'arrivée prévue (à partir de 14 h), questions…"></textarea></label>
           <p class="err" id="g-err" hidden></p>
-          <button class="btn full" type="submit">Demander ce séjour</button>
+          <button class="btn full" type="submit">Réserver ce séjour</button>
         </form>
         <div class="merci" id="g-merci" hidden>
           <span class="eyebrow">Demande reçue</span>
@@ -1296,7 +1296,7 @@ function renderGCal(box,mode){
   if(mode==='client'){
    const canDepart=gSel.a&&!gSel.b&&v>gSel.a&&nights(gSel.a,v).every(x=>!bm.has(x));
    if(gSel.a&&v>=gSel.a&&v<=(gSel.b||gSel.a))btn.classList.add(v===gSel.a||v===gSel.b?'sel':'rng');
-   if(b&&!canDepart){btn.classList.add('busy');btn.disabled=true;if(b.show)btn.append(el('small',{class:'one'},'Réservé'))}
+   if(b&&!canDepart){btn.classList.add('busy');btn.disabled=true;btn.append(el('small',{class:'one'},'Réservé'))}
    else if(v<min&&!canDepart)btn.disabled=true;
    else{btn.onclick=()=>{
      if(canDepart){gSel.b=v}else{gSel={a:v,b:null}}
