@@ -10,6 +10,7 @@
 .pw-eye:hover,.pw-eye[aria-pressed="true"]{color:var(--buis)}
 .pw-eye:focus-visible{outline:2px solid var(--buis);outline-offset:-2px}
 .pw-eye svg{width:20px;height:20px}
+.lodg-info{margin:0;font-family:var(--sans);font-size:.85rem;color:var(--muted)}
 .lodg-price{margin:0;font-family:var(--serif);font-size:1.05rem;color:var(--ink)}
 .lodg-price b{font-family:var(--display);font-weight:400;font-size:1.6rem;color:var(--buis);margin-inline:2px}
 </style>
@@ -71,7 +72,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .btn:hover{background:transparent;color:var(--buis)}
 .btn.ghost{background:transparent;color:var(--buis)}
 .btn.ghost:hover{background:var(--buis);color:var(--stone)}
-@media (max-width:820px){.nav ul{display:none}}
+.burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;background:none;border:0;padding:0;color:var(--ink);cursor:pointer}
+.burger svg{width:24px;height:24px}
+@media (max-width:820px){.burger{display:inline-flex}.nav-act{gap:6px}
+ .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:6px 0 14px;background:var(--stone);border-bottom:1px solid var(--line);box-shadow:0 12px 24px rgba(0,0,0,.08)}
+ .nav.open ul{display:flex}
+ .nav ul a{display:block;padding:14px 24px;font-size:.85rem;color:var(--ink)}}
+@media (max-width:420px){.nav-act .btn{padding:11px 14px}}
 
 /* hero */
 .hero{position:relative;color:#F4F3EC}
@@ -461,7 +468,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
 <header class="nav wrap">
   <div class="inner">
     <a class="mark" href="#top">La Bôve</a>
-    <ul>
+    <ul id="menu">
       <li><a href="#domaine">Le domaine</a></li>
       <li><a href="#espaces">Les espaces</a></li>
       <li><a href="#seminaires">Séminaires</a></li>
@@ -472,6 +479,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
     <div class="nav-act">
       <a class="acct" href="#admin" aria-label="Espace propriétaire" title="Espace propriétaire"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20.5c1.4-3.6 4.4-5.5 8-5.5s6.6 1.9 8 5.5"/></svg></a>
       <a class="btn" href="#reserver">Réserver</a>
+      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
 </header>
@@ -494,7 +502,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
   <div class="inner intro">
     <span class="eyebrow">Le domaine</span>
     <h2>Une perspective à la française, ouverte sur la vallée</h2>
-    <p class="big">Dans l'Aisne, à deux heures de Paris et trente-cinq minutes de Reims. Depuis la grille, une allée de gravier bordée de buis taillés mène tout droit à la façade. Derrière, la cour d'honneur domine la forêt à perte de vue. Le domaine vous est confié en extérieur : l'allée, la cour, le parc et l'orangerie.</p>
+    <p class="big">Dans l'Aisne, à deux heures de Paris et trente-cinq minutes de Reims. Depuis la grille, une allée de gravier bordée de buis taillés mène tout droit à la façade. Derrière, la cour d'honneur domine la forêt à perte de vue. Le domaine vous est confié : l'allée, la cour et le parc pour les moments en plein air, et l'orangerie pour le dîner.</p>
     <div class="facts">
       <div><b>200</b><span>Invités assis max.</span></div>
       <div><b>2 h</b><span>De Paris</span></div>
@@ -535,7 +543,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
     <h3>De Mesdames de France à aujourd'hui</h3>
     <ol class="chrono">
       <li><span class="y">Origines</span><p><b>Une demeure classique au-dessus de la vallée.</b> Le château de la Bôve s'élève à Bouconville-Vauclair, face à la vallée de l'Ailette, au pied du plateau qui sépare l'Ailette de l'Aisne.</p></li>
-      <li><span class="y">1776–1789</span><p><b>Mesdames sur la route de la Bôve.</b> Le domaine appartient à Françoise de Châlus, duchesse de Narbonne-Lara, ancienne dame d'honneur de Madame Adélaïde. Mesdames Adélaïde et Victoire, filles de Louis XV, empruntent souvent pour lui rendre visite la route de crête entre Laon et Soissons, alors peu adaptée aux voitures. On l'appelle bientôt le Chemin des Dames.</p></li>
+      <li><span class="y">1776–1789</span><p><b>Mesdames sur la route de la Bôve.</b> Le domaine appartient à Françoise de Châlus, duchesse de Narbonne, ancienne dame d'honneur de Madame Adélaïde. Mesdames Adélaïde et Victoire, filles de Louis XV, empruntent souvent pour lui rendre visite la route de crête entre Laon et Soissons, alors peu adaptée aux voitures. On l'appelle bientôt le Chemin des Dames.</p></li>
       <li><span class="y">1814</span><p><b>La bataille de Craonne.</b> Tout près du domaine, Napoléon affronte les armées prussienne et russe le 7 mars 1814. Parmi les soldats français, de très jeunes recrues surnommées les « Marie-Louise ».</p></li>
       <li><span class="y">1917</span><p><b>Le Chemin des Dames dans la Grande Guerre.</b> Au printemps 1917, l'offensive française se brise sur le plateau, qui reste l'un des champs de bataille les plus meurtriers du conflit. <span class="ph">Sort du château pendant la guerre à préciser.</span></p></li>
       <li><span class="y">Après-guerre</span><p><b>La renaissance du domaine.</b> <span class="ph">Reconstruction, restauration du parc et de la chapelle : dates et personnes à préciser.</span></p></li>
@@ -552,7 +560,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
   <div class="inner">
     <div class="head">
       <span class="eyebrow">Les espaces</span>
-      <h2>Trois lieux pour une même journée</h2>
+      <h2>Quatre lieux pour une même journée</h2>
       <p>Chaque moment a son décor, toujours en extérieur, avec l'orangerie pour le repas assis.</p>
     </div>
     <div class="lieux">
@@ -616,7 +624,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
     <div class="sem-top">
       <div class="txt">
         <span class="eyebrow">Séminaires &amp; entreprises</span>
-        <h2>Réunir vos équipes en semaine, loin des bureaux</h2>
+        <h2>Réunir vos équipes, loin des bureaux</h2>
         <p>En semaine comme le week-end, le domaine accueille vos séminaires et journées d'entreprise. L'orangerie devient une salle de réunion baignée de lumière, et le parc se prête aux ateliers en plein air, aux pauses dans l'allée de buis et aux activités de cohésion.</p>
         <p>À deux heures de Paris et trente-cinq minutes de Reims, vos équipes changent d'air sans perdre de temps sur la route.</p>
         <div class="sem-facts">
@@ -655,7 +663,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
             <li><span>Chambres 4 et 5</span><span>1 lit double chacune</span></li>
           </ul>
           <div class="equip" aria-label="Équipements"><span>Cuisine équipée</span><span>Cheminée</span><span>Jardin</span><span>Barbecue</span><span>Lave-linge</span><span>Télévision</span><span>Parking gratuit</span><span>Draps et serviettes compris</span></div>
-          <p class="ph-note">Arrivée à partir de 14 h · Draps et serviettes compris · 4,82 sur 5 sur Airbnb (50 avis)</p>
+          <p class="lodg-info">Arrivée à partir de 14 h · Draps et serviettes compris · 4,82 sur 5 sur Airbnb (50 avis)</p>
           <p class="lodg-price">À partir de <b>23 €</b> par nuit et par personne</p>
           <div><a class="btn" href="#gite-resa" data-prop="gite">Réserver le gîte</a></div>
         </div>
@@ -672,14 +680,14 @@ footer .mark{color:var(--ink);font-size:1.6rem}
             <li><span>Salon</span><span>1 lit double</span></li>
           </ul>
           <div class="equip" aria-label="Équipements"><span>Cuisine</span><span>Poêle à bois</span><span>Télévision</span><span>Sèche-cheveux</span><span>Parking gratuit</span><span>Draps et serviettes compris</span></div>
-          <p class="ph-note">Arrivée à partir de 14 h · Draps et serviettes compris. Besoin de plus de place ? Combinez-le avec les 11 couchages du gîte.</p>
+          <p class="lodg-info">Arrivée à partir de 14 h · Draps et serviettes compris. Besoin de plus de place ? Combinez-le avec les 11 couchages du gîte.</p>
           <p class="lodg-price">À partir de <b>25 €</b> par nuit et par personne</p>
           <div><a class="btn" href="#gite-resa" data-prop="appart">Réserver l'appartement</a></div>
         </div>
       </article>
     </div>
     <ul class="near" aria-label="À proximité" style="margin-top:48px">
-      <li><b>Château de la Bôve</b> · 500 m du gîte et de l'appartement</li><li><b>Laon</b> · 18 km</li><li><b>Reims</b> · 35 km</li><li><b>Autoroute A26</b> · 12 km (Guignicourt)</li><li><b>Chemin des Dames</b> et abbaye de Vauclair</li>
+      <li><b>Château de la Bôve</b> · 500 m du gîte et de l'appartement</li><li><b>Laon</b> · 20 min</li><li><b>Reims</b> · 35 min</li><li><b>Autoroute A26</b> · sortie Corbeny, 10 min</li><li><b>Chemin des Dames</b> et abbaye de Vauclair</li>
     </ul>
 
 <div class="gite-book" id="gite-resa">
@@ -727,7 +735,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
         <li>Mise à disposition du site et de ses extérieurs</li>
         <li>Orangerie pour 150 à 200 invités assis</li>
         <li>Séminaires en semaine comme le week-end</li>
-        <li>Visite du château sur rendez-vous</li>
+        <li>Visite du domaine sur rendez-vous</li>
         <li>Liste de traiteurs et prestataires partenaires</li>
         <li><span><span class="ph">Tarifs à préciser</span> selon la saison et le nombre d'invités</span></li>
       </ul>
@@ -760,7 +768,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
         <span class="eyebrow">Demande reçue</span>
         <h3>Merci, nous revenons vers vous très vite.</h3>
         <dl id="recap"></dl>
-        <p class="ph-note">Prototype : la demande est visible dans l'espace propriétaire, sur cet appareil uniquement.</p>
+        <p style="color:var(--muted)">Nous revenons vers vous sous 48 heures.</p>
         <div><button class="btn ghost" id="again" type="button">Nouvelle demande</button></div>
       </div>
     </div>
@@ -922,6 +930,13 @@ document.querySelectorAll('.lodg-ph[data-slot]').forEach(slot=>{const L=LPHOTOS[
 lb.addEventListener('click',e=>{if(e.target===lb)close()});
 document.addEventListener('keydown',e=>{if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')document.getElementById('lbn').click();if(e.key==='ArrowLeft')document.getElementById('lbp').click()});
 
+// menu téléphone
+{const nav=document.querySelector('.nav'),bg=document.getElementById('burger');
+ const set=o=>{nav.classList.toggle('open',o);bg.setAttribute('aria-expanded',String(o));bg.setAttribute('aria-label',o?'Fermer le menu':'Ouvrir le menu')};
+ bg.onclick=()=>set(!nav.classList.contains('open'));
+ nav.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>set(false)));
+ document.addEventListener('click',e=>{if(!nav.contains(e.target))set(false)});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.contains('open')){set(false);bg.focus()}})}
 // histoire
 const more=document.getElementById('more'),hist=document.getElementById('histoire');
 function setH(o){hist.hidden=!o;more.setAttribute('aria-expanded',o);if(o)hist.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});else more.focus()}
@@ -1283,7 +1298,7 @@ function gStay(){const e=$('g-stay');if(!gSel.a){e.textContent='Aucune date choi
  const px=gPrix();e.textContent=periode(gSel.a,gSel.b)+' · '+n+' nuit'+(n>1?'s':'')+(px?' · '+euros(px)+' pour '+$('g-voy').value+' voyageur'+(+$('g-voy').value>1?'s':''):'')}
 $('g-voy').addEventListener('change',gStay);
 function renderGCal(box,mode){
- if(!box)return;const P=mode==='client'?gProp:lp(),SK=mode+P;if(!gState[SK])gState[SK]=monthStart(mode==='client'?$('date').min:null);
+ if(!box)return;const P=mode==='client'?gProp:lp(),SK=mode+P;if(!gState[SK])gState[SK]=monthStart(null);
  const m0=D(gState[SK]),y=m0.getFullYear(),mo=m0.getMonth(),bm=gMap(P),min=mode==='client'?iso(new Date()):'';
  const prev=el('button',{type:'button','aria-label':'Mois précédent'},'‹'),next=el('button',{type:'button','aria-label':'Mois suivant'},'›');
  if(mode==='client'&&gState[SK]<=monthStart(min))prev.disabled=true;
@@ -1335,7 +1350,7 @@ $('g-f').addEventListener('submit',e=>{e.preventDefault();const miss=[];
  if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).some(x=>gMap(gProp).has(x)))miss.push('d\'autres dates : une partie du séjour est déjà réservée');
  if(miss.length){$('g-err').textContent='Il manque '+miss.join(', ')+'.';$('g-err').hidden=false;return}
  saveReq({id:'g'+Date.now(),type:gProp,recu:iso(new Date()),noms:$('g-nom').value.trim(),date:gSel.a,depart:gSel.b,invites:$('g-voy').value+' voyageur'+($('g-voy').value>1?'s':''),formule:'Séjour : '+LODG[gProp].nom+(gPrix()?' · '+euros(gPrix()):''),email:$('g-email').value.trim(),tel:$('g-tel').value.trim(),msg:$('g-msg').value.trim(),statut:'nouvelle'});
- $('g-recap').textContent=KLAB[gProp]+' · '+$('g-stay').textContent+' · '+$('g-voy').value+' voyageur(s).';$('g-f').hidden=true;$('g-merci').hidden=false});
+ $('g-recap').textContent=KLAB[gProp]+' · '+$('g-stay').textContent+($('g-stay').textContent.includes('voyageur')?'':' · '+$('g-voy').value+' voyageur'+(+$('g-voy').value>1?'s':''))+'.';$('g-f').hidden=true;$('g-merci').hidden=false});
 $('g-again').onclick=()=>{gSel={a:null,b:null};gStay();$('g-merci').hidden=true;$('g-f').hidden=false;renderGCal($('g-cal'),'client')};
 document.querySelectorAll('input[name=scope]').forEach(r=>r.addEventListener('change',()=>{scope=r.value;sel=null;filtre='toutes';renderDash()}));
 function setProp(p){gProp=p;const r=document.querySelector('input[name=prop][value='+p+']');if(r)r.checked=true;gSel={a:null,b:null};gStay();
