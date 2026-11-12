@@ -673,6 +673,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
           </ul>
           <div class="equip" aria-label="Équipements"><span>Cuisine</span><span>Poêle à bois</span><span>Télévision</span><span>Sèche-cheveux</span><span>Parking gratuit</span><span>Draps et serviettes compris</span></div>
           <p class="ph-note">Arrivée à partir de 14 h · Draps et serviettes compris. Besoin de plus de place ? Combinez-le avec les 11 couchages du gîte.</p>
+          <p class="lodg-price">À partir de <b>23 €</b> par nuit et par personne</p>
           <div><a class="btn" href="#gite-resa" data-prop="appart">Réserver l'appartement</a></div>
         </div>
       </article>
@@ -1266,11 +1267,11 @@ function gMap(p){p=p||lp();if(CLOUD&&!logged())return occMap(p);const m=new Map(
  return m}
 const gState={};let gSel={a:null,b:null},gAnchor=null;
 function gMsg(t){const e=$('g-cal-msg');if(!e)return;e.textContent=t;e.hidden=!t;e.style.color=''}
-// tarif du gîte : 23 € par nuit et par personne, 28 € pendant les semaines de Pâques, Noël et Nouvel An
+// tarif du gîte et de l'appartement : 23 € par nuit et par personne, 28 € pendant les semaines de Pâques, Noël et Nouvel An
 function paques(y){const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=(h+l-7*m+114)%31+1;return new Date(y,mo-1,da,12)}
 function nuitHaute(k){const d=D(k),mo=d.getMonth()+1,j=d.getDate();if((mo===12&&j>=20)||(mo===1&&j<=2))return true;
  const p=paques(d.getFullYear()),deb=new Date(p);deb.setDate(deb.getDate()-8);return d>=deb&&d<=p}
-function gPrix(){if(gProp!=='gite'||!gSel.a||!gSel.b)return 0;const v=+$('g-voy').value||1;return nights(gSel.a,gSel.b).reduce((t,k)=>t+(nuitHaute(k)?28:23)*v,0)}
+function gPrix(){if(!isLodg(gProp)||!gSel.a||!gSel.b)return 0;const v=+$('g-voy').value||1;return nights(gSel.a,gSel.b).reduce((t,k)=>t+(nuitHaute(k)?28:23)*v,0)}
 const euros=n=>n.toLocaleString('fr-FR')+' €';
 function gStay(){const e=$('g-stay');if(!gSel.a){e.textContent='Aucune date choisie.';return}
  if(!gSel.b){e.textContent='Arrivée le '+D(gSel.a).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+'. Choisissez maintenant votre jour de départ.';return}
