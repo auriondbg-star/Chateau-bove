@@ -730,7 +730,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
     <div>
       <span class="eyebrow">Réservation</span>
       <h2>Demandez votre date</h2>
-      <p class="intro-r">Mariage ou séminaire : choisissez vos jours, un par un, dans le calendrier. Vous pouvez aussi simplement demander une visite du domaine. Nous revenons vers vous sous 48 heures avec une proposition adaptée.</p>
+      <p class="intro-r">Pour un mariage, choisissez votre week-end dans le calendrier ; pour un séminaire, vos jours. Vous pouvez aussi simplement demander une visite du domaine. Nous revenons vers vous sous 48 heures avec une proposition adaptée.</p>
       <ul class="inc">
         <li>Mise à disposition du site et de ses extérieurs</li>
         <li>Orangerie pour 150 à 200 invités assis</li>
@@ -749,7 +749,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
         </div>
         <p class="full vis-only vis-intro" hidden>Venez découvrir le domaine avant de choisir vos dates. Laissez-nous vos coordonnées et vos remarques, nous vous rappelons pour fixer la visite ensemble.</p>
         <label><span id="noms-l">Prénoms des mariés</span><input id="noms" name="noms" placeholder="Claire et Thomas" autocomplete="off"></label>
-        <label class="full ev-only">Dates souhaitées<span class="addday"><input id="date" name="date" type="date" aria-label="Jour à ajouter"><button class="btn ghost" id="add-day" type="button">Ajouter ce jour</button></span></label>
+        <label class="full ev-only" id="addday-w">Dates souhaitées<span class="addday"><input id="date" name="date" type="date" aria-label="Jour à ajouter"><button class="btn ghost" id="add-day" type="button">Ajouter ce jour</button></span></label>
         <ul class="days ev-only" id="days" aria-label="Jours choisis"></ul>
         <div class="full cal ev-only" id="cal-client" aria-label="Disponibilités"></div>
         <p class="season full ev-only" id="season">Choisissez une date dans le calendrier pour voir la saison correspondante.</p>
@@ -949,26 +949,30 @@ const TYPES={
  visite:{label:'Demande de visite',nom:'Nom et prénom',ph:'Claire Martin',inv:'',invOpts:[],form:[],msgl:'Vos remarques',msg:'Quand souhaiteriez-vous visiter ? Votre projet, vos questions…'},
  seminaire:{label:'Séminaire',nom:'Entreprise',ph:'Nom de votre société',inv:'Participants',invOpts:['Moins de 30','30 à 80','80 à 150','150 à 200'],form:["Journée d'étude",'Séminaire sur plusieurs jours',"Événement d'entreprise"],msg:'Parlez-nous de votre séminaire : programme, besoins techniques, repas…'}};
 const fType=()=>$('t-visite').checked?'visite':$('t-seminaire').checked?'seminaire':'mariage';
-function setType(t){$('t-'+t).checked=true;const T=TYPES[t];
+let curType=null;
+function setType(t){$('t-'+t).checked=true;const T=TYPES[t];if(curType&&curType!==t)selDays=[];curType=t;
  $('noms-l').textContent=T.nom;$('noms').placeholder=T.ph;$('invites-l').textContent=T.inv;
  $('invites').replaceChildren(new Option('Choisir',''),...T.invOpts.map(o=>new Option(o)));
  $('formule').replaceChildren(...T.form.map(o=>new Option(o)));
  $('ceremonie-w').hidden=t!=='mariage';$('msg').placeholder=T.msg;$('msg-l').textContent=T.msgl||'Votre projet';
  document.querySelectorAll('#f .ev-only').forEach(x=>x.hidden=t==='visite');document.querySelectorAll('#f .vis-only').forEach(x=>x.hidden=t!=='visite');
  $('f').querySelector('button[type=submit]').textContent=t==='visite'?'Demander une visite':'Envoyer ma demande';
+ $('addday-w').hidden=t!=='seminaire';
  refreshDays()}
 function saisonDe(v){const m=D(v).getMonth()+1;return(m>=6&&m<=9)?'haute saison (juin à septembre)':(m===5||m===10)?'moyenne saison (mai, octobre)':'basse saison (novembre à avril)'}
-function saison(){if(!selDays.length)return'Cliquez sur chaque jour souhaité dans le calendrier, ou ajoutez-les un par un avec le champ ci-dessus.';
+function saison(){if(!selDays.length)return fType()==='mariage'?'Touchez un vendredi, un samedi ou un dimanche dans le calendrier pour choisir votre week-end.':'Cliquez sur chaque jour souhaité dans le calendrier, ou ajoutez-les un par un avec le champ ci-dessus.';
  const n=selDays.length,ss=[...new Set(selDays.map(saisonDe))];
- const t=n+' jour'+(n>1?'s':'')+' choisi'+(n>1?'s':'')+' · '+daysTxt(selDays);
+ const t=fType()==='mariage'?'Votre week-end : '+daysTxt(selDays).replace(/^D/,'d'):n+' jour'+(n>1?'s':'')+' choisi'+(n>1?'s':'')+' · '+daysTxt(selDays);
  return fType()==='seminaire'?t:t+' · '+ss.join(' et ')}
 // jours choisis par le client, un par un
 let selDays=[];
 function runs(ds){const out=[];ds.slice().sort().forEach(d=>{const l=out[out.length-1];if(l&&rangeDays(l[1],d).length===2)l[1]=d;else out.push([d,d])});return out}
 function daysTxt(ds){return runs(ds).map(([a,b],i)=>{const p=periode(a,b);return i?p[0].toLowerCase()+p.slice(1):p}).join(', ')}
+function pickWE(v){const bm=blockedMap(),sat=wkKey(v);selDays=selDays.includes(sat)?[]:weDays(sat).filter(x=>!bm.has(x));refreshDays()}
+function weOk(v,bm,min){const sat=wkKey(v);return D(sat).getDay()===6&&!bm.has(sat)&&!(min&&sat<min)}
 function toggleDay(v){selDays=selDays.includes(v)?selDays.filter(x=>x!==v):[...selDays,v].sort();refreshDays()}
 function refreshDays(){const bm=blockedMap();selDays=selDays.filter(v=>!bm.has(v));
- $('days').replaceChildren(...selDays.map(v=>el('li',{},longDate(v),el('button',{type:'button','aria-label':'Retirer le '+longDate(v),onclick:()=>toggleDay(v)},'×'))));
+ $('days').replaceChildren(...(fType()==='mariage'?(selDays.length?[el('li',{},'Week-end · '+daysTxt(selDays).replace(/^D/,'d'),el('button',{type:'button','aria-label':'Retirer ce week-end',onclick:()=>{selDays=[];refreshDays()}},'×'))]:[]):selDays.map(v=>el('li',{},longDate(v),el('button',{type:'button','aria-label':'Retirer le '+longDate(v),onclick:()=>toggleDay(v)},'×')))));
  $('season').textContent=saison();renderCal($('cal-client'),'client')}
 function addDay(){const v=$('date').value,min=$('date').min;$('err').hidden=true;if(!v)return;
  let pb='';if(v<min)pb='Ce jour est trop proche : choisissez une date à partir du '+longDate(min)+'.';else if(blockedMap().has(v))pb='Le '+longDate(v)+' est déjà réservé.';
@@ -994,12 +998,12 @@ $('f').addEventListener('submit',e=>{e.preventDefault();const t=fType(),T=TYPES[
   saveReq({id:'v'+Date.now(),type:'visite',recu:new Date().toISOString().slice(0,10),noms:$('noms').value.trim(),date:'',projet:$('projet').value,invites:'—',formule:'Visite du domaine',email:$('email').value.trim(),tel:$('tel').value.trim(),msg:$('msg').value.trim(),statut:'nouvelle'});
   $('f').hidden=true;$('merci').hidden=false;return}
  const miss=[];if(!$('noms').value.trim())miss.push(t==='mariage'?'vos prénoms':'le nom de votre entreprise');
- const bm0=blockedMap();if(!selDays.length&&!$('flex').checked)miss.push('au moins un jour (ou cochez « dates flexibles »)');
+ const bm0=blockedMap();if(!selDays.length&&!$('flex').checked)miss.push(t==='mariage'?'votre week-end (ou cochez « dates flexibles »)':'au moins un jour (ou cochez « dates flexibles »)');
  if(selDays.some(v=>bm0.has(v)))miss.push('d\'autres jours : certains viennent d\'être réservés');
  if(!/^\S+@\S+\.\S+$/.test($('email').value))miss.push('une adresse e-mail valide');
  if(miss.length){$('err').textContent='Il manque '+miss.join(', ')+'.';$('err').hidden=false;return}
  $('err').hidden=true;
- const rows=[['Type',T.label],[T.nom,$('noms').value],[selDays.length>1?'Dates':'Date',selDays.length?daysTxt(selDays):'Flexible'],[T.inv,$('invites').value||'Non précisé'],['Formule',$('formule').value],t==='mariage'?['Cérémonie',$('ceremonie').value]:['Durée',selDays.length?selDays.length+' jour'+(selDays.length>1?'s':''):'À définir'],['Contact',$('email').value+($('tel').value?' · '+$('tel').value:'')]];
+ const rows=[['Type',T.label],[T.nom,$('noms').value],[t==='mariage'?'Week-end':selDays.length>1?'Dates':'Date',selDays.length?daysTxt(selDays):'Flexible'],[T.inv,$('invites').value||'Non précisé'],['Formule',$('formule').value],t==='mariage'?['Cérémonie',$('ceremonie').value]:['Durée',selDays.length?selDays.length+' jour'+(selDays.length>1?'s':''):'À définir'],['Contact',$('email').value+($('tel').value?' · '+$('tel').value:'')]];
  $('recap').replaceChildren(...rows.flatMap(([k,v])=>{const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;return[dt,dd]}));
  saveReq({id:'d'+Date.now(),type:t,recu:new Date().toISOString().slice(0,10),noms:$('noms').value.trim(),date:selDays[0]||'',dates:selDays.slice(),jours:selDays.length||undefined,flex:$('flex').checked,invites:$('invites').value||'Non précisé',formule:$('formule').value,ceremonie:t==='mariage'?$('ceremonie').value:'',email:$('email').value.trim(),tel:$('tel').value.trim(),msg:$('msg').value.trim(),statut:'nouvelle'});
  $('f').hidden=true;$('merci').hidden=false;selDays=[];refreshDays()});
@@ -1091,10 +1095,12 @@ function renderCal(box,mode){
   if(mode==='client'){
    const past=min&&v<min;
    if(b){btn.classList.add('busy');btn.disabled=true;if(b.show)btn.append(lab('Réservé'));btn.setAttribute('aria-label',i+' : réservé')}
-   else if(past||!dateOk(v,t,bm)){btn.disabled=true}
+   else if(t==='mariage'&&(!we||!weOk(v,bm,min))){btn.disabled=true}
+   else if(t!=='mariage'&&(past||!dateOk(v,t,bm))){btn.disabled=true}
    else{const on=selDays.includes(v);if(on)btn.classList.add('sel');
     btn.setAttribute('aria-pressed',String(on));btn.setAttribute('aria-label',d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+(on?', choisi : cliquer pour retirer':''));
-    btn.onclick=()=>{$('err').hidden=true;toggleDay(v)}}
+    if(t==='mariage')btn.setAttribute('aria-label',d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+(on?', week-end choisi : toucher pour retirer':' : choisir ce week-end'));
+    btn.onclick=()=>{$('err').hidden=true;t==='mariage'?pickWE(v):toggleDay(v)}}
   }else{
    if(b){btn.classList.add(b.type,'k-'+b.kind);if(b.show)btn.append(lab(b.type==='conf'?b.label:b.label+' · bloqué'));btn.title=(b.kind==='seminaire'?'Séminaire : ':'Mariage : ')+b.label}
    if(b&&b.type==='conf'){btn.onclick=()=>{sel=b.id;renderDash();$('detail').scrollIntoView({block:'nearest'})};btn.setAttribute('aria-label',i+' : '+(b.kind==='seminaire'?'séminaire':'mariage')+' confirmé, '+b.label)}
@@ -1114,7 +1120,7 @@ function renderCal(box,mode){
   g.append(btn)}
  const sw=s=>el('i',{style:'background:'+s});
  const leg=mode==='client'
-  ?el('div',{class:'cal-leg'},el('span',{},sw('var(--stone-2)'),'Week-end'),el('span',{},sw('repeating-linear-gradient(-45deg,var(--stone-2) 0 3px,var(--card) 3px 6px)'),'Réservé'),el('span',{},sw('var(--buis)'),'Vos jours'))
+  ?el('div',{class:'cal-leg'},el('span',{},sw('var(--stone-2)'),'Week-end'),el('span',{},sw('repeating-linear-gradient(-45deg,var(--stone-2) 0 3px,var(--card) 3px 6px)'),'Réservé'),el('span',{},sw('var(--buis)'),t==='mariage'?'Votre week-end':'Vos jours'))
   :el('div',{class:'cal-leg'},el('span',{},sw('var(--buis-soft)'),'Mariage confirmé'),el('span',{},sw('var(--sem-soft)'),'Séminaire confirmé'),el('span',{},sw('repeating-linear-gradient(-45deg,var(--buis-soft) 0 3px,var(--card) 3px 6px)'),'Mariage bloqué'),el('span',{},sw('repeating-linear-gradient(-45deg,var(--sem-soft) 0 3px,var(--card) 3px 6px)'),'Séminaire bloqué'));
  box.replaceChildren(el('div',{class:'cal-h'},prev,el('b',{},title),next),g,leg);
 }
