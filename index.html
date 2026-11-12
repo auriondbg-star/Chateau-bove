@@ -645,7 +645,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
       <article class="lodg" id="gite">
         <div class="lodg-ph" data-slot="gite"><div class="gite-photo">Photos du gîte à venir</div></div>
         <div class="lodg-b">
-          <span class="eyebrow">Jusqu'à 11 voyageurs</span>
+          <span class="eyebrow">De 6 à 11 voyageurs</span>
           <h3>Le Gîte de la Bôve</h3>
           <p>À 500 mètres du château, à la ferme de la Bôve, le gîte est une maison entière avec jardin, au calme. Les pièces sont lumineuses et une cheminée réchauffe les soirées d'hiver.</p>
           <div class="gite-facts"><div><b>11</b><span>Voyageurs</span></div><div><b>5</b><span>Chambres</span></div><div><b>8</b><span>Lits</span></div><div><b>2</b><span>Salles de bain</span></div></div>
@@ -655,7 +655,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
             <li><span>Chambres 4 et 5</span><span>1 lit double chacune</span></li>
           </ul>
           <div class="equip" aria-label="Équipements"><span>Cuisine équipée</span><span>Cheminée</span><span>Jardin</span><span>Barbecue</span><span>Lave-linge</span><span>Télévision</span><span>Parking gratuit</span><span>Draps et serviettes compris</span></div>
-          <p class="ph-note">Arrivée à partir de 14 h · Draps et serviettes compris · 4,82 sur 5 sur Airbnb (50 avis)</p>
+          <p class="ph-note">Arrivée à partir de 14 h · 2 nuits minimum (3 pendant les fêtes) · Draps et serviettes compris · 4,82 sur 5 sur Airbnb (50 avis)</p>
           <p class="lodg-price">À partir de <b>23 €</b> par nuit et par personne</p>
           <div><a class="btn" href="#gite-resa" data-prop="gite">Réserver le gîte</a></div>
         </div>
@@ -663,7 +663,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
       <article class="lodg" id="appart">
         <div class="lodg-ph" data-slot="appart"><div class="gite-photo">Photos de l'appartement à venir</div></div>
         <div class="lodg-b">
-          <span class="eyebrow">Jusqu'à 4 voyageurs</span>
+          <span class="eyebrow">De 2 à 4 voyageurs</span>
           <h3>L'Appartement de la Bôve</h3>
           <p>À 500 mètres du château, un logement spacieux et serein, baigné de lumière, dans un cadre rural tranquille. Idéal pour un moment de détente ou pour travailler, avec un poêle à bois pour les soirées fraîches.</p>
           <div class="gite-facts"><div><b>4</b><span>Voyageurs</span></div><div><b>1</b><span>Chambre</span></div><div><b>2</b><span>Lits</span></div><div><b>1</b><span>Salle de bain</span></div></div>
@@ -672,8 +672,8 @@ footer .mark{color:var(--ink);font-size:1.6rem}
             <li><span>Salon</span><span>1 lit double</span></li>
           </ul>
           <div class="equip" aria-label="Équipements"><span>Cuisine</span><span>Poêle à bois</span><span>Télévision</span><span>Sèche-cheveux</span><span>Parking gratuit</span><span>Draps et serviettes compris</span></div>
-          <p class="ph-note">Arrivée à partir de 14 h · Draps et serviettes compris. Besoin de plus de place ? Combinez-le avec les 11 couchages du gîte.</p>
-          <p class="lodg-price">À partir de <b>23 €</b> par nuit et par personne</p>
+          <p class="ph-note">Arrivée à partir de 14 h · 2 nuits minimum (3 pendant les fêtes) · Draps et serviettes compris. Besoin de plus de place ? Combinez-le avec les 11 couchages du gîte.</p>
+          <p class="lodg-price">À partir de <b>25 €</b> par nuit et par personne</p>
           <div><a class="btn" href="#gite-resa" data-prop="appart">Réserver l'appartement</a></div>
         </div>
       </article>
@@ -1252,7 +1252,7 @@ function route(){
 
 // ---------- gîte : calendrier indépendant (une clé = une nuit) ----------
 const KLAB={visite:'Visite',mariage:'Mariage',seminaire:'Séminaire',gite:'Gîte',appart:'Appartement'};
-const LODG={gite:{nom:'le gîte',max:11},appart:{nom:"l'appartement",max:4}};
+const LODG={gite:{nom:'le gîte',min:6,max:11},appart:{nom:"l'appartement",min:2,max:4}};
 const isLodg=t=>t==='gite'||t==='appart';
 let gProp='gite';
 const lp=()=>isLodg(scope)?scope:'gite';
@@ -1267,15 +1267,20 @@ function gMap(p){p=p||lp();if(CLOUD&&!logged())return occMap(p);const m=new Map(
  return m}
 const gState={};let gSel={a:null,b:null},gAnchor=null;
 function gMsg(t){const e=$('g-cal-msg');if(!e)return;e.textContent=t;e.hidden=!t;e.style.color=''}
-// tarif du gîte et de l'appartement : 23 € par nuit et par personne, 28 € la semaine de Pâques, 30 € à Noël et au Nouvel An
+// tarifs par nuit et par personne. Gîte : 23 €, 28 € la semaine de Pâques, 30 € à Noël et au Nouvel An.
+// Appartement : 30 € à 2 personnes, 25 € à 3 ou 4 ; au moins 28 € à Pâques et 30 € à Noël et au Nouvel An.
+// Séjour minimum : 2 nuits, 3 nuits si le séjour touche une période de fêtes.
 function paques(y){const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=(h+l-7*m+114)%31+1;return new Date(y,mo-1,da,12)}
-function tarifNuit(k){const d=D(k),mo=d.getMonth()+1,j=d.getDate();if((mo===12&&j>=20)||(mo===1&&j<=2))return 30;
- const p=paques(d.getFullYear()),deb=new Date(p);deb.setDate(deb.getDate()-8);return d>=deb&&d<=p?28:23}
-function gPrix(){if(!isLodg(gProp)||!gSel.a||!gSel.b)return 0;const v=+$('g-voy').value||1;return nights(gSel.a,gSel.b).reduce((t,k)=>t+tarifNuit(k)*v,0)}
+function fete(k){const d=D(k),mo=d.getMonth()+1,j=d.getDate();if((mo===12&&j>=20)||(mo===1&&j<=2))return'noel';
+ const p=paques(d.getFullYear()),deb=new Date(p);deb.setDate(deb.getDate()-8);return d>=deb&&d<=p?'paques':''}
+function tarifNuit(k,p,v){const f=fete(k),base=p==='appart'?(v<=2?30:25):23;return f==='noel'?Math.max(base,30):f==='paques'?Math.max(base,28):base}
+function minNuits(a,b){return nights(a,b).some(fete)?3:2}
+function gPrix(){if(!isLodg(gProp)||!gSel.a||!gSel.b)return 0;const v=+$('g-voy').value||1;return nights(gSel.a,gSel.b).reduce((t,k)=>t+tarifNuit(k,gProp,v)*v,0)}
 const euros=n=>n.toLocaleString('fr-FR')+' €';
 function gStay(){const e=$('g-stay');if(!gSel.a){e.textContent='Aucune date choisie.';return}
  if(!gSel.b){e.textContent='Arrivée le '+D(gSel.a).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+'. Choisissez maintenant votre jour de départ.';return}
- const n=nights(gSel.a,gSel.b).length,px=gPrix();e.textContent=periode(gSel.a,gSel.b)+' · '+n+' nuit'+(n>1?'s':'')+(px?' · '+euros(px)+' pour '+$('g-voy').value+' voyageur'+(+$('g-voy').value>1?'s':''):'')}
+ const n=nights(gSel.a,gSel.b).length,mn=minNuits(gSel.a,gSel.b);if(n<mn){e.textContent=periode(gSel.a,gSel.b)+' · '+n+' nuit'+(n>1?'s':'')+'. Séjour minimum : '+mn+' nuits'+(mn===3?' pendant les fêtes':'')+'. Choisissez un autre jour de départ.';return}
+ const px=gPrix();e.textContent=periode(gSel.a,gSel.b)+' · '+n+' nuit'+(n>1?'s':'')+(px?' · '+euros(px)+' pour '+$('g-voy').value+' voyageur'+(+$('g-voy').value>1?'s':''):'')}
 $('g-voy').addEventListener('change',gStay);
 function renderGCal(box,mode){
  if(!box)return;const P=mode==='client'?gProp:lp(),SK=mode+P;if(!gState[SK])gState[SK]=monthStart(mode==='client'?$('date').min:null);
@@ -1326,6 +1331,7 @@ function renderGList(){const ul=$('g-cal-list');if(!ul)return;const items=[];
 $('g-f').addEventListener('submit',e=>{e.preventDefault();const miss=[];
  if(!gSel.a||!gSel.b)miss.push('vos dates d\'arrivée et de départ');if(!$('g-nom').value.trim())miss.push('votre nom');
  if(!/^\S+@\S+\.\S+$/.test($('g-email').value))miss.push('une adresse e-mail valide');
+ if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).length<minNuits(gSel.a,gSel.b))miss.push('un séjour plus long : '+minNuits(gSel.a,gSel.b)+' nuits minimum'+(minNuits(gSel.a,gSel.b)===3?' pendant les fêtes':''));
  if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).some(x=>gMap(gProp).has(x)))miss.push('d\'autres dates : une partie du séjour est déjà réservée');
  if(miss.length){$('g-err').textContent='Il manque '+miss.join(', ')+'.';$('g-err').hidden=false;return}
  saveReq({id:'g'+Date.now(),type:gProp,recu:iso(new Date()),noms:$('g-nom').value.trim(),date:gSel.a,depart:gSel.b,invites:$('g-voy').value+' voyageur'+($('g-voy').value>1?'s':''),formule:'Séjour : '+LODG[gProp].nom+(gPrix()?' · '+euros(gPrix()):''),email:$('g-email').value.trim(),tel:$('g-tel').value.trim(),msg:$('g-msg').value.trim(),statut:'nouvelle'});
@@ -1333,7 +1339,7 @@ $('g-f').addEventListener('submit',e=>{e.preventDefault();const miss=[];
 $('g-again').onclick=()=>{gSel={a:null,b:null};gStay();$('g-merci').hidden=true;$('g-f').hidden=false;renderGCal($('g-cal'),'client')};
 document.querySelectorAll('input[name=scope]').forEach(r=>r.addEventListener('change',()=>{scope=r.value;sel=null;filtre='toutes';renderDash()}));
 function setProp(p){gProp=p;const r=document.querySelector('input[name=prop][value='+p+']');if(r)r.checked=true;gSel={a:null,b:null};gStay();
- const v=$('g-voy'),cur=+v.value||2;v.replaceChildren(...Array.from({length:LODG[p].max},(_,i)=>new Option(String(i+1))));v.value=String(Math.min(cur,LODG[p].max));
+ const v=$('g-voy'),cur=+v.value||2;const L=LODG[p];v.replaceChildren(...Array.from({length:L.max-L.min+1},(_,i)=>new Option(String(L.min+i))));v.value=String(Math.max(L.min,Math.min(cur,L.max)));
  $('g-err').hidden=true;renderGCal($('g-cal'),'client')}
 document.querySelectorAll('input[name=prop]').forEach(r=>r.addEventListener('change',()=>setProp(r.value)));
 document.querySelectorAll('a[data-prop]').forEach(a=>a.addEventListener('click',()=>setProp(a.dataset.prop)));
