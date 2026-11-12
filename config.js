@@ -3,5 +3,7 @@
 // Laissées vides, le site fonctionne en mode démonstration (données enregistrées sur l'appareil seulement).
 window.BOVE_CONFIG = {
   url: 'https://ytqmuoutvtpopzuymbhb.supabase.co',
-  anonKey: 'sb_publishable_TlXrjpLgcVZ3XHaCQxWb2Q_JxNliAs6'
+  anonKey: 'sb_publishable_TlXrjpLgcVZ3XHaCQxWb2Q_JxNliAs6',
+  // Clé Web3Forms (web3forms.com) : envoie un e-mail à chaque nouvelle demande. Elle est faite pour être visible.
+  web3formsKey: ''
 };
