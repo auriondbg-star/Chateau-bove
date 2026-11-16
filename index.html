@@ -1045,7 +1045,7 @@ async function cloudRefresh(){
  if(d.error||e.error){cloudErr();return}
  C.reqs=d.data.map(x=>x.data);C.synced={};d.data.forEach(x=>C.synced[x.id]=JSON.stringify(x.data));
  C.kv={};e.data.forEach(x=>C.kv[x.cle]=x.valeur);C.occ=C.kv.occupation||null;
- reqs=load();if(logged()&&location.hash==='#admin')renderDash()}
+ reqs=load();if(logged()&&location.hash.startsWith('#admin'))renderDash()}
 function load(){if(CLOUD)return C.reqs.map(r=>norm({...r}));try{const v=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(v)){if(!v.some(r=>r.id==='ex5'))v.push(...EXEMPLES.filter(x=>x.type==='seminaire').map(x=>({...x})));if(!v.some(r=>r.id==='ex7'))v.push(...EXEMPLES.filter(x=>x.type==='gite').map(x=>({...x})));if(!v.some(r=>r.id==='ex9'))v.push(...EXEMPLES.filter(x=>x.type==='appart').map(x=>({...x})));return v.map(norm)}}catch(e){}return EXEMPLES.map(x=>({...x}))}
 function save(list){if(CLOUD){C.reqs=list.map(r=>({...r}));list.forEach(r=>{const j=JSON.stringify(r);if(C.synced[r.id]!==j){C.synced[r.id]=j;SB.from('demandes').update({data:r}).eq('id',r.id).then(({error})=>{if(error)cloudErr()})}});pushOcc();return}try{localStorage.setItem(KEY,JSON.stringify(list))}catch(e){}}
 let reqs=load(),filtre='toutes',ftype='tous',sel=null;
@@ -1056,6 +1056,7 @@ function notify(r){try{const L={mariage:'Mariage',seminaire:'Séminaire',visite:
  const dl=dd.length>1&&dd.every(x=>x.slice(0,7)===dd[0].slice(0,7))?et(dd.map(x=>D(x).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric'})))+' '+D(dd[0]).toLocaleDateString('fr-FR',{month:'long',year:'numeric'}):et(dd.map(fd));
  const champs=[['Type de demande',tl],['Noms',r.noms],lodg?['Arrivée',r.date?fd(r.date):'']:['Dates',dl||(r.flex?'Dates flexibles':'')],lodg?['Départ',r.depart?fd(r.depart):'']:['',''],['Nombre de personnes',r.invites],['Formule',r.formule],['Cérémonie',r.ceremonie],['Projet',r.projet],['Dates flexibles',r.flex&&dl?'oui':''],['E-mail',r.email],['Téléphone',r.tel],['Message',r.msg]].filter(c=>c[0]&&c[1]);
  const mo=new Set(dem.map(x=>x.slice(0,7))),occ=[];try{(lodg?gMap(r.type):blockedMap()).forEach((v,d)=>{if(mo.has(d.slice(0,7)))occ.push([d,v.kind||r.type])})}catch(e){}
+ if(dem.length)champs.push(['Voir le calendrier',location.origin+'/#admin/'+(lodg?r.type:'event')+'/'+dem[0].slice(0,7)]);
  const u=CFG.notifyUrl;
  if(u){fetch(u,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({sujet:subj,titre:tl+(r.noms?' · '+r.noms:''),champs,demandees:dem,occupes:occ,email:r.email||''})}).catch(()=>{});return}
  const m=CFG.notifyEmail;
@@ -1278,8 +1279,11 @@ $('acc-form').addEventListener('submit',async e=>{e.preventDefault();if(CLOUD)re
  catch(x){accMsg('acc-err','L\'accès n\'a pas pu être créé. Vérifiez que vous êtes connecté à votre compte, puis réessayez.')}
  btn.disabled=false;btn.textContent='Créer l\'accès'});
 function route(){
- const adm=location.hash==='#admin';document.body.classList.toggle('admin',adm);$('admin').hidden=!adm;
- if(!adm)return;window.scrollTo(0,0);
+ const adm=location.hash.startsWith('#admin');document.body.classList.toggle('admin',adm);$('admin').hidden=!adm;
+ if(!adm)return;
+ // lien reçu par e-mail : #admin/<event|gite|appart>/<AAAA-MM> ouvre le bon calendrier au bon mois
+ const lk=location.hash.match(/^#admin\/(event|gite|appart)\/(\d{4}-\d{2})$/);
+ if(lk){scope=lk[1];const sr=document.querySelector('input[name=scope][value='+lk[1]+']');if(sr)sr.checked=true;if(lk[1]==='event')calState.admin=lk[2]+'-01';else gState['admin'+lk[1]]=lk[2]+'-01'}window.scrollTo(0,0);
  const ok=logged();$('login-view').hidden=ok;$('dash-view').hidden=!ok;$('logout').hidden=!ok;
  $('rem-warn').textContent=remWarn;$('rem-warn').hidden=!(ok&&remWarn);
  $('acc-sec').hidden=!(ok&&role()==='owner');
@@ -1430,6 +1434,9 @@ async function cloudInit(){
   if(session){window._role=await cloudRole(session.user).catch(()=>'');if(!window._role)await SB.auth.signOut()}}catch(e){}
  await loadOcc();renderCal($('cal-client'),'client');renderGCal($('g-cal'),'client');route()}
 if(CLOUD)cloudInit();
+// garder à jour les jours réservés si la page reste ouverte longtemps (un visiteur ne peut pas choisir un jour pris entre-temps)
+async function occRefresh(){if(!CLOUD||logged()||document.hidden)return;await loadOcc();refreshDays();renderGCal($('g-cal'),'client')}
+if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitychange',occRefresh)}
 
 // ---------- afficher / masquer le mot de passe ----------
 (function(){const EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';

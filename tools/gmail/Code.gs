@@ -46,7 +46,8 @@ function corps(d) {
   (d.champs || []).forEach(function (c) {
     if (!c || c[1] === '' || c[1] == null) return;
     h += '<tr><td style="padding:8px 12px 8px 0;border-bottom:1px solid #e6dfd6;color:#776d63;vertical-align:top;white-space:nowrap">' + esc(c[0]) +
-         '</td><td style="padding:8px 0;border-bottom:1px solid #e6dfd6">' + esc(c[1]) + '</td></tr>';
+         '</td><td style="padding:8px 0;border-bottom:1px solid #e6dfd6">' +
+         (/^https:\/\/[^\s"<>]+$/.test(c[1]) ? '<a href="' + esc(c[1]) + '" style="color:#2f5d50">Ouvrir dans l’espace propriétaire</a>' : esc(c[1])) + '</td></tr>';
   });
   h += '</table>';
   h += calendriers(d);
