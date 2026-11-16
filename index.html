@@ -472,6 +472,17 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 @media (max-width:480px){.scope label{font-size:.66rem;letter-spacing:.08em;padding:10px 4px}}
 footer{padding-block:56px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;color:var(--muted);font-family:var(--sans);font-size:.85rem}
 footer .mark{color:var(--ink);font-size:1.6rem}
+/* barre « Demander une date » : téléphone uniquement */
+.cta-bar{display:none}
+@media (max-width:760px){
+ .cta-bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:8;align-items:center;justify-content:space-between;gap:12px;min-height:58px;padding:10px max(20px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));background:rgba(36,58,42,.97);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid rgba(201,168,102,.55);color:#F1EEE3;text-decoration:none;box-shadow:0 -10px 28px rgba(16,22,19,.18);transform:translateY(110%);transition:transform .45s cubic-bezier(.2,.7,.2,1);-webkit-tap-highlight-color:transparent}
+ .cta-bar.on{transform:none}
+ .cta-bar .k{font-family:var(--serif);font-style:italic;font-size:.95rem;color:rgba(241,238,227,.78);white-space:nowrap}
+ .cta-bar .a{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:.74rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#E4CC94;white-space:nowrap}
+ .cta-bar .a svg{width:18px;height:10px;transition:transform .25s}
+ .cta-bar:active .a svg{transform:translateX(3px)}
+ footer{padding-bottom:calc(56px + 58px + env(safe-area-inset-bottom,0px))}}
+@media (max-width:360px){.cta-bar .k{display:none}.cta-bar{justify-content:center}}
 </style>
 <script src="supabase-2.118.0.js"></script>
 <script src="config.js"></script>
@@ -843,6 +854,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
   <span>Aisne · 2 h de Paris · 35 min de Reims</span>
   <span>Visites sur rendez-vous · <a href="brochure-chateau-de-la-bove.pdf" target="_blank" rel="noopener" download>Brochure (PDF)</a> · <a href="mentions-legales.html">Mentions légales</a></span>
 </footer>
+<a class="cta-bar" id="cta-bar" href="#reserver" aria-hidden="true" tabindex="-1"><span class="k">Château de la Bôve</span><span class="a">Demander une date<svg viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h17M13 1l4 4-4 4"/></svg></span></a>
 
 
 <div id="admin" hidden>
@@ -1487,6 +1499,15 @@ if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitych
   const b=document.createElement('button');b.type='button';b.className='pw-eye';const set=on=>{inp.type=on?'text':'password';b.setAttribute('aria-pressed',String(on));b.setAttribute('aria-label',on?'Masquer le mot de passe':'Afficher le mot de passe');b.title=b.getAttribute('aria-label');b.innerHTML=on?OFF:EYE};set(false);
   b.addEventListener('click',()=>{const pos=inp.selectionStart;set(inp.type==='password');inp.focus();try{inp.setSelectionRange(pos,pos)}catch(e){}});w.appendChild(b);
   inp.form&&inp.form.addEventListener('submit',()=>set(false))})})();
+</script>
+<script>
+/* barre « Demander une date » (téléphone) : apparaît après l'image d'accueil, se cache quand un formulaire de demande est à l'écran */
+(()=>{const bar=document.getElementById('cta-bar');if(!bar||!('IntersectionObserver' in window))return;
+ const watch=[document.getElementById('top'),document.getElementById('reserver'),document.getElementById('gite-resa'),document.querySelector('footer')].filter(Boolean);
+ const vis=new Set();
+ const upd=()=>{const on=!vis.size;bar.classList.toggle('on',on);bar.setAttribute('aria-hidden',String(!on));bar.tabIndex=on?0:-1};
+ const io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.add(e.target):vis.delete(e.target));upd()},{threshold:0,rootMargin:'0px 0px -15% 0px'});
+ watch.forEach(el=>io.observe(el))})();
 </script>
 
 </body>
