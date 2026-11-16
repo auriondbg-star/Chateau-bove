@@ -4,6 +4,8 @@
 window.BOVE_CONFIG = {
   url: 'https://ytqmuoutvtpopzuymbhb.supabase.co',
   anonKey: 'sb_publishable_TlXrjpLgcVZ3XHaCQxWb2Q_JxNliAs6',
-  // Clé Web3Forms (web3forms.com) : envoie un e-mail à chaque nouvelle demande. Elle est faite pour être visible.
+  // Adresse qui reçoit un e-mail à chaque nouvelle demande (via formsubmit.co, sans compte).
+  notifyEmail: 'chateaudelabove@gmail.com',
+  // Clé Web3Forms (facultatif, non utilisé si notifyEmail est rempli) (web3forms.com) : envoie un e-mail à chaque nouvelle demande. Elle est faite pour être visible.
   web3formsKey: ''
 };
