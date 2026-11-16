@@ -4,7 +4,9 @@
 window.BOVE_CONFIG = {
   url: 'https://ytqmuoutvtpopzuymbhb.supabase.co',
   anonKey: 'sb_publishable_TlXrjpLgcVZ3XHaCQxWb2Q_JxNliAs6',
-  // Adresse qui reçoit un e-mail à chaque nouvelle demande (via formsubmit.co, sans compte).
+  // Lien du script Google (tools/gmail/Code.gs) qui envoie un e-mail en français avec le calendrier. Prioritaire s'il est rempli.
+  notifyUrl: '',
+  // Sinon, adresse qui reçoit un e-mail à chaque nouvelle demande (via formsubmit.co, sans compte).
   notifyEmail: 'chateaudelabove@gmail.com',
   // Clé Web3Forms (facultatif, non utilisé si notifyEmail est rempli) (web3forms.com) : envoie un e-mail à chaque nouvelle demande. Elle est faite pour être visible.
   web3formsKey: ''

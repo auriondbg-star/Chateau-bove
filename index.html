@@ -1050,8 +1050,16 @@ function load(){if(CLOUD)return C.reqs.map(r=>norm({...r}));try{const v=JSON.par
 function save(list){if(CLOUD){C.reqs=list.map(r=>({...r}));list.forEach(r=>{const j=JSON.stringify(r);if(C.synced[r.id]!==j){C.synced[r.id]=j;SB.from('demandes').update({data:r}).eq('id',r.id).then(({error})=>{if(error)cloudErr()})}});pushOcc();return}try{localStorage.setItem(KEY,JSON.stringify(list))}catch(e){}}
 let reqs=load(),filtre='toutes',ftype='tous',sel=null;
 function notify(r){try{const L={mariage:'Mariage',seminaire:'Séminaire',visite:'Demande de visite',gite:'Séjour au gîte',appart:"Séjour à l'appartement"};const ds=(r.dates&&r.dates.length?r.dates:(r.date?[r.date]:[])).join(', ');const b=new URLSearchParams({'form-name':'demande',type:L[r.type]||r.type,noms:r.noms||'',dates:ds||(r.flex?'Flexible':''),depart:r.depart||'',invites:r.invites||'',formule:r.formule||'',ceremonie:r.ceremonie||'',projet:r.projet||'',flex:r.flex?'oui':'',email:r.email||'',tel:r.tel||'',msg:r.msg||''});const k=CFG.web3formsKey;
- const subj='Nouvelle demande : '+(L[r.type]||r.type)+(r.noms?' · '+r.noms:'');const m=CFG.notifyEmail;
- if(m){const o={_subject:subj,_template:'table',_captcha:'false'};b.forEach((v,n)=>{if(n!=='form-name'&&v)o[n]=v});if(r.email)o._replyto=r.email;
+ const tl=L[r.type]||r.type,subj='Nouvelle demande : '+tl+(r.noms?' · '+r.noms:''),lodg=isLodg(r.type);
+ const fd=v=>{try{return D(v).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}catch(e){return v}};
+ const dem=reqKeys(r),dd=lodg?[]:(r.dates&&r.dates.length?r.dates:(r.date?[r.date]:[])).slice().sort(),et=a=>a.length>1?a.slice(0,-1).join(', ')+' et '+a[a.length-1]:a.join('');
+ const dl=dd.length>1&&dd.every(x=>x.slice(0,7)===dd[0].slice(0,7))?et(dd.map(x=>D(x).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric'})))+' '+D(dd[0]).toLocaleDateString('fr-FR',{month:'long',year:'numeric'}):et(dd.map(fd));
+ const champs=[['Type de demande',tl],['Noms',r.noms],lodg?['Arrivée',r.date?fd(r.date):'']:['Dates',dl||(r.flex?'Dates flexibles':'')],lodg?['Départ',r.depart?fd(r.depart):'']:['',''],['Nombre de personnes',r.invites],['Formule',r.formule],['Cérémonie',r.ceremonie],['Projet',r.projet],['Dates flexibles',r.flex&&dl?'oui':''],['E-mail',r.email],['Téléphone',r.tel],['Message',r.msg]].filter(c=>c[0]&&c[1]);
+ const mo=new Set(dem.map(x=>x.slice(0,7))),occ=[];try{(lodg?gMap(r.type):blockedMap()).forEach((v,d)=>{if(mo.has(d.slice(0,7)))occ.push([d,v.kind||r.type])})}catch(e){}
+ const u=CFG.notifyUrl;
+ if(u){fetch(u,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({sujet:subj,titre:tl+(r.noms?' · '+r.noms:''),champs,demandees:dem,occupes:occ,email:r.email||''})}).catch(()=>{});return}
+ const m=CFG.notifyEmail;
+ if(m){const o={_subject:subj,_template:'box',_captcha:'false'};champs.forEach(c=>o[c[0]]=c[1]);if(r.email)o._replyto=r.email;
   fetch('https://formsubmit.co/ajax/'+encodeURIComponent(m),{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(o)}).catch(()=>{});return}
  if(k){const o={access_key:k,subject:subj,from_name:'Site Château de la Bôve',botcheck:''};b.forEach((v,n)=>{if(n!=='form-name'&&v)o[n]=v});if(r.email)o.replyto=r.email;
   fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(o)}).catch(()=>{});return}
