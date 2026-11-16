@@ -253,6 +253,7 @@ textarea{resize:vertical;min-height:90px}
 input:focus,select:focus,textarea:focus{outline:none;border-bottom-color:var(--buis)}
 .chk{flex-direction:row;align-items:center;gap:10px;text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:.95rem;color:var(--ink)}
 .chk input{width:auto}
+.consent{align-items:flex-start;font-size:.85rem;line-height:1.5;color:var(--muted)}.consent input{margin-top:4px;flex:none}.consent a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 .addday{display:flex;gap:8px;align-items:stretch}.addday input{flex:1;min-width:0}.addday .btn{padding:10px 14px;letter-spacing:.1em;white-space:nowrap}
 .days{grid-column:1/-1;list-style:none;display:flex;flex-wrap:wrap;gap:6px;padding:0;margin:0}.days:empty{display:none}
 .days li{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:.8rem;padding:6px 6px 6px 12px;background:var(--buis);color:var(--stone)}
@@ -718,6 +719,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
           <label>E-mail<input id="g-email" type="email" autocomplete="email" placeholder="vous@exemple.fr"></label>
           <label>Téléphone<input id="g-tel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78"></label>
           <label class="full">Message<textarea id="g-msg" placeholder="Heure d'arrivée prévue (à partir de 14 h), questions…"></textarea></label>
+          <label class="chk full consent"><input id="g-ok-rgpd" type="checkbox"><span>J'accepte que mes informations soient utilisées pour traiter ma demande. <a href="mentions-legales.html#donnees" target="_blank" rel="noopener">En savoir plus</a></span></label>
           <p class="err" id="g-err" hidden></p>
           <button class="btn full" type="submit">Réserver ce séjour</button>
         </form>
@@ -771,6 +773,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
         <label>E-mail<input id="email" name="email" type="email" placeholder="vous@exemple.fr" autocomplete="email"></label>
         <label>Téléphone<input id="tel" name="tel" type="tel" placeholder="06 12 34 56 78" autocomplete="tel"></label>
         <label class="full"><span id="msg-l">Votre projet</span><textarea id="msg" name="msg" placeholder="Parlez-nous de votre mariage : ambiance, cérémonie, traiteur…"></textarea></label>
+        <label class="chk full consent"><input id="ok-rgpd" type="checkbox"><span>J'accepte que mes informations soient utilisées pour traiter ma demande. <a href="mentions-legales.html#donnees" target="_blank" rel="noopener">En savoir plus</a></span></label>
         <p class="err" id="err" hidden></p>
         <button class="btn full" type="submit">Envoyer ma demande</button>
       </form>
@@ -807,7 +810,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
 <footer class="wrap">
   <span class="mark">Château de la Bôve</span>
   <span>Aisne · 2 h de Paris · 35 min de Reims</span>
-  <span>Visites sur rendez-vous · <a href="brochure-chateau-de-la-bove.pdf" target="_blank" rel="noopener" download>Brochure (PDF)</a></span>
+  <span>Visites sur rendez-vous · <a href="brochure-chateau-de-la-bove.pdf" target="_blank" rel="noopener" download>Brochure (PDF)</a> · <a href="mentions-legales.html">Mentions légales</a></span>
 </footer>
 
 
@@ -999,7 +1002,7 @@ $('add-day').onclick=addDay;
 $('date').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addDay()}});
 $('date').addEventListener('input',e=>{const v=e.target.value;if(v){calState.client=v.slice(0,7)+'-01';renderCal($('cal-client'),'client')}});
 $('f').addEventListener('submit',e=>{e.preventDefault();const t=fType(),T=TYPES[t];
- if(t==='visite'){const miss=[];if(!$('noms').value.trim())miss.push('votre nom');if(!/^\S+@\S+\.\S+$/.test($('email').value))miss.push('une adresse e-mail valide');
+ if(t==='visite'){const miss=[];if(!$('noms').value.trim())miss.push('votre nom');if(!/^\S+@\S+\.\S+$/.test($('email').value))miss.push('une adresse e-mail valide');if(!$('ok-rgpd').checked)miss.push('votre accord pour l\'utilisation de vos informations (case à cocher)');
   if(miss.length){$('err').textContent='Il manque '+miss.join(', ')+'.';$('err').hidden=false;return}
   $('err').hidden=true;
   const rows=[['Type','Demande de visite'],['Nom',$('noms').value],['Projet',$('projet').value],['Contact',$('email').value+($('tel').value?' · '+$('tel').value:'')],...($('msg').value.trim()?[['Remarques',$('msg').value.trim()]]:[])];
@@ -1009,7 +1012,7 @@ $('f').addEventListener('submit',e=>{e.preventDefault();const t=fType(),T=TYPES[
  const miss=[];if(!$('noms').value.trim())miss.push(t==='mariage'?'vos prénoms':'le nom de votre entreprise');
  const bm0=blockedMap();if(!selDays.length&&!$('flex').checked)miss.push(t==='mariage'?'votre week-end (ou cochez « dates flexibles »)':'au moins un jour (ou cochez « dates flexibles »)');
  if(selDays.some(v=>bm0.has(v)))miss.push('d\'autres jours : certains viennent d\'être réservés');
- if(!/^\S+@\S+\.\S+$/.test($('email').value))miss.push('une adresse e-mail valide');
+ if(!/^\S+@\S+\.\S+$/.test($('email').value))miss.push('une adresse e-mail valide');if(!$('ok-rgpd').checked)miss.push('votre accord pour l\'utilisation de vos informations (case à cocher)');
  if(miss.length){$('err').textContent='Il manque '+miss.join(', ')+'.';$('err').hidden=false;return}
  $('err').hidden=true;
  const rows=[['Type',T.label],[T.nom,$('noms').value],[t==='mariage'?'Week-end':selDays.length>1?'Dates':'Date',selDays.length?daysTxt(selDays):'Flexible'],[T.inv,$('invites').value||'Non précisé'],['Formule',$('formule').value],t==='mariage'?['Cérémonie',$('ceremonie').value]:['Durée',selDays.length?selDays.length+' jour'+(selDays.length>1?'s':''):'À définir'],['Contact',$('email').value+($('tel').value?' · '+$('tel').value:'')]];
@@ -1378,7 +1381,7 @@ function renderGList(){const ul=$('g-cal-list');if(!ul)return;const items=[];
   else kids.push(el('span',{},it.label));return el('li',{},...kids)}):[el('li',{},el('span',{},'Aucune nuit prise pour le moment.'))]))}
 $('g-f').addEventListener('submit',e=>{e.preventDefault();const miss=[];
  if(!gSel.a||!gSel.b)miss.push('vos dates d\'arrivée et de départ');if(!$('g-nom').value.trim())miss.push('votre nom');
- if(!/^\S+@\S+\.\S+$/.test($('g-email').value))miss.push('une adresse e-mail valide');
+ if(!/^\S+@\S+\.\S+$/.test($('g-email').value))miss.push('une adresse e-mail valide');if(!$('g-ok-rgpd').checked)miss.push('votre accord pour l\'utilisation de vos informations (case à cocher)');
  if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).length<minNuits(gSel.a,gSel.b))miss.push('un séjour plus long : '+minNuits(gSel.a,gSel.b)+' nuits minimum'+(minNuits(gSel.a,gSel.b)===3?' pendant les fêtes':''));
  if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).some(x=>gMap(gProp).has(x)))miss.push('d\'autres dates : une partie du séjour est déjà réservée');
  if(miss.length){$('g-err').textContent='Il manque '+miss.join(', ')+'.';$('g-err').hidden=false;return}
