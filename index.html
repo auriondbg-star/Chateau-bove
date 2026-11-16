@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Château de la Bôve (Aisne) : mariages, séminaires, gîte et appartement, à 35 min de Reims.">
+<meta name="description" content="Château de la Bôve, dans l'Aisne à 35 min de Reims et 2 h de Paris : mariages, séminaires et réceptions dans le parc, gîte de 11 personnes et appartement sur place.">
 <style>html,body{margin:0}.pw{position:relative;display:block}
 .pw input{width:100%;box-sizing:border-box;padding-right:48px}
 .pw-eye{position:absolute;right:2px;top:50%;transform:translateY(-50%);width:44px;height:40px;display:grid;place-items:center;background:none;border:0;padding:0;color:var(--muted);cursor:pointer}
@@ -14,7 +14,17 @@
 .lodg-price{margin:0;font-family:var(--serif);font-size:1.05rem;color:var(--ink)}
 .lodg-price b{font-family:var(--display);font-weight:400;font-size:1.6rem;color:var(--buis);margin-inline:2px}
 </style>
-<title>Château de la Bôve</title>
+<title>Château de la Bôve · Mariages et séminaires dans l'Aisne, près de Reims</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232F4A35'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='40' text-anchor='middle' fill='%23EEEDE6'%3EB%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Château de la Bôve">
+<meta property="og:title" content="Château de la Bôve · Mariages et séminaires dans l'Aisne">
+<meta property="og:description" content="Un château classique au bout de son allée de buis, à 35 min de Reims : mariages, séminaires, gîte et appartement sur place.">
+<meta property="og:url" content="https://chateau-bove.pages.dev/">
+<meta property="og:image" content="https://chateau-bove.pages.dev/aerien-domaine-v2.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://chateau-bove.pages.dev/aerien-domaine-v2.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Jost:wght@400;500&display=swap">
@@ -74,7 +84,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .btn.ghost:hover{background:var(--buis);color:var(--stone)}
 .burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;background:none;border:0;padding:0;color:var(--ink);cursor:pointer}
 .burger svg{width:24px;height:24px}
-@media (max-width:820px){.burger{display:inline-flex}.nav-act{gap:6px}
+@media (max-width:1080px){.burger{display:inline-flex}.nav-act{gap:6px}
  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:6px 0 14px;background:var(--stone);border-bottom:1px solid var(--line);box-shadow:0 12px 24px rgba(0,0,0,.08)}
  .nav.open ul{display:flex}
  .nav ul a{display:block;padding:14px 24px;font-size:.85rem;color:var(--ink)}}
@@ -197,6 +207,7 @@ section.hero,.fenetre{background:transparent}
 .resa .intro-r{color:#C9D3C6;max-width:42ch}
 .resa ul.inc{list-style:none;padding:0;margin:28px 0 0;display:flex;flex-direction:column;gap:10px;font-size:.98rem}
 .resa ul.inc li{display:flex;gap:12px;align-items:baseline}
+.resa ul.inc a,footer a,.coord a{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
 .sem{padding-block:96px}
 .sem-top{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(32px,6vw,80px);align-items:center}
 .sem-top>*{min-width:0}
@@ -475,6 +486,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
       <li><a href="#reserver" data-type="mariage">Mariage</a></li>
       <li><a href="#logements">Logements</a></li>
       <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-act">
       <a class="acct" href="#admin" aria-label="Espace propriétaire" title="Espace propriétaire"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20.5c1.4-3.6 4.4-5.5 8-5.5s6.6 1.9 8 5.5"/></svg></a>
@@ -545,11 +557,9 @@ footer .mark{color:var(--ink);font-size:1.6rem}
       <li><span class="y">Origines</span><p><b>Une demeure classique au-dessus de la vallée.</b> Le château de la Bôve s'élève à Bouconville-Vauclair, face à la vallée de l'Ailette, au pied du plateau qui sépare l'Ailette de l'Aisne.</p></li>
       <li><span class="y">1776–1789</span><p><b>Mesdames sur la route de la Bôve.</b> Le domaine appartient à Françoise de Châlus, duchesse de Narbonne, ancienne dame d'honneur de Madame Adélaïde. Mesdames Adélaïde et Victoire, filles de Louis XV, empruntent souvent pour lui rendre visite la route de crête entre Laon et Soissons, alors peu adaptée aux voitures. On l'appelle bientôt le Chemin des Dames.</p></li>
       <li><span class="y">1814</span><p><b>La bataille de Craonne.</b> Tout près du domaine, Napoléon affronte les armées prussienne et russe le 7 mars 1814. Parmi les soldats français, de très jeunes recrues surnommées les « Marie-Louise ».</p></li>
-      <li><span class="y">1917</span><p><b>Le Chemin des Dames dans la Grande Guerre.</b> Au printemps 1917, l'offensive française se brise sur le plateau, qui reste l'un des champs de bataille les plus meurtriers du conflit. <span class="ph">Sort du château pendant la guerre à préciser.</span></p></li>
-      <li><span class="y">Après-guerre</span><p><b>La renaissance du domaine.</b> <span class="ph">Reconstruction, restauration du parc et de la chapelle : dates et personnes à préciser.</span></p></li>
+      <li><span class="y">1917</span><p><b>Le Chemin des Dames dans la Grande Guerre.</b> Au printemps 1917, l'offensive française se brise sur le plateau, qui reste l'un des champs de bataille les plus meurtriers du conflit.</p></li>
       <li><span class="y">Aujourd'hui</span><p><b>Un lieu de fête et de mémoire.</b> Le domaine ouvre ses extérieurs, sa chapelle et son orangerie aux mariages, à deux heures de Paris et trente-cinq minutes de Reims.</p></li>
     </ol>
-    <p class="ph-note" style="text-align:center">Passages en pointillés à compléter avec l'histoire de la famille</p>
     <button class="more" id="less" type="button" aria-expanded="true" aria-controls="histoire" style="align-self:center">Refermer <span class="arr" aria-hidden="true">↑</span></button>
   </div>
 </section>
@@ -583,12 +593,12 @@ footer .mark{color:var(--ink);font-size:1.6rem}
         </div>
       </article>
       <article class="lieu">
-        <img src="aerien-parc-v2.jpg" alt="Le parc boisé vu du ciel (photo de l'orangerie à venir)" loading="lazy">
+        <img src="aerien-parc-v2.jpg" alt="Le parc boisé vu du ciel" loading="lazy">
         <div class="b">
           <span class="eyebrow">Dîner &amp; soirée</span>
           <h3>L'orangerie</h3>
           <p>Une verrière lumineuse au cœur du parc pour le dîner assis, puis la soirée dansante jusqu'au bout de la nuit.</p>
-          <dl><dt>Dîner assis</dt><dd>150 à 200 couverts</dd><dt>Photo</dt><dd class="ph">À venir</dd></dl>
+          <dl><dt>Dîner assis</dt><dd>150 à 200 couverts</dd></dl>
         </div>
       </article>
     </div>
@@ -634,11 +644,10 @@ footer .mark{color:var(--ink);font-size:1.6rem}
         <div><a class="btn" href="#reserver" data-type="seminaire">Demander un devis séminaire</a></div>
       </div>
       <figure>
-        <img src="aerien-cour.jpg" alt="Le château, sa cour et son parc vus du ciel" loading="lazy">
+        <img src="aerien-domaine.jpg" alt="Le château et son allée au milieu de la forêt, vus du ciel" loading="lazy">
         <figcaption>Le château et son parc, pour les ateliers en plein air</figcaption>
       </figure>
     </div>
-    <p class="ph-note" style="margin-top:28px">Équipements de l'orangerie (vidéoprojecteur, sonorisation, wifi) et tarifs à préciser</p>
   </div>
 </section>
 
@@ -737,7 +746,8 @@ footer .mark{color:var(--ink);font-size:1.6rem}
         <li>Séminaires en semaine comme le week-end</li>
         <li>Visite du domaine sur rendez-vous</li>
         <li>Liste de traiteurs et prestataires partenaires</li>
-        <li><span><span class="ph">Tarifs à préciser</span> selon la saison et le nombre d'invités</span></li>
+        <li>Tarifs sur demande, selon la saison et le nombre d'invités</li>
+        <li><a href="brochure-chateau-de-la-bove.pdf" target="_blank" rel="noopener" download>Télécharger la brochure (PDF)</a></li>
       </ul>
     </div>
     <div>
@@ -779,14 +789,12 @@ footer .mark{color:var(--ink);font-size:1.6rem}
   <div class="inner">
     <div>
       <h2>Contactez-nous</h2>
-      <p class="lead">Besoin de plus d'informations, ou envie de visiter le domaine ? Écrivez-nous ou appelez-nous, nous vous répondons rapidement.</p>
+      <p class="lead">Besoin de plus d'informations, ou envie de visiter le domaine ? Écrivez-nous, nous vous répondons rapidement.</p>
       <ul class="coord">
         <li><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 21.5s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
           <p><b>Château de la Bôve</b><br>02860 Bouconville-Vauclair<br>Aisne, France</p></li>
-        <li><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 3.5h3.5l1.8 4.5-2.3 1.4a11 11 0 0 0 6.6 6.6l1.4-2.3 4.5 1.8V19a1.5 1.5 0 0 1-1.6 1.5C10.6 20 4 13.4 3.5 5.1A1.5 1.5 0 0 1 5 3.5z"/></svg>
-          <p><b class="ph">Numéro de téléphone à venir</b></p></li>
         <li><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13"/><path d="M3.5 6l8.5 7 8.5-7"/></svg>
-          <p><b class="ph">Adresse e-mail à venir</b></p></li>
+          <p><a href="mailto:chateaudelabove@gmail.com"><b>chateaudelabove@gmail.com</b></a></p></li>
       </ul>
     </div>
     <figure class="map" style="margin:0" aria-label="Plan d’accès au château de la Bôve">
@@ -799,7 +807,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
 <footer class="wrap">
   <span class="mark">Château de la Bôve</span>
   <span>Aisne · 2 h de Paris · 35 min de Reims</span>
-  <span>Visites sur rendez-vous</span>
+  <span>Visites sur rendez-vous · <a href="brochure-chateau-de-la-bove.pdf" target="_blank" rel="noopener" download>Brochure (PDF)</a></span>
 </footer>
 
 
@@ -904,7 +912,7 @@ const photos=[
  ['allee-nuages','L\'allée de buis sous un ciel d\'été'],
  ['chapelle-1','La chapelle en été'],
  ['facade','La façade sur cour'],
- ['aerien-cour','La cour d\'honneur en belvédère'],
+ ['perspective-ciel','L\'allée sous le ciel d\'été'],
  ['allee-buis','La perspective depuis la grille'],
  ['chapelle-2','La chapelle sous le givre'],
 ];
