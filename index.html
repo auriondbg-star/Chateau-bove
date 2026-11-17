@@ -22,6 +22,9 @@
 <meta property="og:title" content="Château de la Bôve · Dans l'Aisne, près de Reims">
 <meta property="og:description" content="Un château classique au bout de son allée de buis, à 35 min de Reims : mariages, séminaires, gîte et appartement sur place.">
 <meta property="og:url" content="https://chateau-bove.pages.dev/">
+<link rel="alternate" hreflang="fr" href="https://chateau-bove.pages.dev/">
+<link rel="alternate" hreflang="en" href="https://chateau-bove.pages.dev/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://chateau-bove.pages.dev/">
 <meta property="og:image" content="https://chateau-bove.pages.dev/aerien-domaine-v2.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://chateau-bove.pages.dev/aerien-domaine-v2.jpg">
@@ -73,7 +76,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .nav .inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
 .mark{font-family:var(--display);font-size:1.35rem;text-decoration:none;letter-spacing:.02em}
 .nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-family:var(--sans);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
-.nav ul a{text-decoration:none;color:var(--muted)}
+.nav ul a{text-decoration:none;color:var(--muted);white-space:nowrap}
+.nav .mark{white-space:nowrap}
 .nav ul a:hover{color:var(--ink)}
 .nav-act{display:flex;align-items:center;gap:14px}
 .acct{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;color:var(--muted);transition:color .2s,background .2s}
@@ -84,11 +88,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .btn.ghost:hover{background:var(--buis);color:var(--stone)}
 .burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;background:none;border:0;padding:0;color:var(--ink);cursor:pointer}
 .burger svg{width:24px;height:24px}
-@media (max-width:1080px){.burger{display:inline-flex}.nav-act{gap:6px}
+@media (max-width:1200px){.burger{display:inline-flex}.nav-act{gap:6px}
  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:6px 0 14px;background:var(--stone);border-bottom:1px solid var(--line);box-shadow:0 12px 24px rgba(0,0,0,.08)}
  .nav.open ul{display:flex}
  .nav ul a{display:block;padding:14px 24px;font-size:.85rem;color:var(--ink)}}
 @media (max-width:420px){.nav-act .btn{padding:11px 14px}}
+.lang{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;font-family:var(--sans);font-size:.74rem;font-weight:500;letter-spacing:.16em;text-decoration:none;color:var(--muted);border-radius:20px;transition:color .2s,background .2s}
+.lang:hover{color:var(--ink);background:var(--stone-2)}
 
 /* hero */
 .hero{position:relative;color:#F4F3EC}
@@ -487,6 +493,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
 </style>
 <script src="supabase-2.118.0.js"></script>
 <script src="config.js"></script>
+<script src="en.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -530,6 +537,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-act">
+      <a class="lang" id="lang" href="?lang=en" hreflang="en" lang="en" title="English version" aria-label="English version">EN</a>
       <a class="acct" href="#admin" aria-label="Espace propriétaire" title="Espace propriétaire"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20.5c1.4-3.6 4.4-5.5 8-5.5s6.6 1.9 8 5.5"/></svg></a>
       <a class="btn" href="#reserver">Réserver</a>
       <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -808,10 +816,10 @@ footer .mark{color:var(--ink);font-size:1.6rem}
         <ul class="days ev-only" id="days" aria-label="Jours choisis"></ul>
         <div class="full cal ev-only" id="cal-client" aria-label="Disponibilités"></div>
         <p class="season full ev-only" id="season">Choisissez une date dans le calendrier pour voir la saison correspondante.</p>
-        <label class="vis-only" hidden>Votre projet<select id="projet" name="projet"><option>Mariage</option><option>Séminaire</option><option>Autre événement</option><option>Pas encore décidé</option></select></label>
+        <label class="vis-only" hidden>Votre projet<select id="projet" name="projet"><option value="Mariage">Mariage</option><option value="Séminaire">Séminaire</option><option value="Autre événement">Autre événement</option><option value="Pas encore décidé">Pas encore décidé</option></select></label>
         <label class="ev-only"><span id="invites-l">Nombre d'invités</span><select id="invites" name="invites"></select></label>
         <label class="ev-only">Formule<select id="formule" name="formule"></select></label>
-        <label id="ceremonie-w">Cérémonie<select id="ceremonie" name="ceremonie"><option>Laïque, dans l'allée</option><option>Religieuse, à la chapelle</option><option>Les deux</option><option>Pas encore décidé</option></select></label>
+        <label id="ceremonie-w">Cérémonie<select id="ceremonie" name="ceremonie"><option value="Laïque, dans l'allée">Laïque, dans l'allée</option><option value="Religieuse, à la chapelle">Religieuse, à la chapelle</option><option value="Les deux">Les deux</option><option value="Pas encore décidé">Pas encore décidé</option></select></label>
         <label class="chk ev-only"><input id="flex" type="checkbox"> Nos dates sont flexibles</label>
         <label>E-mail<input id="email" name="email" type="email" placeholder="vous@exemple.fr" autocomplete="email"></label>
         <label>Téléphone<input id="tel" name="tel" type="tel" placeholder="06 12 34 56 78" autocomplete="tel"></label>
@@ -854,6 +862,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
   <span class="mark">Château de la Bôve</span>
   <span>Aisne · 2 h de Paris · 35 min de Reims</span>
   <span>Visites sur rendez-vous · <a href="brochure-chateau-de-la-bove.pdf" target="_blank" rel="noopener" download>Brochure (PDF)</a> · <a href="mentions-legales.html">Mentions légales</a></span>
+  <span><a class="lang-foot" id="lang-foot" href="?lang=en" hreflang="en" lang="en">English version</a></span>
 </footer>
 <a class="cta-bar" id="cta-bar" href="#reserver" aria-hidden="true" tabindex="-1"><span class="k">Château de la Bôve</span><span class="a">Demander une date<svg viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h17M13 1l4 4-4 4"/></svg></span></a>
 
@@ -953,6 +962,24 @@ footer .mark{color:var(--ink);font-size:1.6rem}
 </div>
 
 <script>
+// ---------- langue : version anglaise avec ?lang=en (traductions dans en.js) ----------
+// L'espace propriétaire (#admin) reste en français. Les demandes gardent leurs valeurs en français, avec langue:'en'.
+const EN=/[?&]lang=en(&|$)/.test(location.search)&&!!window.BOVE_EN;
+const LOC=EN?'en-GB':'fr-FR';
+const tr=s=>{if(!EN)return s;const v=window.BOVE_EN[String(s).replace(/\s+/g,' ').trim()];return v==null?s:v};
+(()=>{const sw=[document.getElementById('lang'),document.getElementById('lang-foot')];
+ sw.forEach(a=>{if(!a)return;a.addEventListener('click',e=>{e.preventDefault();location.href=location.pathname+(EN?'':'?lang=en')+(location.hash.startsWith('#admin')?'':location.hash)})});
+ if(!EN)return;
+ document.documentElement.lang='en';
+ sw.forEach(a=>{if(!a)return;a.href='./';a.hreflang='fr';a.lang='fr'});
+ if(sw[0]){sw[0].textContent='FR';sw[0].title='Version française';sw[0].setAttribute('aria-label','Version française')}if(sw[1])sw[1].textContent='Version française';
+ const adm=document.getElementById('admin'),skip=n=>!n||adm.contains(n)||n.closest('script,style');
+ const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),ns=[];let n;while((n=w.nextNode()))ns.push(n);
+ ns.forEach(n=>{if(skip(n.parentElement))return;const v=tr(n.nodeValue);if(v!==n.nodeValue){const m=n.nodeValue.match(/^(\s*)[\s\S]*?(\s*)$/);n.nodeValue=m[1]+v+m[2]}});
+ document.querySelectorAll('[alt],[placeholder],[aria-label],[title]').forEach(e=>{if(skip(e))return;['alt','placeholder','aria-label','title'].forEach(a=>{if(e.hasAttribute(a))e.setAttribute(a,tr(e.getAttribute(a)))})});
+ document.title=tr(document.title);
+ const md=document.querySelector('meta[name=description]');if(md)md.content="Château de la Bôve, a listed French Historic Monument in the Aisne, 35 min from Reims and 2 hrs from Paris: weddings, seminars and receptions in the park, with a gîte for 11 and an apartment on site.";
+ const mp=document.querySelector('iframe.map-frame');if(mp)mp.src=mp.src.replace('hl=fr','hl=en')})();
 const photos=[
  ['aerien-chateau-ete','Le château, sa cour d\'honneur et son parc vus du ciel en été'],
  ['aerien-allee-v2','Le château et son allée, vus du ciel'],
@@ -964,10 +991,11 @@ const photos=[
  ['chapelle-2','La chapelle sous le givre'],
 ];
 const grid=document.getElementById('grid'),thumbs=[];
-photos.forEach(([f,a],i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Agrandir : '+a);
+photos.forEach(p=>p[1]=tr(p[1]));
+photos.forEach(([f,a],i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',tr('Agrandir :')+' '+a);
  b.innerHTML=`<img src="${f}.jpg" alt="${a}" loading="lazy">`;b.onclick=()=>open(i);(i<3?document.getElementById('top3'):grid).appendChild(b);thumbs.push(b)});
 const mp=document.getElementById('more-photos');
-mp.onclick=()=>{const o=grid.hidden;grid.hidden=!o;mp.setAttribute('aria-expanded',String(o));mp.firstChild.textContent=o?'Masquer les autres photos ':'Voir les autres photos '};
+mp.onclick=()=>{const o=grid.hidden;grid.hidden=!o;mp.setAttribute('aria-expanded',String(o));mp.firstChild.textContent=tr(o?'Masquer les autres photos':'Voir les autres photos')+' '};
 const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg');let cur=0;
 let lbList=null,lbBack=null;
 function show(){const L=lbList||photos;const[f,a]=L[cur];lbimg.src=`${f}.jpg`;lbimg.alt=a}
@@ -978,9 +1006,10 @@ document.getElementById('lbp').onclick=()=>{const n=(lbList||photos).length;cur=
 document.getElementById('lbn').onclick=()=>{const n=(lbList||photos).length;cur=(cur+1)%n;show()};
 // galeries des logements
 const LPHOTOS={gite:[['gite-14','Le gîte et son jardin au soleil'],['gite-17','La façade du gîte côté jardin'],['gite-24','La ferme de la Bôve vue du ciel'],['gite-15','La table du jardin'],['gite-19','Le jardin et sa grande table'],['gite-18','Le jardin ouvert sur la campagne'],['gite-20','L\'allée de la ferme'],['gite-23','La campagne autour de la Bôve vue du ciel'],['gite-21','Le domaine sous la neige'],['gite-4','La grande pièce de vie, salle à manger et salon'],['gite-5','La salle à manger, la cheminée et l\'escalier'],['gite-1','Le salon'],['gite-2','La cuisine équipée'],['gite-3','Le mur de miroirs de la salle à manger'],['gite-16','L\'entrée et le parking'],['gite-22','Le hall d\'entrée carrelé'],['gite-6','Chambre avec lits simples'],['gite-7','Chambre aux lits jumeaux'],['gite-8','Chambre aux lits jumeaux, autre vue'],['gite-9','Chambre avec deux lits simples'],['gite-10','Chambre avec lit double'],['gite-11','Chambre mansardée'],['gite-12','Salle de bain avec baignoire'],['gite-13','Salle de bain et table à langer']],appart:[['appart-6','Le salon lumineux, bibliothèque et poêle à bois'],['appart-7','Le salon et son escalier en colimaçon'],['appart-2','La chambre, lit double'],['appart-5','La salle à manger et le coin cuisine'],['appart-3','La table et la cuisine'],['appart-4','Le coin repas près de la fenêtre'],['appart-1',"La salle d'eau avec douche"]]};
+Object.values(LPHOTOS).forEach(L=>L.forEach(p=>p[1]=tr(p[1])));
 document.querySelectorAll('.lodg-ph[data-slot]').forEach(slot=>{const L=LPHOTOS[slot.dataset.slot];if(!L)return;
  const strip=el('div',{class:'strip'});
- L.slice(0,3).forEach(([f,a],i)=>{const b=el('button',{type:'button','aria-label':'Agrandir : '+a+' ('+(i+1)+' sur '+L.length+')'});b.innerHTML=`<img src="${f}.jpg" alt="${a}" loading="lazy">`;
+ L.slice(0,3).forEach(([f,a],i)=>{const b=el('button',{type:'button','aria-label':tr('Agrandir :')+' '+a+' ('+(i+1)+(EN?' of ':' sur ')+L.length+')'});b.innerHTML=`<img src="${f}.jpg" alt="${a}" loading="lazy">`;
   if(i===2&&L.length>3)b.append(el('span',{class:'more-n'},'+'+(L.length-3)+' photos'));b.onclick=()=>open(i,L,b);strip.append(b)});
  slot.replaceChildren(strip)});
 lb.addEventListener('click',e=>{if(e.target===lb)close()});
@@ -988,7 +1017,7 @@ document.addEventListener('keydown',e=>{if(lb.hidden)return;if(e.key==='Escape')
 
 // menu téléphone
 {const nav=document.querySelector('.nav'),bg=document.getElementById('burger');
- const set=o=>{nav.classList.toggle('open',o);bg.setAttribute('aria-expanded',String(o));bg.setAttribute('aria-label',o?'Fermer le menu':'Ouvrir le menu')};
+ const set=o=>{nav.classList.toggle('open',o);bg.setAttribute('aria-expanded',String(o));bg.setAttribute('aria-label',tr(o?'Fermer le menu':'Ouvrir le menu'))};
  bg.onclick=()=>set(!nav.classList.contains('open'));
  nav.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>set(false)));
  document.addEventListener('click',e=>{if(!nav.contains(e.target))set(false)});
@@ -999,6 +1028,8 @@ function setH(o){hist.hidden=!o;more.setAttribute('aria-expanded',o);if(o)hist.s
 more.onclick=()=>setH(hist.hidden);document.getElementById('less').onclick=()=>setH(false);
 // formulaire
 const $=id=>document.getElementById(id);
+const optTxt=id=>{const o=$(id).selectedOptions[0];return o?o.text:$(id).value};
+function manque(m){return EN?'Please add '+m.map(tr).join(', ')+'.':'Il manque '+m.join(', ')+'.'}
 const d=new Date();d.setDate(d.getDate()+30);$('date').min=d.toISOString().slice(0,10);
 const TYPES={
  mariage:{label:'Mariage',nom:'Prénoms des mariés',ph:'Claire et Thomas',inv:"Nombre d'invités",invOpts:['Moins de 80','80 à 150','150 à 200'],form:['Week-end complet','Journée','Cérémonie et cocktail'],msg:'Parlez-nous de votre mariage : ambiance, cérémonie, traiteur…'},
@@ -1007,19 +1038,19 @@ const TYPES={
 const fType=()=>$('t-visite').checked?'visite':$('t-seminaire').checked?'seminaire':'mariage';
 let curType=null;
 function setType(t){$('t-'+t).checked=true;const T=TYPES[t];if(curType&&curType!==t)selDays=[];curType=t;
- $('noms-l').textContent=T.nom;$('noms').placeholder=T.ph;$('invites-l').textContent=T.inv;
- $('invites').replaceChildren(new Option('Choisir',''),...T.invOpts.map(o=>new Option(o)));
- $('formule').replaceChildren(...T.form.map(o=>new Option(o)));
- $('ceremonie-w').hidden=t!=='mariage';$('msg').placeholder=T.msg;$('msg-l').textContent=T.msgl||'Votre projet';
+ $('noms-l').textContent=tr(T.nom);$('noms').placeholder=tr(T.ph);$('invites-l').textContent=tr(T.inv);
+ $('invites').replaceChildren(new Option(tr('Choisir'),''),...T.invOpts.map(o=>new Option(tr(o),o)));
+ $('formule').replaceChildren(...T.form.map(o=>new Option(tr(o),o)));
+ $('ceremonie-w').hidden=t!=='mariage';$('msg').placeholder=tr(T.msg);$('msg-l').textContent=tr(T.msgl||'Votre projet');
  document.querySelectorAll('#f .ev-only').forEach(x=>x.hidden=t==='visite');document.querySelectorAll('#f .vis-only').forEach(x=>x.hidden=t!=='visite');
- $('f').querySelector('button[type=submit]').textContent=t==='visite'?'Demander une visite':'Envoyer ma demande';
+ $('f').querySelector('button[type=submit]').textContent=tr(t==='visite'?'Demander une visite':'Envoyer ma demande');
  $('addday-w').hidden=t!=='seminaire';
  refreshDays()}
-function saisonDe(v){const m=D(v).getMonth()+1;return(m>=6&&m<=9)?'haute saison (juin à septembre)':(m===5||m===10)?'moyenne saison (mai, octobre)':'basse saison (novembre à avril)'}
-function saison(){if(!selDays.length)return fType()==='mariage'?'Touchez un vendredi, un samedi ou un dimanche dans le calendrier pour choisir votre week-end.':'Cliquez sur chaque jour souhaité dans le calendrier, ou ajoutez-les un par un avec le champ ci-dessus.';
+function saisonDe(v){const m=D(v).getMonth()+1;if(EN)return(m>=6&&m<=9)?'high season (June to September)':(m===5||m===10)?'mid season (May, October)':'low season (November to April)';return(m>=6&&m<=9)?'haute saison (juin à septembre)':(m===5||m===10)?'moyenne saison (mai, octobre)':'basse saison (novembre à avril)'}
+function saison(){if(!selDays.length)return EN?(fType()==='mariage'?'Tap a Friday, Saturday or Sunday in the calendar to choose your weekend.':'Click each day you would like in the calendar, or add them one by one with the field above.'):fType()==='mariage'?'Touchez un vendredi, un samedi ou un dimanche dans le calendrier pour choisir votre week-end.':'Cliquez sur chaque jour souhaité dans le calendrier, ou ajoutez-les un par un avec le champ ci-dessus.';
  const n=selDays.length,ss=[...new Set(selDays.map(saisonDe))];
- const t=fType()==='mariage'?'Votre week-end : '+daysTxt(selDays).replace(/^D/,'d'):n+' jour'+(n>1?'s':'')+' choisi'+(n>1?'s':'')+' · '+daysTxt(selDays);
- return fType()==='seminaire'?t:t+' · '+ss.join(' et ')}
+ const t=EN?(fType()==='mariage'?'Your weekend: '+daysTxt(selDays):n+' day'+(n>1?'s':'')+' selected · '+daysTxt(selDays)):fType()==='mariage'?'Votre week-end : '+daysTxt(selDays).replace(/^D/,'d'):n+' jour'+(n>1?'s':'')+' choisi'+(n>1?'s':'')+' · '+daysTxt(selDays);
+ return fType()==='seminaire'?t:t+' · '+ss.join(EN?' and ':' et ')}
 // jours choisis par le client, un par un
 let selDays=[];
 function runs(ds){const out=[];ds.slice().sort().forEach(d=>{const l=out[out.length-1];if(l&&rangeDays(l[1],d).length===2)l[1]=d;else out.push([d,d])});return out}
@@ -1028,10 +1059,10 @@ function pickWE(v){const bm=blockedMap(),sat=wkKey(v);selDays=selDays.includes(s
 function weOk(v,bm,min){const sat=wkKey(v);return D(sat).getDay()===6&&!bm.has(sat)&&!(min&&sat<min)}
 function toggleDay(v){selDays=selDays.includes(v)?selDays.filter(x=>x!==v):[...selDays,v].sort();refreshDays()}
 function refreshDays(){const bm=blockedMap();selDays=selDays.filter(v=>!bm.has(v));
- $('days').replaceChildren(...(fType()==='mariage'?(selDays.length?[el('li',{},'Week-end · '+daysTxt(selDays).replace(/^D/,'d'),el('button',{type:'button','aria-label':'Retirer ce week-end',onclick:()=>{selDays=[];refreshDays()}},'×'))]:[]):selDays.map(v=>el('li',{},longDate(v),el('button',{type:'button','aria-label':'Retirer le '+longDate(v),onclick:()=>toggleDay(v)},'×')))));
+ $('days').replaceChildren(...(fType()==='mariage'?(selDays.length?[el('li',{},tr('Week-end')+' · '+(EN?daysTxt(selDays):daysTxt(selDays).replace(/^D/,'d')),el('button',{type:'button','aria-label':tr('Retirer ce week-end'),onclick:()=>{selDays=[];refreshDays()}},'×'))]:[]):selDays.map(v=>el('li',{},longDate(v),el('button',{type:'button','aria-label':(EN?'Remove ':'Retirer le ')+longDate(v),onclick:()=>toggleDay(v)},'×')))));
  $('season').textContent=saison();renderCal($('cal-client'),'client')}
 function addDay(){const v=$('date').value,min=$('date').min;$('err').hidden=true;if(!v)return;
- let pb='';if(v<min)pb='Ce jour est trop proche : choisissez une date à partir du '+longDate(min)+'.';else if(blockedMap().has(v))pb='Le '+longDate(v)+' est déjà réservé.';
+ let pb='';if(v<min)pb=EN?'This day is too soon: please choose a date from '+longDate(min)+' onwards.':'Ce jour est trop proche : choisissez une date à partir du '+longDate(min)+'.';else if(blockedMap().has(v))pb=EN?longDate(v)+' is already booked.':'Le '+longDate(v)+' est déjà réservé.';
  if(pb){$('err').textContent=pb;$('err').hidden=false;return}
  if(!selDays.includes(v))selDays=[...selDays,v].sort();$('date').value='';calState.client=v.slice(0,7)+'-01';refreshDays()}
 // règles de dates : un jour ne peut accueillir qu'un seul événement.
@@ -1047,9 +1078,9 @@ $('date').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();
 $('date').addEventListener('input',e=>{const v=e.target.value;if(v){calState.client=v.slice(0,7)+'-01';renderCal($('cal-client'),'client')}});
 $('f').addEventListener('submit',e=>{e.preventDefault();const t=fType(),T=TYPES[t];
  if(t==='visite'){const miss=[];if(!$('noms').value.trim())miss.push('votre nom');if(!/^\S+@\S+\.\S+$/.test($('email').value))miss.push('une adresse e-mail valide');if(!$('ok-rgpd').checked)miss.push('votre accord pour l\'utilisation de vos informations (case à cocher)');
-  if(miss.length){$('err').textContent='Il manque '+miss.join(', ')+'.';$('err').hidden=false;return}
+  if(miss.length){$('err').textContent=manque(miss);$('err').hidden=false;return}
   $('err').hidden=true;
-  const rows=[['Type','Demande de visite'],['Nom',$('noms').value],['Projet',$('projet').value],['Contact',$('email').value+($('tel').value?' · '+$('tel').value:'')],...($('msg').value.trim()?[['Remarques',$('msg').value.trim()]]:[])];
+  const rows=[['Type',tr('Demande de visite')],[tr('Nom'),$('noms').value],[tr('Projet'),optTxt('projet')],[tr('Contact'),$('email').value+($('tel').value?' · '+$('tel').value:'')],...($('msg').value.trim()?[[tr('Remarques'),$('msg').value.trim()]]:[])];
   $('recap').replaceChildren(...rows.flatMap(([k,v])=>{const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;return[dt,dd]}));
   saveReq({id:'v'+Date.now(),type:'visite',recu:new Date().toISOString().slice(0,10),noms:$('noms').value.trim(),date:'',projet:$('projet').value,invites:'—',formule:'Visite du domaine',email:$('email').value.trim(),tel:$('tel').value.trim(),msg:$('msg').value.trim(),statut:'nouvelle'});
   $('f').hidden=true;$('merci').hidden=false;return}
@@ -1057,9 +1088,9 @@ $('f').addEventListener('submit',e=>{e.preventDefault();const t=fType(),T=TYPES[
  const bm0=blockedMap();if(!selDays.length&&!$('flex').checked)miss.push(t==='mariage'?'votre week-end (ou cochez « dates flexibles »)':'au moins un jour (ou cochez « dates flexibles »)');
  if(selDays.some(v=>bm0.has(v)))miss.push('d\'autres jours : certains viennent d\'être réservés');
  if(!/^\S+@\S+\.\S+$/.test($('email').value))miss.push('une adresse e-mail valide');if(!$('ok-rgpd').checked)miss.push('votre accord pour l\'utilisation de vos informations (case à cocher)');
- if(miss.length){$('err').textContent='Il manque '+miss.join(', ')+'.';$('err').hidden=false;return}
+ if(miss.length){$('err').textContent=manque(miss);$('err').hidden=false;return}
  $('err').hidden=true;
- const rows=[['Type',T.label],[T.nom,$('noms').value],[t==='mariage'?'Week-end':selDays.length>1?'Dates':'Date',selDays.length?daysTxt(selDays):'Flexible'],[T.inv,$('invites').value||'Non précisé'],['Formule',$('formule').value],t==='mariage'?['Cérémonie',$('ceremonie').value]:['Durée',selDays.length?selDays.length+' jour'+(selDays.length>1?'s':''):'À définir'],['Contact',$('email').value+($('tel').value?' · '+$('tel').value:'')]];
+ const nj=selDays.length,rows=[[tr('Type'),tr(T.label)],[tr(T.nom),$('noms').value],[tr(t==='mariage'?'Week-end':nj>1?'Dates':'Date'),nj?daysTxt(selDays):tr('Flexible')],[tr(T.inv),$('invites').value?optTxt('invites'):tr('Non précisé')],[tr('Formule'),optTxt('formule')],t==='mariage'?[tr('Cérémonie'),optTxt('ceremonie')]:[tr('Durée'),nj?nj+(EN?' day':' jour')+(nj>1?'s':''):tr('À définir')],[tr('Contact'),$('email').value+($('tel').value?' · '+$('tel').value:'')]];
  $('recap').replaceChildren(...rows.flatMap(([k,v])=>{const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;return[dt,dd]}));
  saveReq({id:'d'+Date.now(),type:t,recu:new Date().toISOString().slice(0,10),noms:$('noms').value.trim(),date:selDays[0]||'',dates:selDays.slice(),jours:selDays.length||undefined,flex:$('flex').checked,invites:$('invites').value||'Non précisé',formule:$('formule').value,ceremonie:t==='mariage'?$('ceremonie').value:'',email:$('email').value.trim(),tel:$('tel').value.trim(),msg:$('msg').value.trim(),statut:'nouvelle'});
  $('f').hidden=true;$('merci').hidden=false;selDays=[];refreshDays()});
@@ -1109,7 +1140,7 @@ function notify(r){try{const L={mariage:'Mariage',seminaire:'Séminaire',visite:
  const fd=v=>{try{return D(v).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}catch(e){return v}};
  const dem=reqKeys(r),dd=lodg?[]:(r.dates&&r.dates.length?r.dates:(r.date?[r.date]:[])).slice().sort(),et=a=>a.length>1?a.slice(0,-1).join(', ')+' et '+a[a.length-1]:a.join('');
  const dl=dd.length>1&&dd.every(x=>x.slice(0,7)===dd[0].slice(0,7))?et(dd.map(x=>D(x).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric'})))+' '+D(dd[0]).toLocaleDateString('fr-FR',{month:'long',year:'numeric'}):et(dd.map(fd));
- const champs=[['Type de demande',tl],['Noms',r.noms],lodg?['Arrivée',r.date?fd(r.date):'']:['Dates',dl||(r.flex?'Dates flexibles':'')],lodg?['Départ',r.depart?fd(r.depart):'']:['',''],['Nombre de personnes',r.invites],['Formule',r.formule],['Cérémonie',r.ceremonie],['Projet',r.projet],['Dates flexibles',r.flex&&dl?'oui':''],['E-mail',r.email],['Téléphone',r.tel],['Message',r.msg]].filter(c=>c[0]&&c[1]);
+ const champs=[['Type de demande',tl],['Noms',r.noms],lodg?['Arrivée',r.date?fd(r.date):'']:['Dates',dl||(r.flex?'Dates flexibles':'')],lodg?['Départ',r.depart?fd(r.depart):'']:['',''],['Nombre de personnes',r.invites],['Formule',r.formule],['Cérémonie',r.ceremonie],['Projet',r.projet],['Dates flexibles',r.flex&&dl?'oui':''],['E-mail',r.email],['Téléphone',r.tel],['Message',r.msg],['Langue',r.langue==='en'?'Anglais : la demande vient de la version anglaise du site, répondre en anglais':'']].filter(c=>c[0]&&c[1]);
  const mo=new Set(dem.map(x=>x.slice(0,7))),occ=[];try{(lodg?gMap(r.type):blockedMap()).forEach((v,d)=>{if(mo.has(d.slice(0,7)))occ.push([d,v.kind||r.type])})}catch(e){}
  if(dem.length)champs.push(['Voir le calendrier',location.origin+'/#admin/'+(lodg?r.type:'event')+'/'+dem[0].slice(0,7)]);
  const u=CFG.notifyUrl;
@@ -1120,8 +1151,8 @@ function notify(r){try{const L={mariage:'Mariage',seminaire:'Séminaire',visite:
  if(k){const o={access_key:k,subject:subj,from_name:'Site Château de la Bôve',botcheck:''};b.forEach((v,n)=>{if(n!=='form-name'&&v)o[n]=v});if(r.email)o.replyto=r.email;
   fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(o)}).catch(()=>{});return}
  if(/netlify\.app$/.test(location.hostname))fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:b.toString()}).catch(()=>{})}catch(e){}}
-function saveReq(r){if(CLOUD){SB.from('demandes').insert({id:r.id,data:r}).then(({error})=>{if(error)sendFail(isLodg(r.type));else notify(r)});return}reqs=load();reqs.unshift(r);save(reqs)}
-function sendFail(g){const m=$(g?'g-merci':'merci'),f=$(g?'g-f':'f'),e=$(g?'g-err':'err');m.hidden=true;f.hidden=false;e.textContent="Votre demande n'a pas pu être envoyée. Vérifiez votre connexion internet puis réessayez.";e.hidden=false}
+function saveReq(r){if(EN)r.langue='en';if(CLOUD){SB.from('demandes').insert({id:r.id,data:r}).then(({error})=>{if(error)sendFail(isLodg(r.type));else notify(r)});return}reqs=load();reqs.unshift(r);save(reqs)}
+function sendFail(g){const m=$(g?'g-merci':'merci'),f=$(g?'g-f':'f'),e=$(g?'g-err':'err');m.hidden=true;f.hidden=false;e.textContent=tr("Votre demande n'a pas pu être envoyée. Vérifiez votre connexion internet puis réessayez.");e.hidden=false}
 function fmt(d){if(!d)return'Flexible';const t=new Date(d+'T12:00');return t.toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'})}
 function el(tag,attrs={},...kids){const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==='class')e.className=v;else if(k.startsWith('on'))e[k]=v;else e.setAttribute(k,v)}kids.flat().forEach(k=>e.append(k));return e}
 // ---------- calendrier ----------
@@ -1148,11 +1179,11 @@ function renderCal(box,mode){
  if(!box)return;const key=mode;if(!calState[key])calState[key]=monthStart(mode==='client'?$('date').min:null);
  const m0=D(calState[key]),y=m0.getFullYear(),mo=m0.getMonth();
  const bm=blockedMap(),min=mode==='client'?$('date').min:'',t=fType();
- const prev=el('button',{type:'button','aria-label':'Mois précédent'},'‹'),next=el('button',{type:'button','aria-label':'Mois suivant'},'›');
+ const prev=el('button',{type:'button','aria-label':mode==='client'?tr('Mois précédent'):'Mois précédent'},'‹'),next=el('button',{type:'button','aria-label':mode==='client'?tr('Mois suivant'):'Mois suivant'},'›');
  const firstAllowed=min?monthStart(min):'';if(firstAllowed&&calState[key]<=firstAllowed)prev.disabled=true;
  prev.onclick=()=>{calState[key]=iso(new Date(y,mo-1,1,12));renderCal(box,mode)};next.onclick=()=>{calState[key]=iso(new Date(y,mo+1,1,12));renderCal(box,mode)};
- const title=m0.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
- const g=el('div',{class:'cal-g',role:'grid'});['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'].forEach(x=>g.append(el('span',{class:'dow'},x)));
+ const title=m0.toLocaleDateString(LOC,{month:'long',year:'numeric'});
+ const g=el('div',{class:'cal-g',role:'grid'});DOW().forEach(x=>g.append(el('span',{class:'dow'},x)));
  const lead=(m0.getDay()+6)%7;for(let i=0;i<lead;i++)g.append(el('span',{class:'pad','aria-hidden':'true'}));
  const days=new Date(y,mo+1,0).getDate();
  const blockKind=(document.querySelector('input[name=bkind]:checked')||{}).value||'mariage';
@@ -1162,12 +1193,12 @@ function renderCal(box,mode){
   if(we)btn.classList.add('we');
   if(mode==='client'){
    const past=min&&v<min;
-   if(b){btn.classList.add('busy');btn.disabled=true;if(b.show)btn.append(lab('Réservé'));btn.setAttribute('aria-label',i+' : réservé')}
+   if(b){btn.classList.add('busy');btn.disabled=true;if(b.show)btn.append(lab(tr('Réservé')));btn.setAttribute('aria-label',i+(EN?': booked':' : réservé'))}
    else if(t==='mariage'&&(!we||!weOk(v,bm,min))){btn.disabled=true}
    else if(t!=='mariage'&&(past||!dateOk(v,t,bm))){btn.disabled=true}
    else{const on=selDays.includes(v);if(on)btn.classList.add('sel');
-    btn.setAttribute('aria-pressed',String(on));btn.setAttribute('aria-label',d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+(on?', choisi : cliquer pour retirer':''));
-    if(t==='mariage')btn.setAttribute('aria-label',d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+(on?', week-end choisi : toucher pour retirer':' : choisir ce week-end'));
+    const dl=d.toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long'});btn.setAttribute('aria-pressed',String(on));btn.setAttribute('aria-label',dl+(on?(EN?', selected: click to remove':', choisi : cliquer pour retirer'):''));
+    if(t==='mariage')btn.setAttribute('aria-label',dl+(EN?(on?', weekend selected: tap to remove':': choose this weekend'):(on?', week-end choisi : toucher pour retirer':' : choisir ce week-end')));
     btn.onclick=()=>{$('err').hidden=true;t==='mariage'?pickWE(v):toggleDay(v)}}
   }else{
    if(b){btn.classList.add(b.type,'k-'+b.kind);if(b.show)btn.append(lab(b.type==='conf'?b.label:b.label+' · bloqué'));btn.title=(b.kind==='seminaire'?'Séminaire : ':'Mariage : ')+b.label}
@@ -1188,18 +1219,19 @@ function renderCal(box,mode){
   g.append(btn)}
  const sw=s=>el('i',{style:'background:'+s});
  const leg=mode==='client'
-  ?el('div',{class:'cal-leg'},el('span',{},sw('var(--stone-2)'),'Week-end'),el('span',{},sw('repeating-linear-gradient(-45deg,var(--stone-2) 0 3px,var(--card) 3px 6px)'),'Réservé'),el('span',{},sw('var(--buis)'),t==='mariage'?'Votre week-end':'Vos jours'))
+  ?el('div',{class:'cal-leg'},el('span',{},sw('var(--stone-2)'),tr('Week-end')),el('span',{},sw('repeating-linear-gradient(-45deg,var(--stone-2) 0 3px,var(--card) 3px 6px)'),tr('Réservé')),el('span',{},sw('var(--buis)'),tr(t==='mariage'?'Votre week-end':'Vos jours')))
   :el('div',{class:'cal-leg'},el('span',{},sw('var(--buis-soft)'),'Mariage confirmé'),el('span',{},sw('var(--sem-soft)'),'Séminaire confirmé'),el('span',{},sw('repeating-linear-gradient(-45deg,var(--buis-soft) 0 3px,var(--card) 3px 6px)'),'Mariage bloqué'),el('span',{},sw('repeating-linear-gradient(-45deg,var(--sem-soft) 0 3px,var(--card) 3px 6px)'),'Séminaire bloqué'));
  box.replaceChildren(el('div',{class:'cal-h'},prev,el('b',{},title),next),g,leg);
 }
 let calAnchor=null,calHover=null;
-const longDate=v=>D(v).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+const longDate=v=>D(v).toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long'});
+const DOW=()=>EN?['Mon','Tue','Wed','Thu','Fri','Sat','Sun']:['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
 function rangeDays(a,b){const out=[];const x=D(a);while(iso(x)<=b){out.push(iso(x));x.setDate(x.getDate()+1)}return out}
 function calMsg(t,err){const e=$('cal-msg');if(!e)return;e.textContent=t;e.hidden=!t;e.style.color=err?'':'var(--ink)'}
 function periode(a,b){const da=D(a),db=D(b);const y=db.getFullYear();
- if(a===b)return'Le '+da.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+ if(a===b)return(EN?'':'Le ')+da.toLocaleDateString(LOC,{day:'numeric',month:'long',year:'numeric'});
  const sameM=da.getMonth()===db.getMonth()&&da.getFullYear()===y;
- return'Du '+(sameM?da.getDate():da.toLocaleDateString('fr-FR',{day:'numeric',month:'long',...(da.getFullYear()!==y?{year:'numeric'}:{})}))+' au '+db.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}
+ return(EN?'':'Du ')+(sameM?da.getDate():da.toLocaleDateString(LOC,{day:'numeric',month:'long',...(da.getFullYear()!==y?{year:'numeric'}:{})}))+(EN?' to ':' au ')+db.toLocaleDateString(LOC,{day:'numeric',month:'long',year:'numeric'})}
 function renderCalList(){const ul=$('cal-list');if(!ul)return;
  const items=[];
  // demandes confirmées : une ligne par demande
@@ -1244,19 +1276,19 @@ function renderDash(){
  const visite=el('label',{class:'chk visite'},visBox,'Visite du site effectuée');
  const copy=el('button',{class:'btn ghost sm',type:'button'},"Copier l'e-mail");
  copy.onclick=()=>{navigator.clipboard?.writeText(r.email).then(()=>copy.textContent='Copié',()=>copy.textContent=r.email)};
- const sem=r.type==='seminaire',gi=isLodg(r.type);
+ const sem=r.type==='seminaire',gi=isLodg(r.type),ang=r.langue==='en'?' · en anglais':'';
  if(gi){const n=r.depart?nights(r.date,r.depart).length:0;
-  $('detail').replaceChildren(el('span',{class:'eyebrow'},KLAB[r.type]+' · reçue le '+fmt(r.recu)+(r.ex?' · exemple':'')),el('h3',{},r.noms),
+  $('detail').replaceChildren(el('span',{class:'eyebrow'},KLAB[r.type]+' · reçue le '+fmt(r.recu)+ang+(r.ex?' · exemple':'')),el('h3',{},r.noms),
    el('dl',{},el('dt',{},'Séjour'),el('dd',{},r.depart?periode(r.date,r.depart)+' · '+n+' nuit'+(n>1?'s':''):'Non précisé'),el('dt',{},'Voyageurs'),el('dd',{},r.invites),...(/€/.test(r.formule||'')?[el('dt',{},'Tarif estimé'),el('dd',{},r.formule.split(' · ').pop())]:[]),el('dt',{},'E-mail'),el('dd',{},r.email),el('dt',{},'Téléphone'),el('dd',{},r.tel||'Non renseigné')),
    r.msg?el('p',{class:'msg'},r.msg):'',el('label',{},'Statut',status),alertMsg,
    r.statut==='confirmee'?el('p',{class:'cal-note'},'Nuits bloquées automatiquement dans le calendrier de '+LODG[r.type].nom+'.'):'',el('div',{class:'row'},copy));return}
- if(r.type==='visite'){$('detail').replaceChildren(el('span',{class:'eyebrow'},'Demande de visite · reçue le '+fmt(r.recu)+(r.ex?' · exemple':'')),el('h3',{},r.noms),
+ if(r.type==='visite'){$('detail').replaceChildren(el('span',{class:'eyebrow'},'Demande de visite · reçue le '+fmt(r.recu)+ang+(r.ex?' · exemple':'')),el('h3',{},r.noms),
    el('dl',{},el('dt',{},'Projet'),el('dd',{},r.projet||'Non précisé'),el('dt',{},'E-mail'),el('dd',{},r.email),el('dt',{},'Téléphone'),el('dd',{},r.tel||'Non renseigné')),
    r.msg?el('p',{class:'msg'},r.msg):'',el('label',{},'Statut',status),
    el('p',{class:'cal-note'},'Une demande de visite ne bloque aucune date. Passez-la en « Confirmée » une fois le rendez-vous fixé.'),el('div',{class:'row'},copy));return}
  const when=!r.date?'Dates flexibles':r.dates&&r.dates.length?daysTxt(r.dates)+' · '+r.dates.length+' jour'+(r.dates.length>1?'s':''):sem?(()=>{const ds=semDays(r.date,r.jours||1);return fmt(ds[0])+(ds.length>1?' au '+fmt(ds[ds.length-1]):'')+' · '+ds.length+' jour'+(ds.length>1?'s':'')})():(()=>{const j=D(r.date).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});return j[0].toUpperCase()+j.slice(1)})();
  $('detail').replaceChildren(
-  el('span',{class:'eyebrow'},(sem?'Séminaire':'Mariage')+' · reçue le '+fmt(r.recu)+(r.ex?' · exemple':'')),
+  el('span',{class:'eyebrow'},(sem?'Séminaire':'Mariage')+' · reçue le '+fmt(r.recu)+ang+(r.ex?' · exemple':'')),
   el('h3',{},r.noms),
   el('dl',{},el('dt',{},'Date'),el('dd',{},when),el('dt',{},sem?'Participants':'Invités'),el('dd',{},r.invites),el('dt',{},'Formule'),el('dd',{},r.formule),
    ...(sem?[]:[el('dt',{},'Cérémonie'),el('dd',{},r.ceremonie||'Non précisé')]),
@@ -1372,18 +1404,20 @@ function tarifNuit(k,p,v){const f=fete(k),base=p==='appart'?(v<=2?30:25):23;retu
 function minNuits(a,b){return nights(a,b).some(fete)?3:2}
 function gPrix(){if(!isLodg(gProp)||!gSel.a||!gSel.b)return 0;const v=+$('g-voy').value||1;return nights(gSel.a,gSel.b).reduce((t,k)=>t+tarifNuit(k,gProp,v)*v,0)}
 const euros=n=>n.toLocaleString('fr-FR')+' €';
-function gStay(){const e=$('g-stay');if(!gSel.a){e.textContent='Aucune date choisie.';return}
- if(!gSel.b){e.textContent='Arrivée le '+D(gSel.a).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+'. Choisissez maintenant votre jour de départ.';return}
- const n=nights(gSel.a,gSel.b).length,mn=minNuits(gSel.a,gSel.b);if(n<mn){e.textContent=periode(gSel.a,gSel.b)+' · '+n+' nuit'+(n>1?'s':'')+'. Séjour minimum : '+mn+' nuits'+(mn===3?' pendant les fêtes':'')+'. Choisissez un autre jour de départ.';return}
- const px=gPrix();e.textContent=periode(gSel.a,gSel.b)+' · '+n+' nuit'+(n>1?'s':'')+(px?' · '+euros(px)+' pour '+$('g-voy').value+' voyageur'+(+$('g-voy').value>1?'s':''):'')}
+const eurosAff=n=>EN?'€'+n.toLocaleString('en-GB'):euros(n);
+const nuitsTxt=n=>n+(EN?' night':' nuit')+(n>1?'s':''),voyTxt=v=>v+(EN?' guest':' voyageur')+(+v>1?'s':'');
+function gStay(){const e=$('g-stay');if(!gSel.a){e.textContent=tr('Aucune date choisie.');return}
+ if(!gSel.b){const da=D(gSel.a).toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long'});e.textContent=EN?'Arrival on '+da+'. Now choose your departure day.':'Arrivée le '+da+'. Choisissez maintenant votre jour de départ.';return}
+ const n=nights(gSel.a,gSel.b).length,mn=minNuits(gSel.a,gSel.b);if(n<mn){e.textContent=periode(gSel.a,gSel.b)+' · '+nuitsTxt(n)+(EN?'. Minimum stay: '+mn+' nights'+(mn===3?' over the holidays':'')+'. Please choose another departure day.':'. Séjour minimum : '+mn+' nuits'+(mn===3?' pendant les fêtes':'')+'. Choisissez un autre jour de départ.');return}
+ const px=gPrix();e.textContent=periode(gSel.a,gSel.b)+' · '+nuitsTxt(n)+(px?' · '+eurosAff(px)+(EN?' for ':' pour ')+voyTxt($('g-voy').value):'')}
 $('g-voy').addEventListener('change',gStay);
 function renderGCal(box,mode){
  if(!box)return;const P=mode==='client'?gProp:lp(),SK=mode+P;if(!gState[SK])gState[SK]=monthStart(null);
  const m0=D(gState[SK]),y=m0.getFullYear(),mo=m0.getMonth(),bm=gMap(P),min=mode==='client'?iso(new Date()):'';
- const prev=el('button',{type:'button','aria-label':'Mois précédent'},'‹'),next=el('button',{type:'button','aria-label':'Mois suivant'},'›');
+ const prev=el('button',{type:'button','aria-label':mode==='client'?tr('Mois précédent'):'Mois précédent'},'‹'),next=el('button',{type:'button','aria-label':mode==='client'?tr('Mois suivant'):'Mois suivant'},'›');
  if(mode==='client'&&gState[SK]<=monthStart(min))prev.disabled=true;
  prev.onclick=()=>{gState[SK]=iso(new Date(y,mo-1,1,12));renderGCal(box,mode)};next.onclick=()=>{gState[SK]=iso(new Date(y,mo+1,1,12));renderGCal(box,mode)};
- const g=el('div',{class:'cal-g',role:'grid'});['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'].forEach(x=>g.append(el('span',{class:'dow'},x)));
+ const g=el('div',{class:'cal-g',role:'grid'});DOW().forEach(x=>g.append(el('span',{class:'dow'},x)));
  const lead=(m0.getDay()+6)%7;for(let i=0;i<lead;i++)g.append(el('span',{class:'pad','aria-hidden':'true'}));
  const days=new Date(y,mo+1,0).getDate();
  for(let i=1;i<=days;i++){const d=new Date(y,mo,i,12),v=iso(d),b=bm.get(v);
@@ -1391,12 +1425,12 @@ function renderGCal(box,mode){
   if(mode==='client'){
    const canDepart=gSel.a&&!gSel.b&&v>gSel.a&&nights(gSel.a,v).every(x=>!bm.has(x));
    if(gSel.a&&v>=gSel.a&&v<=(gSel.b||gSel.a))btn.classList.add(v===gSel.a||v===gSel.b?'sel':'rng');
-   if(b&&!canDepart){btn.classList.add('busy');btn.disabled=true;btn.append(el('small',{class:'one'},'Réservé'))}
+   if(b&&!canDepart){btn.classList.add('busy');btn.disabled=true;btn.append(el('small',{class:'one'},tr('Réservé')))}
    else if(v<min&&!canDepart)btn.disabled=true;
    else{btn.onclick=()=>{
      if(canDepart){gSel.b=v}else{gSel={a:v,b:null}}
      $('g-err').hidden=true;gStay();renderGCal(box,mode)}}
-   btn.setAttribute('aria-label',d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+(b?' : réservé':''));
+   btn.setAttribute('aria-label',d.toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long'})+(b?(EN?': booked':' : réservé'):''));
   }else{
    if(b){btn.classList.add(b.type,'k-gite');if(b.show)btn.append(el('small',{class:'one'},b.label));btn.title=b.label}
    if(b&&b.type==='conf'){btn.onclick=()=>{sel=b.id;renderDash();$('detail').scrollIntoView({block:'nearest'})}}
@@ -1410,9 +1444,9 @@ function renderGCal(box,mode){
   }
   g.append(btn)}
  const sw=s=>el('i',{style:'background:'+s});
- const leg=mode==='client'?el('div',{class:'cal-leg'},el('span',{},sw('repeating-linear-gradient(-45deg,var(--stone-2) 0 3px,var(--card) 3px 6px)'),'Réservé'),el('span',{},sw('var(--buis)'),'Votre séjour'))
+ const leg=mode==='client'?el('div',{class:'cal-leg'},el('span',{},sw('repeating-linear-gradient(-45deg,var(--stone-2) 0 3px,var(--card) 3px 6px)'),tr('Réservé')),el('span',{},sw('var(--buis)'),tr('Votre séjour')))
   :el('div',{class:'cal-leg'},el('span',{},sw('color-mix(in srgb,var(--gilt) 22%,var(--card))'),'Séjour confirmé'),el('span',{},sw('repeating-linear-gradient(-45deg,color-mix(in srgb,var(--gilt) 22%,var(--card)) 0 3px,var(--card) 3px 6px)'),'Nuits bloquées'));
- box.replaceChildren(el('div',{class:'cal-h'},prev,el('b',{},m0.toLocaleDateString('fr-FR',{month:'long',year:'numeric'})),next),g,leg)}
+ box.replaceChildren(el('div',{class:'cal-h'},prev,el('b',{},m0.toLocaleDateString(mode==='client'?LOC:'fr-FR',{month:'long',year:'numeric'})),next),g,leg)}
 function renderGList(){const ul=$('g-cal-list');if(!ul)return;const items=[];
  load().filter(r=>r.type===lp()&&r.statut==='confirmee'&&r.date&&r.depart).forEach(r=>items.push({a:r.date,b:r.depart,label:r.noms,stay:1}));
  const days=[...new Set(gLoadBlocks().flatMap(x=>x.days))].sort();let st=null,pv=null;
@@ -1426,11 +1460,11 @@ function renderGList(){const ul=$('g-cal-list');if(!ul)return;const items=[];
 $('g-f').addEventListener('submit',e=>{e.preventDefault();const miss=[];
  if(!gSel.a||!gSel.b)miss.push('vos dates d\'arrivée et de départ');if(!$('g-nom').value.trim())miss.push('votre nom');
  if(!/^\S+@\S+\.\S+$/.test($('g-email').value))miss.push('une adresse e-mail valide');if(!$('g-ok-rgpd').checked)miss.push('votre accord pour l\'utilisation de vos informations (case à cocher)');
- if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).length<minNuits(gSel.a,gSel.b))miss.push('un séjour plus long : '+minNuits(gSel.a,gSel.b)+' nuits minimum'+(minNuits(gSel.a,gSel.b)===3?' pendant les fêtes':''));
+ if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).length<minNuits(gSel.a,gSel.b)){const mn=minNuits(gSel.a,gSel.b);miss.push(EN?'a longer stay: '+mn+' nights minimum'+(mn===3?' over the holidays':''):'un séjour plus long : '+mn+' nuits minimum'+(mn===3?' pendant les fêtes':''))}
  if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).some(x=>gMap(gProp).has(x)))miss.push('d\'autres dates : une partie du séjour est déjà réservée');
- if(miss.length){$('g-err').textContent='Il manque '+miss.join(', ')+'.';$('g-err').hidden=false;return}
+ if(miss.length){$('g-err').textContent=manque(miss);$('g-err').hidden=false;return}
  saveReq({id:'g'+Date.now(),type:gProp,recu:iso(new Date()),noms:$('g-nom').value.trim(),date:gSel.a,depart:gSel.b,invites:$('g-voy').value+' voyageur'+($('g-voy').value>1?'s':''),formule:'Séjour : '+LODG[gProp].nom+(gPrix()?' · '+euros(gPrix()):''),email:$('g-email').value.trim(),tel:$('g-tel').value.trim(),msg:$('g-msg').value.trim(),statut:'nouvelle'});
- $('g-recap').textContent=KLAB[gProp]+' · '+$('g-stay').textContent+($('g-stay').textContent.includes('voyageur')?'':' · '+$('g-voy').value+' voyageur'+(+$('g-voy').value>1?'s':''))+'.';$('g-f').hidden=true;$('g-merci').hidden=false});
+ const gst=$('g-stay').textContent;$('g-recap').textContent=tr(KLAB[gProp])+' · '+gst+(gst.includes(EN?'guest':'voyageur')?'':' · '+voyTxt($('g-voy').value))+'.';$('g-f').hidden=true;$('g-merci').hidden=false});
 $('g-again').onclick=()=>{gSel={a:null,b:null};gStay();$('g-merci').hidden=true;$('g-f').hidden=false;renderGCal($('g-cal'),'client')};
 document.querySelectorAll('input[name=scope]').forEach(r=>r.addEventListener('change',()=>{scope=r.value;sel=null;filtre='toutes';renderDash()}));
 function setProp(p){gProp=p;const r=document.querySelector('input[name=prop][value='+p+']');if(r)r.checked=true;gSel={a:null,b:null};gStay();
