@@ -14,6 +14,11 @@ Les traductions sont dans `en.js` : chaque ligne associe un texte français exac
 Les valeurs enregistrées dans les demandes (options des listes, formules) restent en français : dans les listes, la valeur reste française et seul le texte affiché est traduit.
 L'espace propriétaire, les e-mails reçus, les mentions légales et la brochure restent en français.
 
+## Paiement par carte des logements (Stripe)
+- Code serveur : `tools/supabase/paiement.ts` (fonction Supabase « paiement »). Installation : `tools/supabase/INSTALLATION.md`.
+- Activé seulement si `paiementCarte: true` dans `config.js`.
+- Les prix, le séjour minimum et les conditions d'annulation (90 % remboursés à plus de 7 jours, 40 % à 7 jours ou moins) existent à trois endroits : `index.html`, `tools/supabase/paiement.ts` et `mentions-legales.html`. Toujours modifier les trois ensemble ; le propriétaire doit ensuite recopier la fonction dans Supabase.
+
 ## Autres règles (voir la passation du projet)
 - Répondre au propriétaire en français, phrases simples, sans estimation de temps.
 - Le nom du propriétaire n'apparaît jamais sur le site (ce fichier est lui aussi public : n'y mettre aucun nom).

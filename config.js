@@ -9,5 +9,8 @@ window.BOVE_CONFIG = {
   // Sinon, adresse qui reçoit un e-mail à chaque nouvelle demande (via formsubmit.co, sans compte).
   notifyEmail: 'chateaudelabove@gmail.com',
   // Clé Web3Forms (facultatif, non utilisé si notifyEmail est rempli) (web3forms.com) : envoie un e-mail à chaque nouvelle demande. Elle est faite pour être visible.
-  web3formsKey: ''
+  web3formsKey: '',
+  // Paiement par carte des logements (Stripe). Mettre true seulement quand l'installation est terminée
+  // (tools/supabase/INSTALLATION.md). Tant que c'est false, le site envoie une simple demande, comme avant.
+  paiementCarte: false
 };

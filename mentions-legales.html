@@ -47,13 +47,34 @@ a{color:var(--buis);text-underline-offset:3px}
   <h3>Informations non contractuelles</h3>
   <p>Les descriptions, photographies et tarifs présentés sur ce site sont donnés à titre indicatif. Seul le contrat signé entre les parties fait foi.</p>
 
+  <h2 id="reservation">Conditions de réservation des logements</h2>
+
+  <h3>Réservation et paiement</h3>
+  <p>Le Gîte et l'Appartement de la Bôve se réservent en ligne. Le prix affiché au moment de la réservation est le prix total du séjour pour le nombre de voyageurs choisi, draps et serviettes compris. Il est payé en totalité par carte bancaire au moment de la réservation, sur la page sécurisée de Stripe. Le séjour est réservé dès que le paiement est accepté ; un reçu est envoyé par e-mail.</p>
+
+  <h3>Annulation par le voyageur</h3>
+  <ul>
+    <li>Annulation plus de 7 jours avant la date d'arrivée : 90 % du prix du séjour sont remboursés ; 10 % restent dus.</li>
+    <li>Annulation 7 jours ou moins avant la date d'arrivée, ou absence le jour de l'arrivée : 40 % du prix du séjour sont remboursés ; 60 % restent dus.</li>
+  </ul>
+  <p>Pour annuler, écrivez à <a href="mailto:chateaudelabove@gmail.com">chateaudelabove@gmail.com</a>. La date de réception de l'e-mail fait foi. Le remboursement est fait sur la carte utilisée pour le paiement.</p>
+
+  <h3>Annulation par le propriétaire</h3>
+  <p>Si le séjour doit être annulé du fait du propriétaire, le voyageur est remboursé en totalité.</p>
+
+  <h3>Droit de rétractation</h3>
+  <p>Conformément à l'article L221-28 du Code de la consommation, le droit de rétractation ne s'applique pas aux prestations d'hébergement fournies à une date déterminée. Seules les conditions d'annulation ci-dessus s'appliquent.</p>
+
+  <h3>Séjour</h3>
+  <p>Arrivée à partir de 14 h. Séjour de 2 nuits minimum, 3 nuits pour un séjour pendant les fêtes de Noël, du Nouvel An ou de Pâques. Le nombre de voyageurs ne peut pas dépasser la capacité du logement.</p>
+
   <h2 id="donnees">Données personnelles</h2>
 
   <h3>Responsable du traitement</h3>
   <p>L'éditeur du site, joignable à <a href="mailto:chateaudelabove@gmail.com">chateaudelabove@gmail.com</a>.</p>
 
   <h3>Données collectées</h3>
-  <p>Par les formulaires de demande (événement, visite ou séjour) : noms, adresse e-mail, téléphone s'il est indiqué, dates souhaitées, nombre d'invités ou de voyageurs, type d'événement et message.</p>
+  <p>Par les formulaires de demande (événement, visite ou séjour) : noms, adresse e-mail, téléphone s'il est indiqué, dates souhaitées, nombre d'invités ou de voyageurs, type d'événement et message. Pour un séjour payé en ligne, le montant et la date du paiement (pas les données de carte, traitées par Stripe).</p>
 
   <h3>Finalité</h3>
   <p>Répondre à votre demande et préparer votre réservation. Vos données ne sont jamais vendues ni utilisées à des fins publicitaires.</p>
@@ -62,7 +83,8 @@ a{color:var(--buis);text-underline-offset:3px}
   <p>Seul le propriétaire du domaine a accès à vos demandes. Pour fonctionner, elles transitent par des prestataires techniques :</p>
   <ul>
     <li>Supabase, qui enregistre les demandes et le calendrier des réservations ;</li>
-    <li>FormSubmit, qui transmet la demande par e-mail au propriétaire.</li>
+    <li>FormSubmit, qui transmet la demande par e-mail au propriétaire ;</li>
+    <li>Stripe, qui traite le paiement par carte des séjours réservés en ligne. Les données de carte sont saisies uniquement sur la page sécurisée de Stripe : le site ne les voit jamais.</li>
   </ul>
 
   <h3>Durée de conservation</h3>

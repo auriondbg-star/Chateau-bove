@@ -278,6 +278,9 @@ form .btn{justify-self:start}
 .merci dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:8px 0 0;font-size:.98rem}
 .merci dt{font-family:var(--sans);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-top:4px}
 .merci dd{margin:0}
+.cgv{background:var(--stone-2);padding:14px 16px;font-size:.9rem;line-height:1.55;display:flex;flex-direction:column;gap:6px}.cgv p{margin:0}
+.st-annulee{color:#A3412E}
+.pay-box{border:1px solid var(--line);padding:14px 16px;display:flex;flex-direction:column;gap:10px;font-size:.92rem}.pay-box p{margin:0}.pay-box .row{display:flex;gap:8px;flex-wrap:wrap}
 @media (max-width:860px){.resa-grid{grid-template-columns:1fr}}
 @media (max-width:520px){form{grid-template-columns:1fr}}
 
@@ -770,13 +773,18 @@ footer .mark{color:var(--ink);font-size:1.6rem}
           <label>E-mail<input id="g-email" type="email" autocomplete="email" placeholder="vous@exemple.fr"></label>
           <label>Téléphone<input id="g-tel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78"></label>
           <label class="full">Message<textarea id="g-msg" placeholder="Heure d'arrivée prévue (à partir de 14 h), questions…"></textarea></label>
+          <div class="cgv full" id="g-cgv" hidden>
+            <p><b>Paiement de la totalité par carte à la réservation</b>, sur la page sécurisée de Stripe.</p>
+            <p>Annulation plus de 7 jours avant l'arrivée : 90 % du séjour remboursés. Annulation à 7 jours ou moins de l'arrivée : 40 % remboursés.</p>
+          </div>
+          <label class="chk full consent" id="g-cgv-w" hidden><input id="g-ok-cgv" type="checkbox"><span>J'accepte les conditions de réservation et d'annulation. <a href="mentions-legales.html#reservation" target="_blank" rel="noopener">Lire les conditions</a></span></label>
           <label class="chk full consent"><input id="g-ok-rgpd" type="checkbox"><span>J'accepte que mes informations soient utilisées pour traiter ma demande. <a href="mentions-legales.html#donnees" target="_blank" rel="noopener">En savoir plus</a></span></label>
           <p class="err" id="g-err" hidden></p>
-          <button class="btn full" type="submit">Réserver ce séjour</button>
+          <button class="btn full" type="submit" id="g-submit">Réserver ce séjour</button>
         </form>
         <div class="merci" id="g-merci" hidden>
-          <span class="eyebrow">Demande reçue</span>
-          <h3>Merci, nous vous confirmons le séjour très vite.</h3>
+          <span class="eyebrow" id="g-merci-eb">Demande reçue</span>
+          <h3 id="g-merci-h">Merci, nous vous confirmons le séjour très vite.</h3>
           <p id="g-recap" style="color:var(--muted)"></p>
           <div><button class="btn ghost" id="g-again" type="button">Nouvelle demande</button></div>
         </div>
@@ -1109,7 +1117,7 @@ const EXEMPLES=[
  {id:'ex10',ex:1,type:'visite',recu:'2026-11-04',noms:'Camille Exemple',date:'',projet:'Mariage',invites:'—',formule:'Visite du domaine',email:'camille.exemple@mail.fr',tel:'06 00 00 00 10',msg:'Nous aimerions visiter un samedi matin en décembre, avant de choisir une date pour l\'été 2027.',statut:'nouvelle'},
  {id:'ex6',ex:1,type:'seminaire',recu:'2026-11-02',noms:'Cabinet Exemple',date:'2027-05-11',jours:1,invites:'Moins de 30',formule:"Journée d'étude",email:'contact.exemple@mail.fr',tel:'',msg:'',statut:'nouvelle'},
 ];
-const ST={'nouvelle':'Nouvelle','en-cours':'En cours','confirmee':'Confirmée','refusee':'Refusée'};
+const ST={'nouvelle':'Nouvelle','en-cours':'En cours','confirmee':'Confirmée','refusee':'Refusée','annulee':'Annulée'};
 function norm(r){if(!r.type)r.type='mariage';return r}
 // ---------- Supabase : base partagée entre tous les appareils ----------
 const CFG=window.BOVE_CONFIG||{};
@@ -1120,7 +1128,13 @@ function kvGet(k){const v=C.kv[k];return Array.isArray(v)?v.map(x=>({...x,days:(
 function kvSet(k,v){C.kv[k]=v;SB.from('etat').upsert({cle:k,valeur:v,maj:new Date().toISOString()}).then(({error})=>{if(error)cloudErr()});pushOcc()}
 function cloudErr(){const w=$('rem-warn');if(w){w.textContent="Une modification n'a pas pu être enregistrée. Vérifiez la connexion internet puis rechargez la page.";w.hidden=false}}
 let occT=null;
-function pushOcc(){if(!logged())return;clearTimeout(occT);occT=setTimeout(()=>{
+// reprend les réservations payées arrivées depuis le dernier chargement, pour ne jamais les effacer du calendrier public
+async function mergePaid(){try{const{data,error}=await SB.from('demandes').select('id,data');if(error||!data)return;let ch=false;
+ data.forEach(x=>{const i=C.reqs.findIndex(r=>r.id===x.id),j=JSON.stringify(x.data);if(i<0){C.reqs.push(x.data);C.synced[x.id]=j;ch=ch||x.data.statut!=='attente-paiement'}
+  else if(x.data.paiement&&C.synced[x.id]===JSON.stringify(C.reqs[i])&&C.synced[x.id]!==j){C.reqs[i]=x.data;C.synced[x.id]=j;ch=true}});
+ if(ch){reqs=load();if(location.hash.startsWith('#admin'))renderDash()}}catch(e){}}
+function pushOcc(){if(!logged())return;clearTimeout(occT);occT=setTimeout(async()=>{
+ await mergePaid();
  const pick=m=>[...m].map(([k,v])=>[k,{type:v.type,kind:v.kind,show:!!v.show}]);
  const occ={event:pick(blockedMap()),gite:pick(gMap('gite')),appart:pick(gMap('appart'))};C.occ=occ;
  SB.from('etat').upsert({cle:'occupation',valeur:occ,maj:new Date().toISOString()}).then(({error})=>{if(error)cloudErr()})},250)}
@@ -1132,11 +1146,11 @@ async function cloudRefresh(){
  C.reqs=d.data.map(x=>x.data);C.synced={};d.data.forEach(x=>C.synced[x.id]=JSON.stringify(x.data));
  C.kv={};e.data.forEach(x=>C.kv[x.cle]=x.valeur);C.occ=C.kv.occupation||null;
  reqs=load();if(logged()&&location.hash.startsWith('#admin'))renderDash()}
-function load(){if(CLOUD)return C.reqs.map(r=>norm({...r}));try{const v=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(v)){if(!v.some(r=>r.id==='ex5'))v.push(...EXEMPLES.filter(x=>x.type==='seminaire').map(x=>({...x})));if(!v.some(r=>r.id==='ex7'))v.push(...EXEMPLES.filter(x=>x.type==='gite').map(x=>({...x})));if(!v.some(r=>r.id==='ex9'))v.push(...EXEMPLES.filter(x=>x.type==='appart').map(x=>({...x})));return v.map(norm)}}catch(e){}return EXEMPLES.map(x=>({...x}))}
+function load(){if(CLOUD)return C.reqs.filter(r=>r.statut!=='attente-paiement').map(r=>norm({...r}));try{const v=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(v)){if(!v.some(r=>r.id==='ex5'))v.push(...EXEMPLES.filter(x=>x.type==='seminaire').map(x=>({...x})));if(!v.some(r=>r.id==='ex7'))v.push(...EXEMPLES.filter(x=>x.type==='gite').map(x=>({...x})));if(!v.some(r=>r.id==='ex9'))v.push(...EXEMPLES.filter(x=>x.type==='appart').map(x=>({...x})));return v.map(norm)}}catch(e){}return EXEMPLES.map(x=>({...x}))}
 function save(list){if(CLOUD){C.reqs=list.map(r=>({...r}));list.forEach(r=>{const j=JSON.stringify(r);if(C.synced[r.id]!==j){C.synced[r.id]=j;SB.from('demandes').update({data:r}).eq('id',r.id).then(({error})=>{if(error)cloudErr()})}});pushOcc();return}try{localStorage.setItem(KEY,JSON.stringify(list))}catch(e){}}
 let reqs=load(),filtre='toutes',ftype='tous',sel=null;
 function notify(r){try{const L={mariage:'Mariage',seminaire:'Séminaire',visite:'Demande de visite',gite:'Séjour au gîte',appart:"Séjour à l'appartement"};const ds=(r.dates&&r.dates.length?r.dates:(r.date?[r.date]:[])).join(', ');const b=new URLSearchParams({'form-name':'demande',type:L[r.type]||r.type,noms:r.noms||'',dates:ds||(r.flex?'Flexible':''),depart:r.depart||'',invites:r.invites||'',formule:r.formule||'',ceremonie:r.ceremonie||'',projet:r.projet||'',flex:r.flex?'oui':'',email:r.email||'',tel:r.tel||'',msg:r.msg||''});const k=CFG.web3formsKey;
- const tl=L[r.type]||r.type,subj='Nouvelle demande : '+tl+(r.noms?' · '+r.noms:''),lodg=isLodg(r.type);
+ const tl=L[r.type]||r.type,subj=(r.paye?'Réservation payée : ':'Nouvelle demande : ')+tl+(r.noms?' · '+r.noms:''),lodg=isLodg(r.type);
  const fd=v=>{try{return D(v).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}catch(e){return v}};
  const dem=reqKeys(r),dd=lodg?[]:(r.dates&&r.dates.length?r.dates:(r.date?[r.date]:[])).slice().sort(),et=a=>a.length>1?a.slice(0,-1).join(', ')+' et '+a[a.length-1]:a.join('');
  const dl=dd.length>1&&dd.every(x=>x.slice(0,7)===dd[0].slice(0,7))?et(dd.map(x=>D(x).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric'})))+' '+D(dd[0]).toLocaleDateString('fr-FR',{month:'long',year:'numeric'}):et(dd.map(fd));
@@ -1250,6 +1264,24 @@ function renderCalList(){const ul=$('cal-list');if(!ul)return;
    kids.push(el('span',{},'Bloqué',el('br'),x))}
   else kids.push(el('span',{},it.label));
   return el('li',{},...kids)}):[el('li',{},el('span',{},'Aucune date prise pour le moment.'))]))}
+// encadré « Paiement » d'un séjour payé par carte, avec annulation et remboursement
+const JOURS_LIMITE=7,REMB_AVANT=.9,REMB_APRES=.4;
+function partRemb(arr){const t=new Date(iso(new Date())+'T12:00'),a=D(arr);return Math.round((a-t)/864e5)>JOURS_LIMITE?REMB_AVANT:REMB_APRES}
+const eur2=n=>n.toLocaleString('fr-FR',{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2})+' €';
+function payBox(r){const p=r.paiement;if(!p||!p.etat||p.etat==='en attente')return'';
+ if(p.etat==='remboursé')return el('div',{class:'pay-box'},el('p',{},el('b',{},'Paiement : '),eur2(p.montant)+' payés par carte, puis remboursés en partie le '+fmt(p.rembourse_le)+'.'),el('p',{},'Remboursé : '+eur2(p.rembourse)+' ('+Math.round(p.part*100)+' %). Vous gardez '+eur2(p.garde)+' (avant les frais Stripe).'));
+ const part=partRemb(r.date),rb=Math.round(p.montant*part*100)/100,msg=el('p',{class:'err',hidden:''});
+ const b1=el('button',{class:'btn ghost sm',type:'button'},'Annuler et rembourser '+Math.round(part*100)+' %'),b2=el('button',{class:'btn ghost sm',type:'button'},'Rembourser en totalité');
+ const go=async total=>{const m=total?p.montant:rb;if(!confirm('Annuler le séjour de '+r.noms+' et rembourser '+eur2(m)+' sur sa carte ?\n\nLes nuits seront libérées. Cette action est définitive.'))return;
+  b1.disabled=b2.disabled=true;msg.hidden=true;
+  try{const{data:{session}}=await SB.auth.getSession();const res=await fetch(PAYURL(),{method:'POST',headers:{'Content-Type':'application/json',apikey:CFG.anonKey,Authorization:'Bearer '+(session?session.access_token:'')},body:JSON.stringify({action:'rembourser',id:r.id,total})});
+   const j=await res.json().catch(()=>({}));if(!res.ok)throw new Error(j.erreur||'Le remboursement a échoué.');await cloudRefresh();renderDash()}
+  catch(e){msg.textContent=e.message||'Le remboursement a échoué.';msg.hidden=false;b1.disabled=b2.disabled=false}};
+ b1.onclick=()=>go(false);b2.onclick=()=>go(true);
+ return el('div',{class:'pay-box'},el('p',{},el('b',{},'Payé par carte : '),eur2(p.montant)+' le '+fmt(p.le)+'.'),
+  p.conflit?el('p',{class:'err'},'Attention : ces nuits étaient déjà prises au moment du paiement. Vérifiez le calendrier et remboursez si besoin.'):'',
+  el('p',{style:'color:var(--muted)'},'Si le client annule aujourd\'hui ('+(part===REMB_AVANT?'plus de '+JOURS_LIMITE+' jours avant':JOURS_LIMITE+' jours ou moins avant')+' l\'arrivée) : remboursement de '+eur2(rb)+', vous gardez '+eur2(Math.round((p.montant-rb)*100)/100)+'. Si c\'est vous qui annulez, remboursez la totalité.'),
+  el('div',{class:'row'},b1,b2),msg)}
 function renderDash(){
  const inType=r=>isLodg(scope)?r.type===scope:!isLodg(r.type)&&(ftype==='tous'||r.type===ftype);
  $('typef').hidden=isLodg(scope);$('e-sec').hidden=isLodg(scope);$('g-sec').hidden=!isLodg(scope);
@@ -1266,6 +1298,7 @@ function renderDash(){
  const status=el('select',{id:'d-statut','aria-label':'Statut'},...Object.entries(ST).map(([k,l])=>{const o=el('option',{value:k},l);if(k===r.statut)o.selected=true;return o}));
  const alertMsg=el('p',{class:'err',hidden:''});
  status.onchange=()=>{
+  if(r.paiement&&r.paiement.etat==='payé'&&status.value!=='confirmee'){status.value=r.statut;alertMsg.textContent='Ce séjour est payé par carte : utilisez le bouton « Annuler et rembourser » ci-dessous, qui libère aussi les nuits.';alertMsg.hidden=false;return}
   if(status.value==='confirmee'&&!isLodg(r.type)&&r.type!=='visite'&&!r.visite){status.value=r.statut;alertMsg.textContent='Cochez « Visite du site effectuée » avant de confirmer et de bloquer ces dates.';alertMsg.hidden=false;return}
   if(status.value==='confirmee'){const G=isLodg(r.type),bm=G?gMap(r.type):blockedMap();const clash=reqKeys(r).map(k=>bm.get(k)).find(b=>b&&b.type==='conf'&&b.id!==r.id);
    if(clash){status.value=r.statut;alertMsg.textContent='Ces dates sont déjà confirmées pour '+clash.label+'.';alertMsg.hidden=false;return}
@@ -1280,7 +1313,7 @@ function renderDash(){
  if(gi){const n=r.depart?nights(r.date,r.depart).length:0;
   $('detail').replaceChildren(el('span',{class:'eyebrow'},KLAB[r.type]+' · reçue le '+fmt(r.recu)+ang+(r.ex?' · exemple':'')),el('h3',{},r.noms),
    el('dl',{},el('dt',{},'Séjour'),el('dd',{},r.depart?periode(r.date,r.depart)+' · '+n+' nuit'+(n>1?'s':''):'Non précisé'),el('dt',{},'Voyageurs'),el('dd',{},r.invites),...(/€/.test(r.formule||'')?[el('dt',{},'Tarif estimé'),el('dd',{},r.formule.split(' · ').pop())]:[]),el('dt',{},'E-mail'),el('dd',{},r.email),el('dt',{},'Téléphone'),el('dd',{},r.tel||'Non renseigné')),
-   r.msg?el('p',{class:'msg'},r.msg):'',el('label',{},'Statut',status),alertMsg,
+   r.msg?el('p',{class:'msg'},r.msg):'',payBox(r),el('label',{},'Statut',status),alertMsg,
    r.statut==='confirmee'?el('p',{class:'cal-note'},'Nuits bloquées automatiquement dans le calendrier de '+LODG[r.type].nom+'.'):'',el('div',{class:'row'},copy));return}
  if(r.type==='visite'){$('detail').replaceChildren(el('span',{class:'eyebrow'},'Demande de visite · reçue le '+fmt(r.recu)+ang+(r.ex?' · exemple':'')),el('h3',{},r.noms),
    el('dl',{},el('dt',{},'Projet'),el('dd',{},r.projet||'Non précisé'),el('dt',{},'E-mail'),el('dd',{},r.email),el('dt',{},'Téléphone'),el('dd',{},r.tel||'Non renseigné')),
@@ -1462,10 +1495,39 @@ $('g-f').addEventListener('submit',e=>{e.preventDefault();const miss=[];
  if(!/^\S+@\S+\.\S+$/.test($('g-email').value))miss.push('une adresse e-mail valide');if(!$('g-ok-rgpd').checked)miss.push('votre accord pour l\'utilisation de vos informations (case à cocher)');
  if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).length<minNuits(gSel.a,gSel.b)){const mn=minNuits(gSel.a,gSel.b);miss.push(EN?'a longer stay: '+mn+' nights minimum'+(mn===3?' over the holidays':''):'un séjour plus long : '+mn+' nuits minimum'+(mn===3?' pendant les fêtes':''))}
  if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).some(x=>gMap(gProp).has(x)))miss.push('d\'autres dates : une partie du séjour est déjà réservée');
+ if(PAY&&!$('g-ok-cgv').checked)miss.push("votre accord sur les conditions d'annulation (case à cocher)");
  if(miss.length){$('g-err').textContent=manque(miss);$('g-err').hidden=false;return}
+ if(PAY){payer();return}
  saveReq({id:'g'+Date.now(),type:gProp,recu:iso(new Date()),noms:$('g-nom').value.trim(),date:gSel.a,depart:gSel.b,invites:$('g-voy').value+' voyageur'+($('g-voy').value>1?'s':''),formule:'Séjour : '+LODG[gProp].nom+(gPrix()?' · '+euros(gPrix()):''),email:$('g-email').value.trim(),tel:$('g-tel').value.trim(),msg:$('g-msg').value.trim(),statut:'nouvelle'});
  const gst=$('g-stay').textContent;$('g-recap').textContent=tr(KLAB[gProp])+' · '+gst+(gst.includes(EN?'guest':'voyageur')?'':' · '+voyTxt($('g-voy').value))+'.';$('g-f').hidden=true;$('g-merci').hidden=false});
 $('g-again').onclick=()=>{gSel={a:null,b:null};gStay();$('g-merci').hidden=true;$('g-f').hidden=false;renderGCal($('g-cal'),'client')};
+// ---------- paiement par carte des logements (Stripe, via la fonction Supabase « paiement ») ----------
+// Actif seulement si config.js contient paiementCarte: true (après l'installation décrite dans tools/supabase/INSTALLATION.md).
+const PAY=CLOUD&&CFG.paiementCarte===true;
+const PAYURL=()=>CFG.url+'/functions/v1/paiement';
+const PKEY='bove-paiement';
+if(PAY){$('g-cgv').hidden=false;$('g-cgv-w').hidden=false;$('g-submit').textContent=tr('Payer et réserver')}
+function gRecapTxt(){const gst=$('g-stay').textContent;return tr(KLAB[gProp])+' · '+gst+(gst.includes(EN?'guest':'voyageur')?'':' · '+voyTxt($('g-voy').value))+'.'}
+async function payer(){const btn=$('g-submit'),e=$('g-err');btn.disabled=true;btn.textContent=tr('Ouverture du paiement…');
+ const info={type:gProp,arrivee:gSel.a,depart:gSel.b,voyageurs:+$('g-voy').value,nom:$('g-nom').value.trim(),email:$('g-email').value.trim(),tel:$('g-tel').value.trim(),msg:$('g-msg').value.trim()};
+ const fin=()=>{btn.disabled=false;btn.textContent=tr('Payer et réserver')};
+ try{const r=await fetch(PAYURL(),{method:'POST',headers:{'Content-Type':'application/json',apikey:CFG.anonKey},body:JSON.stringify({action:'payer',...info,conditions:true,langue:EN?'en':'fr',site:location.origin})});
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok||!j.url){e.textContent=j.erreur||tr("Le paiement n'a pas pu être ouvert. Vérifiez votre connexion internet puis réessayez.");e.hidden=false;fin();if(j.pris){await loadOcc();gSel={a:null,b:null};gStay();renderGCal($('g-cal'),'client')}return}
+  try{sessionStorage.setItem(PKEY,JSON.stringify({...info,id:j.id,total:j.total,recap:gRecapTxt()}))}catch(x){}
+  location.href=j.url}
+ catch(x){e.textContent=tr("Le paiement n'a pas pu être ouvert. Vérifiez votre connexion internet puis réessayez.");e.hidden=false;fin()}}
+// retour depuis la page de paiement Stripe (appelé une fois la page prête)
+function retourPaiement(){const q=new URLSearchParams(location.search),st=q.get('paiement');if(!st)return;
+ let info=null;try{info=JSON.parse(sessionStorage.getItem(PKEY)||'null')}catch(x){}
+ q.delete('paiement');q.delete('ref');history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:'')+location.hash);
+ if(st==='ok'){$('g-f').hidden=true;$('g-merci').hidden=false;$('g-merci-eb').textContent=tr('Paiement reçu');$('g-merci-h').textContent=tr('Merci, votre séjour est réservé. Un reçu vous est envoyé par e-mail.');
+  $('g-recap').textContent=info?info.recap:'';$('g-again').textContent=tr('Nouvelle réservation');
+  if(info&&!info.notifie){try{sessionStorage.setItem(PKEY,JSON.stringify({...info,notifie:1}))}catch(x){}
+   notify({id:info.id,type:info.type,noms:info.nom,date:info.arrivee,depart:info.depart,invites:info.voyageurs+' voyageur'+(info.voyageurs>1?'s':''),formule:'Séjour payé par carte · '+euros(info.total),paye:1,email:info.email,tel:info.tel,msg:info.msg,langue:EN?'en':undefined})}}
+ else if(info){if(info.id)fetch(PAYURL(),{method:'POST',headers:{'Content-Type':'application/json',apikey:CFG.anonKey},body:JSON.stringify({action:'abandon',id:info.id})}).catch(()=>{});
+  setProp(info.type);gSel={a:info.arrivee,b:info.depart};gState['client'+info.type]=info.arrivee.slice(0,8)+'01';$('g-voy').value=String(info.voyageurs);$('g-nom').value=info.nom;$('g-email').value=info.email;$('g-tel').value=info.tel;$('g-msg').value=info.msg;gStay();renderGCal($('g-cal'),'client');
+  $('g-err').textContent=tr("Paiement annulé : rien n'a été débité. Vous pouvez réessayer.");$('g-err').hidden=false}}
 document.querySelectorAll('input[name=scope]').forEach(r=>r.addEventListener('change',()=>{scope=r.value;sel=null;filtre='toutes';renderDash()}));
 function setProp(p){gProp=p;const r=document.querySelector('input[name=prop][value='+p+']');if(r)r.checked=true;gSel={a:null,b:null};gStay();
  const v=$('g-voy'),cur=+v.value||2;const L=LODG[p];v.replaceChildren(...Array.from({length:L.max-L.min+1},(_,i)=>new Option(String(L.min+i))));v.value=String(Math.max(L.min,Math.min(cur,L.max)));
@@ -1474,7 +1536,7 @@ document.querySelectorAll('input[name=prop]').forEach(r=>r.addEventListener('cha
 document.querySelectorAll('a[data-prop]').forEach(a=>a.addEventListener('click',()=>setProp(a.dataset.prop)));
 const _rd=renderDash;renderDash=function(){_rd();renderCal($('cal-admin'),'admin');renderCalList();renderCal($('cal-client'),'client');renderGCal($('g-cal-admin'),'admin');renderGList();renderGCal($('g-cal'),'client')};
 document.querySelectorAll('input[name=bkind]').forEach(r=>r.addEventListener('change',()=>{calAnchor=null;calHover=null;calMsg('');renderCal($('cal-admin'),'admin')}));
-window.addEventListener('hashchange',route);setType('mariage');setProp('gite');if(!CLOUD)route();
+window.addEventListener('hashchange',route);setType('mariage');setProp('gite');if(!CLOUD)route();retourPaiement();
 
 // ---------- Supabase : connexion et accès ----------
 async function cloudRole(user){const em=(user&&user.email||'').toLowerCase();if(!em)return'';
