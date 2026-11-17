@@ -173,7 +173,7 @@ window.BOVE_EN = {
  "sur 5 · 51 avis sur Airbnb · 86 % de 5 étoiles": "out of 5 · 51 reviews on Airbnb · 86% five-star",
  "Lire tous les avis sur Airbnb": "Read all reviews on Airbnb",
  "5 étoiles": "5 stars",
- "Nous avons passé un très bon séjour. Merci à notre hôte pour son accueil et ses recommandations. Nous avons particulièrement apprécié les belles chambres, l'environnement superbe, les très nombreux jeux pour les enfants et le coin cheminée pour les soirées jeux au coin du feu. Parfait.": "We had a very good stay. Thanks to our host for the welcome and the recommendations. We particularly loved the beautiful bedrooms, the superb surroundings, the many games for the children and the fireside corner for game nights by the fire. Perfect.",
+ "Nous avons particulièrement apprécié les belles chambres, l'environnement superbe, les très nombreux jeux pour les enfants et le coin cheminée pour les soirées jeux au coin du feu. Parfait.": "We particularly loved the beautiful bedrooms, the superb surroundings, the many games for the children and the fireside corner for game nights by the fire. Perfect.",
  "Charlotte · novembre 2026": "Charlotte · November 2026 · translated from French",
  "Le logement est incroyable. L'endroit est paisible. Tout est à disposition (dont des jouets pour enfants). Nous reviendrons avec plaisir.": "The house is incredible. The place is peaceful. Everything is provided (including toys for children). We'll gladly come back.",
  "Benjamin · août 2026": "Benjamin · August 2026 · translated from French",
