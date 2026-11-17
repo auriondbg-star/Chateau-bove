@@ -165,7 +165,7 @@ window.BOVE_EN = {
  "Sèche-cheveux": "Hairdryer",
  "Parking gratuit": "Free parking",
  "Draps et serviettes compris": "Bed linen and towels included",
- "Arrivée à partir de 14 h · Draps et serviettes compris": "Check-in from 2 pm · Bed linen and towels included",
+ "Arrivée à partir de 14 h · Draps et serviettes compris · Pas de wifi au gîte : idéal pour déconnecter": "Check-in from 2 pm · Bed linen and towels included · No wifi at the gîte: perfect for switching off",
  // ---- avis Airbnb du gîte (les avis sont traduits du français) ----
  "4,82": "4.82",
  "sur 5 · 51 avis sur Airbnb": "out of 5 · 51 reviews on Airbnb",
