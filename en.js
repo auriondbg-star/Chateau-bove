@@ -46,7 +46,6 @@ window.BOVE_EN = {
  "Le château qui a donné son nom au Chemin des Dames": "The château that gave the Chemin des Dames its name",
  "À la veille de la Révolution, la Bôve appartient à Françoise de Châlus, duchesse de Narbonne, dame d'honneur de Madame Adélaïde. Les filles de Louis XV, Mesdames Adélaïde et Victoire, viennent si souvent lui rendre visite que la route empruntée par leurs carrosses prend un nom resté dans l'histoire : le Chemin des Dames.": "On the eve of the French Revolution, La Bôve belonged to Françoise de Châlus, Duchess of Narbonne, lady-in-waiting to Madame Adélaïde. The daughters of Louis XV, Mesdames Adélaïde and Victoire, visited her so often that the road taken by their carriages earned a name that has gone down in history: the Chemin des Dames, the “Ladies' Way”.",
  "Plus d'un siècle plus tard, ce même plateau devient l'un des lieux les plus marquants de la Grande Guerre. Le domaine porte aujourd'hui cette double mémoire, entre art de vivre à la française et souvenir de 1917.": "More than a hundred years later, the same plateau became one of the most significant sites of the First World War. Today the estate carries this double memory, between the French art of living and the remembrance of 1917.",
- "Lire l'histoire complète": "Read the full history",
  "L'histoire complète": "The full history",
  "De Mesdames de France à aujourd'hui": "From the Mesdames de France to the present day",
  "Origines": "Origins",
@@ -61,7 +60,6 @@ window.BOVE_EN = {
  "Aujourd'hui": "Today",
  "Un lieu de fête et de mémoire.": "A place of celebration and remembrance.",
  "Le domaine ouvre ses extérieurs, sa chapelle et son orangerie aux mariages, à deux heures de Paris et trente-cinq minutes de Reims.": "The estate opens its grounds, its chapel and its orangery to weddings, two hours from Paris and thirty-five minutes from Reims.",
- "Refermer": "Close",
  "Une allée, une façade, une forêt à perte de vue.": "An avenue, a façade, a forest as far as the eye can see.",
  "Aisne · 2 h de Paris": "Aisne · 2 hrs from Paris",
 
@@ -365,5 +363,20 @@ window.BOVE_EN = {
  "La salle à manger et le coin cuisine": "The dining area and kitchenette",
  "La table et la cuisine": "The table and the kitchen",
  "Le coin repas près de la fenêtre": "The dining nook by the window",
- "La salle d'eau avec douche": "The shower room"
+ "La salle d'eau avec douche": "The shower room",
+ "Toit à la Mansart": "Mansard roof",
+ "Ardoise et lucarnes ouvragées": "Slate and ornate dormer windows",
+ "Fronton sculpté": "Carved pediment",
+ "Le cœur de la façade": "The heart of the façade",
+ "Balcon en fer forgé": "Wrought-iron balcony",
+ "Au-dessus de l’entrée centrale": "Above the central entrance",
+ "Cour de gravier": "Gravel courtyard",
+ "La place de la photo de groupe": "The spot for the group photo",
+ "· Touchez les points dorés": "· Tap the gold dots",
+ "Plan de la route de crête, de Soissons jusqu'à la Bôve": "Map of the ridge road, from Soissons to La Bôve",
+ "Ailette": "Ailette",
+ "Aisne": "Aisne",
+ "Soissons": "Soissons",
+ "Craonne": "Craonne",
+ "La route de crête empruntée par les carrosses de Mesdames": "The ridge road taken by the Mesdames' carriages"
 };
