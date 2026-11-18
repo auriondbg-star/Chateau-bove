@@ -82,7 +82,7 @@ html{scroll-behavior:smooth}
 .mo .hero .btn{animation:rise 1.1s 1.15s cubic-bezier(.2,.7,.2,1) both}
 .mo .rv{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.2,.7,.2,1) var(--d,0s),transform 1.1s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
 .mo .rv.in{opacity:1;transform:none}
-.mo .rvi{clip-path:inset(14% 6% 14% 6%);transition:clip-path 1.3s cubic-bezier(.65,0,.15,1) var(--d,0s)}
+.mo .rvi{overflow:hidden;clip-path:inset(14% 6% 14% 6%);transition:clip-path 1.3s cubic-bezier(.65,0,.15,1) var(--d,0s)}
 .mo .rvi img{transform:scale(1.18);transition:transform 1.8s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
 .mo .rvi.in{clip-path:inset(0 0 0 0)}
 .mo .rvi.in img{transform:scale(1)}
@@ -528,6 +528,23 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 .near li{padding:6px 0;break-inside:avoid;border-bottom:1px solid var(--line)}
 .near b{font-weight:400;color:var(--ink)}
 .gite-book{margin-top:64px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+/* bloc « Réserver un logement » en vert, comme la partie Réservation : photo du gîte en transparence et halo doré */
+#logements{overflow-x:clip}
+.gite-book{position:relative;isolation:isolate;padding-block:80px;color:#EEF0E8}
+.gite-book::before,.gite-book::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:100vw;margin-left:-50vw;pointer-events:none}
+.gite-book::before{z-index:-2;background:radial-gradient(circle at 20% 20%,rgba(217,195,142,.24),rgba(217,195,142,0) 40%) 0 0/180% 180% no-repeat,var(--buis)}
+.gite-book::after{z-index:-1;background:url(gite-14.jpg) center 60%/cover no-repeat;opacity:.14;mix-blend-mode:luminosity}
+.mo .gite-book::before{animation:halo2 20s ease-in-out infinite alternate}
+@keyframes halo2{0%{background-position:0 0,0 0}50%{background-position:100% 60%,0 0}100%{background-position:40% 100%,0 0}}
+.gite-book .eyebrow{color:#D9C38E}
+.gite-book h3{color:#F4F3EC}
+.gite-book h3::after{content:"";display:block;width:110px;height:2px;margin-top:18px;background:#D9C38E}
+.gite-book .gb-intro{color:#C9D3C6}
+.gite-book .seg{border-color:#D9C38E}
+.gite-book .seg label{color:#EEF0E8}
+.gite-book .seg label:has(input:checked){background:#D9C38E;color:var(--ink)}
+.gite-book .seg-ind{background:#D9C38E}
+.mo .gite-book .seg.anim label:has(input:checked){background:transparent;color:var(--ink)}
 .gite-book>*{min-width:0}
 .gite-book form{grid-template-columns:1fr 1fr}
 .stay{grid-column:1/-1;font-family:var(--sans);font-size:.85rem;padding:12px 14px;background:var(--buis-soft);color:var(--ink)}
@@ -835,7 +852,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
           <label><input type="radio" name="prop" value="gite" checked>Gîte · 11 pers.</label>
           <label><input type="radio" name="prop" value="appart">Appartement · 4 pers.</label>
         </div>
-        <p style="color:var(--muted)">Cliquez sur votre jour d'arrivée, puis sur votre jour de départ. Arrivée à partir de 14 h ; draps et serviettes sont compris.</p>
+        <p class="gb-intro">Cliquez sur votre jour d'arrivée, puis sur votre jour de départ. Arrivée à partir de 14 h ; draps et serviettes sont compris.</p>
         <div class="cal" id="g-cal" aria-label="Disponibilités du logement"></div>
       </div>
       <div>
