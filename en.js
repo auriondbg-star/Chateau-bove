@@ -366,10 +366,13 @@ window.BOVE_EN = {
  "La salle d'eau avec douche": "The shower room",
  "Plan de la route de crête, de Soissons jusqu'à la Bôve": "Map of the ridge road, from Soissons to La Bôve",
  "Ailette": "Ailette",
+ "Itinéraire de Mesdames": "The Mesdames' route",
+ "1776 – 1789": "1776 – 1789",
+ "49°27′ N": "49°27′ N",
+ "3°45′ E": "3°45′ E",
  "Aisne": "Aisne",
  "Soissons": "Soissons",
  "Craonne": "Craonne",
- "Le dessin": "The drawing",
  "La photo": "The photo",
  "La route de crête empruntée par les carrosses de Mesdames": "The ridge road taken by the Mesdames' carriages"
 };
