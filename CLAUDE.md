@@ -19,6 +19,10 @@ L'espace propriétaire, les e-mails reçus, les mentions légales et la brochure
 - Activé seulement si `paiementCarte: true` dans `config.js`.
 - Les prix, le séjour minimum et les conditions d'annulation (90 % remboursés à plus de 7 jours, 40 % à 7 jours ou moins) existent à trois endroits : `index.html`, `tools/supabase/paiement.ts` et `mentions-legales.html`. Toujours modifier les trois ensemble ; le propriétaire doit ensuite recopier la fonction dans Supabase.
 
+## Animations
+- Bloc CSS « animations » (après la règle prefers-reduced-motion) et dernier <script> de `index.html` : apparition au défilement (.rv / .rvi), compteurs des chiffres, barre de progression dorée, léger zoom du fond.
+- Sans bibliothèque externe. Désactivées si l'appareil demande moins d'animations. Un nouvel élément s'anime s'il correspond aux sélecteurs TXT / IMG du script.
+
 ## Autres règles (voir la passation du projet)
 - Répondre au propriétaire en français, phrases simples, sans estimation de temps.
 - Le nom du propriétaire n'apparaît jamais sur le site (ce fichier est lui aussi public : n'y mettre aucun nom).
