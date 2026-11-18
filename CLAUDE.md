@@ -23,7 +23,7 @@ L'espace propriétaire, les e-mails reçus, les mentions légales et la brochure
 - Bloc CSS « animations » (après la règle prefers-reduced-motion) et dernier <script> de `index.html` : apparition au défilement (.rv / .rvi), compteurs des chiffres, barre de progression dorée, léger zoom du fond.
 - 2e série : titres h2 mot à mot (.wsplit), partie verte (photo en fond qui glisse, halo doré, trait sous le titre, losanges dorés), onglets à fond glissant (.seg-ind), vague du calendrier au changement de mois, reflet doré des boutons.
 - 3e série : grain léger sur les fonds clairs, dessin du château au trait doré qui se trace (.trace, dans Séminaires et en bas de page), traits dorés autour des petits titres centrés (.orn), passe-partout blanc et zoom lent sur les photos enveloppées dans .ph.
-- 4e série : façade qui passe du dessin d'architecte doré (facade-trait.png, tiré de la photo) à la vraie photo au rythme du défilement (.rev), carte du Chemin des Dames dont la route se trace avec un carrosse qui roule jusqu'à la Bôve (.carte), frise de l'histoire toujours visible dont la ligne dorée se remplit au défilement (.chrono li.on).
+- 4e série : façade qui passe du dessin d'architecte doré (facade-trait.png, tiré de la photo) puis moitié dessin, moitié photo au rythme du défilement ; la séparation ondule et se fait glisser au doigt (.rev), carte du Chemin des Dames dont la route se trace avec un carrosse qui roule jusqu'à la Bôve (.carte), frise de l'histoire toujours visible dont la ligne dorée se remplit au défilement (.chrono li.on).
 - Sans bibliothèque externe. Désactivées si l'appareil demande moins d'animations. Un nouvel élément s'anime s'il correspond aux sélecteurs TXT / IMG du script.
 
 ## Autres règles (voir la passation du projet)

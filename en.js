@@ -369,6 +369,7 @@ window.BOVE_EN = {
  "Aisne": "Aisne",
  "Soissons": "Soissons",
  "Craonne": "Craonne",
- "Élévation sur la cour d'honneur": "Elevation on the main courtyard",
+ "Le dessin": "The drawing",
+ "La photo": "The photo",
  "La route de crête empruntée par les carrosses de Mesdames": "The ridge road taken by the Mesdames' carriages"
 };
