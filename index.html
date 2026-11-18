@@ -131,19 +131,19 @@ section:not(.hero):not(.resa),footer{background-image:url("data:image/svg+xml,%3
 .mo .lit .ph::after{clip-path:inset(0)}
 .mo .ph>img{animation:kb 24s ease-in-out infinite alternate}
 @keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.12) translate(-1.5%,-1%)}}
-/* façade : du dessin d'architecte à la photo, au défilement */
-.rev{display:block;position:relative;overflow:hidden;--d:1;--q:1;background-color:var(--card,#F4F3EC);background-image:linear-gradient(rgba(154,123,63,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(154,123,63,.09) 1px,transparent 1px);background-size:28px 28px}
-.rev img{display:block}
-.rev .rev-t{clip-path:inset(0 0 calc((1 - var(--d)) * 100%) 0);transform:none!important}
-.rev .rev-p{transform:none!important}
-.rev .rev-p{position:absolute;inset:0;width:100%;height:100%;clip-path:inset(0 calc((1 - var(--q)) * 100%) 0 0)}
-.rev{touch-action:pan-y;cursor:ew-resize;-webkit-user-select:none;user-select:none}
-.rev-l{position:absolute;top:0;bottom:0;left:calc(var(--q) * 100%);width:2px;margin-left:-1px;background:#E9D9AE;box-shadow:0 0 22px 3px rgba(201,168,102,.7);opacity:var(--lo,1);pointer-events:none;transition:opacity .4s}
-.rev-l::before{content:"‹ ›";position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:#F4ECD6;border:1.5px solid #fff;color:#6B5426;font:500 1.15rem/43px var(--sans);letter-spacing:.06em;text-align:center;box-shadow:0 4px 18px rgba(0,0,0,.28),0 0 0 6px rgba(233,217,174,.25)}
-.rev-tag{position:absolute;right:20px;top:18px;text-align:right;font-family:var(--sans);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gilt);pointer-events:none}
-.rev-tag2{position:absolute;left:20px;bottom:18px;font-family:var(--sans);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5);pointer-events:none;opacity:calc(var(--q) * 3 - .3)}
+/* façade : moitié dessin, moitié photo, animation automatique */
+.rev{display:block;position:relative;overflow:hidden;--d:1;--q:.5;--lo:1;background-color:var(--card,#F4F3EC);background-image:linear-gradient(rgba(154,123,63,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(154,123,63,.09) 1px,transparent 1px);background-size:28px 28px}
+.rev img{display:block;transform:none!important}
+.rev .rev-t{-webkit-mask-image:linear-gradient(180deg,#000 calc(var(--d) * 125% - 25%),transparent calc(var(--d) * 125%));mask-image:linear-gradient(180deg,#000 calc(var(--d) * 125% - 25%),transparent calc(var(--d) * 125%))}
+.rev .rev-p{position:absolute;inset:0;width:100%;height:100%;-webkit-mask-image:linear-gradient(90deg,#000 calc(var(--q) * 100% - 5%),transparent calc(var(--q) * 100% + 5%));mask-image:linear-gradient(90deg,#000 calc(var(--q) * 100% - 5%),transparent calc(var(--q) * 100% + 5%))}
+.rev-s{position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,transparent 42%,rgba(255,244,205,.95) 50%,transparent 58%) 0 0/300% 100% no-repeat;-webkit-mask:url(facade-trait.png) center/cover no-repeat;mask:url(facade-trait.png) center/cover no-repeat;opacity:0}
+.mo .rev.go .rev-s{opacity:1;animation:sheen 7s ease-in-out 2s infinite}
+@keyframes sheen{0%{background-position:100% 0}55%,100%{background-position:0 0}}
+.rev-l{position:absolute;top:0;bottom:0;left:calc(var(--q) * 100%);width:1px;background:#FFF6DC;box-shadow:0 0 14px 2px rgba(233,217,174,.9),0 0 40px 8px rgba(201,168,102,.35);opacity:var(--lo);pointer-events:none}
+.rev-tag,.rev-tag2{position:absolute;font-family:var(--sans);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;pointer-events:none;transition:opacity 1s}
+.rev-tag{right:20px;top:18px;color:var(--gilt);opacity:calc(var(--d) * 1.2 - .2)}
+.rev-tag2{left:20px;bottom:18px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5);opacity:calc(var(--q) * 3 - .3)}
 .mo .rev{--d:0;--q:0;--lo:0}
-.rev:not(.mo *){--q:.5}
 /* histoire : carte du Chemin des Dames */
 .carte{display:block;width:100%;max-width:580px;height:auto;margin:6px auto 0;overflow:visible}
 .carte .riv{fill:none;stroke:var(--buis);stroke-opacity:.3;stroke-width:1.4}
@@ -723,7 +723,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
 <section class="wrap">
   <div class="inner split">
     <figure>
-      <span class="rev"><img class="rev-t" src="facade-trait.png" alt="" aria-hidden="true" loading="lazy"><img class="rev-p" src="facade.jpg" alt="Façade du château, balcon en fer forgé et toit d'ardoise" loading="lazy"><i class="rev-l" aria-hidden="true"></i><span class="rev-tag" aria-hidden="true">Le dessin</span><span class="rev-tag2" aria-hidden="true">La photo</span></span>
+      <span class="rev"><img class="rev-t" src="facade-trait.png" alt="" aria-hidden="true" loading="lazy"><img class="rev-p" src="facade.jpg" alt="Façade du château, balcon en fer forgé et toit d'ardoise" loading="lazy"><i class="rev-s" aria-hidden="true"></i><i class="rev-l" aria-hidden="true"></i><span class="rev-tag" aria-hidden="true">Le dessin</span><span class="rev-tag2" aria-hidden="true">La photo</span></span>
       <figcaption>La façade sur la cour d'honneur</figcaption>
     </figure>
     <div class="txt">
@@ -1810,18 +1810,14 @@ if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitych
  const lio=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('lit');lio.unobserve(x.target)}}),{threshold:.35});
  document.querySelectorAll('.trace').forEach(t=>{[...t.children].forEach((c,i)=>c.style.setProperty('--i',i));lio.observe(t)});
  document.querySelectorAll('.orn').forEach(e=>lio.observe(e));
- // façade : le dessin se trace, la photo arrive jusqu'à la moitié, puis la séparation ondule ; on peut la faire glisser au doigt
+ // façade : animation automatique quand elle est à l'écran : le dessin apparaît, la photo arrive jusqu'au milieu,
+ // puis la frontière entre photo et dessin glisse lentement d'un côté à l'autre ; un reflet passe sur les traits dorés
  const rv=document.querySelector('.rev');
- if(rv){const cl=v=>Math.max(0,Math.min(1,v)),ez=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;let base=0,user=null,t0=0,vis=false,raf=0;
-  const set=q=>{rv.style.setProperty('--q',q.toFixed(4));rv.style.setProperty('--lo',q>0.004?1:0)};
-  const f=()=>{const r=rv.getBoundingClientRect(),H=innerHeight;vis=r.bottom>0&&r.top<H;if(!vis)return;const p=cl((H*.92-r.top)/(H*.62+r.height*.25));
-   rv.style.setProperty('--d',ez(cl(p/.38)).toFixed(4));base=ez(cl((p-.4)/.45))*.5;if(user===null&&base<.5)set(base);if(base>=.5&&!raf)loop()};
-  const loop=()=>{raf=requestAnimationFrame(now=>{raf=0;if(user!==null||base<.5||!vis)return;if(!t0)t0=now;set(.5+.07*Math.sin((now-t0)/1100));loop()})};
-  const mv=e=>{const r=rv.getBoundingClientRect();user=Math.max(.03,Math.min(.97,(e.clientX-r.left)/r.width));set(user)};
-  rv.querySelectorAll('img').forEach(i=>i.draggable=false);
-  rv.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')e.preventDefault();rv.setPointerCapture(e.pointerId);mv(e);rv.onpointermove=mv});
-  const up=()=>{rv.onpointermove=null};rv.addEventListener('pointerup',up);rv.addEventListener('pointercancel',up);
-  let t3=false;addEventListener('scroll',()=>{if(!t3){t3=true;requestAnimationFrame(()=>{t3=false;f()})}},{passive:true});addEventListener('resize',f);f()}
+ if(rv){const cl=v=>Math.max(0,Math.min(1,v)),io2=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;let st=null,vis=false,raf=0,pause=0,pt=0;
+  const fr=now=>{raf=0;if(!vis)return;if(st===null)st=now;const t=(now-st-pause)/1000;
+   const d=io2(cl(t/2.2)),a=io2(cl((t-1.9)/2.2))*.5,w=t>4.1?Math.sin((t-4.1)/2.6)*.15*io2(cl((t-4.1)/3)):0,q=a+w;
+   rv.style.setProperty('--d',d.toFixed(4));rv.style.setProperty('--q',q.toFixed(4));rv.style.setProperty('--lo',cl(t-1.9).toFixed(2));raf=requestAnimationFrame(fr)};
+  new IntersectionObserver(es=>es.forEach(x=>{vis=x.isIntersecting;if(vis){rv.classList.add('go');if(st!==null&&pt)pause+=performance.now()-pt;if(!raf)raf=requestAnimationFrame(fr)}else pt=performance.now()}),{threshold:.3}).observe(rv)}
  // carte : le carrosse suit la route et arrive à la Bôve
  document.querySelectorAll('.carte').forEach(c=>{new IntersectionObserver((es,o)=>es.forEach(x=>{if(!x.isIntersecting)return;o.disconnect();c.classList.add('lit');
   const car=c.querySelector('.car'),am=car&&car.querySelector('animateMotion');setTimeout(()=>{if(am&&am.beginElement){car.style.visibility='visible';am.beginElement()}},400);setTimeout(()=>c.classList.add('arr'),3300)}),{threshold:.5}).observe(c)});
