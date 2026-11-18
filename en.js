@@ -6,6 +6,11 @@ window.BOVE_EN = {
  // ---- en-tête, menu ----
  "Château de la Bôve · Dans l'Aisne, près de Reims": "Château de la Bôve · In the Aisne, near Reims",
  "Le domaine": "The estate",
+ "Mariages": "Weddings",
+ "Réceptions": "Receptions",
+ "Monument historique": "Historic monument",
+ "Chemin des Dames": "Chemin des Dames",
+ "✦": "✦",
  "Les espaces": "The spaces",
  "Séminaires": "Seminars",
  "Mariage": "Wedding",

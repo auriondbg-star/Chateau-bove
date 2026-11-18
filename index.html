@@ -87,6 +87,41 @@ html{scroll-behavior:smooth}
 .mo .rvi.in{clip-path:inset(0 0 0 0)}
 .mo .rvi.in img{transform:scale(1)}
 .mo .eyebrow.rv.in::after{animation:draw .9s .2s cubic-bezier(.2,.7,.2,1) both;transform-origin:left}
+/* --- animations, 2e série : partie verte, titres mot à mot, onglets, calendrier, bandeau, boutons --- */
+.resa{overflow:hidden}
+.resa>.inner{position:relative;z-index:1}
+.resa::before{content:"";position:absolute;inset:-10% -5%;background:url(aerien-domaine-v2.jpg) center/cover no-repeat;opacity:.13;mix-blend-mode:luminosity;transform:translateY(var(--py,0px)) scale(1.08);pointer-events:none}
+.resa::after{content:"";position:absolute;width:70vmax;height:70vmax;left:-20vmax;top:-25vmax;border-radius:50%;background:radial-gradient(circle,rgba(217,195,142,.22),rgba(217,195,142,0) 62%);pointer-events:none}
+.mo .resa::after{animation:halo 18s ease-in-out infinite alternate}
+@keyframes halo{0%{transform:translate(0,0)}50%{transform:translate(55vw,35vh)}100%{transform:translate(20vw,70vh)}}
+.resa h2::after{content:"";display:block;width:140px;height:2px;margin-top:22px;background:#D9C38E}
+.mo .resa h2::after{transform:scaleX(0);transform-origin:left;transition:transform 1.3s .7s cubic-bezier(.2,.7,.2,1)}
+.mo .resa h2.lit::after{transform:scaleX(1)}
+.mo .resa ul.inc li.rv{transform:translateX(-28px)}
+.mo .resa ul.inc li::before{transition:background .6s .4s}
+.mo .resa ul.inc li.lit::before{background:#D9C38E}
+.mo .wsplit .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+.mo .wsplit .w>span{display:inline-block;transform:translateY(110%);transition:transform 1s cubic-bezier(.2,.7,.2,1) var(--wd,0s)}
+.mo .wsplit.lit .w>span{transform:none}
+.mo .seg.anim{position:relative}
+.mo .seg.anim label:has(input:checked){background:transparent}
+.mo .seg.anim label{z-index:1;transition:color .35s}
+.seg-ind{position:absolute;top:0;bottom:0;left:0;width:0;background:var(--buis);transition:transform .5s cubic-bezier(.65,0,.15,1),width .5s cubic-bezier(.65,0,.15,1);z-index:0;pointer-events:none}
+@keyframes calin{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+.mo .cal-g.wave>*{animation:calin .45s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0) * 11ms)}
+@keyframes sweep{from{background-size:0% 100%}to{background-size:100% 100%}}
+.mo .cal-g button.sel{background:var(--card) linear-gradient(var(--buis),var(--buis)) no-repeat;animation:sweep .45s cubic-bezier(.2,.7,.2,1) both}
+.marquee{position:relative;z-index:1;background:var(--stone);overflow:hidden;border-block:1px solid var(--line);padding-block:22px;white-space:nowrap}
+.marquee .track{display:inline-flex;gap:0;will-change:transform}
+.mo .marquee .track{animation:defile 38s linear infinite}
+.mo .marquee.rev .track{animation-direction:reverse}
+@keyframes defile{to{transform:translateX(-50%)}}
+.marquee span{font-family:var(--display);font-size:clamp(1.6rem,3.6vw,2.6rem);color:var(--ink);padding-inline:.6em}
+.marquee span.st{color:var(--gilt);font-size:clamp(1rem,2vw,1.3rem);padding-inline:0}
+.marquee span:nth-of-type(4n+3){font-style:italic;font-family:var(--serif)}
+.btn{position:relative;overflow:hidden}
+.mo .btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(233,217,174,.55) 50%,transparent 70%);transform:translateX(-130%);transition:transform .9s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+.mo .btn:hover::after{transform:translateX(130%)}
 .prog{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;background:var(--gilt);transform-origin:0 50%;transform:scaleX(0);pointer-events:none}
 @media (hover:hover){.lieu,.lodg,.avis-l figure{transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s}.lieu:hover,.lodg:hover,.avis-l figure:hover{transform:translateY(-6px);box-shadow:0 18px 40px -22px rgba(20,28,22,.45)}}
 
@@ -717,6 +752,8 @@ footer .mark{color:var(--ink);font-size:1.6rem}
   </div>
 </section>
 
+<div class="marquee" aria-hidden="true"><div class="track"><span>Mariages</span><span class="st">✦</span><span>Réceptions</span><span class="st">✦</span><span>Séminaires</span><span class="st">✦</span><span>Gîte</span><span class="st">✦</span><span>Monument historique</span><span class="st">✦</span><span>Chemin des Dames</span><span class="st">✦</span><span>Mariages</span><span class="st">✦</span><span>Réceptions</span><span class="st">✦</span><span>Séminaires</span><span class="st">✦</span><span>Gîte</span><span class="st">✦</span><span>Monument historique</span><span class="st">✦</span><span>Chemin des Dames</span><span class="st">✦</span></div></div>
+
 <section class="sem wrap" id="seminaires">
   <div class="inner">
     <div class="sem-top">
@@ -840,6 +877,8 @@ footer .mark{color:var(--ink);font-size:1.6rem}
 </section>
 
 <div class="fenetre wrap" role="presentation"><p>Votre mariage sur le Chemin des Dames.<span>Château de la Bôve</span></p></div>
+
+<div class="marquee rev" aria-hidden="true"><div class="track"><span>Mariages</span><span class="st">✦</span><span>Réceptions</span><span class="st">✦</span><span>Séminaires</span><span class="st">✦</span><span>Gîte</span><span class="st">✦</span><span>Monument historique</span><span class="st">✦</span><span>Chemin des Dames</span><span class="st">✦</span><span>Mariages</span><span class="st">✦</span><span>Réceptions</span><span class="st">✦</span><span>Séminaires</span><span class="st">✦</span><span>Gîte</span><span class="st">✦</span><span>Monument historique</span><span class="st">✦</span><span>Chemin des Dames</span><span class="st">✦</span></div></div>
 
 <section class="resa wrap" id="reserver">
   <div class="inner resa-grid">
@@ -1657,16 +1696,19 @@ if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitych
 (()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window))return;
  const root=document.documentElement;root.classList.add('mo');
  const adm=document.getElementById('admin'),ok=e=>!adm.contains(e)&&!e.closest('.hero')&&!e.closest('[hidden]');
- const TXT='.eyebrow,section h2,section h3:not(.lodg h3),.big,.facts>div,.split .txt>p,.split .txt>div,.hist-intro>p,.hist-intro>.more,.fenetre p,.head>p,.lieu,.chapelle .b,.sem-facts>div,.sem .txt>*,.lodg,.avis-h,.avis-l figure,.near li,.contact .inner>*,.resa-intro>*,.more-row';
+ const TXT='.eyebrow,.resa ul.inc li,section h3:not(.lodg h3),.big,.facts>div,.split .txt>p,.split .txt>div,.hist-intro>p,.hist-intro>.more,.fenetre p,.head>p,.lieu,.chapelle .b,.sem-facts>div,.sem .txt>*,.lodg,.avis-h,.avis-l figure,.near li,.contact .inner>*,.resa-intro>*,.more-row';
  const IMG='.split figure,.ph2 figure,.top3>*,.sem figure';
  const els=[];
+ // titres mot à mot
+ document.querySelectorAll('section h2').forEach(h=>{if(!ok(h))return;h.classList.add('wsplit');let k=0;
+  const walk=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.nodeValue.split(/(\s+)/).forEach(w=>{if(!w)return;if(/^\s+$/.test(w)){f.append(' ');return}const o=document.createElement('span');o.className='w';const i=document.createElement('span');i.textContent=w;i.style.setProperty('--wd',(k++*.07)+'s');o.append(i);f.append(o)});c.replaceWith(f)}else if(c.nodeType===1)walk(c)})};walk(h);els.push(h)});
  document.querySelectorAll(IMG).forEach(e=>{if(ok(e)){e.classList.add('rvi');els.push(e)}});
- document.querySelectorAll(TXT).forEach(e=>{if(ok(e)&&!e.classList.contains('rvi')&&!e.closest('.rv')){e.classList.add('rv');els.push(e)}});
+ document.querySelectorAll(TXT).forEach(e=>{if(ok(e)&&!e.classList.contains('rvi')&&!e.classList.contains('wsplit')&&!e.closest('.rv')){e.classList.add('rv');els.push(e)}});
  // décalage en cascade entre éléments frères
  els.forEach(e=>{const sib=[...e.parentElement.children].filter(x=>x.classList.contains('rv')||x.classList.contains('rvi'));e.style.setProperty('--d',Math.min(sib.indexOf(e),6)*.09+'s')});
  // une fois apparu, on retire les classes pour rendre leurs effets normaux (survol, etc.)
  const done=e=>setTimeout(()=>{e.classList.remove('rv','rvi','in');e.style.removeProperty('--d')},2200);
- const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);done(x.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.12});
+ const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){const e=x.target;e.classList.add('in','lit');io.unobserve(e);if(!e.classList.contains('wsplit'))done(e)}}),{rootMargin:'0px 0px -8% 0px',threshold:.12});
  els.forEach(e=>io.observe(e));
  // éléments qui deviennent visibles plus tard (galerie, histoire, réponses) : rien de caché
  document.addEventListener('click',()=>setTimeout(()=>document.querySelectorAll('.rv:not(.in),.rvi:not(.in)').forEach(e=>{if(e.closest('[hidden]'))return;const r=e.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0){e.classList.add('in');done(e)}}),60),true);
@@ -1679,7 +1721,18 @@ if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitych
  const bgi=document.querySelector('.bgfix');let tick=false;
  const upd=()=>{tick=false;if(location.hash.startsWith('#admin')){bar.style.transform='scaleX(0)';return}const h=document.documentElement.scrollHeight-innerHeight,y=scrollY;bar.style.transform='scaleX('+(h>0?y/h:0)+')';
   if(bgi&&y<innerHeight*1.5)bgi.style.transform='scale('+(1+y/innerHeight*.08)+') translateY('+(y*.04)+'px)'};
- addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});upd()})();
+ const resa=document.getElementById('reserver');
+ const upd2=()=>{if(!resa)return;const r=resa.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)resa.style.setProperty('--py',(r.top*-.12).toFixed(1)+'px')};
+ addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(()=>{upd();upd2()})}},{passive:true});upd();upd2();
+ // onglets : le fond vert glisse vers le choix
+ document.querySelectorAll('.seg').forEach(g=>{if(!ok(g))return;g.classList.add('anim');const ind=document.createElement('span');ind.className='seg-ind';g.prepend(ind);
+  const place=()=>{const l=g.querySelector('label:has(input:checked)');if(!l){ind.style.width='0';return}ind.style.width=l.offsetWidth+'px';ind.style.transform='translateX('+l.offsetLeft+'px)';ind.style.top=l.offsetTop+'px';ind.style.height=l.offsetHeight+'px';ind.style.bottom='auto'};
+  g.addEventListener('change',place);addEventListener('resize',place);place();setTimeout(place,600)});
+ // calendriers : vague à chaque changement de mois
+ ['cal-client','g-cal'].forEach(id=>{const box=document.getElementById(id);if(!box)return;let last='';
+  new MutationObserver(()=>{const g=box.querySelector('.cal-g'),h=box.querySelector('.cal-h b');if(!g||g.dataset.w)return;g.dataset.w=1;const m=h?h.textContent:'';
+   if(m!==last){last=m;[...g.children].forEach((c,i)=>c.style.setProperty('--i',i));g.classList.add('wave')}}).observe(box,{childList:true})});
+})();
 </script>
 
 </body>
