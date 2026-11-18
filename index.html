@@ -111,14 +111,6 @@ html{scroll-behavior:smooth}
 .mo .cal-g.wave>*{animation:calin .45s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0) * 11ms)}
 @keyframes sweep{from{background-size:0% 100%}to{background-size:100% 100%}}
 .mo .cal-g button.sel{background:var(--card) linear-gradient(var(--buis),var(--buis)) no-repeat;animation:sweep .45s cubic-bezier(.2,.7,.2,1) both}
-.marquee{position:relative;z-index:1;background:var(--stone);overflow:hidden;border-block:1px solid var(--line);padding-block:22px;white-space:nowrap}
-.marquee .track{display:inline-flex;gap:0;will-change:transform}
-.mo .marquee .track{animation:defile 38s linear infinite}
-.mo .marquee.rev .track{animation-direction:reverse}
-@keyframes defile{to{transform:translateX(-50%)}}
-.marquee span{font-family:var(--display);font-size:clamp(1.6rem,3.6vw,2.6rem);color:var(--ink);padding-inline:.6em}
-.marquee span.st{color:var(--gilt);font-size:clamp(1rem,2vw,1.3rem);padding-inline:0}
-.marquee span:nth-of-type(4n+3){font-style:italic;font-family:var(--serif)}
 .btn{position:relative;overflow:hidden}
 .mo .btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(233,217,174,.55) 50%,transparent 70%);transform:translateX(-130%);transition:transform .9s cubic-bezier(.2,.7,.2,1);pointer-events:none}
 .mo .btn:hover::after{transform:translateX(130%)}
@@ -752,8 +744,6 @@ footer .mark{color:var(--ink);font-size:1.6rem}
   </div>
 </section>
 
-<div class="marquee" aria-hidden="true"><div class="track"><span>Mariages</span><span class="st">✦</span><span>Réceptions</span><span class="st">✦</span><span>Séminaires</span><span class="st">✦</span><span>Gîte</span><span class="st">✦</span><span>Monument historique</span><span class="st">✦</span><span>Chemin des Dames</span><span class="st">✦</span><span>Mariages</span><span class="st">✦</span><span>Réceptions</span><span class="st">✦</span><span>Séminaires</span><span class="st">✦</span><span>Gîte</span><span class="st">✦</span><span>Monument historique</span><span class="st">✦</span><span>Chemin des Dames</span><span class="st">✦</span></div></div>
-
 <section class="sem wrap" id="seminaires">
   <div class="inner">
     <div class="sem-top">
@@ -877,8 +867,6 @@ footer .mark{color:var(--ink);font-size:1.6rem}
 </section>
 
 <div class="fenetre wrap" role="presentation"><p>Votre mariage sur le Chemin des Dames.<span>Château de la Bôve</span></p></div>
-
-<div class="marquee rev" aria-hidden="true"><div class="track"><span>Mariages</span><span class="st">✦</span><span>Réceptions</span><span class="st">✦</span><span>Séminaires</span><span class="st">✦</span><span>Gîte</span><span class="st">✦</span><span>Monument historique</span><span class="st">✦</span><span>Chemin des Dames</span><span class="st">✦</span><span>Mariages</span><span class="st">✦</span><span>Réceptions</span><span class="st">✦</span><span>Séminaires</span><span class="st">✦</span><span>Gîte</span><span class="st">✦</span><span>Monument historique</span><span class="st">✦</span><span>Chemin des Dames</span><span class="st">✦</span></div></div>
 
 <section class="resa wrap" id="reserver">
   <div class="inner resa-grid">
