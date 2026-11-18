@@ -151,11 +151,11 @@ section:not(.hero):not(.resa),footer{background-image:url("data:image/svg+xml,%3
 .hc{position:absolute;width:16px;height:16px;border:0 solid #C9A866;opacity:.8}
 .hc.a{left:10px;top:10px;border-width:1.5px 0 0 1.5px}.hc.b{right:10px;top:10px;border-width:1.5px 1.5px 0 0}.hc.c{right:10px;bottom:10px;border-width:0 1.5px 1.5px 0}.hc.d{left:10px;bottom:10px;border-width:0 0 1.5px 1.5px}
 .hud{position:absolute;top:17px;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:#C9A866}
-.hud.l{left:36px}.hud.r{right:36px}
+.hud.l{left:36px}.hud.r{right:36px}.hud.br{top:auto;bottom:15px;right:36px;opacity:.75}
 .hud.l::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#7FD08A;box-shadow:0 0 8px #7FD08A;margin-right:10px;vertical-align:1px;animation:blink 1.6s steps(2) infinite}
 @keyframes blink{50%{opacity:.25}}
 .carte{position:relative;display:block;width:100%;height:auto;overflow:visible}
-.carte .topo use{fill:none;stroke:#C9A866;stroke-opacity:.13;stroke-width:1}
+.carte-w{isolation:isolate}
 .carte .riv{fill:none;stroke:#7FA7B5;stroke-opacity:.45;stroke-width:1.4}
 .carte .xh line{stroke:#C9A866;stroke-opacity:.18;stroke-width:1;stroke-dasharray:3 6}
 .carte .rt0{fill:none;stroke:#C9A866;stroke-opacity:.3;stroke-width:1;stroke-dasharray:2 7;stroke-linecap:round}
@@ -171,13 +171,10 @@ section:not(.hero):not(.resa),footer{background-image:url("data:image/svg+xml,%3
 .carte text.cd{font-family:var(--display);font-style:italic;font-size:23px;letter-spacing:0;text-transform:none;fill:#E2C27E}
 .carte text.co{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11.5px;letter-spacing:.06em;fill:#C9A866}
 .carte .car{fill:#FFF3CF;visibility:hidden}
-.carte .sweep{opacity:0}
 .mo .carte .rt{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 3s cubic-bezier(.45,0,.2,1) .4s}
 .mo .carte.lit .rt{stroke-dashoffset:0}
 .mo .carte .lab{opacity:0;transition:opacity 1s}
 .mo .carte.lit .lab{opacity:1;transition-delay:var(--ld,0s)}
-.mo .carte .topo use{stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 3.5s ease-out}
-.mo .carte.lit .topo use{stroke-dashoffset:0}
 .mo .carte .xh line{opacity:0;transition:opacity 1.2s 3s}
 .mo .carte.arr .xh line{opacity:1}
 .mo .carte.arr .ping{animation:ping 2.6s ease-out infinite}
@@ -186,13 +183,27 @@ section:not(.hero):not(.resa),footer{background-image:url("data:image/svg+xml,%3
 .carte .ping{transform-box:fill-box;transform-origin:center}
 .mo .carte.arr .flow{opacity:.9;transition:opacity 1s;animation:flow 1.6s linear infinite}
 @keyframes flow{to{stroke-dashoffset:-18}}
-.mo .carte.arr .sweep{opacity:1;animation:sweep 6s cubic-bezier(.5,0,.5,1) .5s infinite}
-@keyframes sweep{0%{transform:translateX(0)}70%,100%{transform:translateX(800px)}}
 .mo .carte .brk{transform-box:fill-box;transform-origin:center}
 .mo .carte.arr .brk{animation:lock .9s cubic-bezier(.3,1.5,.5,1) both}
 @keyframes lock{from{transform:scale(2.2);opacity:0}to{transform:none;opacity:1}}
 @media (prefers-color-scheme:dark){.carte-w{box-shadow:0 0 0 1px rgba(201,168,102,.2)}}
 @media (max-width:560px){.carte-w{padding:40px 8px 14px}.hud{font-size:.56rem;letter-spacing:.12em;top:15px}.hud.l{left:28px}.hud.r{right:28px}.carte text{font-size:20px}.carte text.it{font-size:21px}.carte text.big{font-size:32px}.carte text.cd{font-size:24px}.carte text.co{font-size:15px}.carte .v{r:7px}}
+.sat{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease .5s;pointer-events:none;z-index:1}
+.sat::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 100% at 52% 63%,transparent 45%,rgba(10,16,12,.55) 100%),repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px)}
+.sat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:51.9% 62.8%;transform-origin:51.9% 62.8%;transform:scale(1)}
+.ret{position:absolute;left:51.9%;top:62.8%;width:29%;aspect-ratio:1.45;margin:-10% 0 0 -14.5%;z-index:2;opacity:0;transform:scale(1.8);transition:opacity .6s,transform .9s cubic-bezier(.3,1.4,.5,1)}
+.ret::before,.ret::after,.ret i::before,.ret i::after{content:"";position:absolute;width:16px;height:16px;border:0 solid #F4D98F;filter:drop-shadow(0 0 4px rgba(244,217,143,.8))}
+.ret::before{left:0;top:0;border-width:2px 0 0 2px}.ret::after{right:0;top:0;border-width:2px 2px 0 0}.ret i::before{left:0;bottom:0;border-width:0 0 2px 2px}.ret i::after{right:0;bottom:0;border-width:0 2px 2px 0}
+.ret-l{position:absolute;left:68%;text-align:left;top:calc(62.8% - 70px);max-width:30%;z-index:2;font-family:var(--display);font-size:1.7rem;line-height:1;color:#F4D98F;text-shadow:0 2px 14px rgba(0,0,0,.7);opacity:0;transform:translateX(-10px);transition:opacity .8s,transform .8s}
+.ret-l small{display:block;margin-top:8px;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:#E9E4D4}
+.carte{transform-origin:80% 53%;transition:transform 1.8s cubic-bezier(.6,0,.3,1),opacity 1.2s ease .5s,filter 1.2s}
+.hud,.hc{z-index:3}
+.carte-w.dive .carte{transform:scale(6);opacity:0;filter:blur(2px)}
+.carte-w.dive .sat{opacity:1}
+.carte-w.dive .sat img{transform:scale(1.9);transition:transform 11s cubic-bezier(.2,.5,.3,1) .4s}
+.carte-w.dive .ret{opacity:1;transform:none;transition-delay:2.4s}
+.carte-w.dive .ret-l{opacity:1;transform:none;transition-delay:2.9s}
+@media (max-width:560px){.ret-l{max-width:none;left:auto;left:auto;right:12px;top:calc(62.8% - 96px);text-align:right;font-size:1.3rem}.ret-l small{font-size:.5rem}}
 .carte-l{font-family:var(--sans);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:-6px}
 /* histoire : frise qui s'allume au défilement */
 .chrono{position:relative;--p:1}
@@ -777,19 +788,16 @@ footer .mark{color:var(--ink);font-size:1.6rem}
     <p>Plus d'un siècle plus tard, ce même plateau devient l'un des lieux les plus marquants de la Grande Guerre. Le domaine porte aujourd'hui cette double mémoire, entre art de vivre à la française et souvenir de 1917.</p>
     <div class="carte-w">
      <span class="hc a"></span><span class="hc b"></span><span class="hc c"></span><span class="hc d"></span>
-     <span class="hud l">Itinéraire de Mesdames</span><span class="hud r">1776 – 1789</span>
+     <div class="sat" aria-hidden="true"><img src="aerien-domaine-v2.jpg" alt="" loading="lazy"><span class="ret"><i></i></span><span class="ret-l">La Bôve<small>Château · cour d'honneur · allée de buis</small></span></div>
+     <span class="hud l">Itinéraire de Mesdames</span><span class="hud r">1776 – 1789</span><span class="hud br">49°27′ N · 3°45′ E</span>
      <svg class="carte" viewBox="0 0 640 380" role="img" aria-label="Plan de la route de crête, de Soissons jusqu'à la Bôve">
-      <defs><filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-       <linearGradient id="swp" x1="0" x2="1"><stop offset="0" stop-color="#E9D9AE" stop-opacity="0"/><stop offset=".8" stop-color="#E9D9AE" stop-opacity=".05"/><stop offset=".985" stop-color="#E9D9AE" stop-opacity=".16"/><stop offset="1" stop-color="#FFF3CF" stop-opacity=".7"/></linearGradient>
-       <path id="ct" d="M150,240 C220,200 330,206 420,212 S545,208 565,232 C545,262 420,264 330,258 S205,272 150,240Z"/></defs>
-      <g class="topo"><use href="#ct"/><use href="#ct" transform="translate(357 236) scale(1.13 1.75) translate(-357 -236)"/><use href="#ct" transform="translate(357 236) scale(1.27 2.6) translate(-357 -236)"/><use href="#ct" transform="translate(357 236) scale(1.42 3.6) translate(-357 -236)"/></g>
+      <defs><filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
       <path class="riv" d="M60,92 C130,112 200,124 270,146 S400,172 450,176 S570,182 640,176"/>
       <path class="riv" d="M0,354 C40,348 60,343 90,334 S200,318 280,312 S420,300 480,304 S600,307 640,300"/>
       <g class="xh"><line x1="0" y1="202" x2="640" y2="202"/><line x1="512" y1="0" x2="512" y2="380"/></g>
       <path id="cdd" class="rt0" d="M70,339 C110,300 140,262 185,238 S300,226 360,233 S468,238 505,233 C522,228 520,214 512,202"/>
       <path class="rt" pathLength="1" filter="url(#glow)" d="M70,339 C110,300 140,262 185,238 S300,226 360,233 S468,238 505,233 C522,228 520,214 512,202"/>
       <path class="flow" d="M70,339 C110,300 140,262 185,238 S300,226 360,233 S468,238 505,233 C522,228 520,214 512,202"/>
-      <rect class="sweep" x="-120" y="0" width="120" height="380" fill="url(#swp)"/>
       <g class="lab" style="--ld:.2s"><text class="it" x="96" y="106">Ailette</text><text class="it" x="566" y="330">Aisne</text></g>
       <g class="lab" style="--ld:.3s"><circle class="v" cx="370" cy="62" r="5"/><text x="384" y="67">Laon</text></g>
       <g class="lab" style="--ld:.5s"><circle class="v" cx="70" cy="339" r="5"/><text x="84" y="364">Soissons</text></g>
@@ -797,8 +805,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
       <g class="lab" style="--ld:1.2s"><text class="cd" x="160" y="212">Chemin des Dames</text></g>
       <g class="lab tgt" style="--ld:3.2s"><circle class="ping" cx="512" cy="202" r="10"/><circle class="ping p2" cx="512" cy="202" r="10"/>
        <path class="brk" d="M494,190 v-6 h6 M524,184 h6 v6 M530,214 v6 h-6 M500,220 h-6 v-6"/>
-       <circle class="bv" cx="512" cy="202" r="5.5"/><text class="big" x="482" y="198" text-anchor="end">La Bôve</text>
-       <text class="co" x="536" y="170">49°27′ N</text><text class="co" x="536" y="186">3°45′ E</text></g>
+       <circle class="bv" cx="512" cy="202" r="5.5"/><text class="big" x="482" y="198" text-anchor="end">La Bôve</text></g>
       <circle class="car" r="4.5" filter="url(#glow)"><animateMotion dur="3s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;1" keyPoints="0;1" keySplines=".45 0 .2 1"><mpath href="#cdd"/></animateMotion></circle>
      </svg>
     </div>
@@ -1867,7 +1874,8 @@ if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitych
   new IntersectionObserver(es=>es.forEach(x=>{vis=x.isIntersecting;if(vis){rv.classList.add('go');if(st!==null&&pt)pause+=performance.now()-pt;if(!raf)raf=requestAnimationFrame(fr)}else pt=performance.now()}),{threshold:.3}).observe(rv)}
  // carte : le carrosse suit la route et arrive à la Bôve
  document.querySelectorAll('.carte').forEach(c=>{new IntersectionObserver((es,o)=>es.forEach(x=>{if(!x.isIntersecting)return;o.disconnect();c.classList.add('lit');
-  const car=c.querySelector('.car'),am=car&&car.querySelector('animateMotion');setTimeout(()=>{if(am&&am.beginElement){car.style.visibility='visible';am.beginElement()}},400);setTimeout(()=>c.classList.add('arr'),3300)}),{threshold:.5}).observe(c)});
+  const car=c.querySelector('.car'),am=car&&car.querySelector('animateMotion');setTimeout(()=>{if(am&&am.beginElement){car.style.visibility='visible';am.beginElement()}},400);setTimeout(()=>c.classList.add('arr'),3300);
+  const w=c.closest('.carte-w');if(w){let on=true;const cyc=()=>{if(!on)return;w.classList.add('dive');setTimeout(()=>{w.classList.remove('dive');setTimeout(cyc,7000)},12500)};setTimeout(cyc,5200)}}),{threshold:.5}).observe(c)});
  // frise : la ligne dorée se remplit et chaque date s'allume au passage
  const fr=document.querySelector('.chrono');
  if(fr){const lis=[...fr.children];const hd=document.createElement('span');hd.className='ch-head';hd.setAttribute('aria-hidden','true');fr.append(hd);
