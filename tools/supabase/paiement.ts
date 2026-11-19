@@ -140,7 +140,8 @@ const texte = (v: unknown, max: number) => String(v ?? '').trim().slice(0, max);
 // 1. demande de paiement depuis le site
 async function payer(b: Record<string, unknown>) {
   const type = String(b.type), a = String(b.arrivee || ''), d = String(b.depart || ''), v = Number(b.voyageurs);
-  const L = LOGEMENTS[type]; const en = b.langue === 'en', es = b.langue === 'es';
+  // Object.hasOwn : refuse les noms piégés comme « constructor », qui passeraient sinon le contrôle
+  const L = Object.hasOwn(LOGEMENTS, type) ? LOGEMENTS[type] : undefined; const en = b.langue === 'en', es = b.langue === 'es';
   const err = (fr: string, enMsg: string, esMsg: string) => json({ erreur: es ? esMsg : en ? enMsg : fr }, 400);
   if (!L) return err('Logement inconnu.', 'Unknown accommodation.', 'Alojamiento desconocido.');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(a) || !/^\d{4}-\d{2}-\d{2}$/.test(d) || d <= a) return err('Dates non valables.', 'Invalid dates.', 'Fechas no válidas.');
@@ -173,8 +174,9 @@ async function payer(b: Record<string, unknown>) {
     metadata: { demande: id, logement: type, arrivee: a, depart: d },
     payment_intent_data: { description: `${L.nom} · ${a} → ${d} · ${v} voyageurs`, metadata: { demande: id } },
     line_items: { 0: { quantity: 1, price_data: { currency: 'eur', unit_amount: Math.round(total * 100), product_data: {
-      name: L.nom + (en ? ` · ${n.length} nights · ${v} guests` : ` · ${n.length} nuits · ${v} voyageurs`),
-      description: en ? `Arrival ${a}, departure ${d}. Cancellation more than ${JOURS_LIMITE} days before arrival: 90% refunded; ${JOURS_LIMITE} days or less: 40% refunded.`
+      name: L.nom + (es ? ` · ${n.length} noches · ${v} huéspedes` : en ? ` · ${n.length} nights · ${v} guests` : ` · ${n.length} nuits · ${v} voyageurs`),
+      description: es ? `Llegada el ${a}, salida el ${d}. Cancelación más de ${JOURS_LIMITE} días antes de la llegada: se reembolsa el 90 %; ${JOURS_LIMITE} días o menos: se reembolsa el 40 %.`
+        : en ? `Arrival ${a}, departure ${d}. Cancellation more than ${JOURS_LIMITE} days before arrival: 90% refunded; ${JOURS_LIMITE} days or less: 40% refunded.`
         : `Arrivée le ${a}, départ le ${d}. Annulation plus de ${JOURS_LIMITE} jours avant l'arrivée : 90 % remboursés ; ${JOURS_LIMITE} jours ou moins : 40 % remboursés.`,
     } } } },
   }, 'checkout-' + id);

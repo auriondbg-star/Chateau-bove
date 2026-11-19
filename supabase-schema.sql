@@ -52,7 +52,8 @@ create policy equipe_retirer on public.equipe for delete to authenticated using 
 -- demandes : tout visiteur peut en envoyer une nouvelle, seule l'équipe les lit et les modifie
 drop policy if exists demandes_envoyer on public.demandes;
 create policy demandes_envoyer on public.demandes for insert to anon, authenticated
-  with check (data ->> 'statut' = 'nouvelle' and coalesce(data ->> 'visite','') = '' and pg_column_size(data) < 20000);
+  with check (data ->> 'statut' = 'nouvelle' and coalesce(data ->> 'visite','') = '' and data -> 'paiement' is null and pg_column_size(data) < 20000);
+-- (« paiement » vide : un visiteur ne peut pas faire passer une demande pour « payée par carte » ; seule la fonction « paiement » l'écrit)
 drop policy if exists demandes_lire on public.demandes;
 create policy demandes_lire on public.demandes for select to authenticated using (public.est_equipe());
 drop policy if exists demandes_modifier on public.demandes;

@@ -1727,7 +1727,7 @@ $('g-f').addEventListener('submit',e=>{e.preventDefault();const miss=[];
  if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).some(x=>gMap(gProp).has(x)))miss.push('d\'autres dates : une partie du séjour est déjà réservée');
  if(PAY&&!$('g-ok-cgv').checked)miss.push("votre accord sur les conditions d'annulation (case à cocher)");
  if(miss.length){$('g-err').textContent=manque(miss);$('g-err').hidden=false;return}
- if(PAY){payer();return}
+ if(PAY&&!robot('g-f')){payer();return} // robot : pas de page de paiement (les dates seraient bloquées 35 minutes)
  saveReq({id:'g'+Date.now(),type:gProp,recu:iso(new Date()),noms:$('g-nom').value.trim(),date:gSel.a,depart:gSel.b,invites:$('g-voy').value+' voyageur'+($('g-voy').value>1?'s':''),formule:'Séjour : '+LODG[gProp].nom+(gPrix()?' · '+euros(gPrix()):''),email:$('g-email').value.trim(),tel:$('g-tel').value.trim(),msg:$('g-msg').value.trim(),statut:'nouvelle'});
  const gst=$('g-stay').textContent;$('g-recap').textContent=tr(KLAB[gProp])+' · '+gst+(gst.includes(ES?'huésped':EN?'guest':'voyageur')?'':' · '+voyTxt($('g-voy').value))+'.';$('g-f').hidden=true;$('g-merci').hidden=false;voirMerci('g-merci')});
 $('g-again').onclick=()=>{const v=$('g-voy').value;$('g-f').reset();$('g-voy').value=v;gSel={a:null,b:null};gStay();$('g-merci').hidden=true;$('g-f').hidden=false;renderGCal($('g-cal'),'client')};
