@@ -308,6 +308,14 @@ section.hero,.fenetre{background:transparent}
 
 /* intro */
 .intro{padding-block:88px 40px;text-align:center}
+#domaine{position:relative;isolation:isolate;overflow-x:clip}
+#domaine>.inner{position:relative;z-index:1}
+#domaine .intro h2,#domaine .intro p.big{background:radial-gradient(closest-side,var(--stone) 72%,transparent)}
+#domaine .facts{background:var(--stone);position:relative}
+.dom-pt{position:absolute;z-index:0;left:50%;top:50%;width:min(1300px,170vw);transform:translate(-50%,-50%);fill:none;stroke:var(--gilt);stroke-width:1.1;stroke-opacity:.38;pointer-events:none}
+.dom-pt *{vector-effect:non-scaling-stroke}
+.mo .dom-pt path,.mo .dom-pt circle{stroke-dasharray:1.05 1.05;stroke-dashoffset:1.05;transition:stroke-dashoffset 3s ease}
+.mo .dom-pt.lit path,.mo .dom-pt.lit circle{stroke-dashoffset:0}
 .intro h2{max-width:18ch;margin:18px auto 28px}
 .intro p.big{max-width:60ch;margin:0 auto;font-size:1.15rem;color:var(--muted)}
 .facts{display:grid;grid-template-columns:repeat(3,1fr);margin-top:64px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -764,6 +772,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
 </section>
 
 <section class="wrap" id="domaine">
+  <svg class="dom-pt" aria-hidden="true" focusable="false" viewBox="0 0 1200 700"><path d="M540,660 A60,60 0 0 1 660,660" pathLength="1"/><path d="M510,660 A90,90 0 0 1 690,660" pathLength="1"/><path d="M460,660 A140,140 0 0 1 740,660" pathLength="1"/><path d="M340,660 A260,260 0 0 1 860,660" pathLength="1"/><path d="M180,660 A420,420 0 0 1 1020,660" pathLength="1"/><path d="M0,660 A600,600 0 0 1 1200,660" pathLength="1"/><path d="M517.6,622.8 L-114.6,257.8" pathLength="1"/><path d="M526.6,607.2 L-105.6,242.2" pathLength="1"/><path d="M541.0,591.4 L122.3,-6.5" pathLength="1"/><path d="M555.8,581.1 L137.0,-16.9" pathLength="1"/><path d="M568.0,575.4 L379.1,-129.7" pathLength="1"/><path d="M585.4,570.7 L396.5,-134.4" pathLength="1"/><path d="M591.0,570.0 L591.0,-160.0" pathLength="1"/><path d="M609.0,570.0 L609.0,-160.0" pathLength="1"/><path d="M614.6,570.7 L803.5,-134.4" pathLength="1"/><path d="M632.0,575.4 L820.9,-129.7" pathLength="1"/><path d="M644.2,581.1 L1063.0,-16.9" pathLength="1"/><path d="M659.0,591.4 L1077.7,-6.5" pathLength="1"/><path d="M673.4,607.2 L1305.6,242.2" pathLength="1"/><path d="M682.4,622.8 L1314.6,257.8" pathLength="1"/><circle cx="600.0" cy="660.0" r="30.0" pathLength="1"/></svg>
   <div class="inner intro">
     <span class="eyebrow">Le domaine</span>
     <h2>Une perspective à la française, ouverte sur la vallée</h2>
@@ -1896,6 +1905,7 @@ if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitych
  const lio=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('lit');lio.unobserve(x.target)}}),{threshold:.35});
  document.querySelectorAll('.trace').forEach(t=>{[...t.children].forEach((c,i)=>c.style.setProperty('--i',i));lio.observe(t)});
  document.querySelectorAll('.orn').forEach(e=>lio.observe(e));
+ document.querySelectorAll('.dom-pt').forEach(pt=>new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){pt.classList.add('lit');o.disconnect()}},{threshold:.3}).observe(pt.parentElement));
  // façade : animation automatique quand elle est à l'écran : le dessin apparaît, la photo arrive jusqu'au milieu,
  // puis la frontière entre photo et dessin glisse lentement d'un côté à l'autre ; un reflet passe sur les traits dorés
  const rv=document.querySelector('.rev');
