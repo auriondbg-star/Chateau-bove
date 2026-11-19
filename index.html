@@ -269,7 +269,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .btn.ghost:hover{background:var(--buis);color:var(--stone)}
 .burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;background:none;border:0;padding:0;color:var(--ink);cursor:pointer}
 .burger svg{width:24px;height:24px}
-@media (max-width:1200px){.burger{display:inline-flex}.nav-act{gap:6px}
+@media (max-width:1300px){.burger{display:inline-flex}.nav-act{gap:6px}
  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:6px 0 14px;background:var(--stone);border-bottom:1px solid var(--line);box-shadow:0 12px 24px rgba(0,0,0,.08)}
  .nav.open ul{display:flex}
  .nav ul a{display:block;padding:14px 24px;font-size:.85rem;color:var(--ink)}}
@@ -738,6 +738,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
     <a class="mark" href="#top">La Bôve</a>
     <ul id="menu">
       <li><a href="#domaine">Le domaine</a></li>
+      <li><a href="#histoire">Histoire</a></li>
       <li><a href="#espaces">Les espaces</a></li>
       <li><a href="#seminaires">Séminaires</a></li>
       <li><a href="#reserver" data-type="mariage">Mariage</a></li>
@@ -1309,7 +1310,7 @@ $('f').addEventListener('submit',e=>{e.preventDefault();const t=fType(),T=TYPES[
   const rows=[['Type',tr('Demande de visite')],[tr('Nom'),$('noms').value],[tr('Projet'),optTxt('projet')],[tr('Contact'),$('email').value+($('tel').value?' · '+$('tel').value:'')],...($('msg').value.trim()?[[tr('Remarques'),$('msg').value.trim()]]:[])];
   $('recap').replaceChildren(...rows.flatMap(([k,v])=>{const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;return[dt,dd]}));
   saveReq({id:'v'+Date.now(),type:'visite',recu:new Date().toISOString().slice(0,10),noms:$('noms').value.trim(),date:'',projet:$('projet').value,invites:'—',formule:'Visite du domaine',email:$('email').value.trim(),tel:$('tel').value.trim(),msg:$('msg').value.trim(),statut:'nouvelle'});
-  $('f').hidden=true;$('merci').hidden=false;return}
+  $('f').hidden=true;$('merci').hidden=false;voirMerci('merci');return}
  const miss=[];if(!$('noms').value.trim())miss.push(t==='mariage'?'vos prénoms':'le nom de votre entreprise');
  const bm0=blockedMap();if(!selDays.length&&!$('flex').checked)miss.push(t==='mariage'?'votre week-end (ou cochez « dates flexibles »)':'au moins un jour (ou cochez « dates flexibles »)');
  if(selDays.some(v=>bm0.has(v)))miss.push('d\'autres jours : certains viennent d\'être réservés');
@@ -1319,8 +1320,8 @@ $('f').addEventListener('submit',e=>{e.preventDefault();const t=fType(),T=TYPES[
  const nj=selDays.length,rows=[[tr('Type'),tr(T.label)],[tr(T.nom),$('noms').value],[tr(t==='mariage'?'Week-end':nj>1?'Dates':'Date'),nj?daysTxt(selDays):tr('Flexible')],[tr(T.inv),$('invites').value?optTxt('invites'):tr('Non précisé')],[tr('Formule'),optTxt('formule')],t==='mariage'?[tr('Cérémonie'),optTxt('ceremonie')]:[tr('Durée'),nj?nj+(EN?' day':' jour')+(nj>1?'s':''):tr('À définir')],[tr('Contact'),$('email').value+($('tel').value?' · '+$('tel').value:'')]];
  $('recap').replaceChildren(...rows.flatMap(([k,v])=>{const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;return[dt,dd]}));
  saveReq({id:'d'+Date.now(),type:t,recu:new Date().toISOString().slice(0,10),noms:$('noms').value.trim(),date:selDays[0]||'',dates:selDays.slice(),jours:selDays.length||undefined,flex:$('flex').checked,invites:$('invites').value||'Non précisé',formule:$('formule').value,ceremonie:t==='mariage'?$('ceremonie').value:'',email:$('email').value.trim(),tel:$('tel').value.trim(),msg:$('msg').value.trim(),statut:'nouvelle'});
- $('f').hidden=true;$('merci').hidden=false;selDays=[];refreshDays()});
-$('again').onclick=()=>{$('merci').hidden=true;$('f').hidden=false};
+ $('f').hidden=true;$('merci').hidden=false;voirMerci('merci');selDays=[];refreshDays()});
+$('again').onclick=()=>{const t=fType();$('f').reset();setType(t);$('merci').hidden=true;$('f').hidden=false;voirMerci('f')};
 // ---------- espace propriétaire (maquette) ----------
 const KEY='bove-demandes';
 const EXEMPLES=[
@@ -1383,6 +1384,7 @@ function notify(r){try{const L={mariage:'Mariage',seminaire:'Séminaire',visite:
  if(k){const o={access_key:k,subject:subj,from_name:'Site Château de la Bôve',botcheck:''};b.forEach((v,n)=>{if(n!=='form-name'&&v)o[n]=v});if(r.email)o.replyto=r.email;
   fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(o)}).catch(()=>{});return}
  if(/netlify\.app$/.test(location.hostname))fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:b.toString()}).catch(()=>{})}catch(e){}}
+function voirMerci(id){const m=$(id);if(!m)return;requestAnimationFrame(()=>{const r=m.getBoundingClientRect();if(r.top<70||r.bottom>innerHeight)m.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})})}
 function saveReq(r){if(EN)r.langue='en';if(CLOUD){SB.from('demandes').insert({id:r.id,data:r}).then(({error})=>{if(error)sendFail(isLodg(r.type));else notify(r)});return}reqs=load();reqs.unshift(r);save(reqs)}
 function sendFail(g){const m=$(g?'g-merci':'merci'),f=$(g?'g-f':'f'),e=$(g?'g-err':'err');m.hidden=true;f.hidden=false;e.textContent=tr("Votre demande n'a pas pu être envoyée. Vérifiez votre connexion internet puis réessayez.");e.hidden=false}
 function fmt(d){if(!d)return'Flexible';const t=new Date(d+'T12:00');return t.toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'})}
@@ -1717,8 +1719,8 @@ $('g-f').addEventListener('submit',e=>{e.preventDefault();const miss=[];
  if(miss.length){$('g-err').textContent=manque(miss);$('g-err').hidden=false;return}
  if(PAY){payer();return}
  saveReq({id:'g'+Date.now(),type:gProp,recu:iso(new Date()),noms:$('g-nom').value.trim(),date:gSel.a,depart:gSel.b,invites:$('g-voy').value+' voyageur'+($('g-voy').value>1?'s':''),formule:'Séjour : '+LODG[gProp].nom+(gPrix()?' · '+euros(gPrix()):''),email:$('g-email').value.trim(),tel:$('g-tel').value.trim(),msg:$('g-msg').value.trim(),statut:'nouvelle'});
- const gst=$('g-stay').textContent;$('g-recap').textContent=tr(KLAB[gProp])+' · '+gst+(gst.includes(EN?'guest':'voyageur')?'':' · '+voyTxt($('g-voy').value))+'.';$('g-f').hidden=true;$('g-merci').hidden=false});
-$('g-again').onclick=()=>{gSel={a:null,b:null};gStay();$('g-merci').hidden=true;$('g-f').hidden=false;renderGCal($('g-cal'),'client')};
+ const gst=$('g-stay').textContent;$('g-recap').textContent=tr(KLAB[gProp])+' · '+gst+(gst.includes(EN?'guest':'voyageur')?'':' · '+voyTxt($('g-voy').value))+'.';$('g-f').hidden=true;$('g-merci').hidden=false;voirMerci('g-merci')});
+$('g-again').onclick=()=>{const v=$('g-voy').value;$('g-f').reset();$('g-voy').value=v;gSel={a:null,b:null};gStay();$('g-merci').hidden=true;$('g-f').hidden=false;renderGCal($('g-cal'),'client')};
 // ---------- paiement par carte des logements (Stripe, via la fonction Supabase « paiement ») ----------
 // Actif seulement si config.js contient paiementCarte: true (après l'installation décrite dans tools/supabase/INSTALLATION.md).
 const PAY=CLOUD&&CFG.paiementCarte===true;
@@ -1739,7 +1741,7 @@ async function payer(){const btn=$('g-submit'),e=$('g-err');btn.disabled=true;bt
 function retourPaiement(){const q=new URLSearchParams(location.search),st=q.get('paiement');if(!st)return;
  let info=null;try{info=JSON.parse(sessionStorage.getItem(PKEY)||'null')}catch(x){}
  q.delete('paiement');q.delete('ref');history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:'')+location.hash);
- if(st==='ok'){$('g-f').hidden=true;$('g-merci').hidden=false;$('g-merci-eb').textContent=tr('Paiement reçu');$('g-merci-h').textContent=tr('Merci, votre séjour est réservé. Un reçu vous est envoyé par e-mail.');
+ if(st==='ok'){$('g-f').hidden=true;$('g-merci').hidden=false;voirMerci('g-merci');$('g-merci-eb').textContent=tr('Paiement reçu');$('g-merci-h').textContent=tr('Merci, votre séjour est réservé. Un reçu vous est envoyé par e-mail.');
   $('g-recap').textContent=info?info.recap:'';$('g-again').textContent=tr('Nouvelle réservation');
   if(info&&!info.notifie){try{sessionStorage.setItem(PKEY,JSON.stringify({...info,notifie:1}))}catch(x){}
    notify({id:info.id,type:info.type,noms:info.nom,date:info.arrivee,depart:info.depart,invites:info.voyageurs+' voyageur'+(info.voyageurs>1?'s':''),formule:'Séjour payé par carte · '+euros(info.total),paye:1,email:info.email,tel:info.tel,msg:info.msg,langue:EN?'en':undefined})}}
