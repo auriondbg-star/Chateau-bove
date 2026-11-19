@@ -44,9 +44,6 @@ window.BOVE_EN = {
  // ---- histoire ----
  "Histoire": "History",
  "Le château qui a donné son nom au Chemin des Dames": "The château that gave the Chemin des Dames its name",
- "À la veille de la Révolution, la Bôve appartient à Françoise de Châlus, duchesse de Narbonne, dame d'honneur de Madame Adélaïde. Les filles de Louis XV, Mesdames Adélaïde et Victoire, viennent si souvent lui rendre visite que la route empruntée par leurs carrosses prend un nom resté dans l'histoire : le Chemin des Dames.": "On the eve of the French Revolution, La Bôve belonged to Françoise de Châlus, Duchess of Narbonne, lady-in-waiting to Madame Adélaïde. The daughters of Louis XV, Mesdames Adélaïde and Victoire, visited her so often that the road taken by their carriages earned a name that has gone down in history: the Chemin des Dames, the “Ladies' Way”.",
- "Plus d'un siècle plus tard, ce même plateau devient l'un des lieux les plus marquants de la Grande Guerre. Le domaine porte aujourd'hui cette double mémoire, entre art de vivre à la française et souvenir de 1917.": "More than a hundred years later, the same plateau became one of the most significant sites of the First World War. Today the estate carries this double memory, between the French art of living and the remembrance of 1917.",
- "L'histoire complète": "The full history",
  "Aujourd'hui": "Today",
  "Un lieu de fête et de mémoire.": "A place of celebration and remembrance.",
  "Le domaine ouvre ses extérieurs, sa chapelle et son orangerie aux mariages, à deux heures de Paris et trente-cinq minutes de Reims.": "The estate opens its grounds, its chapel and its orangery to weddings, two hours from Paris and thirty-five minutes from Reims.",
@@ -381,8 +378,6 @@ window.BOVE_EN = {
  "1928–1933": "1928–1933",
  "La renaissance du château.": "The château reborn.",
  "Le château est reconstruit de 1928 à 1933 par l'architecte André Bonnet, un peu plus près de la vallée. Il reprend, en plus petit, le modèle du château de Champs-sur-Marne. La chapelle est consacrée en 1932, à l'emplacement exact de l'ancien château.": "The château was rebuilt from 1928 to 1933 by the architect André Bonnet, slightly closer to the valley. It is a smaller version of the Château de Champs-sur-Marne. The chapel was consecrated in 1932, on the exact site of the old château.",
- "Le domaine en sept chapitres": "The estate in seven chapters",
- "Des carrières qui lui ont donné son nom jusqu'à la renaissance du château, ouvrez le livre ou choisissez un chapitre.": "From the quarries that gave it its name to the rebirth of the château: open the book or choose a chapter.",
  "D'après l'Inventaire général du patrimoine culturel, Région Hauts-de-France.": "Based on the Inventaire général du patrimoine culturel, Hauts-de-France region.",
  "Vue de Laon, gravure de Merian": "View of Laon, engraving by Merian",
  "Carte de Cassini, feuille de Laon": "Cassini map, Laon sheet",
@@ -390,5 +385,6 @@ window.BOVE_EN = {
  "La bataille de Craonne, par Théodore Jung": "The Battle of Craonne, by Théodore Jung",
  "L’assaut du Chemin des Dames, 1917": "The assault on the Chemin des Dames, 1917",
  "La façade reconstruite": "The rebuilt façade",
- "Le domaine aujourd’hui": "The estate today"
+ "Le domaine aujourd’hui": "The estate today",
+ "Mesdames Adélaïde et Victoire, filles de Louis XV, venaient si souvent rendre visite à la duchesse de Narbonne que leur route prit un nom resté dans l'histoire. Plus tard, ce même plateau devint l'un des lieux marquants de la Grande Guerre. Ouvrez le livre ou choisissez un chapitre.": "Mesdames Adélaïde and Victoire, daughters of Louis XV, came so often to visit the Duchess of Narbonne that their road took a name that has gone down in history. Later, this same plateau became one of the landmark places of the Great War. Open the book or choose a chapter."
 };
