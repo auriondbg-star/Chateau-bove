@@ -386,5 +386,6 @@ window.BOVE_EN = {
  "L’assaut du Chemin des Dames, 1917": "The assault on the Chemin des Dames, 1917",
  "La façade reconstruite": "The rebuilt façade",
  "Le domaine aujourd’hui": "The estate today",
- "Mesdames Adélaïde et Victoire, filles de Louis XV, venaient si souvent rendre visite à la duchesse de Narbonne que leur route prit un nom resté dans l'histoire. Plus tard, ce même plateau devint l'un des lieux marquants de la Grande Guerre. Ouvrez le livre ou choisissez un chapitre.": "Mesdames Adélaïde and Victoire, daughters of Louis XV, came so often to visit the Duchess of Narbonne that their road took a name that has gone down in history. Later, this same plateau became one of the landmark places of the Great War. Open the book or choose a chapter."
+ "Mesdames Adélaïde et Victoire, filles de Louis XV, venaient si souvent rendre visite à la duchesse de Narbonne que leur route prit un nom resté dans l'histoire. Plus tard, ce même plateau devint l'un des lieux marquants de la Grande Guerre. Ouvrez le livre ou choisissez un chapitre.": "Mesdames Adélaïde and Victoire, daughters of Louis XV, came so often to visit the Duchess of Narbonne that their road took a name that has gone down in history. Later, this same plateau became one of the landmark places of the Great War. Open the book or choose a chapter.",
+ "Site web": "Website"
 };
