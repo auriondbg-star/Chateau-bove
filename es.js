@@ -22,7 +22,7 @@ window.BOVE_ES = {
  "Château classé": "Castillo declarado",
  "Monument historique de France": "Monumento histórico de Francia",
  "Château de": "Château de",
- "Un château classique au bout de son allée de buis, posé sur la forêt. Pour un jour qui ne ressemble qu'à vous.": "Un castillo clásico al final de su avenida de bojes, asomado al bosque. Para un día que solo se parezca a ustedes.",
+ "Un château classique au bout de son allée de buis, posé sur la forêt. Pour un jour qui ne ressemble qu'à vous.": "Un castillo clásico al final de su avenida de bojes, asomado al bosque. Para un día que sea solo suyo.",
  "Demander une date": "Solicitar una fecha",
  "Vue aérienne du château au cœur de sa forêt, l'allée de buis menant à la cour d'honneur": "Vista aérea del castillo en medio de su bosque, con la avenida de bojes que lleva al patio de honor",
 
