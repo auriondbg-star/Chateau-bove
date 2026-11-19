@@ -1,15 +1,15 @@
 # Règles pour modifier ce site
 
-## Version anglaise : à mettre à jour à chaque modification
-Le site existe en français et en anglais (https://chateau-bove.pages.dev/?lang=en).
-Les traductions sont dans `en.js` : chaque ligne associe un texte français exact à sa traduction anglaise.
+## Versions anglaise et espagnole : à mettre à jour à chaque modification
+Le site existe en français, en anglais (https://chateau-bove.pages.dev/?lang=en) et en espagnol (https://chateau-bove.pages.dev/?lang=es).
+Les traductions sont dans `en.js` (anglais) et `es.js` (espagnol) : chaque ligne associe un texte français exact à sa traduction.
 
 À chaque modification d'un texte visible du site public (`index.html`, hors espace propriétaire `#admin`) :
 1. Modifier le texte français dans `index.html`.
-2. Dans `en.js`, remplacer l'ancienne clé française par la nouvelle et mettre à jour la traduction anglaise. Ajouter une ligne pour tout nouveau texte.
-3. Les textes créés par le JavaScript passent par `tr('…')` (ou une condition `EN ? … : …`) et ont aussi leur ligne dans `en.js`.
-4. Avant de publier, lancer `python3 tools/verifier-anglais.py`. Il doit afficher « Tout le site public a sa traduction anglaise. »
-5. Vérifier aussi la page avec `?lang=en`.
+2. Dans `en.js` et `es.js`, remplacer l'ancienne clé française par la nouvelle et mettre à jour la traduction. Ajouter une ligne pour tout nouveau texte.
+3. Les textes créés par le JavaScript passent par `tr('…')` (ou une condition `ES ? … : EN ? … : …`) et ont aussi leur ligne dans `en.js` et `es.js`.
+4. Avant de publier, lancer `python3 tools/verifier-anglais.py`. Il doit afficher « Tout le site public a sa traduction anglaise. » et « … espagnole. »
+5. Vérifier aussi la page avec `?lang=en` et `?lang=es`.
 
 Les valeurs enregistrées dans les demandes (options des listes, formules) restent en français : dans les listes, la valeur reste française et seul le texte affiché est traduit.
 L'espace propriétaire, les e-mails reçus, les mentions légales et la brochure restent en français.

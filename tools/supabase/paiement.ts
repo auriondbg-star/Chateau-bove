@@ -140,33 +140,33 @@ const texte = (v: unknown, max: number) => String(v ?? '').trim().slice(0, max);
 // 1. demande de paiement depuis le site
 async function payer(b: Record<string, unknown>) {
   const type = String(b.type), a = String(b.arrivee || ''), d = String(b.depart || ''), v = Number(b.voyageurs);
-  const L = LOGEMENTS[type]; const en = b.langue === 'en';
-  const err = (fr: string, enMsg: string) => json({ erreur: en ? enMsg : fr }, 400);
-  if (!L) return err('Logement inconnu.', 'Unknown accommodation.');
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(a) || !/^\d{4}-\d{2}-\d{2}$/.test(d) || d <= a) return err('Dates non valables.', 'Invalid dates.');
-  if (a < aujourdhui()) return err("La date d'arrivée est passée.", 'The arrival date has passed.');
-  if (!Number.isInteger(v) || v < L.min || v > L.max) return err('Nombre de voyageurs non valable.', 'Invalid number of guests.');
-  const n = nuits(a, d); if (n.length < minNuits(a, d)) return err('Séjour trop court.', 'Stay too short.');
-  if (n.length > 60) return err('Séjour trop long : écrivez-nous.', 'Stay too long: please contact us.');
+  const L = LOGEMENTS[type]; const en = b.langue === 'en', es = b.langue === 'es';
+  const err = (fr: string, enMsg: string, esMsg: string) => json({ erreur: es ? esMsg : en ? enMsg : fr }, 400);
+  if (!L) return err('Logement inconnu.', 'Unknown accommodation.', 'Alojamiento desconocido.');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(a) || !/^\d{4}-\d{2}-\d{2}$/.test(d) || d <= a) return err('Dates non valables.', 'Invalid dates.', 'Fechas no válidas.');
+  if (a < aujourdhui()) return err("La date d'arrivée est passée.", 'The arrival date has passed.', 'La fecha de llegada ya ha pasado.');
+  if (!Number.isInteger(v) || v < L.min || v > L.max) return err('Nombre de voyageurs non valable.', 'Invalid number of guests.', 'Número de huéspedes no válido.');
+  const n = nuits(a, d); if (n.length < minNuits(a, d)) return err('Séjour trop court.', 'Stay too short.', 'Estancia demasiado corta.');
+  if (n.length > 60) return err('Séjour trop long : écrivez-nous.', 'Stay too long: please contact us.', 'Estancia demasiado larga: escríbanos.');
   const nom = texte(b.nom, 120), email = texte(b.email, 160);
-  if (!nom || !/^\S+@\S+\.\S+$/.test(email)) return err('Nom ou e-mail manquant.', 'Name or email missing.');
-  if (b.conditions !== true) return err("Les conditions d'annulation doivent être acceptées.", 'The cancellation terms must be accepted.');
+  if (!nom || !/^\S+@\S+\.\S+$/.test(email)) return err('Nom ou e-mail manquant.', 'Name or email missing.', 'Falta el nombre o el correo electrónico.');
+  if (b.conditions !== true) return err("Les conditions d'annulation doivent être acceptées.", 'The cancellation terms must be accepted.', 'Debe aceptar las condiciones de cancelación.');
   const pris = await nuitsPrises(type);
-  if (n.some((k) => pris.has(k))) return json({ erreur: en ? 'Some of these nights have just been booked. Please choose other dates.' : 'Une partie de ces nuits vient d\'être réservée. Choisissez d\'autres dates.', pris: true }, 409);
+  if (n.some((k) => pris.has(k))) return json({ erreur: es ? 'Algunas de estas noches acaban de reservarse. Elija otras fechas.' : en ? 'Some of these nights have just been booked. Please choose other dates.' : 'Une partie de ces nuits vient d\'être réservée. Choisissez d\'autres dates.', pris: true }, 409);
 
   const total = prix(type, a, d, v);
   const id = 'p' + Date.now() + Math.random().toString(36).slice(2, 6);
   const retour = SITES.includes(String(b.site)) ? String(b.site) : SITES[0];
-  const lg = en ? '&lang=en' : '';
+  const lg = es ? '&lang=es' : en ? '&lang=en' : '';
   const data = {
     id, type, recu: aujourdhui(), noms: nom, date: a, depart: d, invites: v + ' voyageur' + (v > 1 ? 's' : ''),
     formule: 'Séjour : ' + (type === 'gite' ? 'le gîte' : "l'appartement") + ' · ' + total.toLocaleString('fr-FR') + ' €',
     email, tel: texte(b.tel, 40), msg: texte(b.msg, 2000), statut: 'attente-paiement', paiement: { total, etat: 'en attente' },
-    ...(en ? { langue: 'en' } : {}),
+    ...(en ? { langue: 'en' } : es ? { langue: 'es' } : {}),
   };
   await sb('demandes', { method: 'POST', body: JSON.stringify({ id, data }) });
   const session = await stripe('checkout/sessions', {
-    mode: 'payment', locale: en ? 'en' : 'fr', customer_email: email, client_reference_id: id,
+    mode: 'payment', locale: es ? 'es' : en ? 'en' : 'fr', customer_email: email, client_reference_id: id,
     expires_at: Math.floor(Date.now() / 1000) + 30 * 60 + 30,
     success_url: `${retour}/?paiement=ok&ref=${id}${lg}#logements`,
     cancel_url: `${retour}/?paiement=annule&ref=${id}${lg}#logements`,

@@ -38,6 +38,7 @@
 <meta property="og:url" content="https://chateau-bove.pages.dev/">
 <link rel="alternate" hreflang="fr" href="https://chateau-bove.pages.dev/">
 <link rel="alternate" hreflang="en" href="https://chateau-bove.pages.dev/?lang=en">
+<link rel="alternate" hreflang="es" href="https://chateau-bove.pages.dev/?lang=es">
 <link rel="alternate" hreflang="x-default" href="https://chateau-bove.pages.dev/">
 <meta property="og:image" content="https://chateau-bove.pages.dev/aerien-domaine-v2.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -276,6 +277,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 @media (max-width:420px){.nav-act .btn{padding:11px 14px}}
 .lang{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;font-family:var(--sans);font-size:.74rem;font-weight:500;letter-spacing:.16em;text-decoration:none;color:var(--muted);border-radius:20px;transition:color .2s,background .2s}
 .lang:hover{color:var(--ink);background:var(--stone-2)}
+.langs{display:inline-flex}.lang[hidden],.lang-foot[hidden]{display:none}
+.langs-foot a:not([hidden])~a:not([hidden])::before{content:"·";display:inline-block;margin:0 .55em;text-decoration:none}
 
 /* hero */
 .hero{position:relative;color:#F4F3EC}
@@ -704,6 +707,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
 <script src="supabase-2.118.0.js"></script>
 <script src="config.js"></script>
 <script src="en.js"></script>
+<script src="es.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -748,7 +752,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-act">
-      <a class="lang" id="lang" href="?lang=en" hreflang="en" lang="en" title="English version" aria-label="English version">EN</a>
+      <span class="langs"><a class="lang" data-lang="fr" href="./" hreflang="fr" lang="fr" title="Version française" aria-label="Version française" hidden>FR</a><a class="lang" data-lang="en" href="?lang=en" hreflang="en" lang="en" title="English version" aria-label="English version">EN</a><a class="lang" data-lang="es" href="?lang=es" hreflang="es" lang="es" title="Versión en español" aria-label="Versión en español">ES</a></span>
       <a class="acct" href="#admin" aria-label="Espace propriétaire" title="Espace propriétaire"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20.5c1.4-3.6 4.4-5.5 8-5.5s6.6 1.9 8 5.5"/></svg></a>
       <a class="btn" href="#reserver">Réserver</a>
       <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -1093,7 +1097,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
   <span class="mark">Château de la Bôve</span>
   <span>Aisne · 2 h de Paris · 35 min de Reims</span>
   <span>Visites sur rendez-vous · <a href="brochure-chateau-de-la-bove.pdf" target="_blank" rel="noopener" download>Brochure (PDF)</a> · <a href="mentions-legales.html">Mentions légales</a></span>
-  <span><a class="lang-foot" id="lang-foot" href="?lang=en" hreflang="en" lang="en">English version</a></span>
+  <span class="langs-foot"><a class="lang-foot" data-lang="fr" href="./" hreflang="fr" lang="fr" hidden>Version française</a><a class="lang-foot" data-lang="en" href="?lang=en" hreflang="en" lang="en">English version</a><a class="lang-foot" data-lang="es" href="?lang=es" hreflang="es" lang="es">Versión en español</a></span>
 </footer>
 <a class="cta-bar" id="cta-bar" href="#reserver" aria-hidden="true" tabindex="-1"><span class="k">Château de la Bôve</span><span class="a">Demander une date<svg viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h17M13 1l4 4-4 4"/></svg></span></a>
 
@@ -1193,24 +1197,26 @@ footer .mark{color:var(--ink);font-size:1.6rem}
 </div>
 
 <script>
-// ---------- langue : version anglaise avec ?lang=en (traductions dans en.js) ----------
-// L'espace propriétaire (#admin) reste en français. Les demandes gardent leurs valeurs en français, avec langue:'en'.
-const EN=/[?&]lang=en(&|$)/.test(location.search)&&!!window.BOVE_EN;
-const LOC=EN?'en-GB':'fr-FR';
-const tr=s=>{if(!EN)return s;const v=window.BOVE_EN[String(s).replace(/\s+/g,' ').trim()];return v==null?s:v};
-(()=>{const sw=[document.getElementById('lang'),document.getElementById('lang-foot')];
- sw.forEach(a=>{if(!a)return;a.addEventListener('click',e=>{e.preventDefault();location.href=location.pathname+(EN?'':'?lang=en')+(location.hash.startsWith('#admin')?'':location.hash)})});
- if(!EN)return;
- document.documentElement.lang='en';
- sw.forEach(a=>{if(!a)return;a.href='./';a.hreflang='fr';a.lang='fr'});
- if(sw[0]){sw[0].textContent='FR';sw[0].title='Version française';sw[0].setAttribute('aria-label','Version française')}if(sw[1])sw[1].textContent='Version française';
+// ---------- langues : anglais avec ?lang=en (en.js), espagnol avec ?lang=es (es.js) ----------
+// L'espace propriétaire (#admin) reste en français. Les demandes gardent leurs valeurs en français, avec langue:'en' ou 'es'.
+const DICT0=(location.search.match(/[?&]lang=(en|es)(&|$)/)||[])[1];
+const DICT=DICT0==='en'?window.BOVE_EN:DICT0==='es'?window.BOVE_ES:null;
+const LANG=DICT?DICT0:'fr',EN=LANG==='en',ES=LANG==='es';
+const LOC=ES?'es-ES':EN?'en-GB':'fr-FR';
+// titre des calendriers « mois année » (en espagnol sans « de », qui prendrait une majuscule)
+const moisAn=(d,loc=LOC)=>loc==='es-ES'?d.toLocaleDateString(loc,{month:'long'})+' '+d.getFullYear():d.toLocaleDateString(loc,{month:'long',year:'numeric'});
+const tr=s=>{if(!DICT)return s;const v=DICT[String(s).replace(/\s+/g,' ').trim()];return v==null?s:v};
+(()=>{document.querySelectorAll('a[data-lang]').forEach(a=>{const l=a.dataset.lang;a.hidden=l===LANG;
+  a.addEventListener('click',e=>{e.preventDefault();location.href=location.pathname+(l==='fr'?'':'?lang='+l)+(location.hash.startsWith('#admin')?'':location.hash)})});
+ if(!DICT)return;
+ document.documentElement.lang=LANG;
  const adm=document.getElementById('admin'),skip=n=>!n||adm.contains(n)||n.closest('script,style');
  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),ns=[];let n;while((n=w.nextNode()))ns.push(n);
  ns.forEach(n=>{if(skip(n.parentElement))return;const v=tr(n.nodeValue);if(v!==n.nodeValue){const m=n.nodeValue.match(/^(\s*)[\s\S]*?(\s*)$/);n.nodeValue=m[1]+v+m[2]}});
  document.querySelectorAll('[alt],[placeholder],[aria-label],[title]').forEach(e=>{if(skip(e))return;['alt','placeholder','aria-label','title'].forEach(a=>{if(e.hasAttribute(a))e.setAttribute(a,tr(e.getAttribute(a)))})});
  document.title=tr(document.title);
- const md=document.querySelector('meta[name=description]');if(md)md.content="Château de la Bôve, a listed French Historic Monument in the Aisne, 35 min from Reims and 2 hrs from Paris: weddings, seminars and receptions in the park, with a gîte for 11 and an apartment on site.";
- document.querySelectorAll('iframe.map-frame').forEach(mp=>mp.src=mp.src.replace('hl=fr','hl=en'))})();
+ const md=document.querySelector('meta[name=description]');if(md)md.content=ES?"Château de la Bôve, monumento histórico de Francia en el Aisne, a 35 min de Reims y a 2 h de París: bodas, seminarios y recepciones en el parque, con una casa rural para 11 personas y un apartamento en el lugar.":"Château de la Bôve, a listed French Historic Monument in the Aisne, 35 min from Reims and 2 hrs from Paris: weddings, seminars and receptions in the park, with a gîte for 11 and an apartment on site.";
+ document.querySelectorAll('iframe.map-frame').forEach(mp=>mp.src=mp.src.replace('hl=fr','hl='+LANG))})();
 const photos=[
  ['aerien-chateau-ete','Le château, sa cour d\'honneur et son parc vus du ciel en été'],
  ['aerien-allee-v2','Le château et son allée, vus du ciel'],
@@ -1240,7 +1246,7 @@ const LPHOTOS={gite:[['gite-14','Le gîte et son jardin au soleil'],['gite-17','
 Object.values(LPHOTOS).forEach(L=>L.forEach(p=>p[1]=tr(p[1])));
 document.querySelectorAll('.lodg-ph[data-slot]').forEach(slot=>{const L=LPHOTOS[slot.dataset.slot];if(!L)return;
  const strip=el('div',{class:'strip'});
- L.slice(0,3).forEach(([f,a],i)=>{const b=el('button',{type:'button','aria-label':tr('Agrandir :')+' '+a+' ('+(i+1)+(EN?' of ':' sur ')+L.length+')'});b.innerHTML=`<img src="${f}.jpg" alt="${a}" loading="lazy">`;
+ L.slice(0,3).forEach(([f,a],i)=>{const b=el('button',{type:'button','aria-label':tr('Agrandir :')+' '+a+' ('+(i+1)+(ES?' de ':EN?' of ':' sur ')+L.length+')'});b.innerHTML=`<img src="${f}.jpg" alt="${a}" loading="lazy">`;
   if(i===2&&L.length>3)b.append(el('span',{class:'more-n'},'+'+(L.length-3)+' photos'));b.onclick=()=>open(i,L,b);strip.append(b)});
  slot.replaceChildren(strip)});
 lb.addEventListener('click',e=>{if(e.target===lb)close()});
@@ -1257,7 +1263,7 @@ document.addEventListener('keydown',e=>{if(lb.hidden)return;if(e.key==='Escape')
 // formulaire
 const $=id=>document.getElementById(id);
 const optTxt=id=>{const o=$(id).selectedOptions[0];return o?o.text:$(id).value};
-function manque(m){return EN?'Please add '+m.map(tr).join(', ')+'.':'Il manque '+m.join(', ')+'.'}
+function manque(m){return ES?'Falta indicar '+m.map(tr).join(', ')+'.':EN?'Please add '+m.map(tr).join(', ')+'.':'Il manque '+m.join(', ')+'.'}
 const d=new Date();d.setDate(d.getDate()+30);$('date').min=d.toISOString().slice(0,10);
 const TYPES={
  mariage:{label:'Mariage',nom:'Prénoms des mariés',ph:'Claire et Thomas',inv:"Nombre d'invités",invOpts:['Moins de 80','80 à 150','150 à 200'],form:['Week-end complet','Journée','Cérémonie et cocktail'],msg:'Parlez-nous de votre mariage : ambiance, cérémonie, traiteur…'},
@@ -1274,11 +1280,11 @@ function setType(t){$('t-'+t).checked=true;const T=TYPES[t];if(curType&&curType!
  $('f').querySelector('button[type=submit]').textContent=tr(t==='visite'?'Demander une visite':'Envoyer ma demande');
  $('addday-w').hidden=t!=='seminaire';
  refreshDays()}
-function saisonDe(v){const m=D(v).getMonth()+1;if(EN)return(m>=6&&m<=9)?'high season (June to September)':(m===5||m===10)?'mid season (May, October)':'low season (November to April)';return(m>=6&&m<=9)?'haute saison (juin à septembre)':(m===5||m===10)?'moyenne saison (mai, octobre)':'basse saison (novembre à avril)'}
-function saison(){if(!selDays.length)return EN?(fType()==='mariage'?'Tap a Friday, Saturday or Sunday in the calendar to choose your weekend.':'Click each day you would like in the calendar, or add them one by one with the field above.'):fType()==='mariage'?'Touchez un vendredi, un samedi ou un dimanche dans le calendrier pour choisir votre week-end.':'Cliquez sur chaque jour souhaité dans le calendrier, ou ajoutez-les un par un avec le champ ci-dessus.';
+function saisonDe(v){const m=D(v).getMonth()+1;if(ES)return(m>=6&&m<=9)?'temporada alta (de junio a septiembre)':(m===5||m===10)?'temporada media (mayo, octubre)':'temporada baja (de noviembre a abril)';if(EN)return(m>=6&&m<=9)?'high season (June to September)':(m===5||m===10)?'mid season (May, October)':'low season (November to April)';return(m>=6&&m<=9)?'haute saison (juin à septembre)':(m===5||m===10)?'moyenne saison (mai, octobre)':'basse saison (novembre à avril)'}
+function saison(){if(!selDays.length)return ES?(fType()==='mariage'?'Toque un viernes, un sábado o un domingo en el calendario para elegir su fin de semana.':'Haga clic en cada día que desee en el calendario, o añádalos uno a uno con el campo de arriba.'):EN?(fType()==='mariage'?'Tap a Friday, Saturday or Sunday in the calendar to choose your weekend.':'Click each day you would like in the calendar, or add them one by one with the field above.'):fType()==='mariage'?'Touchez un vendredi, un samedi ou un dimanche dans le calendrier pour choisir votre week-end.':'Cliquez sur chaque jour souhaité dans le calendrier, ou ajoutez-les un par un avec le champ ci-dessus.';
  const n=selDays.length,ss=[...new Set(selDays.map(saisonDe))];
- const t=EN?(fType()==='mariage'?'Your weekend: '+daysTxt(selDays):n+' day'+(n>1?'s':'')+' selected · '+daysTxt(selDays)):fType()==='mariage'?'Votre week-end : '+daysTxt(selDays).replace(/^D/,'d'):n+' jour'+(n>1?'s':'')+' choisi'+(n>1?'s':'')+' · '+daysTxt(selDays);
- return fType()==='seminaire'?t:t+' · '+ss.join(EN?' and ':' et ')}
+ const t=ES?(fType()==='mariage'?'Su fin de semana: '+daysTxt(selDays).replace(/^D/,'d'):n+' día'+(n>1?'s':'')+' elegido'+(n>1?'s':'')+' · '+daysTxt(selDays)):EN?(fType()==='mariage'?'Your weekend: '+daysTxt(selDays):n+' day'+(n>1?'s':'')+' selected · '+daysTxt(selDays)):fType()==='mariage'?'Votre week-end : '+daysTxt(selDays).replace(/^D/,'d'):n+' jour'+(n>1?'s':'')+' choisi'+(n>1?'s':'')+' · '+daysTxt(selDays);
+ return fType()==='seminaire'?t:t+' · '+ss.join(ES?' y ':EN?' and ':' et ')}
 // jours choisis par le client, un par un
 let selDays=[];
 function runs(ds){const out=[];ds.slice().sort().forEach(d=>{const l=out[out.length-1];if(l&&rangeDays(l[1],d).length===2)l[1]=d;else out.push([d,d])});return out}
@@ -1287,10 +1293,10 @@ function pickWE(v){const bm=blockedMap(),sat=wkKey(v);selDays=selDays.includes(s
 function weOk(v,bm,min){const sat=wkKey(v);return D(sat).getDay()===6&&!bm.has(sat)&&!(min&&sat<min)}
 function toggleDay(v){selDays=selDays.includes(v)?selDays.filter(x=>x!==v):[...selDays,v].sort();refreshDays()}
 function refreshDays(){const bm=blockedMap();selDays=selDays.filter(v=>!bm.has(v));
- $('days').replaceChildren(...(fType()==='mariage'?(selDays.length?[el('li',{},tr('Week-end')+' · '+(EN?daysTxt(selDays):daysTxt(selDays).replace(/^D/,'d')),el('button',{type:'button','aria-label':tr('Retirer ce week-end'),onclick:()=>{selDays=[];refreshDays()}},'×'))]:[]):selDays.map(v=>el('li',{},longDate(v),el('button',{type:'button','aria-label':(EN?'Remove ':'Retirer le ')+longDate(v),onclick:()=>toggleDay(v)},'×')))));
+ $('days').replaceChildren(...(fType()==='mariage'?(selDays.length?[el('li',{},tr('Week-end')+' · '+(EN?daysTxt(selDays):daysTxt(selDays).replace(/^D/,'d')),el('button',{type:'button','aria-label':tr('Retirer ce week-end'),onclick:()=>{selDays=[];refreshDays()}},'×'))]:[]):selDays.map(v=>el('li',{},longDate(v),el('button',{type:'button','aria-label':(ES?'Quitar el ':EN?'Remove ':'Retirer le ')+longDate(v),onclick:()=>toggleDay(v)},'×')))));
  $('season').textContent=saison();renderCal($('cal-client'),'client')}
 function addDay(){const v=$('date').value,min=$('date').min;$('err').hidden=true;if(!v)return;
- let pb='';if(v<min)pb=EN?'This day is too soon: please choose a date from '+longDate(min)+' onwards.':'Ce jour est trop proche : choisissez une date à partir du '+longDate(min)+'.';else if(blockedMap().has(v))pb=EN?longDate(v)+' is already booked.':'Le '+longDate(v)+' est déjà réservé.';
+ let pb='';if(v<min)pb=ES?'Este día está demasiado cerca: elija una fecha a partir del '+longDate(min)+'.':EN?'This day is too soon: please choose a date from '+longDate(min)+' onwards.':'Ce jour est trop proche : choisissez une date à partir du '+longDate(min)+'.';else if(blockedMap().has(v))pb=ES?'El '+longDate(v)+' ya está reservado.':EN?longDate(v)+' is already booked.':'Le '+longDate(v)+' est déjà réservé.';
  if(pb){$('err').textContent=pb;$('err').hidden=false;return}
  if(!selDays.includes(v))selDays=[...selDays,v].sort();$('date').value='';calState.client=v.slice(0,7)+'-01';refreshDays()}
 // règles de dates : un jour ne peut accueillir qu'un seul événement.
@@ -1318,7 +1324,7 @@ $('f').addEventListener('submit',e=>{e.preventDefault();const t=fType(),T=TYPES[
  if(!/^\S+@\S+\.\S+$/.test($('email').value))miss.push('une adresse e-mail valide');if(!$('ok-rgpd').checked)miss.push('votre accord pour l\'utilisation de vos informations (case à cocher)');
  if(miss.length){$('err').textContent=manque(miss);$('err').hidden=false;return}
  $('err').hidden=true;
- const nj=selDays.length,rows=[[tr('Type'),tr(T.label)],[tr(T.nom),$('noms').value],[tr(t==='mariage'?'Week-end':nj>1?'Dates':'Date'),nj?daysTxt(selDays):tr('Flexible')],[tr(T.inv),$('invites').value?optTxt('invites'):tr('Non précisé')],[tr('Formule'),optTxt('formule')],t==='mariage'?[tr('Cérémonie'),optTxt('ceremonie')]:[tr('Durée'),nj?nj+(EN?' day':' jour')+(nj>1?'s':''):tr('À définir')],[tr('Contact'),$('email').value+($('tel').value?' · '+$('tel').value:'')]];
+ const nj=selDays.length,rows=[[tr('Type'),tr(T.label)],[tr(T.nom),$('noms').value],[tr(t==='mariage'?'Week-end':nj>1?'Dates':'Date'),nj?daysTxt(selDays):tr('Flexible')],[tr(T.inv),$('invites').value?optTxt('invites'):tr('Non précisé')],[tr('Formule'),optTxt('formule')],t==='mariage'?[tr('Cérémonie'),optTxt('ceremonie')]:[tr('Durée'),nj?nj+(ES?' día':EN?' day':' jour')+(nj>1?'s':''):tr('À définir')],[tr('Contact'),$('email').value+($('tel').value?' · '+$('tel').value:'')]];
  $('recap').replaceChildren(...rows.flatMap(([k,v])=>{const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;return[dt,dd]}));
  saveReq({id:'d'+Date.now(),type:t,recu:new Date().toISOString().slice(0,10),noms:$('noms').value.trim(),date:selDays[0]||'',dates:selDays.slice(),jours:selDays.length||undefined,flex:$('flex').checked,invites:$('invites').value||'Non précisé',formule:$('formule').value,ceremonie:t==='mariage'?$('ceremonie').value:'',email:$('email').value.trim(),tel:$('tel').value.trim(),msg:$('msg').value.trim(),statut:'nouvelle'});
  $('f').hidden=true;$('merci').hidden=false;voirMerci('merci');selDays=[];refreshDays()});
@@ -1374,7 +1380,7 @@ function notify(r){try{const L={mariage:'Mariage',seminaire:'Séminaire',visite:
  const fd=v=>{try{return D(v).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}catch(e){return v}};
  const dem=reqKeys(r),dd=lodg?[]:(r.dates&&r.dates.length?r.dates:(r.date?[r.date]:[])).slice().sort(),et=a=>a.length>1?a.slice(0,-1).join(', ')+' et '+a[a.length-1]:a.join('');
  const dl=dd.length>1&&dd.every(x=>x.slice(0,7)===dd[0].slice(0,7))?et(dd.map(x=>D(x).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric'})))+' '+D(dd[0]).toLocaleDateString('fr-FR',{month:'long',year:'numeric'}):et(dd.map(fd));
- const champs=[['Type de demande',tl],['Noms',r.noms],lodg?['Arrivée',r.date?fd(r.date):'']:['Dates',dl||(r.flex?'Dates flexibles':'')],lodg?['Départ',r.depart?fd(r.depart):'']:['',''],['Nombre de personnes',r.invites],['Formule',r.formule],['Cérémonie',r.ceremonie],['Projet',r.projet],['Dates flexibles',r.flex&&dl?'oui':''],['E-mail',r.email],['Téléphone',r.tel],['Message',r.msg],['Langue',r.langue==='en'?'Anglais : la demande vient de la version anglaise du site, répondre en anglais':'']].filter(c=>c[0]&&c[1]);
+ const champs=[['Type de demande',tl],['Noms',r.noms],lodg?['Arrivée',r.date?fd(r.date):'']:['Dates',dl||(r.flex?'Dates flexibles':'')],lodg?['Départ',r.depart?fd(r.depart):'']:['',''],['Nombre de personnes',r.invites],['Formule',r.formule],['Cérémonie',r.ceremonie],['Projet',r.projet],['Dates flexibles',r.flex&&dl?'oui':''],['E-mail',r.email],['Téléphone',r.tel],['Message',r.msg],['Langue',r.langue==='en'?'Anglais : la demande vient de la version anglaise du site, répondre en anglais':r.langue==='es'?'Espagnol : la demande vient de la version espagnole du site, répondre en espagnol':'']].filter(c=>c[0]&&c[1]);
  const mo=new Set(dem.map(x=>x.slice(0,7))),occ=[];try{(lodg?gMap(r.type):blockedMap()).forEach((v,d)=>{if(mo.has(d.slice(0,7)))occ.push([d,v.kind||r.type])})}catch(e){}
  if(dem.length)champs.push(['Voir le calendrier',location.origin+'/#admin/'+(lodg?r.type:'event')+'/'+dem[0].slice(0,7)]);
  const u=CFG.notifyUrl;
@@ -1389,7 +1395,7 @@ function voirMerci(id){const m=$(id);if(!m)return;requestAnimationFrame(()=>{con
 const T0=Date.now();
 // piège à robots : un champ invisible rempli, ou un formulaire envoyé en moins de 3 secondes, n'est pas enregistré
 function robot(id){const f=$(id),h=f&&f.querySelector('.hp input');return !!(h&&h.value)||Date.now()-T0<3000}
-function saveReq(r){if(robot(isLodg(r.type)?'g-f':'f'))return;if(EN)r.langue='en';if(CLOUD){SB.from('demandes').insert({id:r.id,data:r}).then(({error})=>{if(error)sendFail(isLodg(r.type));else notify(r)});return}reqs=load();reqs.unshift(r);save(reqs)}
+function saveReq(r){if(robot(isLodg(r.type)?'g-f':'f'))return;if(LANG!=='fr')r.langue=LANG;if(CLOUD){SB.from('demandes').insert({id:r.id,data:r}).then(({error})=>{if(error)sendFail(isLodg(r.type));else notify(r)});return}reqs=load();reqs.unshift(r);save(reqs)}
 function sendFail(g){const m=$(g?'g-merci':'merci'),f=$(g?'g-f':'f'),e=$(g?'g-err':'err');m.hidden=true;f.hidden=false;e.textContent=tr("Votre demande n'a pas pu être envoyée. Vérifiez votre connexion internet puis réessayez.");e.hidden=false}
 function fmt(d){if(!d)return'Flexible';const t=new Date(d+'T12:00');return t.toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'})}
 function el(tag,attrs={},...kids){const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==='class')e.className=v;else if(k.startsWith('on'))e[k]=v;else e.setAttribute(k,v)}kids.flat().forEach(k=>e.append(k));return e}
@@ -1420,7 +1426,7 @@ function renderCal(box,mode){
  const prev=el('button',{type:'button','aria-label':mode==='client'?tr('Mois précédent'):'Mois précédent'},'‹'),next=el('button',{type:'button','aria-label':mode==='client'?tr('Mois suivant'):'Mois suivant'},'›');
  const firstAllowed=min?monthStart(min):'';if(firstAllowed&&calState[key]<=firstAllowed)prev.disabled=true;
  prev.onclick=()=>{calState[key]=iso(new Date(y,mo-1,1,12));renderCal(box,mode)};next.onclick=()=>{calState[key]=iso(new Date(y,mo+1,1,12));renderCal(box,mode)};
- const title=m0.toLocaleDateString(LOC,{month:'long',year:'numeric'});
+ const title=moisAn(m0);
  const g=el('div',{class:'cal-g',role:'grid'});DOW().forEach(x=>g.append(el('span',{class:'dow'},x)));
  const lead=(m0.getDay()+6)%7;for(let i=0;i<lead;i++)g.append(el('span',{class:'pad','aria-hidden':'true'}));
  const days=new Date(y,mo+1,0).getDate();
@@ -1431,12 +1437,12 @@ function renderCal(box,mode){
   if(we)btn.classList.add('we');
   if(mode==='client'){
    const past=min&&v<min;
-   if(b){btn.classList.add('busy');btn.disabled=true;if(b.show)btn.append(lab(tr('Réservé')));btn.setAttribute('aria-label',i+(EN?': booked':' : réservé'))}
+   if(b){btn.classList.add('busy');btn.disabled=true;if(b.show)btn.append(lab(tr('Réservé')));btn.setAttribute('aria-label',i+(ES?': reservado':EN?': booked':' : réservé'))}
    else if(t==='mariage'&&(!we||!weOk(v,bm,min))){btn.disabled=true}
    else if(t!=='mariage'&&(past||!dateOk(v,t,bm))){btn.disabled=true}
    else{const on=selDays.includes(v);if(on)btn.classList.add('sel');
-    const dl=d.toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long'});btn.setAttribute('aria-pressed',String(on));btn.setAttribute('aria-label',dl+(on?(EN?', selected: click to remove':', choisi : cliquer pour retirer'):''));
-    if(t==='mariage')btn.setAttribute('aria-label',dl+(EN?(on?', weekend selected: tap to remove':': choose this weekend'):(on?', week-end choisi : toucher pour retirer':' : choisir ce week-end')));
+    const dl=d.toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long'});btn.setAttribute('aria-pressed',String(on));btn.setAttribute('aria-label',dl+(on?(ES?', elegido: haga clic para quitarlo':EN?', selected: click to remove':', choisi : cliquer pour retirer'):''));
+    if(t==='mariage')btn.setAttribute('aria-label',dl+(ES?(on?', fin de semana elegido: toque para quitarlo':': elegir este fin de semana'):EN?(on?', weekend selected: tap to remove':': choose this weekend'):(on?', week-end choisi : toucher pour retirer':' : choisir ce week-end')));
     btn.onclick=()=>{$('err').hidden=true;t==='mariage'?pickWE(v):toggleDay(v)}}
   }else{
    if(b){btn.classList.add(b.type,'k-'+b.kind);if(b.show)btn.append(lab(b.type==='conf'?b.label:b.label+' · bloqué'));btn.title=(b.kind==='seminaire'?'Séminaire : ':'Mariage : ')+b.label}
@@ -1463,13 +1469,13 @@ function renderCal(box,mode){
 }
 let calAnchor=null,calHover=null;
 const longDate=v=>D(v).toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long'});
-const DOW=()=>EN?['Mon','Tue','Wed','Thu','Fri','Sat','Sun']:['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+const DOW=()=>ES?['Lun','Mar','Mié','Jue','Vie','Sáb','Dom']:EN?['Mon','Tue','Wed','Thu','Fri','Sat','Sun']:['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
 function rangeDays(a,b){const out=[];const x=D(a);while(iso(x)<=b){out.push(iso(x));x.setDate(x.getDate()+1)}return out}
 function calMsg(t,err){const e=$('cal-msg');if(!e)return;e.textContent=t;e.hidden=!t;e.style.color=err?'':'var(--ink)'}
 function periode(a,b){const da=D(a),db=D(b);const y=db.getFullYear();
- if(a===b)return(EN?'':'Le ')+da.toLocaleDateString(LOC,{day:'numeric',month:'long',year:'numeric'});
+ if(a===b)return(ES?'El ':EN?'':'Le ')+da.toLocaleDateString(LOC,{day:'numeric',month:'long',year:'numeric'});
  const sameM=da.getMonth()===db.getMonth()&&da.getFullYear()===y;
- return(EN?'':'Du ')+(sameM?da.getDate():da.toLocaleDateString(LOC,{day:'numeric',month:'long',...(da.getFullYear()!==y?{year:'numeric'}:{})}))+(EN?' to ':' au ')+db.toLocaleDateString(LOC,{day:'numeric',month:'long',year:'numeric'})}
+ return(ES?'Del ':EN?'':'Du ')+(sameM?da.getDate():da.toLocaleDateString(LOC,{day:'numeric',month:'long',...(da.getFullYear()!==y?{year:'numeric'}:{})}))+(ES?' al ':EN?' to ':' au ')+db.toLocaleDateString(LOC,{day:'numeric',month:'long',year:'numeric'})}
 function renderCalList(){const ul=$('cal-list');if(!ul)return;
  const items=[];
  // demandes confirmées : une ligne par demande
@@ -1533,7 +1539,7 @@ function renderDash(){
  const visite=el('label',{class:'chk visite'},visBox,'Visite du site effectuée');
  const copy=el('button',{class:'btn ghost sm',type:'button'},"Copier l'e-mail");
  copy.onclick=()=>{navigator.clipboard?.writeText(r.email).then(()=>copy.textContent='Copié',()=>copy.textContent=r.email)};
- const sem=r.type==='seminaire',gi=isLodg(r.type),ang=r.langue==='en'?' · en anglais':'';
+ const sem=r.type==='seminaire',gi=isLodg(r.type),ang=r.langue==='en'?' · en anglais':r.langue==='es'?' · en espagnol':'';
  if(gi){const n=r.depart?nights(r.date,r.depart).length:0;
   $('detail').replaceChildren(el('span',{class:'eyebrow'},KLAB[r.type]+' · reçue le '+fmt(r.recu)+ang+(r.ex?' · exemple':'')),el('h3',{},r.noms),
    el('dl',{},el('dt',{},'Séjour'),el('dd',{},r.depart?periode(r.date,r.depart)+' · '+n+' nuit'+(n>1?'s':''):'Non précisé'),el('dt',{},'Voyageurs'),el('dd',{},r.invites),...(/€/.test(r.formule||'')?[el('dt',{},'Tarif estimé'),el('dd',{},r.formule.split(' · ').pop())]:[]),el('dt',{},'E-mail'),el('dd',{},r.email),el('dt',{},'Téléphone'),el('dd',{},r.tel||'Non renseigné')),
@@ -1661,12 +1667,12 @@ function tarifNuit(k,p,v){const f=fete(k),base=p==='appart'?(v<=2?30:25):23;retu
 function minNuits(a,b){return nights(a,b).some(fete)?3:2}
 function gPrix(){if(!isLodg(gProp)||!gSel.a||!gSel.b)return 0;const v=+$('g-voy').value||1;return nights(gSel.a,gSel.b).reduce((t,k)=>t+tarifNuit(k,gProp,v)*v,0)}
 const euros=n=>n.toLocaleString('fr-FR')+' €';
-const eurosAff=n=>EN?'€'+n.toLocaleString('en-GB'):euros(n);
-const nuitsTxt=n=>n+(EN?' night':' nuit')+(n>1?'s':''),voyTxt=v=>v+(EN?' guest':' voyageur')+(+v>1?'s':'');
+const eurosAff=n=>ES?n.toLocaleString('es-ES')+' €':EN?'€'+n.toLocaleString('en-GB'):euros(n);
+const nuitsTxt=n=>n+(ES?' noche':EN?' night':' nuit')+(n>1?'s':''),voyTxt=v=>v+(ES?(+v>1?' huéspedes':' huésped'):(EN?' guest':' voyageur')+(+v>1?'s':''));
 function gStay(){const e=$('g-stay');if(!gSel.a){e.textContent=tr('Aucune date choisie.');return}
- if(!gSel.b){const da=D(gSel.a).toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long'});e.textContent=EN?'Arrival on '+da+'. Now choose your departure day.':'Arrivée le '+da+'. Choisissez maintenant votre jour de départ.';return}
- const n=nights(gSel.a,gSel.b).length,mn=minNuits(gSel.a,gSel.b);if(n<mn){e.textContent=periode(gSel.a,gSel.b)+' · '+nuitsTxt(n)+(EN?'. Minimum stay: '+mn+' nights'+(mn===3?' over the holidays':'')+'. Please choose another departure day.':'. Séjour minimum : '+mn+' nuits'+(mn===3?' pendant les fêtes':'')+'. Choisissez un autre jour de départ.');return}
- const px=gPrix();e.textContent=periode(gSel.a,gSel.b)+' · '+nuitsTxt(n)+(px?' · '+eurosAff(px)+(EN?' for ':' pour ')+voyTxt($('g-voy').value):'')}
+ if(!gSel.b){const da=D(gSel.a).toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long'});e.textContent=ES?'Llegada el '+da+'. Ahora elija su día de salida.':EN?'Arrival on '+da+'. Now choose your departure day.':'Arrivée le '+da+'. Choisissez maintenant votre jour de départ.';return}
+ const n=nights(gSel.a,gSel.b).length,mn=minNuits(gSel.a,gSel.b);if(n<mn){e.textContent=periode(gSel.a,gSel.b)+' · '+nuitsTxt(n)+(ES?'. Estancia mínima: '+mn+' noches'+(mn===3?' durante las fiestas':'')+'. Elija otro día de salida.':EN?'. Minimum stay: '+mn+' nights'+(mn===3?' over the holidays':'')+'. Please choose another departure day.':'. Séjour minimum : '+mn+' nuits'+(mn===3?' pendant les fêtes':'')+'. Choisissez un autre jour de départ.');return}
+ const px=gPrix();e.textContent=periode(gSel.a,gSel.b)+' · '+nuitsTxt(n)+(px?' · '+eurosAff(px)+(ES?' para ':EN?' for ':' pour ')+voyTxt($('g-voy').value):'')}
 $('g-voy').addEventListener('change',gStay);
 function renderGCal(box,mode){
  if(!box)return;const P=mode==='client'?gProp:lp(),SK=mode+P;if(!gState[SK])gState[SK]=monthStart(null);
@@ -1687,7 +1693,7 @@ function renderGCal(box,mode){
    else{btn.onclick=()=>{
      if(canDepart){gSel.b=v}else{gSel={a:v,b:null}}
      $('g-err').hidden=true;gStay();renderGCal(box,mode)}}
-   btn.setAttribute('aria-label',d.toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long'})+(b?(EN?': booked':' : réservé'):''));
+   btn.setAttribute('aria-label',d.toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long'})+(b?(ES?': reservado':EN?': booked':' : réservé'):''));
   }else{
    if(b){btn.classList.add(b.type,'k-gite');if(b.show)btn.append(el('small',{class:'one'},b.label));btn.title=b.label}
    if(b&&b.type==='conf'){btn.onclick=()=>{sel=b.id;renderDash();$('detail').scrollIntoView({block:'nearest'})}}
@@ -1703,7 +1709,7 @@ function renderGCal(box,mode){
  const sw=s=>el('i',{style:'background:'+s});
  const leg=mode==='client'?el('div',{class:'cal-leg'},el('span',{},sw('repeating-linear-gradient(-45deg,var(--stone-2) 0 3px,var(--card) 3px 6px)'),tr('Réservé')),el('span',{},sw('var(--buis)'),tr('Votre séjour')))
   :el('div',{class:'cal-leg'},el('span',{},sw('color-mix(in srgb,var(--gilt) 22%,var(--card))'),'Séjour confirmé'),el('span',{},sw('repeating-linear-gradient(-45deg,color-mix(in srgb,var(--gilt) 22%,var(--card)) 0 3px,var(--card) 3px 6px)'),'Nuits bloquées'));
- box.replaceChildren(el('div',{class:'cal-h'},prev,el('b',{},m0.toLocaleDateString(mode==='client'?LOC:'fr-FR',{month:'long',year:'numeric'})),next),g,leg)}
+ box.replaceChildren(el('div',{class:'cal-h'},prev,el('b',{},moisAn(m0,mode==='client'?LOC:'fr-FR')),next),g,leg)}
 function renderGList(){const ul=$('g-cal-list');if(!ul)return;const items=[];
  load().filter(r=>r.type===lp()&&r.statut==='confirmee'&&r.date&&r.depart).forEach(r=>items.push({a:r.date,b:r.depart,label:r.noms,stay:1}));
  const days=[...new Set(gLoadBlocks().flatMap(x=>x.days))].sort();let st=null,pv=null;
@@ -1717,13 +1723,13 @@ function renderGList(){const ul=$('g-cal-list');if(!ul)return;const items=[];
 $('g-f').addEventListener('submit',e=>{e.preventDefault();const miss=[];
  if(!gSel.a||!gSel.b)miss.push('vos dates d\'arrivée et de départ');if(!$('g-nom').value.trim())miss.push('votre nom');
  if(!/^\S+@\S+\.\S+$/.test($('g-email').value))miss.push('une adresse e-mail valide');if(!$('g-ok-rgpd').checked)miss.push('votre accord pour l\'utilisation de vos informations (case à cocher)');
- if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).length<minNuits(gSel.a,gSel.b)){const mn=minNuits(gSel.a,gSel.b);miss.push(EN?'a longer stay: '+mn+' nights minimum'+(mn===3?' over the holidays':''):'un séjour plus long : '+mn+' nuits minimum'+(mn===3?' pendant les fêtes':''))}
+ if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).length<minNuits(gSel.a,gSel.b)){const mn=minNuits(gSel.a,gSel.b);miss.push(ES?'una estancia más larga: '+mn+' noches como mínimo'+(mn===3?' durante las fiestas':''):EN?'a longer stay: '+mn+' nights minimum'+(mn===3?' over the holidays':''):'un séjour plus long : '+mn+' nuits minimum'+(mn===3?' pendant les fêtes':''))}
  if(gSel.a&&gSel.b&&nights(gSel.a,gSel.b).some(x=>gMap(gProp).has(x)))miss.push('d\'autres dates : une partie du séjour est déjà réservée');
  if(PAY&&!$('g-ok-cgv').checked)miss.push("votre accord sur les conditions d'annulation (case à cocher)");
  if(miss.length){$('g-err').textContent=manque(miss);$('g-err').hidden=false;return}
  if(PAY){payer();return}
  saveReq({id:'g'+Date.now(),type:gProp,recu:iso(new Date()),noms:$('g-nom').value.trim(),date:gSel.a,depart:gSel.b,invites:$('g-voy').value+' voyageur'+($('g-voy').value>1?'s':''),formule:'Séjour : '+LODG[gProp].nom+(gPrix()?' · '+euros(gPrix()):''),email:$('g-email').value.trim(),tel:$('g-tel').value.trim(),msg:$('g-msg').value.trim(),statut:'nouvelle'});
- const gst=$('g-stay').textContent;$('g-recap').textContent=tr(KLAB[gProp])+' · '+gst+(gst.includes(EN?'guest':'voyageur')?'':' · '+voyTxt($('g-voy').value))+'.';$('g-f').hidden=true;$('g-merci').hidden=false;voirMerci('g-merci')});
+ const gst=$('g-stay').textContent;$('g-recap').textContent=tr(KLAB[gProp])+' · '+gst+(gst.includes(ES?'huésped':EN?'guest':'voyageur')?'':' · '+voyTxt($('g-voy').value))+'.';$('g-f').hidden=true;$('g-merci').hidden=false;voirMerci('g-merci')});
 $('g-again').onclick=()=>{const v=$('g-voy').value;$('g-f').reset();$('g-voy').value=v;gSel={a:null,b:null};gStay();$('g-merci').hidden=true;$('g-f').hidden=false;renderGCal($('g-cal'),'client')};
 // ---------- paiement par carte des logements (Stripe, via la fonction Supabase « paiement ») ----------
 // Actif seulement si config.js contient paiementCarte: true (après l'installation décrite dans tools/supabase/INSTALLATION.md).
@@ -1731,11 +1737,11 @@ const PAY=CLOUD&&CFG.paiementCarte===true;
 const PAYURL=()=>CFG.url+'/functions/v1/paiement';
 const PKEY='bove-paiement';
 if(PAY){$('g-cgv').hidden=false;$('g-cgv-w').hidden=false;$('g-submit').textContent=tr('Payer et réserver')}
-function gRecapTxt(){const gst=$('g-stay').textContent;return tr(KLAB[gProp])+' · '+gst+(gst.includes(EN?'guest':'voyageur')?'':' · '+voyTxt($('g-voy').value))+'.'}
+function gRecapTxt(){const gst=$('g-stay').textContent;return tr(KLAB[gProp])+' · '+gst+(gst.includes(ES?'huésped':EN?'guest':'voyageur')?'':' · '+voyTxt($('g-voy').value))+'.'}
 async function payer(){const btn=$('g-submit'),e=$('g-err');btn.disabled=true;btn.textContent=tr('Ouverture du paiement…');
  const info={type:gProp,arrivee:gSel.a,depart:gSel.b,voyageurs:+$('g-voy').value,nom:$('g-nom').value.trim(),email:$('g-email').value.trim(),tel:$('g-tel').value.trim(),msg:$('g-msg').value.trim()};
  const fin=()=>{btn.disabled=false;btn.textContent=tr('Payer et réserver')};
- try{const r=await fetch(PAYURL(),{method:'POST',headers:{'Content-Type':'application/json',apikey:CFG.anonKey},body:JSON.stringify({action:'payer',...info,conditions:true,langue:EN?'en':'fr',site:location.origin})});
+ try{const r=await fetch(PAYURL(),{method:'POST',headers:{'Content-Type':'application/json',apikey:CFG.anonKey},body:JSON.stringify({action:'payer',...info,conditions:true,langue:LANG,site:location.origin})});
   const j=await r.json().catch(()=>({}));
   if(!r.ok||!j.url){e.textContent=j.erreur||tr("Le paiement n'a pas pu être ouvert. Vérifiez votre connexion internet puis réessayez.");e.hidden=false;fin();if(j.pris){await loadOcc();gSel={a:null,b:null};gStay();renderGCal($('g-cal'),'client')}return}
   try{sessionStorage.setItem(PKEY,JSON.stringify({...info,id:j.id,total:j.total,recap:gRecapTxt()}))}catch(x){}
@@ -1748,7 +1754,7 @@ function retourPaiement(){const q=new URLSearchParams(location.search),st=q.get(
  if(st==='ok'){$('g-f').hidden=true;$('g-merci').hidden=false;voirMerci('g-merci');$('g-merci-eb').textContent=tr('Paiement reçu');$('g-merci-h').textContent=tr('Merci, votre séjour est réservé. Un reçu vous est envoyé par e-mail.');
   $('g-recap').textContent=info?info.recap:'';$('g-again').textContent=tr('Nouvelle réservation');
   if(info&&!info.notifie){try{sessionStorage.setItem(PKEY,JSON.stringify({...info,notifie:1}))}catch(x){}
-   notify({id:info.id,type:info.type,noms:info.nom,date:info.arrivee,depart:info.depart,invites:info.voyageurs+' voyageur'+(info.voyageurs>1?'s':''),formule:'Séjour payé par carte · '+euros(info.total),paye:1,email:info.email,tel:info.tel,msg:info.msg,langue:EN?'en':undefined})}}
+   notify({id:info.id,type:info.type,noms:info.nom,date:info.arrivee,depart:info.depart,invites:info.voyageurs+' voyageur'+(info.voyageurs>1?'s':''),formule:'Séjour payé par carte · '+euros(info.total),paye:1,email:info.email,tel:info.tel,msg:info.msg,langue:LANG==='fr'?undefined:LANG})}}
  else if(info){if(info.id)fetch(PAYURL(),{method:'POST',headers:{'Content-Type':'application/json',apikey:CFG.anonKey},body:JSON.stringify({action:'abandon',id:info.id})}).catch(()=>{});
   setProp(info.type);gSel={a:info.arrivee,b:info.depart};gState['client'+info.type]=info.arrivee.slice(0,8)+'01';$('g-voy').value=String(info.voyageurs);$('g-nom').value=info.nom;$('g-email').value=info.email;$('g-tel').value=info.tel;$('g-msg').value=info.msg;gStay();renderGCal($('g-cal'),'client');
   $('g-err').textContent=tr("Paiement annulé : rien n'a été débité. Vous pouvez réessayer.");$('g-err').hidden=false}}
