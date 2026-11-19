@@ -144,11 +144,6 @@ section:not(.hero):not(.resa),footer{background-image:url("data:image/svg+xml,%3
 .rev-tag{right:20px;top:18px;color:var(--gilt);opacity:calc(var(--d) * 1.2 - .2)}
 .rev-tag2{left:20px;bottom:18px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5);opacity:calc(var(--q) * 3 - .3)}
 .mo .rev{--d:0;--q:0;--lo:0}
-/* histoire : vue satellite */
-.sat-map{width:100%;max-width:820px;margin:12px auto 0;padding:8px;background:var(--card);box-shadow:inset 0 0 0 1px rgba(154,123,63,.35),0 30px 60px -36px rgba(20,26,23,.45)}
-.sat-map iframe{display:block;width:100%;aspect-ratio:16/10;border:0}
-@media (max-width:560px){.sat-map iframe{aspect-ratio:4/3}}
-.carte-l{font-family:var(--sans);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:-6px}
 /* histoire : frise qui s'allume au défilement */
 .chrono{position:relative;--p:1}
 .chrono::before,.chrono::after{content:"";position:absolute;left:154px;top:34px;bottom:40px;width:1px;background:var(--line)}
@@ -730,8 +725,6 @@ footer .mark{color:var(--ink);font-size:1.6rem}
     <h2>Le château qui a donné son nom au Chemin des Dames</h2>
     <p>À la veille de la Révolution, la Bôve appartient à Françoise de Châlus, duchesse de Narbonne, dame d'honneur de Madame Adélaïde. Les filles de Louis XV, Mesdames Adélaïde et Victoire, viennent si souvent lui rendre visite que la route empruntée par leurs carrosses prend un nom resté dans l'histoire : le Chemin des Dames.</p>
     <p>Plus d'un siècle plus tard, ce même plateau devient l'un des lieux les plus marquants de la Grande Guerre. Le domaine porte aujourd'hui cette double mémoire, entre art de vivre à la française et souvenir de 1917.</p>
-    <div class="sat-map"><iframe class="map-frame" src="https://maps.google.com/maps?q=Ch%C3%A2teau%20de%20la%20B%C3%B4ve%2C%2002860%20Bouconville-Vauclair&amp;t=k&amp;z=13&amp;hl=fr&amp;output=embed" title="Vue satellite du château de la Bôve et du Chemin des Dames" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
-    <p class="carte-l">Le domaine et le plateau du Chemin des Dames, vus du ciel</p>
   </div>
 </section>
 
@@ -1753,7 +1746,7 @@ if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitych
 (()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window))return;
  const root=document.documentElement;root.classList.add('mo');
  const adm=document.getElementById('admin'),ok=e=>!adm.contains(e)&&!e.closest('.hero')&&!e.closest('[hidden]');
- const TXT='.eyebrow,.resa ul.inc li,section h3:not(.lodg h3),.big,.facts>div,.split .txt>p,.split .txt>div,.hist-intro>p,.carte-l,.fenetre p,.head>p,.lieu,.chapelle .b,.sem-facts>div,.sem .txt>*,.lodg,.avis-h,.avis-l figure,.near li,.contact .inner>*,.resa-intro>*,.more-row';
+ const TXT='.eyebrow,.resa ul.inc li,section h3:not(.lodg h3),.big,.facts>div,.split .txt>p,.split .txt>div,.hist-intro>p,.fenetre p,.head>p,.lieu,.chapelle .b,.sem-facts>div,.sem .txt>*,.lodg,.avis-h,.avis-l figure,.near li,.contact .inner>*,.resa-intro>*,.more-row';
  const IMG='.split figure,.ph2 figure,.top3>*,.sem figure';
  const els=[];
  // titres mot à mot

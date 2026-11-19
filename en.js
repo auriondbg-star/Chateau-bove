@@ -365,6 +365,4 @@ window.BOVE_EN = {
  "Le coin repas près de la fenêtre": "The dining nook by the window",
  "La salle d'eau avec douche": "The shower room",
  "La photo": "The photo",
- "Le domaine et le plateau du Chemin des Dames, vus du ciel": "The estate and the Chemin des Dames plateau, seen from the sky",
- "Vue satellite du château de la Bôve et du Chemin des Dames": "Satellite view of the Château de la Bôve and the Chemin des Dames",
 };
