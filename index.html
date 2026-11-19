@@ -144,6 +144,59 @@ section:not(.hero):not(.resa),footer{background-image:url("data:image/svg+xml,%3
 .rev-tag{right:20px;top:18px;color:var(--gilt);opacity:calc(var(--d) * 1.2 - .2)}
 .rev-tag2{left:20px;bottom:18px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5);opacity:calc(var(--q) * 3 - .3)}
 .mo .rev{--d:0;--q:0;--lo:0}
+/* histoire : le livre */
+.livre-w{position:relative;width:100%;max-width:900px;margin:18px auto 0;perspective:2600px;transition:padding .9s cubic-bezier(.6,0,.3,1)}
+.livre{position:relative;width:100%;aspect-ratio:1.5;transform-style:preserve-3d;transition:transform 1.1s cubic-bezier(.6,0,.3,1);--s:1}
+.livre-w.closed .livre{transform:translateX(calc(-25% * var(--s))) scale(var(--s))}
+.lv-base{position:absolute;top:0;bottom:0;width:50%;background:#F6F0E1;box-shadow:0 30px 50px -26px rgba(30,20,5,.5)}
+.lv-base.l{left:0;border-radius:4px 0 0 4px;background:linear-gradient(270deg,rgba(80,60,20,.2),transparent 9%),#F6F0E1}
+.lv-base.r{right:0;border-radius:0 4px 4px 0;background:linear-gradient(90deg,rgba(80,60,20,.2),transparent 9%),#F6F0E1;box-shadow:0 30px 50px -26px rgba(30,20,5,.5),3px 0 0 #E9E0C8,5px 0 0 #DCD1B4,7px 0 0 #E9E0C8,9px 1px 0 #CFC3A3}
+.livre-w.closed .lv-base.l{opacity:0}
+.lv-base.l{transition:opacity .4s .5s}
+.livre-w.closed .lv-base.l{transition:opacity .2s}
+.lv-leaf{position:absolute;top:0;left:50%;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.55,.05,.3,1)}
+.lv-leaf.flip{transform:rotateY(-180deg)}
+.lv-f,.lv-b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;background:#F6F0E1}
+.lv-f{border-radius:0 4px 4px 0;background:linear-gradient(90deg,rgba(80,60,20,.17),transparent 9%),#F6F0E1}
+.lv-b{transform:rotateY(180deg);border-radius:4px 0 0 4px;background:linear-gradient(270deg,rgba(80,60,20,.17),transparent 9%),#F6F0E1}
+.lv-f::after,.lv-b::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.28),transparent 75%);opacity:0}
+.lv-b::after{background:linear-gradient(270deg,rgba(0,0,0,.28),transparent 75%)}
+.lv-leaf.turn .lv-f::after,.lv-leaf.turn .lv-b::after{animation:lvsh 1s ease-in-out}
+@keyframes lvsh{50%{opacity:1}}
+/* couverture */
+.lv-cover{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#E9D9AE;background:radial-gradient(120% 90% at 45% 35%,#34503F,#1E3127 70%,#172720);border-radius:2px 6px 6px 2px;box-shadow:inset 10px 0 18px -6px rgba(0,0,0,.55);cursor:pointer}
+.lv-cover::before{content:"";position:absolute;inset:14px;border:1px solid rgba(233,217,174,.6);outline:1px solid rgba(233,217,174,.3);outline-offset:4px;pointer-events:none}
+.lv-cover .t{font-family:var(--display);font-size:clamp(1.25rem,3.6vw,2.4rem);line-height:1.1;padding:0 12%}
+.lv-cover .s{font-family:var(--sans);font-size:clamp(.5rem,1.2vw,.66rem);letter-spacing:.3em;text-transform:uppercase;margin-top:14px;opacity:.85}
+.lv-cover .o{font-size:clamp(.7rem,1.6vw,1rem);letter-spacing:.6em;margin:16px 0 0 .6em;opacity:.8}
+.lv-cover .go{position:absolute;bottom:9%;left:0;right:0;font-family:var(--sans);font-size:clamp(.5rem,1.2vw,.66rem);letter-spacing:.22em;text-transform:uppercase;animation:lvgo 2.4s ease-in-out infinite}
+@keyframes lvgo{50%{opacity:.35}}
+/* pages */
+.lv-txt{display:flex;flex-direction:column;justify-content:center;padding:clamp(16px,4.4vw,48px) clamp(14px,3.8vw,42px);cursor:pointer}
+.lv-txt .y{font-family:var(--sans);font-size:clamp(.52rem,1.2vw,.68rem);letter-spacing:.22em;text-transform:uppercase;color:var(--gilt)}
+.lv-txt h4{font-family:var(--display);font-weight:400;font-size:clamp(1rem,2.6vw,1.6rem);line-height:1.15;margin:8px 0 12px;color:#1E2622}
+.lv-txt p{margin:0;font-size:clamp(.72rem,1.55vw,.95rem);line-height:1.62;color:#3b3527}
+.lv-txt .o{color:var(--gilt);margin-top:14px;letter-spacing:.4em}
+.lv-txt .n{position:absolute;bottom:14px;right:18px;font-family:var(--serif);font-style:italic;font-size:.75rem;color:#9b917b}
+.lv-img{padding:clamp(12px,2.6vw,28px);cursor:pointer;display:flex;flex-direction:column}
+.lv-img figure{margin:0;flex:1;position:relative;overflow:hidden;box-shadow:0 0 0 1px rgba(154,123,63,.35),0 8px 18px -10px rgba(40,30,10,.5)}
+.lv-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:sepia(.12)}
+.lv-img figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(15,12,6,.65))}
+.lv-img .big{position:absolute;left:14px;bottom:12px;z-index:1;font-family:var(--display);font-size:clamp(1.5rem,4.4vw,2.8rem);line-height:1;color:#FBF6E8;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.lv-img figcaption{margin-top:8px;font-family:var(--serif);font-style:italic;font-size:clamp(.6rem,1.2vw,.76rem);color:#7d735d;text-align:center}
+.lv-end{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10%}
+.lv-end .q{font-family:var(--display);font-size:clamp(1.1rem,3vw,1.9rem);color:var(--gilt);line-height:1.2}
+.lv-end .o{color:var(--gilt);letter-spacing:.5em;margin:14px 0 0 .5em}
+/* commandes */
+.lv-nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 18px;margin-top:22px;font-family:var(--sans);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:opacity .5s}
+.livre-w.closed .lv-nav{opacity:0;pointer-events:none}
+.lv-nav button{all:unset;cursor:pointer;color:var(--buis);padding:8px 6px;white-space:nowrap}
+.lv-nav .ct{white-space:nowrap;min-width:3.5em;text-align:center}
+.lv-nav button:disabled{opacity:.3;cursor:default}
+.lv-nav button:focus-visible{outline:2px solid var(--gilt);outline-offset:3px}
+.lv-nav .cl{border-bottom:1px solid var(--buis);padding:4px 0}
+@media (prefers-reduced-motion:reduce){.livre,.lv-leaf,.livre-w{transition:none!important}.lv-cover .go{animation:none}}
+@media (max-width:640px){.livre{aspect-ratio:.92}.lv-nav{font-size:.68rem;letter-spacing:.1em;gap:4px 12px}.lv-nav .cl{flex-basis:100%;text-align:center;border:0;text-decoration:underline;text-underline-offset:4px}.lv-cover .s{letter-spacing:.16em}.livre-w.closed{padding-block:9%}.livre-w.closed .livre{--s:1.22}.lv-txt .n{bottom:8px;right:10px}}
 /* histoire : frise qui s'allume au défilement */
 .chrono{position:relative;--p:1}
 .chrono::before,.chrono::after{content:"";position:absolute;left:154px;top:34px;bottom:40px;width:1px;background:var(--line)}
@@ -739,6 +792,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
       <li><span class="y">1917</span><p><b>Le Chemin des Dames dans la Grande Guerre.</b> Au printemps 1917, l'offensive française se brise sur le plateau, qui reste l'un des champs de bataille les plus meurtriers du conflit.</p></li>
       <li><span class="y">Aujourd'hui</span><p><b>Un lieu de fête et de mémoire.</b> Le domaine ouvre ses extérieurs, sa chapelle et son orangerie aux mariages, à deux heures de Paris et trente-cinq minutes de Reims.</p></li>
     </ol>
+    <div class="livre-w closed" id="livre-w" hidden></div>
   </div>
 </section>
 
@@ -1740,6 +1794,35 @@ if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitych
  const upd=()=>{const on=!vis.size;bar.classList.toggle('on',on);bar.setAttribute('aria-hidden',String(!on));bar.tabIndex=on?0:-1};
  const io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.add(e.target):vis.delete(e.target));upd()},{threshold:0,rootMargin:'0px 0px -15% 0px'});
  watch.forEach(el=>io.observe(el))})();
+</script>
+<script>
+// ---------- histoire : le livre (fermé au départ, s'ouvre au clic, se feuillette page par page) ----------
+(()=>{const w=document.getElementById('livre-w'),ol=document.querySelector('#histoire .chrono');if(!w||!ol)return;
+ const T=typeof tr==='function'?tr:(x=>x);
+ const IM=[['histoire-origines.jpg','Carte de Cassini, feuille de Laon'],['histoire-mesdames.jpg','Madame Adélaïde, par Adélaïde Labille-Guiard'],['histoire-1814.jpg','La bataille de Craonne, par Théodore Jung'],['histoire-1917.jpg','L’assaut du Chemin des Dames, 1917'],['aerien-domaine-v2.jpg','Le domaine aujourd’hui']];
+ const it=[...ol.children].map(li=>{const y=li.querySelector('.y').textContent,b=li.querySelector('b').textContent.trim(),p=li.querySelector('p').cloneNode(true);p.querySelector('b').remove();return{y,b,p:p.textContent.trim()}});
+ const N=it.length,E=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e},esc=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+ const img=k=>{const [src,cap]=IM[k]||IM[IM.length-1];return '<figure><img src="'+src+'" alt="'+esc(T(cap))+'" loading="lazy"><span class="big">'+esc(it[k].y)+'</span></figure><figcaption>'+esc(T(cap))+'</figcaption>'};
+ const bk=E('div','livre');bk.append(E('div','lv-base l'));const br=E('div','lv-base r lv-end','<div class="q">'+esc(T('La suite s’écrit avec vous.'))+'</div><div class="o">✦ ✦ ✦</div>');bk.append(br);
+ const leaves=[];
+ const leaf=(f,fc,b,bc)=>{const l=E('div','lv-leaf');const a=E('div','lv-f '+fc,f),z=E('div','lv-b '+bc,b);l.append(a,z);bk.append(l);leaves.push(l);return l};
+ leaf('<div class="t">Château<br>de la Bôve</div><div class="s">'+esc(T('Histoire du domaine'))+'</div><div class="o">✦✦✦</div><div class="go">'+esc(T('Ouvrir le livre'))+'</div>','lv-cover',img(0),'lv-img');
+ it.forEach((x,k)=>leaf('<div class="y">'+esc(x.y)+'</div><h4>'+esc(x.b)+'</h4><p>'+esc(x.p)+'</p><div class="o">✦</div><span class="n">'+(k+1)+'</span>','lv-txt',k+1<N?img(k+1):'<div class="q">'+esc(T('Château classé Monument historique de France'))+'</div><div class="o">✦</div>',k+1<N?'lv-img':'lv-end'));
+ const nav=E('div','lv-nav');const pv=E('button','pv','‹ '+esc(T('Précédent')));const ct=E('span','ct');const nx=E('button','nx',esc(T('Suivant'))+' ›');const cl=E('button','cl',esc(T('Refermer le livre')));
+ [pv,nx,cl].forEach(b=>b.type='button');nav.append(pv,ct,nx,cl);
+ w.append(bk,nav);w.hidden=false;ol.hidden=true;w.setAttribute('role','region');w.setAttribute('aria-label',T('Livre de l’histoire du domaine'));
+ let n=0;const L=leaves.length;
+ const z=()=>leaves.forEach((l,k)=>{l.style.zIndex=k<n?10+k:100-k});
+ const set=m=>{m=Math.max(0,Math.min(L,m));if(m===n)return;const k=m>n?n:m;const l=leaves[k];l.style.zIndex=300;l.classList.remove('turn');void l.offsetWidth;l.classList.add('turn');
+  for(let i=Math.min(m,n);i<Math.max(m,n);i++)leaves[i].classList.toggle('flip',m>n);n=m;w.classList.toggle('closed',n===0);ui();setTimeout(z,520)};
+ const ui=()=>{pv.disabled=n<=1;nx.disabled=n>=L;ct.textContent=n?Math.min(n,N)+' / '+N:''};
+ z();ui();
+ bk.addEventListener('click',e=>{const r=bk.getBoundingClientRect(),right=e.clientX>r.left+r.width/2;if(n===0){set(1);return}if(right)set(n+1);else if(n>1)set(n-1)});
+ pv.onclick=()=>set(n-1);nx.onclick=()=>set(n+1);cl.onclick=()=>{set(0);w.scrollIntoView({block:'center',behavior:'smooth'})};
+ let x0=null;bk.addEventListener('pointerdown',e=>{x0=e.clientX},{passive:true});bk.addEventListener('pointerup',e=>{if(x0==null||n===0)return;const d=e.clientX-x0;x0=null;if(Math.abs(d)>45){e.stopPropagation();bk.dataset.sw=1;set(d<0?n+1:Math.max(1,n-1))}},{passive:true});
+ bk.addEventListener('click',e=>{if(bk.dataset.sw){delete bk.dataset.sw;e.stopImmediatePropagation()}},true);
+ bk.tabIndex=0;bk.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='Enter'){set(n+1);e.preventDefault()}else if(e.key==='ArrowLeft'){set(n-1);e.preventDefault()}else if(e.key==='Escape')set(0)});
+})();
 </script>
 <script>
 // ---------- animations : apparition au défilement, compteurs, barre de progression, fond qui respire ----------

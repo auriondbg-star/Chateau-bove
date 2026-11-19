@@ -365,4 +365,17 @@ window.BOVE_EN = {
  "Le coin repas près de la fenêtre": "The dining nook by the window",
  "La salle d'eau avec douche": "The shower room",
  "La photo": "The photo",
+ "Carte de Cassini, feuille de Laon": "Cassini map, Laon sheet",
+ "Madame Adélaïde, par Adélaïde Labille-Guiard": "Madame Adélaïde, by Adélaïde Labille-Guiard",
+ "La bataille de Craonne, par Théodore Jung": "The Battle of Craonne, by Théodore Jung",
+ "L’assaut du Chemin des Dames, 1917": "The assault on the Chemin des Dames, 1917",
+ "Le domaine aujourd’hui": "The estate today",
+ "La suite s’écrit avec vous.": "The next chapter is yours to write.",
+ "Histoire du domaine": "History of the estate",
+ "Ouvrir le livre": "Open the book",
+ "Précédent": "Previous",
+ "Suivant": "Next",
+ "Refermer le livre": "Close the book",
+ "Livre de l’histoire du domaine": "Book of the estate's history",
+ "Château classé Monument historique de France": "Château listed as a French Historic Monument"
 };
