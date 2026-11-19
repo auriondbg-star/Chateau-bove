@@ -1247,7 +1247,7 @@ Object.values(LPHOTOS).forEach(L=>L.forEach(p=>p[1]=tr(p[1])));
 document.querySelectorAll('.lodg-ph[data-slot]').forEach(slot=>{const L=LPHOTOS[slot.dataset.slot];if(!L)return;
  const strip=el('div',{class:'strip'});
  L.slice(0,3).forEach(([f,a],i)=>{const b=el('button',{type:'button','aria-label':tr('Agrandir :')+' '+a+' ('+(i+1)+(ES?' de ':EN?' of ':' sur ')+L.length+')'});b.innerHTML=`<img src="${f}.jpg" alt="${a}" loading="lazy">`;
-  if(i===2&&L.length>3)b.append(el('span',{class:'more-n'},'+'+(L.length-3)+' photos'));b.onclick=()=>open(i,L,b);strip.append(b)});
+  if(i===2&&L.length>3)b.append(el('span',{class:'more-n'},'+'+(L.length-3)+(ES?' fotos':' photos')));b.onclick=()=>open(i,L,b);strip.append(b)});
  slot.replaceChildren(strip)});
 lb.addEventListener('click',e=>{if(e.target===lb)close()});
 document.addEventListener('keydown',e=>{if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')document.getElementById('lbn').click();if(e.key==='ArrowLeft')document.getElementById('lbp').click()});
