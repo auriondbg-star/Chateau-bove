@@ -201,6 +201,8 @@ section:not(.hero):not(.resa),footer{background-image:url("data:image/svg+xml,%3
 .lv-img figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(15,12,6,.65))}
 .lv-img .big{position:absolute;left:14px;bottom:12px;z-index:1;font-family:var(--display);font-size:clamp(1.5rem,4.4vw,2.8rem);line-height:1;color:#FBF6E8;text-shadow:0 2px 14px rgba(0,0,0,.5)}
 .lv-img figcaption{margin-top:8px;font-family:var(--serif);font-style:italic;font-size:clamp(.6rem,1.2vw,.76rem);color:#7d735d;text-align:center}
+.lv-base.lv-end>*{visibility:hidden}
+.livre-w.fin .lv-base.lv-end>*{visibility:visible}
 .lv-end{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10%}
 .lv-end .q{font-family:var(--display);font-size:clamp(1.1rem,3vw,1.9rem);color:var(--gilt);line-height:1.2}
 .lv-end .o{color:var(--gilt);letter-spacing:.5em;margin:14px 0 0 .5em}
@@ -1840,7 +1842,7 @@ if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitych
  let n=0;const L=leaves.length;
  const z=()=>leaves.forEach((l,k)=>{l.style.zIndex=k<n?10+k:100-k});
  const set=m=>{m=Math.max(0,Math.min(L,m));if(m===n)return;const k=m>n?n:m;const l=leaves[k];l.style.zIndex=300;l.classList.remove('turn');void l.offsetWidth;l.classList.add('turn');
-  for(let i=Math.min(m,n);i<Math.max(m,n);i++)leaves[i].classList.toggle('flip',m>n);n=m;w.classList.toggle('closed',n===0);ui();setTimeout(z,520)};
+  for(let i=Math.min(m,n);i<Math.max(m,n);i++)leaves[i].classList.toggle('flip',m>n);n=m;w.classList.toggle('closed',n===0);w.classList.remove('fin');if(n===L)setTimeout(()=>{if(n===L)w.classList.add('fin')},900);ui();setTimeout(z,520)};
  const toc=document.getElementById('lv-toc'),tl=toc&&toc.querySelector('ol');
  if(tl){it.forEach((x,k)=>{const li=E('li'),b=E('button',null,'<span class="y">'+esc(x.y)+'</span><span class="b">'+esc(x.b.replace(/\.$/,''))+'</span>');b.type='button';
    b.onclick=()=>{if(n===0){set(1);if(k)setTimeout(()=>set(k+1),700)}else set(k+1)};li.append(b);tl.append(li)});toc.hidden=false}
