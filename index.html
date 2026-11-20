@@ -146,6 +146,7 @@ section:not(.hero):not(.resa),footer{background-image:url("data:image/svg+xml,%3
 .rev-tag2{left:20px;bottom:18px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5);opacity:calc(var(--q) * 3 - .3)}
 .mo .rev{--d:0;--q:0;--lo:0}
 /* histoire : le livre */
+.lv-leaf:not(.moving).flip>.lv-f,.lv-leaf:not(.moving):not(.flip)>.lv-b{visibility:hidden}
 .hist-eb{align-self:center;text-align:center}
 .hist-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:clamp(28px,4vw,56px);align-items:center;margin-top:8px}
 .hist-grid .livre-w{margin:0;max-width:none}
@@ -174,9 +175,9 @@ section:not(.hero):not(.resa),footer{background-image:url("data:image/svg+xml,%3
 .livre-w.closed .lv-base.l{transition:opacity .2s}
 .lv-leaf{position:absolute;top:0;left:50%;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.45,.05,.35,1)}
 .lv-leaf.flip{transform:rotateY(-180deg)}
-.lv-f,.lv-b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;background:#F6F0E1}
+.lv-f,.lv-b{position:absolute;inset:0;-webkit-transform:translateZ(.1px);transform:translateZ(.1px);backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;background:#F6F0E1}
 .lv-f{border-radius:0 4px 4px 0;background:linear-gradient(90deg,rgba(80,60,20,.17),transparent 9%),#F6F0E1}
-.lv-b{transform:rotateY(180deg);border-radius:4px 0 0 4px;background:linear-gradient(270deg,rgba(80,60,20,.17),transparent 9%),#F6F0E1}
+.lv-b{-webkit-transform:rotateY(180deg) translateZ(.1px);transform:rotateY(180deg) translateZ(.1px);border-radius:4px 0 0 4px;background:linear-gradient(270deg,rgba(80,60,20,.17),transparent 9%),#F6F0E1}
 .lv-f::after,.lv-b::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.28),transparent 75%);opacity:0}
 .lv-b::after{background:linear-gradient(270deg,rgba(0,0,0,.28),transparent 75%)}
 .lv-leaf.turn .lv-f::after,.lv-leaf.turn .lv-b::after{animation:lvsh 1s ease-in-out}
@@ -1857,7 +1858,7 @@ if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitych
  let n=0;const L=leaves.length;
  const z=()=>leaves.forEach((l,k)=>{l.style.zIndex=k<n?10+k:100-k});
  const set=m=>{m=Math.max(0,Math.min(L,m));if(m===n)return;const k=m>n?n:m;const l=leaves[k];l.style.zIndex=300;l.classList.remove('turn');void l.offsetWidth;l.classList.add('turn');
-  for(let i=Math.min(m,n);i<Math.max(m,n);i++)leaves[i].classList.toggle('flip',m>n);n=m;z();l.style.zIndex=300;w.classList.toggle('closed',n===0);w.classList.remove('fin');if(n===L)setTimeout(()=>{if(n===L)w.classList.add('fin')},900);ui();setTimeout(z,720)};
+  const mv=[];for(let i=Math.min(m,n);i<Math.max(m,n);i++){leaves[i].classList.add('moving');mv.push(leaves[i]);leaves[i].classList.toggle('flip',m>n)}n=m;clearTimeout(bk._mt);bk._mt=setTimeout(()=>{leaves.forEach(x=>x.classList.remove('moving'));bk.style.transform='translateZ(0)';requestAnimationFrame(()=>bk.style.transform='')},740);z();l.style.zIndex=300;w.classList.toggle('closed',n===0);w.classList.remove('fin');if(n===L)setTimeout(()=>{if(n===L)w.classList.add('fin')},900);ui();setTimeout(z,720)};
  const toc=document.getElementById('lv-toc'),tl=toc&&toc.querySelector('ol');
  if(tl){it.forEach((x,k)=>{const li=E('li'),b=E('button',null,'<span class="y">'+esc(x.y)+'</span><span class="b">'+esc(x.b.replace(/\.$/,''))+'</span>');b.type='button';
    b.onclick=()=>{if(n===0){set(1);if(k)setTimeout(()=>set(k+1),700)}else set(k+1)};li.append(b);tl.append(li)});toc.hidden=false}
@@ -1877,7 +1878,7 @@ if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitych
 (()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window))return;
  const root=document.documentElement;root.classList.add('mo');
  const adm=document.getElementById('admin'),ok=e=>!adm.contains(e)&&!e.closest('.hero')&&!e.closest('[hidden]');
- const TXT='.eyebrow,.resa ul.inc li,section h3:not(.lodg h3),.big,.facts>div,.split .txt>p,.split .txt>div,.hist-intro>p,.fenetre p,.head>p,.lieu,.chapelle .b,.sem-facts>div,.sem .txt>*,.lodg,.avis-h,.avis-l figure,.near li,.contact .inner>*,.resa-intro>*,.more-row';
+ const TXT='.eyebrow,.resa ul.inc li,section h3:not(.lodg h3),.big:not(.livre .big),.facts>div,.split .txt>p,.split .txt>div,.hist-intro>p,.fenetre p,.head>p,.lieu,.chapelle .b,.sem-facts>div,.sem .txt>*,.lodg,.avis-h,.avis-l figure,.near li,.contact .inner>*,.resa-intro>*,.more-row';
  const IMG='.split figure,.ph2 figure,.top3>*,.sem figure';
  const els=[];
  // titres mot à mot
