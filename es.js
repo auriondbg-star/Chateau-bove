@@ -29,7 +29,7 @@ window.BOVE_ES = {
  // ---- le domaine ----
  "Une perspective à la française, ouverte sur la vallée": "Una perspectiva a la francesa, abierta al valle",
  "Dans l'Aisne, à deux heures de Paris et trente-cinq minutes de Reims. Le château est classé Monument historique de France, tout comme son parc. Depuis la grille, une allée de gravier bordée de buis taillés mène tout droit à la façade. Derrière, la cour d'honneur domine la forêt à perte de vue. Le domaine vous est confié : l'allée, la cour et le parc pour les moments en plein air, et l'orangerie pour le dîner.": "En el Aisne, a dos horas de París y a treinta y cinco minutos de Reims. El castillo está declarado Monumento histórico de Francia, al igual que su parque. Desde la verja, una avenida de grava bordeada de bojes recortados lleva en línea recta hasta la fachada. Detrás, el patio de honor domina el bosque hasta donde alcanza la vista. La finca es suya durante el evento: la avenida, el patio y el parque para los momentos al aire libre, y la orangerie para la cena.",
- "Invités assis max.": "Invitados sentados máx.",
+ "Invités au maximum": "Invitados como máximo",
  "2 h": "2 h",
  "De Paris": "Desde París",
  "De Reims": "Desde Reims",
