@@ -29,7 +29,8 @@ window.BOVE_EN = {
  // ---- le domaine ----
  "Une perspective à la française, ouverte sur la vallée": "A French-style vista, open to the valley",
  "Dans l'Aisne, à deux heures de Paris et trente-cinq minutes de Reims. Le château est classé Monument historique de France, tout comme son parc. Depuis la grille, une allée de gravier bordée de buis taillés mène tout droit à la façade. Derrière, la cour d'honneur domine la forêt à perte de vue. Le domaine vous est confié : l'allée, la cour et le parc pour les moments en plein air, et l'orangerie pour le dîner.": "In the Aisne, two hours from Paris and thirty-five minutes from Reims. The château is listed as a French Historic Monument, and so is its park. From the gates, a gravel avenue lined with clipped boxwood leads straight to the façade. Behind it, the main courtyard looks out over the forest as far as the eye can see. The estate is yours for the day: the avenue, the courtyard and the park for the open-air moments, and the orangery for dinner.",
- "Invités au maximum": "Guests maximum",
+ "Jusqu'à": "Up to",
+ "Invités": "Guests",
  "2 h": "2 hrs",
  "De Paris": "From Paris",
  "De Reims": "From Reims",

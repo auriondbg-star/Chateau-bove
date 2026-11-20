@@ -325,6 +325,8 @@ section.hero,.fenetre{background:transparent}
 .facts div{padding:28px 12px;display:flex;flex-direction:column;gap:6px;align-items:center}
 .facts div+div{border-left:1px solid var(--line)}
 .facts b{font-family:var(--display);font-weight:400;font-size:2.4rem;line-height:1;font-variant-numeric:tabular-nums}
+.facts div{position:relative}
+.facts span.pre{position:absolute;top:9px;left:0;right:0;text-align:center}
 .facts span{font-family:var(--sans);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 @media (max-width:560px){.facts{grid-template-columns:1fr}.facts div+div{border-left:0;border-top:1px solid var(--line)}}
 
@@ -784,7 +786,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
     <h2>Une perspective à la française, ouverte sur la vallée</h2>
     <p class="big">Dans l'Aisne, à deux heures de Paris et trente-cinq minutes de Reims. Le château est classé Monument historique de France, tout comme son parc. Depuis la grille, une allée de gravier bordée de buis taillés mène tout droit à la façade. Derrière, la cour d'honneur domine la forêt à perte de vue. Le domaine vous est confié : l'allée, la cour et le parc pour les moments en plein air, et l'orangerie pour le dîner.</p>
     <div class="facts">
-      <div><b>200</b><span>Invités au maximum</span></div>
+      <div><span class="pre">Jusqu'à</span><b>200</b><span>Invités</span></div>
       <div><b>2 h</b><span>De Paris</span></div>
       <div><b>35 min</b><span>De Reims</span></div>
     </div>
