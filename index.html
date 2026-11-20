@@ -200,6 +200,8 @@ section:not(.hero):not(.resa),footer{background-image:url("data:image/svg+xml,%3
 .lv-txt .n{position:absolute;bottom:14px;right:18px;font-family:var(--serif);font-style:italic;font-size:.75rem;color:#9b917b}
 .lv-img{padding:clamp(12px,2.6vw,28px);cursor:pointer;display:flex;flex-direction:column}
 .lv-img figure{margin:0;flex:1;position:relative;overflow:hidden;box-shadow:0 0 0 1px rgba(154,123,63,.35),0 8px 18px -10px rgba(40,30,10,.5)}
+.lv-img figure.fit::before{content:"";position:absolute;inset:-24px;background:var(--bg) center/cover;filter:blur(16px) brightness(.75) sepia(.3)}
+.lv-img figure.fit img{object-fit:contain;filter:none}
 .lv-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:sepia(.12)}
 .lv-img figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(15,12,6,.65))}
 .lv-img .big{position:absolute;left:14px;bottom:12px;z-index:1;font-family:var(--display);font-size:clamp(1.5rem,4.4vw,2.8rem);line-height:1;color:#FBF6E8;text-shadow:0 2px 14px rgba(0,0,0,.5)}
@@ -1844,10 +1846,10 @@ if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitych
 // ---------- histoire : le livre (fermé au départ, s'ouvre au clic, se feuillette page par page) ----------
 (()=>{const w=document.getElementById('livre-w'),ol=document.querySelector('#histoire .chrono');if(!w||!ol)return;
  const T=typeof tr==='function'?tr:(x=>x);
- const IM=[['histoire-laon.jpg','Vue de Laon, gravure de Merian'],['histoire-origines.jpg','Carte de Cassini, feuille de Laon'],['histoire-mesdames.jpg','Madame Adélaïde, par Adélaïde Labille-Guiard'],['histoire-1814.jpg','La bataille de Craonne, par Théodore Jung'],['histoire-1900.jpg','Le château vers 1900, carte postale · Elakle, CC BY-SA 4.0'],['histoire-1917.jpg','L’assaut du Chemin des Dames, 1917'],['facade.jpg','La façade reconstruite'],['aerien-domaine-v2.jpg','Le domaine aujourd’hui']];
+ const IM=[['histoire-laon.jpg','Vue de Laon, gravure de Merian'],['histoire-origines.jpg','Carte de Cassini, feuille de Laon'],['histoire-mesdames.jpg','Madame Adélaïde, par Adélaïde Labille-Guiard'],['histoire-1814.jpg','La bataille de Craonne, par Théodore Jung'],['histoire-1900.jpg','Le château vers 1900, carte postale · Elakle, CC BY-SA 4.0',1],['histoire-1917.jpg','L’assaut du Chemin des Dames, 1917'],['facade.jpg','La façade reconstruite'],['aerien-domaine-v2.jpg','Le domaine aujourd’hui']];
  const it=[...ol.children].map(li=>{const y=li.querySelector('.y').textContent,b=li.querySelector('b').textContent.trim(),p=li.querySelector('p').cloneNode(true);p.querySelector('b').remove();return{y,b,p:p.textContent.trim()}});
  const N=it.length,E=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e},esc=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;');
- const img=k=>{const [src,cap]=IM[k]||IM[IM.length-1];return '<figure><img src="'+src+'" alt="'+esc(T(cap))+'" decoding="async"><span class="big">'+esc(it[k].y)+'</span></figure><figcaption>'+esc(T(cap))+'</figcaption>'};
+ const img=k=>{const [src,cap,fit]=IM[k]||IM[IM.length-1];return '<figure'+(fit?' class="fit" style="--bg:url('+src+')"':'')+'><img src="'+src+'" alt="'+esc(T(cap))+'" decoding="async"><span class="big">'+esc(it[k].y)+'</span></figure><figcaption>'+esc(T(cap))+'</figcaption>'};
  const bk=E('div','livre');bk.append(E('div','lv-base l'));const br=E('div','lv-base r lv-end','<div class="q">'+esc(T('La suite s’écrit avec vous.'))+'</div><div class="o">✦ ✦ ✦</div>');bk.append(br);
  const leaves=[];
  const leaf=(f,fc,b,bc)=>{const l=E('div','lv-leaf');const a=E('div','lv-f '+fc,f),z=E('div','lv-b '+bc,b);l.append(a,z);bk.append(l);leaves.push(l);return l};
