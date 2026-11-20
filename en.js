@@ -19,8 +19,8 @@ window.BOVE_EN = {
 
  // ---- accueil ----
  "Mariages & réceptions · Aisne": "Weddings & receptions · Aisne",
- "Château classé": "Château listed as a",
- "Monument historique de France": "French Historic Monument",
+ "Château inscrit": "Château listed as a",
+ "Monument historique": "Historic Monument",
  "Château de": "Château de",
  "Un château classique au bout de son allée de buis, posé sur la forêt. Pour un jour qui ne ressemble qu'à vous.": "A classical château at the end of its boxwood avenue, overlooking the forest. For a day that is yours alone.",
  "Demander une date": "Request a date",
@@ -28,7 +28,7 @@ window.BOVE_EN = {
 
  // ---- le domaine ----
  "Une perspective à la française, ouverte sur la vallée": "A French-style vista, open to the valley",
- "Dans l'Aisne, à deux heures de Paris et trente-cinq minutes de Reims. Le château est classé Monument historique de France, tout comme son parc. Depuis la grille, une allée de gravier bordée de buis taillés mène tout droit à la façade. Derrière, la cour d'honneur domine la forêt à perte de vue. Le domaine vous est confié : l'allée, la cour et le parc pour les moments en plein air, et l'orangerie pour le dîner.": "In the Aisne, two hours from Paris and thirty-five minutes from Reims. The château is listed as a French Historic Monument, and so is its park. From the gates, a gravel avenue lined with clipped boxwood leads straight to the façade. Behind it, the main courtyard looks out over the forest as far as the eye can see. The estate is yours for the day: the avenue, the courtyard and the park for the open-air moments, and the orangery for dinner.",
+ "Dans l'Aisne, à deux heures de Paris et trente-cinq minutes de Reims. Le château est inscrit au titre des Monuments historiques, tout comme son parc. Depuis la grille, une allée de gravier bordée de buis taillés mène tout droit à la façade. Derrière, la cour d'honneur domine la forêt à perte de vue. Le domaine vous est confié : l'allée, la cour et le parc pour les moments en plein air, et l'orangerie pour le dîner.": "In the Aisne, two hours from Paris and thirty-five minutes from Reims. The château is a listed Historic Monument, and so is its park. From the gates, a gravel avenue lined with clipped boxwood leads straight to the façade. Behind it, the main courtyard looks out over the forest as far as the eye can see. The estate is yours for the day: the avenue, the courtyard and the park for the open-air moments, and the orangery for dinner.",
  "Jusqu'à": "Up to",
  "Invités": "Guests",
  "2 h": "2 hrs",
@@ -360,7 +360,7 @@ window.BOVE_EN = {
  "Suivant": "Next",
  "Refermer le livre": "Close the book",
  "Livre de l’histoire du domaine": "Book of the estate's history",
- "Château classé Monument historique de France": "Château listed as a French Historic Monument",
+ "Château inscrit Monument historique": "Château listed as a Historic Monument",
  "Moyen Âge": "Middle Ages",
  "Une seigneurie au-dessus de la vallée.": "A lordship above the valley.",
  "Attestée dans les textes dès 1259, la Bôve tire son nom des carrières souterraines creusées sous le domaine. D'abord bien de la cathédrale de Reims, elle devient une seigneurie relevant de la grosse tour de Laon. Pendant les guerres de la Ligue, c'est un fort royaliste qui surveille la route de Reims à Laon.": "Recorded as early as 1259, La Bôve takes its name from the underground quarries dug beneath the estate. First owned by Reims Cathedral, it became a lordship answering to the great tower of Laon. During the Wars of the League, it was a royalist stronghold watching over the road from Reims to Laon.",

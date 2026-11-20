@@ -19,8 +19,8 @@ window.BOVE_ES = {
 
  // ---- accueil ----
  "Mariages & réceptions · Aisne": "Bodas y recepciones · Aisne",
- "Château classé": "Castillo declarado",
- "Monument historique de France": "Monumento histórico de Francia",
+ "Château inscrit": "Castillo inscrito como",
+ "Monument historique": "Monumento histórico",
  "Château de": "Château de",
  "Un château classique au bout de son allée de buis, posé sur la forêt. Pour un jour qui ne ressemble qu'à vous.": "Un castillo clásico al final de su avenida de bojes, asomado al bosque. Para un día que solo se parezca a ustedes.",
  "Demander une date": "Solicitar una fecha",
@@ -28,7 +28,7 @@ window.BOVE_ES = {
 
  // ---- le domaine ----
  "Une perspective à la française, ouverte sur la vallée": "Una perspectiva a la francesa, abierta al valle",
- "Dans l'Aisne, à deux heures de Paris et trente-cinq minutes de Reims. Le château est classé Monument historique de France, tout comme son parc. Depuis la grille, une allée de gravier bordée de buis taillés mène tout droit à la façade. Derrière, la cour d'honneur domine la forêt à perte de vue. Le domaine vous est confié : l'allée, la cour et le parc pour les moments en plein air, et l'orangerie pour le dîner.": "En el Aisne, a dos horas de París y a treinta y cinco minutos de Reims. El castillo está declarado Monumento histórico de Francia, al igual que su parque. Desde la verja, una avenida de grava bordeada de bojes recortados lleva en línea recta hasta la fachada. Detrás, el patio de honor domina el bosque hasta donde alcanza la vista. La finca es suya durante el evento: la avenida, el patio y el parque para los momentos al aire libre, y la orangerie para la cena.",
+ "Dans l'Aisne, à deux heures de Paris et trente-cinq minutes de Reims. Le château est inscrit au titre des Monuments historiques, tout comme son parc. Depuis la grille, une allée de gravier bordée de buis taillés mène tout droit à la façade. Derrière, la cour d'honneur domine la forêt à perte de vue. Le domaine vous est confié : l'allée, la cour et le parc pour les moments en plein air, et l'orangerie pour le dîner.": "En el Aisne, a dos horas de París y a treinta y cinco minutos de Reims. El castillo está inscrito como Monumento histórico, al igual que su parque. Desde la verja, una avenida de grava bordeada de bojes recortados lleva en línea recta hasta la fachada. Detrás, el patio de honor domina el bosque hasta donde alcanza la vista. La finca es suya durante el evento: la avenida, el patio y el parque para los momentos al aire libre, y la orangerie para la cena.",
  "Jusqu'à": "Hasta",
  "Invités": "Invitados",
  "2 h": "2 h",
@@ -360,7 +360,7 @@ window.BOVE_ES = {
  "Suivant": "Siguiente",
  "Refermer le livre": "Cerrar el libro",
  "Livre de l’histoire du domaine": "Libro de la historia de la finca",
- "Château classé Monument historique de France": "Castillo declarado Monumento histórico de Francia",
+ "Château inscrit Monument historique": "Castillo inscrito como Monumento histórico",
  "Moyen Âge": "Edad Media",
  "Une seigneurie au-dessus de la vallée.": "Un señorío sobre el valle.",
  "Attestée dans les textes dès 1259, la Bôve tire son nom des carrières souterraines creusées sous le domaine. D'abord bien de la cathédrale de Reims, elle devient une seigneurie relevant de la grosse tour de Laon. Pendant les guerres de la Ligue, c'est un fort royaliste qui surveille la route de Reims à Laon.": "Documentada ya en 1259, la Bôve debe su nombre a las canteras subterráneas excavadas bajo la finca. Primero propiedad de la catedral de Reims, pasó a ser un señorío dependiente de la gran torre de Laon. Durante las guerras de la Liga, fue un fuerte realista que vigilaba el camino de Reims a Laon.",

@@ -718,16 +718,16 @@ footer .mark{color:var(--ink);font-size:1.6rem}
   "@context": "https://schema.org",
   "@type": ["LandmarksOrHistoricalBuildings", "EventVenue"],
   "name": "Château de la Bôve",
-  "description": "Château classé Monument historique de France, parc classé également, dans l'Aisne à 35 min de Reims et 2 h de Paris : mariages, séminaires et réceptions dans le parc, gîte et appartement sur place.",
+  "description": "Château inscrit Monument historique, parc protégé également, dans l'Aisne à 35 min de Reims et 2 h de Paris : mariages, séminaires et réceptions dans le parc, gîte et appartement sur place.",
   "url": "https://chateau-bove.pages.dev/",
   "image": "https://chateau-bove.pages.dev/aerien-domaine-v2.jpg",
   "email": "chateaudelabove@gmail.com",
   "maximumAttendeeCapacity": 200,
-  "keywords": "Monument historique, château classé, parc classé, mariage, séminaire, Aisne, Reims",
+  "keywords": "Monument historique, château inscrit, parc protégé, mariage, séminaire, Aisne, Reims",
   "additionalProperty": {
     "@type": "PropertyValue",
     "name": "Protection patrimoniale",
-    "value": "Château classé Monument historique de France, parc classé également"
+    "value": "Château inscrit Monument historique, parc protégé également"
   },
   "address": {
     "@type": "PostalAddress",
@@ -771,7 +771,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
     <div class="copy wrap">
       <div class="top">
         <span class="eyebrow">Mariages &amp; réceptions · Aisne</span>
-        <p class="mh">Château classé <span>Monument historique de France</span></p>
+        <p class="mh">Château inscrit <span>Monument historique</span></p>
       </div>
       <div>
         <h1><em>Château de</em>la Bôve</h1>
@@ -787,7 +787,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
   <div class="inner intro">
     <span class="eyebrow">Le domaine</span>
     <h2>Une perspective à la française, ouverte sur la vallée</h2>
-    <p class="big">Dans l'Aisne, à deux heures de Paris et trente-cinq minutes de Reims. Le château est classé Monument historique de France, tout comme son parc. Depuis la grille, une allée de gravier bordée de buis taillés mène tout droit à la façade. Derrière, la cour d'honneur domine la forêt à perte de vue. Le domaine vous est confié : l'allée, la cour et le parc pour les moments en plein air, et l'orangerie pour le dîner.</p>
+    <p class="big">Dans l'Aisne, à deux heures de Paris et trente-cinq minutes de Reims. Le château est inscrit au titre des Monuments historiques, tout comme son parc. Depuis la grille, une allée de gravier bordée de buis taillés mène tout droit à la façade. Derrière, la cour d'honneur domine la forêt à perte de vue. Le domaine vous est confié : l'allée, la cour et le parc pour les moments en plein air, et l'orangerie pour le dîner.</p>
     <div class="facts">
       <div><span class="pre">Jusqu'à</span><b>200</b><span>Invités</span></div>
       <div><b>2 h</b><span>De Paris</span></div>
@@ -1221,7 +1221,7 @@ const tr=s=>{if(!DICT)return s;const v=DICT[String(s).replace(/\s+/g,' ').trim()
  ns.forEach(n=>{if(skip(n.parentElement))return;const v=tr(n.nodeValue);if(v!==n.nodeValue){const m=n.nodeValue.match(/^(\s*)[\s\S]*?(\s*)$/);n.nodeValue=m[1]+v+m[2]}});
  document.querySelectorAll('[alt],[placeholder],[aria-label],[title]').forEach(e=>{if(skip(e))return;['alt','placeholder','aria-label','title'].forEach(a=>{if(e.hasAttribute(a))e.setAttribute(a,tr(e.getAttribute(a)))})});
  document.title=tr(document.title);
- const md=document.querySelector('meta[name=description]');if(md)md.content=ES?"Château de la Bôve, monumento histórico de Francia en el Aisne, a 35 min de Reims y a 2 h de París: bodas, seminarios y recepciones en el parque, con una casa rural para 11 personas y un apartamento en el lugar.":"Château de la Bôve, a listed French Historic Monument in the Aisne, 35 min from Reims and 2 hrs from Paris: weddings, seminars and receptions in the park, with a gîte for 11 and an apartment on site.";
+ const md=document.querySelector('meta[name=description]');if(md)md.content=ES?"Château de la Bôve, monumento histórico de Francia en el Aisne, a 35 min de Reims y a 2 h de París: bodas, seminarios y recepciones en el parque, con una casa rural para 11 personas y un apartamento en el lugar.":"Château de la Bôve, a listed Historic Monument in the Aisne, 35 min from Reims and 2 hrs from Paris: weddings, seminars and receptions in the park, with a gîte for 11 and an apartment on site.";
  document.querySelectorAll('iframe.map-frame').forEach(mp=>mp.src=mp.src.replace('hl=fr','hl='+LANG))})();
 const photos=[
  ['aerien-chateau-ete','Le château, sa cour d\'honneur et son parc vus du ciel en été'],
@@ -1854,7 +1854,7 @@ if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitych
  const leaves=[];
  const leaf=(f,fc,b,bc)=>{const l=E('div','lv-leaf');const a=E('div','lv-f '+fc,f),z=E('div','lv-b '+bc,b);l.append(a,z);bk.append(l);leaves.push(l);return l};
  leaf('<div class="t">Château<br>de la Bôve</div><div class="s">'+esc(T('Histoire du domaine'))+'</div><div class="o">✦✦✦</div><div class="go">'+esc(T('Ouvrir le livre'))+'</div>','lv-cover',img(0),'lv-img');
- it.forEach((x,k)=>leaf('<div class="y">'+esc(x.y)+'</div><h4>'+esc(x.b)+'</h4><p>'+esc(x.p)+'</p><div class="o">✦</div><span class="n">'+(k+1)+'</span>','lv-txt',k+1<N?img(k+1):'<div class="q">'+esc(T('Château classé Monument historique de France'))+'</div><div class="o">✦</div>',k+1<N?'lv-img':'lv-end'));
+ it.forEach((x,k)=>leaf('<div class="y">'+esc(x.y)+'</div><h4>'+esc(x.b)+'</h4><p>'+esc(x.p)+'</p><div class="o">✦</div><span class="n">'+(k+1)+'</span>','lv-txt',k+1<N?img(k+1):'<div class="q">'+esc(T('Château inscrit Monument historique'))+'</div><div class="o">✦</div>',k+1<N?'lv-img':'lv-end'));
  const nav=E('div','lv-nav');const pv=E('button','pv','‹ '+esc(T('Précédent')));const ct=E('span','ct');const nx=E('button','nx',esc(T('Suivant'))+' ›');const cl=E('button','cl',esc(T('Refermer le livre')));
  [pv,nx,cl].forEach(b=>b.type='button');nav.append(pv,ct,nx,cl);
  w.append(bk,nav);w.hidden=false;ol.hidden=true;w.setAttribute('role','region');w.setAttribute('aria-label',T('Livre de l’histoire du domaine'));
