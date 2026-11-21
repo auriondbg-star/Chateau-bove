@@ -30,7 +30,7 @@ L'espace propriétaire, les e-mails reçus, les mentions légales et la brochure
 - Sans bibliothèque externe. Désactivées si l'appareil demande moins d'animations. Un nouvel élément s'anime s'il correspond aux sélecteurs TXT / IMG du script.
 
 ## Menu
-- Au-dessus de 1300 px : liens dans la barre (#menu). En dessous : bouton ☰ (3 traits qui deviennent une croix) qui ouvre le panneau vert et or #drw (« option 2B ») : titre, liens avec petite phrase, partie en cours marquée d'un losange doré, motif patte d'oie, bouton « Demander une date », e-mail, langues. Fermeture : croix, fond sombre, Échap ou un lien.
+- Au-dessus de 1300 px : liens dans la barre (#menu). En dessous : bouton ☰ (3 traits qui deviennent une croix) qui ouvre le panneau bleu ardoise (#2C3A48) et or #drw (« option 2B ») : titre, liens avec petite phrase, partie en cours marquée d'un losange doré, motif patte d'oie, bouton « Demander une date », e-mail, langues. Fermeture : croix, fond sombre, Échap ou un lien.
 
 ## Sécurité
 - `_headers` : protections du navigateur (pas d'affichage du site dans un autre site, HTTPS obligatoire, etc.).

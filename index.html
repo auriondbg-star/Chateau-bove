@@ -282,7 +282,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .drw{position:fixed;left:0;right:0;bottom:0;top:var(--navb,64px);z-index:8}
 .drw[hidden]{display:none}
 .drw-bg{position:absolute;inset:0;touch-action:none;background:rgba(15,22,17,.5);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;transition:opacity .5s}
-.drw-p{position:absolute;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--buis);color:#F7F2E4;display:flex;flex-direction:column;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;transform:translateX(100%);transition:transform .65s cubic-bezier(.7,0,.2,1)}
+.drw-p{position:absolute;top:0;right:0;bottom:0;width:min(440px,100%);background:#2C3A48;color:#F7F2E4;display:flex;flex-direction:column;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;transform:translateX(100%);transition:transform .65s cubic-bezier(.7,0,.2,1)}
 .drw-p::after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(#E2C27E,var(--gilt));transform:scaleY(0);transform-origin:top;transition:transform .9s .35s}
 .drw.on .drw-bg{opacity:1}.drw.on .drw-p{transform:none}.drw.on .drw-p::after{transform:none}
 .drw-pt{position:absolute;right:-90px;bottom:-60px;width:420px;opacity:.13;stroke:#E2C27E;fill:none;stroke-width:1;pointer-events:none}
@@ -1363,8 +1363,8 @@ document.addEventListener('keydown',e=>{if(lb.hidden)return;if(e.key==='Escape')
  addEventListener('resize',()=>{if(innerWidth>1300)set(false)});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.contains('open')){set(false);bg.focus()}});
  // partie du site où l'on se trouve
- const links=[...dw.querySelectorAll('ul a')],secs=links.map(a=>a.dataset.type?null:document.querySelector(a.getAttribute('href')));
- const cur=()=>{let k=-1;secs.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<innerHeight*.4)k=i});links.forEach((a,i)=>a.classList.toggle('cur',i===k))};
+ const links=[...dw.querySelectorAll('ul a')],secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+ const cur=()=>{const y=innerHeight*.35;let k=-1;secs.forEach((s,i)=>{if(!s)return;const r=s.getBoundingClientRect();if(r.top<=y&&r.bottom>y)k=i});if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)k=secs.length-1;links.forEach((a,i)=>a.classList.toggle('cur',i===k))};
  addEventListener('scroll',()=>{if(!nav.classList.contains('open'))cur()},{passive:true});cur()}
 // histoire
 // formulaire
