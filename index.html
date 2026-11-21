@@ -1070,10 +1070,10 @@ footer .mark{color:var(--ink);font-size:1.6rem}
         <p class="season full ev-only" id="season">Choisissez une date dans le calendrier pour voir la saison correspondante.</p>
         <label class="vis-only" hidden>Votre projet<select id="projet" name="projet"><option value="Mariage">Mariage</option><option value="Séminaire">Séminaire</option><option value="Autre événement">Autre événement</option><option value="Pas encore décidé">Pas encore décidé</option></select></label>
         <label class="ev-only"><span id="invites-l">Nombre d'invités</span><select id="invites" name="invites"></select></label>
-        <label>E-mail<input id="email" name="email" type="email" placeholder="vous@exemple.fr" autocomplete="email"></label>
-        <label>Téléphone<input id="tel" name="tel" type="tel" placeholder="06 12 34 56 78" autocomplete="tel"></label>
-        <details class="full plus" id="more"><summary>Préciser votre projet <span class="more-opt">(facultatif)</span><svg viewBox="0 0 14 8" width="14" height="8" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M1 1l6 6 6-6"/></svg></summary>
+        <details class="full plus" id="more"><summary>Vos coordonnées et votre projet<svg viewBox="0 0 14 8" width="14" height="8" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M1 1l6 6 6-6"/></svg></summary>
           <div class="more-g">
+          <label>E-mail<input id="email" name="email" type="email" placeholder="vous@exemple.fr" autocomplete="email"></label>
+          <label>Téléphone<input id="tel" name="tel" type="tel" placeholder="06 12 34 56 78" autocomplete="tel"></label>
           <label class="ev-only">Formule<select id="formule" name="formule"></select></label>
           <label id="ceremonie-w">Cérémonie<select id="ceremonie" name="ceremonie"><option value="Laïque, dans l'allée">Laïque, dans l'allée</option><option value="Religieuse, à la chapelle">Religieuse, à la chapelle</option><option value="Les deux">Les deux</option><option value="Pas encore décidé">Pas encore décidé</option></select></label>
           <label class="chk ev-only"><input id="flex" type="checkbox"> Nos dates sont flexibles</label>
@@ -1353,7 +1353,7 @@ $('date').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();
 $('date').addEventListener('input',e=>{const v=e.target.value;if(v){calState.client=v.slice(0,7)+'-01';renderCal($('cal-client'),'client')}});
 $('f').addEventListener('submit',e=>{e.preventDefault();const t=fType(),T=TYPES[t];
  if(t==='visite'){const miss=[];if(!$('noms').value.trim())miss.push('votre nom');if(!/^\S+@\S+\.\S+$/.test($('email').value))miss.push('une adresse e-mail valide');if(!$('ok-rgpd').checked)miss.push('votre accord pour l\'utilisation de vos informations (case à cocher)');
-  if(miss.length){$('err').textContent=manque(miss);$('err').hidden=false;return}
+  if(miss.length){$('more').open=true;$('err').textContent=manque(miss);$('err').hidden=false;return}
   $('err').hidden=true;
   const rows=[['Type',tr('Demande de visite')],[tr('Nom'),$('noms').value],[tr('Projet'),optTxt('projet')],[tr('Contact'),$('email').value+($('tel').value?' · '+$('tel').value:'')],...($('msg').value.trim()?[[tr('Remarques'),$('msg').value.trim()]]:[])];
   $('recap').replaceChildren(...rows.flatMap(([k,v])=>{const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;return[dt,dd]}));
@@ -1363,7 +1363,7 @@ $('f').addEventListener('submit',e=>{e.preventDefault();const t=fType(),T=TYPES[
  const bm0=blockedMap();if(!selDays.length&&!$('flex').checked)miss.push(t==='mariage'?'votre week-end (ou cochez « dates flexibles »)':'au moins un jour (ou cochez « dates flexibles »)');
  if(selDays.some(v=>bm0.has(v)))miss.push('d\'autres jours : certains viennent d\'être réservés');
  if(!/^\S+@\S+\.\S+$/.test($('email').value))miss.push('une adresse e-mail valide');if(!$('ok-rgpd').checked)miss.push('votre accord pour l\'utilisation de vos informations (case à cocher)');
- if(miss.length){$('err').textContent=manque(miss);$('err').hidden=false;return}
+ if(miss.length){$('more').open=true;$('err').textContent=manque(miss);$('err').hidden=false;return}
  $('err').hidden=true;
  const nj=selDays.length,rows=[[tr('Type'),tr(T.label)],[tr(T.nom),$('noms').value],[tr(t==='mariage'?'Week-end':nj>1?'Dates':'Date'),nj?daysTxt(selDays):tr('Flexible')],[tr(T.inv),$('invites').value?optTxt('invites'):tr('Non précisé')],[tr('Formule'),optTxt('formule')],t==='mariage'?[tr('Cérémonie'),optTxt('ceremonie')]:[tr('Durée'),nj?nj+(ES?' día':EN?' day':' jour')+(nj>1?'s':''):tr('À définir')],[tr('Contact'),$('email').value+($('tel').value?' · '+$('tel').value:'')]];
  $('recap').replaceChildren(...rows.flatMap(([k,v])=>{const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;return[dt,dd]}));

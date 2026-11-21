@@ -402,6 +402,5 @@ window.BOVE_EN = {
  "Nous vous répondons par e-mail très vite.": "We will reply by email very soon.",
  "Poser une autre question": "Ask another question",
  "Indiquez votre e-mail et votre question.": "Please enter your email and your question.",
- "Préciser votre projet": "Tell us more about your project",
- "(facultatif)": "(optional)"
+ "Vos coordonnées et votre projet": "Your contact details and your project"
 };
