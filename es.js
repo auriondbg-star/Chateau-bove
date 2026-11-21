@@ -402,5 +402,15 @@ window.BOVE_ES = {
  "Nous vous répondons par e-mail très vite.": "Le responderemos por correo electrónico muy pronto.",
  "Poser une autre question": "Hacer otra pregunta",
  "Indiquez votre e-mail et votre question.": "Indique su correo electrónico y su pregunta.",
- "Vos coordonnées et votre projet": "Sus datos de contacto y su proyecto"
+ "Vos coordonnées et votre projet": "Sus datos de contacto y su proyecto",
+ "Menu": "Menú",
+ "La perspective, la cour d'honneur": "La perspectiva, el patio de honor",
+ "Le livre du château": "El libro del castillo",
+ "Allée, chapelle, cour, orangerie": "Avenida, capilla, patio, invernadero",
+ "Jusqu'à 200 personnes": "Hasta 200 personas",
+ "Votre journée au domaine": "Su día en la finca",
+ "Gîte et appartement": "Casa rural y apartamento",
+ "Les photos": "Las fotos",
+ "Écrire, venir, visiter": "Escribir, venir, visitar",
+ "Visites sur rendez-vous": "Visitas con cita previa"
 };

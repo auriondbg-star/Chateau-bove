@@ -402,5 +402,15 @@ window.BOVE_EN = {
  "Nous vous répondons par e-mail très vite.": "We will reply by email very soon.",
  "Poser une autre question": "Ask another question",
  "Indiquez votre e-mail et votre question.": "Please enter your email and your question.",
- "Vos coordonnées et votre projet": "Your contact details and your project"
+ "Vos coordonnées et votre projet": "Your contact details and your project",
+ "Menu": "Menu",
+ "La perspective, la cour d'honneur": "The vista, the main courtyard",
+ "Le livre du château": "The château's story book",
+ "Allée, chapelle, cour, orangerie": "Avenue, chapel, courtyard, orangery",
+ "Jusqu'à 200 personnes": "Up to 200 people",
+ "Votre journée au domaine": "Your day at the estate",
+ "Gîte et appartement": "Cottage and apartment",
+ "Les photos": "Photos",
+ "Écrire, venir, visiter": "Write, come, visit",
+ "Visites sur rendez-vous": "Visits by appointment"
 };

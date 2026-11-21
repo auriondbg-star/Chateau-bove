@@ -273,10 +273,41 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .btn.ghost:hover{background:var(--buis);color:var(--stone)}
 .burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;background:none;border:0;padding:0;color:var(--ink);cursor:pointer}
 .burger svg{width:24px;height:24px}
-@media (max-width:1300px){.burger{display:inline-flex}.nav-act{gap:6px}
- .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:6px 0 14px;background:var(--stone);border-bottom:1px solid var(--line);box-shadow:0 12px 24px rgba(0,0,0,.08)}
- .nav.open ul{display:flex}
- .nav ul a{display:block;padding:14px 24px;font-size:.85rem;color:var(--ink)}}
+.bl{position:relative;width:24px;height:18px;display:block}
+.bl i{position:absolute;left:0;right:0;height:1.6px;border-radius:2px;background:currentColor;transition:transform .45s cubic-bezier(.7,0,.2,1),opacity .3s,top .45s cubic-bezier(.7,0,.2,1)}
+.bl i:nth-child(1){top:2px}.bl i:nth-child(2){top:8px}.bl i:nth-child(3){top:14px}
+.nav.open .bl i:nth-child(1){top:8px;transform:rotate(45deg)}.nav.open .bl i:nth-child(2){opacity:0}.nav.open .bl i:nth-child(3){top:8px;transform:rotate(-45deg)}
+@media (max-width:1300px){.burger{display:inline-flex}.nav-act{gap:6px}.nav ul{display:none}}
+/* menu : panneau vert et or (≤ 1300 px) */
+.drw{position:fixed;left:0;right:0;bottom:0;top:var(--navb,64px);z-index:8}
+.drw[hidden]{display:none}
+.drw-bg{position:absolute;inset:0;touch-action:none;background:rgba(15,22,17,.5);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;transition:opacity .5s}
+.drw-p{position:absolute;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--buis);color:#F7F2E4;display:flex;flex-direction:column;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;transform:translateX(100%);transition:transform .65s cubic-bezier(.7,0,.2,1)}
+.drw-p::after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(#E2C27E,var(--gilt));transform:scaleY(0);transform-origin:top;transition:transform .9s .35s}
+.drw.on .drw-bg{opacity:1}.drw.on .drw-p{transform:none}.drw.on .drw-p::after{transform:none}
+.drw-pt{position:absolute;right:-90px;bottom:-60px;width:420px;opacity:.13;stroke:#E2C27E;fill:none;stroke-width:1;pointer-events:none}
+.drw-top{padding:26px 34px 6px;position:relative}
+.drw-top span{font-family:var(--display);font-size:1.2rem}
+.drw-top i{display:block;font-style:normal;font-family:var(--sans);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:#E2C27E;margin-top:4px}
+.drw ul{list-style:none;margin:0;padding:10px 34px 0;position:relative}
+.drw li a{display:flex;align-items:baseline;flex-wrap:wrap;column-gap:12px;padding:6px 0;text-decoration:none;color:inherit;opacity:0;transform:translateX(30px);transition:opacity .5s,transform .5s}
+.drw li a b{font-family:var(--display);font-weight:400;font-size:1.65rem;line-height:1.15;transition:transform .3s,color .3s}
+.drw li a small{display:none;font-family:var(--sans);font-size:.74rem;color:rgba(247,242,228,.55)}
+.drw li a:hover b,.drw li a:focus-visible b{color:#E2C27E;transform:translateX(6px)}.drw li a:hover small,.drw li a:focus-visible small,.drw li a.cur small{display:inline}
+.nav.open~.cta-bar{opacity:0;pointer-events:none}
+.drw li a.cur b{color:#E2C27E}.drw li a.cur b::before{content:"◆ ";font-size:.6em;vertical-align:.25em}
+.drw.on li a{opacity:1;transform:none}
+.drw.on li:nth-child(1) a{transition-delay:.3s}.drw.on li:nth-child(2) a{transition-delay:.35s}.drw.on li:nth-child(3) a{transition-delay:.4s}.drw.on li:nth-child(4) a{transition-delay:.45s}.drw.on li:nth-child(5) a{transition-delay:.5s}.drw.on li:nth-child(6) a{transition-delay:.55s}.drw.on li:nth-child(7) a{transition-delay:.6s}.drw.on li:nth-child(8) a{transition-delay:.65s}
+.drw-foot{margin-top:auto;padding:18px 34px 22px;display:grid;gap:10px;position:relative;opacity:0;transition:opacity .6s .7s}
+.drw.on .drw-foot{opacity:1}
+.drw-btn{display:flex;justify-content:center;gap:10px;background:#E2C27E;color:#1E2622;font-family:var(--sans);font-size:.72rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;padding:15px;position:relative;overflow:hidden}
+.drw-btn::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);animation:drwsh 3.2s 1.2s infinite}
+@keyframes drwsh{40%,100%{left:120%}}
+.drw-row{display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:var(--sans);font-size:.74rem;color:rgba(247,242,228,.7);flex-wrap:wrap}
+.drw-row a{color:inherit;text-decoration:none}
+.drw-lg a{margin-left:12px;letter-spacing:.16em;font-size:.7rem}.drw-lg a.on{color:#E2C27E;border-bottom:1px solid #E2C27E}
+@media (min-width:1301px){.drw{display:none!important}}
+@media (prefers-reduced-motion:reduce){.drw *,.drw-bg,.drw-p,.bl i{transition:none!important;animation:none!important}}
 @media (max-width:420px){.nav-act .btn{padding:11px 14px}}
 .lang{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;font-family:var(--sans);font-size:.74rem;font-weight:500;letter-spacing:.16em;text-decoration:none;color:var(--muted);border-radius:20px;transition:color .2s,background .2s}
 .lang:hover{color:var(--ink);background:var(--stone-2)}
@@ -772,10 +803,33 @@ footer .mark{color:var(--ink);font-size:1.6rem}
       <span class="langs"><a class="lang" data-lang="fr" href="./" hreflang="fr" lang="fr" title="Version française" aria-label="Version française" hidden>FR</a><a class="lang" data-lang="en" href="?lang=en" hreflang="en" lang="en" title="English version" aria-label="English version">EN</a><a class="lang" data-lang="es" href="?lang=es" hreflang="es" lang="es" title="Versión en español" aria-label="Versión en español">ES</a></span>
       <a class="acct" href="#admin" aria-label="Espace propriétaire" title="Espace propriétaire"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20.5c1.4-3.6 4.4-5.5 8-5.5s6.6 1.9 8 5.5"/></svg></a>
       <a class="btn" href="#reserver">Réserver</a>
-      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu"><span class="bl" aria-hidden="true"><i></i><i></i><i></i></span></button>
     </div>
   </div>
 </header>
+
+<div class="drw" id="drw" hidden>
+  <div class="drw-bg" data-close></div>
+  <nav class="drw-p" aria-label="Menu">
+    <svg class="drw-pt" viewBox="0 0 400 400" aria-hidden="true"><circle cx="200" cy="400" r="80"/><circle cx="200" cy="400" r="160"/><circle cx="200" cy="400" r="240"/><circle cx="200" cy="400" r="320"/><path d="M200 400L200 0M200 400L60 20M200 400L340 20M200 400L0 160M200 400L400 160"/></svg>
+    <div class="drw-top"><span>Château de la Bôve</span><i>Château inscrit Monument historique</i></div>
+    <ul>
+      <li><a href="#domaine"><b>Le domaine</b><small>La perspective, la cour d'honneur</small></a></li>
+      <li><a href="#histoire"><b>Histoire</b><small>Le livre du château</small></a></li>
+      <li><a href="#espaces"><b>Les espaces</b><small>Allée, chapelle, cour, orangerie</small></a></li>
+      <li><a href="#seminaires"><b>Séminaires</b><small>Jusqu'à 200 personnes</small></a></li>
+      <li><a href="#reserver" data-type="mariage"><b>Mariage</b><small>Votre journée au domaine</small></a></li>
+      <li><a href="#logements"><b>Logements</b><small>Gîte et appartement</small></a></li>
+      <li><a href="#galerie"><b>Galerie</b><small>Les photos</small></a></li>
+      <li><a href="#contact"><b>Contact</b><small>Écrire, venir, visiter</small></a></li>
+    </ul>
+    <div class="drw-foot">
+      <a class="drw-btn" href="#reserver">Demander une date <span aria-hidden="true">→</span></a>
+      <div class="drw-row"><a href="mailto:chateaudelabove@gmail.com">chateaudelabove@gmail.com</a><span class="drw-lg"><a data-dl="fr" href="./" lang="fr">FR</a><a data-dl="en" href="?lang=en" lang="en">EN</a><a data-dl="es" href="?lang=es" lang="es">ES</a></span></div>
+      <div class="drw-row"><span>Visites sur rendez-vous</span><span>Aisne · 2 h de Paris</span></div>
+    </div>
+  </nav>
+</div>
 
 <section class="hero" id="top">
   <figure>
@@ -1294,12 +1348,24 @@ lb.addEventListener('click',e=>{if(e.target===lb)close()});
 document.addEventListener('keydown',e=>{if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')document.getElementById('lbn').click();if(e.key==='ArrowLeft')document.getElementById('lbp').click()});
 
 // menu téléphone
-{const nav=document.querySelector('.nav'),bg=document.getElementById('burger');
- const set=o=>{nav.classList.toggle('open',o);bg.setAttribute('aria-expanded',String(o));bg.setAttribute('aria-label',tr(o?'Fermer le menu':'Ouvrir le menu'))};
+{const nav=document.querySelector('.nav'),bg=document.getElementById('burger'),dw=document.getElementById('drw');let tm;
+ bg.setAttribute('aria-controls','drw');
+ const set=o=>{if(o===nav.classList.contains('open'))return;nav.classList.toggle('open',o);bg.setAttribute('aria-expanded',String(o));bg.setAttribute('aria-label',tr(o?'Fermer le menu':'Ouvrir le menu'));
+  clearTimeout(tm);
+  if(o){cur();document.documentElement.style.setProperty('--navb',Math.round(nav.getBoundingClientRect().bottom)+'px');dw.hidden=false;requestAnimationFrame(()=>requestAnimationFrame(()=>dw.classList.add('on')))}
+  else{dw.classList.remove('on');tm=setTimeout(()=>{dw.hidden=true},650)}};
  bg.onclick=()=>set(!nav.classList.contains('open'));
  nav.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>set(false)));
- document.addEventListener('click',e=>{if(!nav.contains(e.target))set(false)});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.contains('open')){set(false);bg.focus()}})}
+ dw.querySelectorAll('ul a,.drw-btn').forEach(a=>a.addEventListener('click',()=>set(false)));
+ dw.querySelector('[data-close]').addEventListener('click',()=>set(false));
+ dw.querySelector('[data-close]').addEventListener('wheel',e=>e.preventDefault(),{passive:false});
+ dw.querySelectorAll('[data-dl]').forEach(a=>{const l=a.dataset.dl;a.classList.toggle('on',l===LANG);a.addEventListener('click',e=>{e.preventDefault();location.href=location.pathname+(l==='fr'?'':'?lang='+l)})});
+ addEventListener('resize',()=>{if(innerWidth>1300)set(false)});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.contains('open')){set(false);bg.focus()}});
+ // partie du site où l'on se trouve
+ const links=[...dw.querySelectorAll('ul a')],secs=links.map(a=>a.dataset.type?null:document.querySelector(a.getAttribute('href')));
+ const cur=()=>{let k=-1;secs.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<innerHeight*.4)k=i});links.forEach((a,i)=>a.classList.toggle('cur',i===k))};
+ addEventListener('scroll',()=>{if(!nav.classList.contains('open'))cur()},{passive:true});cur()}
 // histoire
 // formulaire
 const $=id=>document.getElementById(id);

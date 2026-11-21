@@ -29,6 +29,9 @@ L'espace propriétaire, les e-mails reçus, les mentions légales et la brochure
 - Le domaine : motif « patte d'oie » en fond (SVG .dom-pt : allées en rayons depuis un rond-point et cercles), tracé au compas en doré léger, qui se dessine à l'arrivée (classe .lit en observant la section).
 - Sans bibliothèque externe. Désactivées si l'appareil demande moins d'animations. Un nouvel élément s'anime s'il correspond aux sélecteurs TXT / IMG du script.
 
+## Menu
+- Au-dessus de 1300 px : liens dans la barre (#menu). En dessous : bouton ☰ (3 traits qui deviennent une croix) qui ouvre le panneau vert et or #drw (« option 2B ») : titre, liens avec petite phrase, partie en cours marquée d'un losange doré, motif patte d'oie, bouton « Demander une date », e-mail, langues. Fermeture : croix, fond sombre, Échap ou un lien.
+
 ## Sécurité
 - `_headers` : protections du navigateur (pas d'affichage du site dans un autre site, HTTPS obligatoire, etc.).
 - Formulaires : piège à robots (champ invisible .hp « site_web » et envoi en moins de 3 secondes) vérifié dans saveReq : la demande n'est pas enregistrée, mais le robot voit « Merci ».
