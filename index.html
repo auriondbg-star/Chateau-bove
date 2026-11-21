@@ -470,6 +470,13 @@ input:focus,select:focus,textarea:focus{outline:none;border-bottom-color:var(--b
 .kind-visite{background:color-mix(in srgb,var(--ink) 8%,var(--card))}
 .season{grid-column:1/-1;font-family:var(--sans);font-size:.82rem;padding:12px 14px;background:var(--buis-soft);color:var(--ink);min-height:44px}
 .err{grid-column:1/-1;color:#A3412E;font-family:var(--sans);font-size:.85rem}
+.plus summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--sans);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--buis);padding:12px 0;border-bottom:1px solid var(--line)}
+.plus summary::-webkit-details-marker{display:none}
+.plus summary svg{margin-left:auto;transition:transform .3s}.plus[open] summary svg{transform:rotate(180deg)}
+.plus .more-opt{color:var(--muted);letter-spacing:.08em;text-transform:none;font-size:.8rem}
+.more-g{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding-top:18px}
+.plus.vis summary{display:none}.plus.vis .more-g{padding-top:0}
+@media (max-width:520px){.more-g{grid-template-columns:1fr}}
 form .btn{justify-self:start}
 .hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
 .merci{background:var(--card);color:var(--ink);padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:16px}
@@ -1063,12 +1070,16 @@ footer .mark{color:var(--ink);font-size:1.6rem}
         <p class="season full ev-only" id="season">Choisissez une date dans le calendrier pour voir la saison correspondante.</p>
         <label class="vis-only" hidden>Votre projet<select id="projet" name="projet"><option value="Mariage">Mariage</option><option value="Séminaire">Séminaire</option><option value="Autre événement">Autre événement</option><option value="Pas encore décidé">Pas encore décidé</option></select></label>
         <label class="ev-only"><span id="invites-l">Nombre d'invités</span><select id="invites" name="invites"></select></label>
-        <label class="ev-only">Formule<select id="formule" name="formule"></select></label>
-        <label id="ceremonie-w">Cérémonie<select id="ceremonie" name="ceremonie"><option value="Laïque, dans l'allée">Laïque, dans l'allée</option><option value="Religieuse, à la chapelle">Religieuse, à la chapelle</option><option value="Les deux">Les deux</option><option value="Pas encore décidé">Pas encore décidé</option></select></label>
-        <label class="chk ev-only"><input id="flex" type="checkbox"> Nos dates sont flexibles</label>
         <label>E-mail<input id="email" name="email" type="email" placeholder="vous@exemple.fr" autocomplete="email"></label>
         <label>Téléphone<input id="tel" name="tel" type="tel" placeholder="06 12 34 56 78" autocomplete="tel"></label>
-        <label class="full"><span id="msg-l">Votre projet</span><textarea id="msg" name="msg" placeholder="Parlez-nous de votre mariage : ambiance, cérémonie, traiteur…"></textarea></label>
+        <details class="full plus" id="more"><summary>Préciser votre projet <span class="more-opt">(facultatif)</span><svg viewBox="0 0 14 8" width="14" height="8" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M1 1l6 6 6-6"/></svg></summary>
+          <div class="more-g">
+          <label class="ev-only">Formule<select id="formule" name="formule"></select></label>
+          <label id="ceremonie-w">Cérémonie<select id="ceremonie" name="ceremonie"><option value="Laïque, dans l'allée">Laïque, dans l'allée</option><option value="Religieuse, à la chapelle">Religieuse, à la chapelle</option><option value="Les deux">Les deux</option><option value="Pas encore décidé">Pas encore décidé</option></select></label>
+          <label class="chk ev-only"><input id="flex" type="checkbox"> Nos dates sont flexibles</label>
+          <label class="full"><span id="msg-l">Votre projet</span><textarea id="msg" name="msg" placeholder="Parlez-nous de votre mariage : ambiance, cérémonie, traiteur…"></textarea></label>
+          </div>
+        </details>
         <label class="chk full consent"><input id="ok-rgpd" type="checkbox"><span>J'accepte que mes informations soient utilisées pour traiter ma demande. <a href="mentions-legales.html#donnees" target="_blank" rel="noopener">En savoir plus</a></span></label>
         <p class="err" id="err" hidden></p>
         <button class="btn full" type="submit">Envoyer ma demande</button>
@@ -1305,7 +1316,7 @@ function setType(t){$('t-'+t).checked=true;const T=TYPES[t];if(curType&&curType!
  $('noms-l').textContent=tr(T.nom);$('noms').placeholder=tr(T.ph);$('invites-l').textContent=tr(T.inv);
  $('invites').replaceChildren(new Option(tr('Choisir'),''),...T.invOpts.map(o=>new Option(tr(o),o)));
  $('formule').replaceChildren(...T.form.map(o=>new Option(tr(o),o)));
- $('ceremonie-w').hidden=t!=='mariage';$('msg').placeholder=tr(T.msg);$('msg-l').textContent=tr(T.msgl||'Votre projet');
+ $('ceremonie-w').hidden=t!=='mariage';$('more').classList.toggle('vis',t==='visite');if(t==='visite')$('more').open=true;$('msg').placeholder=tr(T.msg);$('msg-l').textContent=tr(T.msgl||'Votre projet');
  document.querySelectorAll('#f .ev-only').forEach(x=>x.hidden=t==='visite');document.querySelectorAll('#f .vis-only').forEach(x=>x.hidden=t!=='visite');
  $('f').querySelector('button[type=submit]').textContent=tr(t==='visite'?'Demander une visite':'Envoyer ma demande');
  $('addday-w').hidden=t!=='seminaire';
