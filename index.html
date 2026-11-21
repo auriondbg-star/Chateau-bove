@@ -1203,6 +1203,16 @@ footer .mark{color:var(--ink);font-size:1.6rem}
 </div>
 
 <script>
+// ---------- au rechargement, revenir tout en haut (sauf espace propriétaire #admin) ----------
+if(!/^#admin/.test(location.hash)){
+  if('scrollRestoration' in history)history.scrollRestoration='manual';
+  const nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0]||{}).type;
+  if(nav==='reload'||!location.hash){
+    if(location.hash)history.replaceState(null,'',location.pathname+location.search);
+    window.scrollTo(0,0);
+    addEventListener('load',()=>window.scrollTo(0,0));
+  }
+}
 // ---------- langues : anglais avec ?lang=en (en.js), espagnol avec ?lang=es (es.js) ----------
 // L'espace propriétaire (#admin) reste en français. Les demandes gardent leurs valeurs en français, avec langue:'en' ou 'es'.
 const DICT0=(location.search.match(/[?&]lang=(en|es)(&|$)/)||[])[1];
