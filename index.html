@@ -605,9 +605,9 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 .contact .inner>*{min-width:0}
 .contact h2{color:var(--buis)}
 .contact .lead{color:var(--muted);font-size:1.1rem;margin:22px 0 40px;max-width:40ch;line-height:1.8}
-.qf{margin-top:44px;display:grid;grid-template-columns:1fr!important;gap:18px;max-width:520px}.qf>*{grid-column:1/-1}
-.qf h3{font-family:var(--display);font-weight:400;font-size:1.6rem;color:var(--buis);margin:0}
-.qf .q-note{font-family:var(--sans);font-size:.8rem;color:var(--muted);margin:0}.qf .q-note a{color:inherit;text-underline-offset:3px}
+.qf{margin-top:30px;display:grid;grid-template-columns:1fr!important;gap:10px;max-width:460px;padding:18px 20px!important}.qf textarea{min-height:34px;height:42px}.qf input,.qf textarea{padding:4px 0}.qf label{gap:2px;font-size:.68rem}.q-row{display:flex;align-items:center;justify-content:space-between;gap:14px}.q-row .btn{padding:10px 18px;flex:none}.qf>*{grid-column:1/-1}
+.qf h3{font-family:var(--display);font-weight:400;font-size:1.25rem;color:var(--buis);margin:0}
+.qf .q-note{font-family:var(--sans);font-size:.72rem;line-height:1.4;color:var(--muted);margin:0}.qf .q-note a{color:inherit;text-underline-offset:3px}
 .q-ok p{color:var(--muted);margin:0}
 .coord{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:30px}
 .coord li{display:grid;grid-template-columns:28px 1fr;gap:20px;align-items:start}
@@ -1097,10 +1097,10 @@ footer .mark{color:var(--ink);font-size:1.6rem}
       <form id="q-f" class="qf" novalidate><div class="hp" aria-hidden="true"><label>Site web <input type="text" name="site_web" tabindex="-1" autocomplete="off"></label></div>
         <h3>Une question ?</h3>
         <label>Votre e-mail<input id="q-mail" name="email" type="email" autocomplete="email" required placeholder="vous@exemple.fr"></label>
-        <label>Votre question<textarea id="q-msg" name="question" rows="3" required></textarea></label>
+        <label>Votre question<textarea id="q-msg" name="question" rows="2" required></textarea></label>
         <p class="err" id="q-err" role="alert" hidden></p>
-        <p class="q-note">Votre adresse sert uniquement à vous répondre. <a href="mentions-legales.html">Mentions légales</a></p>
-        <button class="btn" type="submit">Envoyer</button>
+        <div class="q-row"><p class="q-note">Votre adresse sert uniquement à vous répondre. <a href="mentions-legales.html">Mentions légales</a></p>
+        <button class="btn" type="submit">Envoyer</button></div>
       </form>
       <div class="qf q-ok" id="q-ok" hidden><h3>Merci, votre question est envoyée.</h3><p>Nous vous répondons par e-mail très vite.</p><button class="btn ghost" type="button" id="q-new">Poser une autre question</button></div>
     </div>
