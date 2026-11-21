@@ -392,5 +392,14 @@ window.BOVE_ES = {
  "Un officier d'artillerie à la Bôve.": "Un oficial de artillería en La Bôve.",
  "En 1893, Henri Rillart de Verneuil, officier d'artillerie, rachète le château, alors en partie en ruine. De 1899 à 1901, il le fait agrandir de deux pavillons et de deux tourelles, et une ferme complète le domaine. C'est ce château que montrent les cartes postales du début du siècle.": "En 1893, Henri Rillart de Verneuil, oficial de artillería, compra el castillo, entonces parcialmente en ruinas. De 1899 a 1901 lo amplía con dos pabellones y dos torrecillas, y una granja completa la finca. Es el castillo que muestran las postales de principios de siglo.",
  "Dès 1914, l'état-major allemand s'installe au château, qui devient un poste de commandement. En avril 1917, pendant l'offensive Nivelle, Henri Rillart de Verneuil transmet lui-même à l'artillerie française les informations permettant de bombarder sa propre demeure : le château est entièrement détruit. Sur le plateau, l'offensive se brise, et le Chemin des Dames devient l'un des lieux les plus meurtriers du conflit.": "Desde 1914, el estado mayor alemán se instala en el castillo, que se convierte en puesto de mando. En abril de 1917, durante la ofensiva Nivelle, el propio Henri Rillart de Verneuil facilita a la artillería francesa la información necesaria para bombardear su propia casa: el castillo queda totalmente destruido. En la meseta la ofensiva fracasa, y el Chemin des Dames se convierte en uno de los lugares más mortíferos del conflicto.",
- "Le château vers 1900, carte postale · Elakle, CC BY-SA 4.0": "El castillo hacia 1900, postal · Elakle, CC BY-SA 4.0"
+ "Le château vers 1900, carte postale · Elakle, CC BY-SA 4.0": "El castillo hacia 1900, postal · Elakle, CC BY-SA 4.0",
+ "Une question ?": "¿Una pregunta?",
+ "Votre e-mail": "Su correo electrónico",
+ "Votre question": "Su pregunta",
+ "Votre adresse sert uniquement à vous répondre.": "Su dirección solo se utiliza para responderle.",
+ "Envoyer": "Enviar",
+ "Merci, votre question est envoyée.": "Gracias, su pregunta ha sido enviada.",
+ "Nous vous répondons par e-mail très vite.": "Le responderemos por correo electrónico muy pronto.",
+ "Poser une autre question": "Hacer otra pregunta",
+ "Indiquez votre e-mail et votre question.": "Indique su correo electrónico y su pregunta."
 };

@@ -392,5 +392,14 @@ window.BOVE_EN = {
  "Un officier d'artillerie à la Bôve.": "An artillery officer at La Bôve.",
  "En 1893, Henri Rillart de Verneuil, officier d'artillerie, rachète le château, alors en partie en ruine. De 1899 à 1901, il le fait agrandir de deux pavillons et de deux tourelles, et une ferme complète le domaine. C'est ce château que montrent les cartes postales du début du siècle.": "In 1893, Henri Rillart de Verneuil, an artillery officer, bought the château, then partly in ruins. From 1899 to 1901 he extended it with two pavilions and two turrets, and a farm completed the estate. This is the château shown on the postcards of the early 1900s.",
  "Dès 1914, l'état-major allemand s'installe au château, qui devient un poste de commandement. En avril 1917, pendant l'offensive Nivelle, Henri Rillart de Verneuil transmet lui-même à l'artillerie française les informations permettant de bombarder sa propre demeure : le château est entièrement détruit. Sur le plateau, l'offensive se brise, et le Chemin des Dames devient l'un des lieux les plus meurtriers du conflit.": "From 1914, the German general staff occupied the château, which became a command post. In April 1917, during the Nivelle offensive, Henri Rillart de Verneuil himself gave the French artillery the information needed to shell his own home: the château was completely destroyed. On the plateau the offensive broke down, and the Chemin des Dames became one of the deadliest places of the war.",
- "Le château vers 1900, carte postale · Elakle, CC BY-SA 4.0": "The château around 1900, postcard · Elakle, CC BY-SA 4.0"
+ "Le château vers 1900, carte postale · Elakle, CC BY-SA 4.0": "The château around 1900, postcard · Elakle, CC BY-SA 4.0",
+ "Une question ?": "A question?",
+ "Votre e-mail": "Your email",
+ "Votre question": "Your question",
+ "Votre adresse sert uniquement à vous répondre.": "Your address is only used to reply to you.",
+ "Envoyer": "Send",
+ "Merci, votre question est envoyée.": "Thank you, your question has been sent.",
+ "Nous vous répondons par e-mail très vite.": "We will reply by email very soon.",
+ "Poser une autre question": "Ask another question",
+ "Indiquez votre e-mail et votre question.": "Please enter your email and your question."
 };

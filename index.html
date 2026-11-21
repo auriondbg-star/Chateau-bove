@@ -605,6 +605,10 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 .contact .inner>*{min-width:0}
 .contact h2{color:var(--buis)}
 .contact .lead{color:var(--muted);font-size:1.1rem;margin:22px 0 40px;max-width:40ch;line-height:1.8}
+.qf{margin-top:44px;display:grid;grid-template-columns:1fr!important;gap:18px;max-width:520px}.qf>*{grid-column:1/-1}
+.qf h3{font-family:var(--display);font-weight:400;font-size:1.6rem;color:var(--buis);margin:0}
+.qf .q-note{font-family:var(--sans);font-size:.8rem;color:var(--muted);margin:0}.qf .q-note a{color:inherit;text-underline-offset:3px}
+.q-ok p{color:var(--muted);margin:0}
 .coord{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:30px}
 .coord li{display:grid;grid-template-columns:28px 1fr;gap:20px;align-items:start}
 .coord svg{color:var(--buis);margin-top:3px}
@@ -1090,6 +1094,15 @@ footer .mark{color:var(--ink);font-size:1.6rem}
         <li><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13"/><path d="M3.5 6l8.5 7 8.5-7"/></svg>
           <p><a href="mailto:chateaudelabove@gmail.com"><b>chateaudelabove@gmail.com</b></a></p></li>
       </ul>
+      <form id="q-f" class="qf" novalidate><div class="hp" aria-hidden="true"><label>Site web <input type="text" name="site_web" tabindex="-1" autocomplete="off"></label></div>
+        <h3>Une question ?</h3>
+        <label>Votre e-mail<input id="q-mail" name="email" type="email" autocomplete="email" required placeholder="vous@exemple.fr"></label>
+        <label>Votre question<textarea id="q-msg" name="question" rows="3" required></textarea></label>
+        <p class="err" id="q-err" role="alert" hidden></p>
+        <p class="q-note">Votre adresse sert uniquement à vous répondre. <a href="mentions-legales.html">Mentions légales</a></p>
+        <button class="btn" type="submit">Envoyer</button>
+      </form>
+      <div class="qf q-ok" id="q-ok" hidden><h3>Merci, votre question est envoyée.</h3><p>Nous vous répondons par e-mail très vite.</p><button class="btn ghost" type="button" id="q-new">Poser une autre question</button></div>
     </div>
     <figure class="map" style="margin:0" aria-label="Plan d’accès au château de la Bôve">
       <iframe class="map-img map-frame" src="https://maps.google.com/maps?q=Ch%C3%A2teau%20de%20la%20B%C3%B4ve%2C%2002860%20Bouconville-Vauclair&amp;z=16&amp;hl=fr&amp;output=embed" title="Plan d’accès au château de la Bôve, Bouconville-Vauclair" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
@@ -1407,6 +1420,18 @@ function notify(r){try{const L={mariage:'Mariage',seminaire:'Séminaire',visite:
  if(k){const o={access_key:k,subject:subj,from_name:'Site Château de la Bôve',botcheck:''};b.forEach((v,n)=>{if(n!=='form-name'&&v)o[n]=v});if(r.email)o.replyto=r.email;
   fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(o)}).catch(()=>{});return}
  if(/netlify\.app$/.test(location.hostname))fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:b.toString()}).catch(()=>{})}catch(e){}}
+// ---------- petite question (Contact) : envoyée directement par e-mail ----------
+(function(){const f=$('q-f');if(!f)return;const ok=$('q-ok'),er=$('q-err');
+ f.addEventListener('submit',e=>{e.preventDefault();const m=$('q-mail').value.trim(),q=$('q-msg').value.trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)||!q){er.textContent=tr('Indiquez votre e-mail et votre question.');er.hidden=false;return}
+  er.hidden=true;
+  if(!robot('q-f')){const subj='Question depuis le site'+(LANG!=='fr'?(LANG==='en'?' (anglais)':' (espagnol)'):''),champs=[['E-mail',m],['Question',q]];
+   if(LANG!=='fr')champs.push(['Langue',LANG==='en'?'Anglais : répondre en anglais':'Espagnol : répondre en espagnol']);
+   if(CFG.notifyUrl)fetch(CFG.notifyUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({sujet:subj,titre:subj,champs,demandees:[],occupes:[],email:m})}).catch(()=>{});
+   else if(CFG.notifyEmail){const o={_subject:subj,_template:'box',_captcha:'false',_replyto:m};champs.forEach(c=>o[c[0]]=c[1]);
+    fetch('https://formsubmit.co/ajax/'+encodeURIComponent(CFG.notifyEmail),{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(o)}).catch(()=>{})}}
+  f.hidden=true;ok.hidden=false;voirMerci('q-ok')});
+ $('q-new').addEventListener('click',()=>{f.reset();ok.hidden=true;f.hidden=false;$('q-msg').focus()})})();
 function voirMerci(id){const m=$(id);if(!m)return;requestAnimationFrame(()=>{const r=m.getBoundingClientRect();if(r.top<70||r.bottom>innerHeight)m.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})})}
 const T0=Date.now();
 // piège à robots : un champ invisible rempli, ou un formulaire envoyé en moins de 3 secondes, n'est pas enregistré
