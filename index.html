@@ -1682,8 +1682,7 @@ function renderDash(){
   el('div',{class:'row'},copy));
 }
 // connexion (maquette : vérification locale, pas une vraie sécurité)
-// Compte propriétaire : ni l'e-mail ni le mot de passe ne sont stockés, seulement une empreinte PBKDF2 salée des deux.
-const OWNER={salt:'2a9d13ec0b1652303d7b95c7e0e7c34c',iter:310000,hash:'2088bb0deed65bbe6b9039548b60ca703f89ef15703ca47b8d73d11ced7b5648'};
+// Compte propriétaire : la connexion passe par Supabase (aucune empreinte de mot de passe dans le code).
 const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
 async function pbk(email,pw,saltHex,iter){
  if(!window.crypto?.subtle)throw new Error('nocrypto');
@@ -1697,7 +1696,6 @@ async function emailId(email){return hex(await crypto.subtle.digest('SHA-256',ne
 const maskEmail=e=>{const [u,d]=e.split('@');return (u.length<=2?u[0]+'…':u.slice(0,2)+'…')+'@'+d};
 // renvoie 'owner', 'acces' ou ''
 async function checkLogin(email,pw){
- if(await pbk(email,pw,OWNER.salt,OWNER.iter)===OWNER.hash)return'owner';
  await dbReady;if(!DB)return'';
  try{const snap=await DB.doc('acces/'+await emailId(email)).get();if(!snap.exists)return'';const a=snap.data();
   return await pbk(email,pw,a.salt,a.iter)===a.hash?'acces':''}catch(e){return''}}
