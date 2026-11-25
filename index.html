@@ -783,7 +783,6 @@ footer .mark{color:var(--ink);font-size:1.6rem}
 </script>
 </head>
 <body>
-<form name="demande" data-netlify="true" netlify-honeypot="bot-field" hidden><input name="type"><input name="noms"><input name="dates"><input name="depart"><input name="invites"><input name="formule"><input name="ceremonie"><input name="projet"><input name="flex"><input name="email"><input name="tel"><textarea name="msg"></textarea><input name="bot-field"></form>
 <div class="bgfix" aria-hidden="true"><img src="aerien-domaine-v2.jpg" alt=""></div>
 
 <header class="nav wrap">
@@ -803,7 +802,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
       <span class="langs"><a class="lang" data-lang="fr" href="./" hreflang="fr" lang="fr" title="Version française" aria-label="Version française" hidden>FR</a><a class="lang" data-lang="en" href="?lang=en" hreflang="en" lang="en" title="English version" aria-label="English version">EN</a><a class="lang" data-lang="es" href="?lang=es" hreflang="es" lang="es" title="Versión en español" aria-label="Versión en español">ES</a></span>
       <a class="acct" href="#admin" aria-label="Espace propriétaire" title="Espace propriétaire"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20.5c1.4-3.6 4.4-5.5 8-5.5s6.6 1.9 8 5.5"/></svg></a>
       <a class="btn" href="#reserver">Réserver</a>
-      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu"><span class="bl" aria-hidden="true"><i></i><i></i><i></i></span></button>
+      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="drw" aria-label="Ouvrir le menu"><span class="bl" aria-hidden="true"><i></i><i></i><i></i></span></button>
     </div>
   </div>
 </header>
@@ -1257,7 +1256,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
       <section class="adm-sec" id="acc-sec" aria-labelledby="acc-t" hidden>
         <span class="eyebrow">Sécurité</span>
         <h3 id="acc-t">Accès à l'espace propriétaire</h3>
-        <p class="demo" id="acc-note">Créez un accès pour une personne de confiance : elle se connectera avec son e-mail et son mot de passe. Seule une empreinte chiffrée du mot de passe est enregistrée, jamais le mot de passe lui-même. Vous seul pouvez créer ou retirer un accès.</p>
+        <p class="demo" id="acc-note">Créez un accès pour une personne de confiance : elle se connectera avec son e-mail et son mot de passe. Si Supabase demande une confirmation, elle recevra un e-mail avec un lien à ouvrir avant sa première connexion. Vous seul pouvez créer ou retirer un accès.</p>
         <div class="acc-wrap">
           <form class="acc-form" id="acc-form" novalidate>
             <label class="full">E-mail<input id="acc-email" type="email" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="prenom@exemple.fr"></label>
@@ -1267,7 +1266,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
             <p class="ok full" id="acc-ok" hidden></p>
             <button class="btn full" type="submit" id="acc-btn">Créer l'accès</button>
           </form>
-          <aside class="cal-side"><span class="eyebrow">Accès existants</span><ul id="acc-list"><li><span>Vous (propriétaire)</span><span>Principal</span></li></ul></aside>
+          <aside class="cal-side"><span class="eyebrow">Accès existants</span><ul id="acc-list"></ul></aside>
         </div>
       </section>
     </div>
@@ -1325,15 +1324,15 @@ const photos=[
 const grid=document.getElementById('grid'),thumbs=[];
 photos.forEach(p=>p[1]=tr(p[1]));
 photos.forEach(([f,a],i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',tr('Agrandir :')+' '+a);
- b.innerHTML=`<img src="${f}.jpg" alt="${a}" loading="lazy">`;b.onclick=()=>open(i);(i<3?document.getElementById('top3'):grid).appendChild(b);thumbs.push(b)});
+ b.innerHTML=`<img src="${f}.jpg" alt="${a}" loading="lazy">`;b.onclick=()=>lbOpen(i);(i<3?document.getElementById('top3'):grid).appendChild(b);thumbs.push(b)});
 const mp=document.getElementById('more-photos');
 mp.onclick=()=>{const o=grid.hidden;grid.hidden=!o;mp.setAttribute('aria-expanded',String(o));mp.firstChild.textContent=tr(o?'Masquer les autres photos':'Voir les autres photos')+' '};
 const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg');let cur=0;
 let lbList=null,lbBack=null;
 function show(){const L=lbList||photos;const[f,a]=L[cur];lbimg.src=`${f}.jpg`;lbimg.alt=a}
-function open(i,list,back){lbList=list||null;lbBack=back||null;cur=i;show();lb.hidden=false;document.getElementById('lbx').focus()}
-function close(){lb.hidden=true;if(lbBack){lbBack.focus();return}thumbs[cur]?.offsetParent&&thumbs[cur].focus()}
-document.getElementById('lbx').onclick=close;
+function lbOpen(i,list,back){lbList=list||null;lbBack=back||null;cur=i;show();lb.hidden=false;document.getElementById('lbx').focus()}
+function lbClose(){lb.hidden=true;if(lbBack){lbBack.focus();return}thumbs[cur]?.offsetParent&&thumbs[cur].focus()}
+document.getElementById('lbx').onclick=lbClose;
 document.getElementById('lbp').onclick=()=>{const n=(lbList||photos).length;cur=(cur+n-1)%n;show()};
 document.getElementById('lbn').onclick=()=>{const n=(lbList||photos).length;cur=(cur+1)%n;show()};
 // galeries des logements
@@ -1342,14 +1341,13 @@ Object.values(LPHOTOS).forEach(L=>L.forEach(p=>p[1]=tr(p[1])));
 document.querySelectorAll('.lodg-ph[data-slot]').forEach(slot=>{const L=LPHOTOS[slot.dataset.slot];if(!L)return;
  const strip=el('div',{class:'strip'});
  L.slice(0,3).forEach(([f,a],i)=>{const b=el('button',{type:'button','aria-label':tr('Agrandir :')+' '+a+' ('+(i+1)+(ES?' de ':EN?' of ':' sur ')+L.length+')'});b.innerHTML=`<img src="${f}.jpg" alt="${a}" loading="lazy">`;
-  if(i===2&&L.length>3)b.append(el('span',{class:'more-n'},'+'+(L.length-3)+' photos'));b.onclick=()=>open(i,L,b);strip.append(b)});
+  if(i===2&&L.length>3)b.append(el('span',{class:'more-n'},'+'+(L.length-3)+' photos'));b.onclick=()=>lbOpen(i,L,b);strip.append(b)});
  slot.replaceChildren(strip)});
-lb.addEventListener('click',e=>{if(e.target===lb)close()});
-document.addEventListener('keydown',e=>{if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')document.getElementById('lbn').click();if(e.key==='ArrowLeft')document.getElementById('lbp').click()});
+lb.addEventListener('click',e=>{if(e.target===lb)lbClose()});
+document.addEventListener('keydown',e=>{if(lb.hidden)return;if(e.key==='Escape')lbClose();if(e.key==='ArrowRight')document.getElementById('lbn').click();if(e.key==='ArrowLeft')document.getElementById('lbp').click()});
 
 // menu téléphone
 {const nav=document.querySelector('.nav'),bg=document.getElementById('burger'),dw=document.getElementById('drw');let tm;
- bg.setAttribute('aria-controls','drw');
  const set=o=>{if(o===nav.classList.contains('open'))return;nav.classList.toggle('open',o);bg.setAttribute('aria-expanded',String(o));bg.setAttribute('aria-label',tr(o?'Fermer le menu':'Ouvrir le menu'));
   clearTimeout(tm);
   if(o){cur();document.documentElement.style.setProperty('--navb',Math.round(nav.getBoundingClientRect().bottom)+'px');dw.hidden=false;requestAnimationFrame(()=>requestAnimationFrame(()=>dw.classList.add('on')))}
@@ -1366,12 +1364,11 @@ document.addEventListener('keydown',e=>{if(lb.hidden)return;if(e.key==='Escape')
  const links=[...dw.querySelectorAll('ul a')],secs=links.map(a=>document.querySelector(a.getAttribute('href')));
  const cur=()=>{const y=innerHeight*.35;let k=-1;secs.forEach((s,i)=>{if(!s)return;const r=s.getBoundingClientRect();if(r.top<=y&&r.bottom>y)k=i});if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)k=secs.length-1;links.forEach((a,i)=>a.classList.toggle('cur',i===k))};
  addEventListener('scroll',()=>{if(!nav.classList.contains('open'))cur()},{passive:true});cur()}
-// histoire
 // formulaire
 const $=id=>document.getElementById(id);
 const optTxt=id=>{const o=$(id).selectedOptions[0];return o?o.text:$(id).value};
 function manque(m){return ES?'Falta indicar '+m.map(tr).join(', ')+'.':EN?'Please add '+m.map(tr).join(', ')+'.':'Il manque '+m.join(', ')+'.'}
-const d=new Date();d.setDate(d.getDate()+30);$('date').min=d.toISOString().slice(0,10);
+const d=new Date();d.setDate(d.getDate()+30);$('date').min=new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
 const TYPES={
  mariage:{label:'Mariage',nom:'Prénoms des mariés',ph:'Claire et Thomas',inv:"Nombre d'invités",invOpts:['Moins de 80','80 à 150','150 à 200'],form:['Week-end complet','Journée','Cérémonie et cocktail'],msg:'Parlez-nous de votre mariage : ambiance, cérémonie, traiteur…'},
  visite:{label:'Demande de visite',nom:'Nom et prénom',ph:'Claire Martin',inv:'',invOpts:[],form:[],msgl:'Vos remarques',msg:'Quand souhaiteriez-vous visiter ? Votre projet, vos questions…'},
@@ -1396,7 +1393,7 @@ function saison(){if(!selDays.length)return ES?(fType()==='mariage'?'Toque un vi
 let selDays=[];
 function runs(ds){const out=[];ds.slice().sort().forEach(d=>{const l=out[out.length-1];if(l&&rangeDays(l[1],d).length===2)l[1]=d;else out.push([d,d])});return out}
 function daysTxt(ds){return runs(ds).map(([a,b],i)=>{const p=periode(a,b);return i?p[0].toLowerCase()+p.slice(1):p}).join(', ')}
-function pickWE(v){const bm=blockedMap(),sat=wkKey(v);selDays=selDays.includes(sat)?[]:weDays(sat).filter(x=>!bm.has(x));refreshDays()}
+function pickWE(v){const bm=blockedMap(),sat=wkKey(v);selDays=selDays.includes(sat)?[]:weDays(sat).filter(x=>!bm.has(x)&&x>=$('date').min);refreshDays()}
 function weOk(v,bm,min){const sat=wkKey(v);return D(sat).getDay()===6&&!bm.has(sat)&&!(min&&sat<min)}
 function toggleDay(v){selDays=selDays.includes(v)?selDays.filter(x=>x!==v):[...selDays,v].sort();refreshDays()}
 function refreshDays(){const bm=blockedMap();selDays=selDays.filter(v=>!bm.has(v));
@@ -1411,7 +1408,6 @@ function addDay(){const v=$('date').value,min=$('date').min;$('err').hidden=true
 function semDays(v,n){const out=[];const x=D(v);for(let i=0;i<n;i++){out.push(iso(x));x.setDate(x.getDate()+1)}return out}
 function weDays(v){const sat=D(wkKey(v));if(sat.getDay()!==6)return[v];const f=new Date(sat),su=new Date(sat);f.setDate(f.getDate()-1);su.setDate(su.getDate()+1);return[iso(f),iso(sat),iso(su)]}
 function daysFor(t,v,n){return t==='seminaire'?semDays(v,n||1):weDays(v)}
-function dateOk(v,t,bm){bm=bm||blockedMap();return!bm.has(v)}
 document.querySelectorAll('input[name=type]').forEach(r=>r.addEventListener('change',()=>setType(fType())));
 document.querySelectorAll('a[data-type]').forEach(a=>a.addEventListener('click',()=>setType(a.dataset.type)));
 $('add-day').onclick=addDay;
@@ -1423,7 +1419,7 @@ $('f').addEventListener('submit',e=>{e.preventDefault();const t=fType(),T=TYPES[
   $('err').hidden=true;
   const rows=[['Type',tr('Demande de visite')],[tr('Nom'),$('noms').value],[tr('Projet'),optTxt('projet')],[tr('Contact'),$('email').value+($('tel').value?' · '+$('tel').value:'')],...($('msg').value.trim()?[[tr('Remarques'),$('msg').value.trim()]]:[])];
   $('recap').replaceChildren(...rows.flatMap(([k,v])=>{const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;return[dt,dd]}));
-  saveReq({id:'v'+Date.now(),type:'visite',recu:new Date().toISOString().slice(0,10),noms:$('noms').value.trim(),date:'',projet:$('projet').value,invites:'—',formule:'Visite du domaine',email:$('email').value.trim(),tel:$('tel').value.trim(),msg:$('msg').value.trim(),statut:'nouvelle'});
+  saveReq({id:'v'+Date.now(),type:'visite',recu:iso(new Date()),noms:$('noms').value.trim(),date:'',projet:$('projet').value,invites:'—',formule:'Visite du domaine',email:$('email').value.trim(),tel:$('tel').value.trim(),msg:$('msg').value.trim(),statut:'nouvelle'});
   $('f').hidden=true;$('merci').hidden=false;voirMerci('merci');return}
  const miss=[];if(!$('noms').value.trim())miss.push(t==='mariage'?'vos prénoms':'le nom de votre entreprise');
  const bm0=blockedMap();if(!selDays.length&&!$('flex').checked)miss.push(t==='mariage'?'votre week-end (ou cochez « dates flexibles »)':'au moins un jour (ou cochez « dates flexibles »)');
@@ -1433,7 +1429,7 @@ $('f').addEventListener('submit',e=>{e.preventDefault();const t=fType(),T=TYPES[
  $('err').hidden=true;
  const nj=selDays.length,rows=[[tr('Type'),tr(T.label)],[tr(T.nom),$('noms').value],[tr(t==='mariage'?'Week-end':nj>1?'Dates':'Date'),nj?daysTxt(selDays):tr('Flexible')],[tr(T.inv),$('invites').value?optTxt('invites'):tr('Non précisé')],[tr('Formule'),optTxt('formule')],t==='mariage'?[tr('Cérémonie'),optTxt('ceremonie')]:[tr('Durée'),nj?nj+(ES?' día':EN?' day':' jour')+(nj>1?'s':''):tr('À définir')],[tr('Contact'),$('email').value+($('tel').value?' · '+$('tel').value:'')]];
  $('recap').replaceChildren(...rows.flatMap(([k,v])=>{const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;return[dt,dd]}));
- saveReq({id:'d'+Date.now(),type:t,recu:new Date().toISOString().slice(0,10),noms:$('noms').value.trim(),date:selDays[0]||'',dates:selDays.slice(),jours:selDays.length||undefined,flex:$('flex').checked,invites:$('invites').value||'Non précisé',formule:$('formule').value,ceremonie:t==='mariage'?$('ceremonie').value:'',email:$('email').value.trim(),tel:$('tel').value.trim(),msg:$('msg').value.trim(),statut:'nouvelle'});
+ saveReq({id:'d'+Date.now(),type:t,recu:iso(new Date()),noms:$('noms').value.trim(),date:selDays[0]||'',dates:selDays.slice(),jours:selDays.length||undefined,flex:$('flex').checked,invites:$('invites').value||'Non précisé',formule:$('formule').value,ceremonie:t==='mariage'?$('ceremonie').value:'',email:$('email').value.trim(),tel:$('tel').value.trim(),msg:$('msg').value.trim(),statut:'nouvelle'});
  $('f').hidden=true;$('merci').hidden=false;voirMerci('merci');selDays=[];refreshDays()});
 $('again').onclick=()=>{const t=fType();$('f').reset();setType(t);$('merci').hidden=true;$('f').hidden=false;voirMerci('f')};
 // ---------- espace propriétaire (maquette) ----------
@@ -1482,7 +1478,14 @@ async function cloudRefresh(){
 function load(){if(CLOUD)return C.reqs.filter(r=>r.statut!=='attente-paiement').map(r=>norm({...r}));try{const v=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(v)){if(!v.some(r=>r.id==='ex5'))v.push(...EXEMPLES.filter(x=>x.type==='seminaire').map(x=>({...x})));if(!v.some(r=>r.id==='ex7'))v.push(...EXEMPLES.filter(x=>x.type==='gite').map(x=>({...x})));if(!v.some(r=>r.id==='ex9'))v.push(...EXEMPLES.filter(x=>x.type==='appart').map(x=>({...x})));return v.map(norm)}}catch(e){}return EXEMPLES.map(x=>({...x}))}
 function save(list){if(CLOUD){C.reqs=list.map(r=>({...r}));list.forEach(r=>{const j=JSON.stringify(r);if(C.synced[r.id]!==j){C.synced[r.id]=j;SB.from('demandes').update({data:r}).eq('id',r.id).then(({error})=>{if(error)cloudErr()})}});pushOcc();return}try{localStorage.setItem(KEY,JSON.stringify(list))}catch(e){}}
 let reqs=load(),filtre='toutes',ftype='tous',sel=null;
-function notify(r){try{const L={mariage:'Mariage',seminaire:'Séminaire',visite:'Demande de visite',gite:'Séjour au gîte',appart:"Séjour à l'appartement"};const ds=(r.dates&&r.dates.length?r.dates:(r.date?[r.date]:[])).join(', ');const b=new URLSearchParams({'form-name':'demande',type:L[r.type]||r.type,noms:r.noms||'',dates:ds||(r.flex?'Flexible':''),depart:r.depart||'',invites:r.invites||'',formule:r.formule||'',ceremonie:r.ceremonie||'',projet:r.projet||'',flex:r.flex?'oui':'',email:r.email||'',tel:r.tel||'',msg:r.msg||''});const k=CFG.web3formsKey;
+// envoi de l'e-mail au propriétaire : script Google (notifyUrl), sinon formsubmit.co (notifyEmail), sinon Web3Forms
+function sendMail(sujet,titre,champs,demandees,occupes,email){
+ const u=CFG.notifyUrl,m=CFG.notifyEmail,k=CFG.web3formsKey;
+ if(u)return fetch(u,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({sujet,titre,champs,demandees,occupes,email})}).catch(()=>{});
+ const o=m?{_subject:sujet,_template:'box',_captcha:'false'}:{access_key:k,subject:sujet,from_name:'Site Château de la Bôve',botcheck:''};
+ champs.forEach(c=>o[c[0]]=c[1]);if(email)o[m?'_replyto':'replyto']=email;
+ if(m||k)fetch(m?'https://formsubmit.co/ajax/'+encodeURIComponent(m):'https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(o)}).catch(()=>{})}
+function notify(r){try{const L={mariage:'Mariage',seminaire:'Séminaire',visite:'Demande de visite',gite:'Séjour au gîte',appart:"Séjour à l'appartement"};
  const tl=L[r.type]||r.type,subj=(r.paye?'Réservation payée : ':'Nouvelle demande : ')+tl+(r.noms?' · '+r.noms:''),lodg=isLodg(r.type);
  const fd=v=>{try{return D(v).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}catch(e){return v}};
  const dem=reqKeys(r),dd=lodg?[]:(r.dates&&r.dates.length?r.dates:(r.date?[r.date]:[])).slice().sort(),et=a=>a.length>1?a.slice(0,-1).join(', ')+' et '+a[a.length-1]:a.join('');
@@ -1490,31 +1493,22 @@ function notify(r){try{const L={mariage:'Mariage',seminaire:'Séminaire',visite:
  const champs=[['Type de demande',tl],['Noms',r.noms],lodg?['Arrivée',r.date?fd(r.date):'']:['Dates',dl||(r.flex?'Dates flexibles':'')],lodg?['Départ',r.depart?fd(r.depart):'']:['',''],['Nombre de personnes',r.invites],['Formule',r.formule],['Cérémonie',r.ceremonie],['Projet',r.projet],['Dates flexibles',r.flex&&dl?'oui':''],['E-mail',r.email],['Téléphone',r.tel],['Message',r.msg],['Langue',r.langue==='en'?'Anglais : la demande vient de la version anglaise du site, répondre en anglais':r.langue==='es'?'Espagnol : la demande vient de la version espagnole du site, répondre en espagnol':'']].filter(c=>c[0]&&c[1]);
  const mo=new Set(dem.map(x=>x.slice(0,7))),occ=[];try{(lodg?gMap(r.type):blockedMap()).forEach((v,d)=>{if(mo.has(d.slice(0,7)))occ.push([d,v.kind||r.type])})}catch(e){}
  if(dem.length)champs.push(['Voir le calendrier',location.origin+'/#admin/'+(lodg?r.type:'event')+'/'+dem[0].slice(0,7)]);
- const u=CFG.notifyUrl;
- if(u){fetch(u,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({sujet:subj,titre:tl+(r.noms?' · '+r.noms:''),champs,demandees:dem,occupes:occ,email:r.email||''})}).catch(()=>{});return}
- const m=CFG.notifyEmail;
- if(m){const o={_subject:subj,_template:'box',_captcha:'false'};champs.forEach(c=>o[c[0]]=c[1]);if(r.email)o._replyto=r.email;
-  fetch('https://formsubmit.co/ajax/'+encodeURIComponent(m),{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(o)}).catch(()=>{});return}
- if(k){const o={access_key:k,subject:subj,from_name:'Site Château de la Bôve',botcheck:''};b.forEach((v,n)=>{if(n!=='form-name'&&v)o[n]=v});if(r.email)o.replyto=r.email;
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(o)}).catch(()=>{});return}
- if(/netlify\.app$/.test(location.hostname))fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:b.toString()}).catch(()=>{})}catch(e){}}
+ sendMail(subj,tl+(r.noms?' · '+r.noms:''),champs,dem,occ,r.email||'')}catch(e){}}
 // ---------- petite question (Contact) : envoyée directement par e-mail ----------
 (function(){const f=$('q-f');if(!f)return;const ok=$('q-ok'),er=$('q-err');
  f.addEventListener('submit',e=>{e.preventDefault();const m=$('q-mail').value.trim(),q=$('q-msg').value.trim();
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)||!q){er.textContent=tr('Indiquez votre e-mail et votre question.');er.hidden=false;return}
   er.hidden=true;
-  if(!robot('q-f')){const subj='Question depuis le site'+(LANG!=='fr'?(LANG==='en'?' (anglais)':' (espagnol)'):''),champs=[['E-mail',m],['Question',q]];
-   if(LANG!=='fr')champs.push(['Langue',LANG==='en'?'Anglais : répondre en anglais':'Espagnol : répondre en espagnol']);
-   if(CFG.notifyUrl)fetch(CFG.notifyUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({sujet:subj,titre:subj,champs,demandees:[],occupes:[],email:m})}).catch(()=>{});
-   else if(CFG.notifyEmail){const o={_subject:subj,_template:'box',_captcha:'false',_replyto:m};champs.forEach(c=>o[c[0]]=c[1]);
-    fetch('https://formsubmit.co/ajax/'+encodeURIComponent(CFG.notifyEmail),{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(o)}).catch(()=>{})}}
+  if(!robot('q-f')){const subj='Question depuis le site'+(EN?' (anglais)':ES?' (espagnol)':''),champs=[['E-mail',m],['Question',q]];
+   if(EN||ES)champs.push(['Langue',EN?'Anglais : répondre en anglais':'Espagnol : répondre en espagnol']);
+   sendMail(subj,subj,champs,[],[],m)}
   f.hidden=true;ok.hidden=false;voirMerci('q-ok')});
  $('q-new').addEventListener('click',()=>{f.reset();ok.hidden=true;f.hidden=false;$('q-msg').focus()})})();
 function voirMerci(id){const m=$(id);if(!m)return;requestAnimationFrame(()=>{const r=m.getBoundingClientRect();if(r.top<70||r.bottom>innerHeight)m.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})})}
 const T0=Date.now();
 // piège à robots : un champ invisible rempli, ou un formulaire envoyé en moins de 3 secondes, n'est pas enregistré
 function robot(id){const f=$(id),h=f&&f.querySelector('.hp input');return !!(h&&h.value)||Date.now()-T0<3000}
-function saveReq(r){if(robot(isLodg(r.type)?'g-f':'f'))return;if(LANG!=='fr')r.langue=LANG;if(CLOUD){SB.from('demandes').insert({id:r.id,data:r}).then(({error})=>{if(error)sendFail(isLodg(r.type));else notify(r)});return}reqs=load();reqs.unshift(r);save(reqs)}
+function saveReq(r){if(robot(isLodg(r.type)?'g-f':'f'))return;if(LANG!=='fr')r.langue=LANG;if(CLOUD){SB.from('demandes').insert({id:r.id,data:r}).then(({error})=>{if(error)sendFail(isLodg(r.type));else notify(r)});return}reqs=load();reqs.unshift(r);save(reqs);notify(r)}
 function sendFail(g){const m=$(g?'g-merci':'merci'),f=$(g?'g-f':'f'),e=$(g?'g-err':'err');m.hidden=true;f.hidden=false;e.textContent=tr("Votre demande n'a pas pu être envoyée. Vérifiez votre connexion internet puis réessayez.");e.hidden=false}
 function fmt(d){if(!d)return'Flexible';const t=new Date(d+'T12:00');return t.toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'})}
 function el(tag,attrs={},...kids){const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==='class')e.className=v;else if(k.startsWith('on'))e[k]=v;else e.setAttribute(k,v)}kids.flat().forEach(k=>e.append(k));return e}
@@ -1558,7 +1552,7 @@ function renderCal(box,mode){
    const past=min&&v<min;
    if(b){btn.classList.add('busy');btn.disabled=true;if(b.show)btn.append(lab(tr('Réservé')));btn.setAttribute('aria-label',i+(ES?': reservado':EN?': booked':' : réservé'))}
    else if(t==='mariage'&&(!we||!weOk(v,bm,min))){btn.disabled=true}
-   else if(t!=='mariage'&&(past||!dateOk(v,t,bm))){btn.disabled=true}
+   else if(t!=='mariage'&&past){btn.disabled=true}
    else{const on=selDays.includes(v);if(on)btn.classList.add('sel');
     const dl=d.toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long'});btn.setAttribute('aria-pressed',String(on));btn.setAttribute('aria-label',dl+(on?(ES?', elegido: haga clic para quitarlo':EN?', selected: click to remove':', choisi : cliquer pour retirer'):''));
     if(t==='mariage')btn.setAttribute('aria-label',dl+(ES?(on?', fin de semana elegido: toque para quitarlo':': elegir este fin de semana'):EN?(on?', weekend selected: tap to remove':': choose this weekend'):(on?', week-end choisi : toucher pour retirer':' : choisir ce week-end')));
@@ -1681,72 +1675,18 @@ function renderDash(){
   r.statut==='confirmee'&&r.date?el('p',{class:'cal-note'},sem||(r.dates&&r.dates.length)?'Jours bloqués automatiquement dans le calendrier.':'Week-end bloqué automatiquement dans le calendrier.'):'',
   el('div',{class:'row'},copy));
 }
-// connexion (maquette : vérification locale, pas une vraie sécurité)
-// Compte propriétaire : ni l'e-mail ni le mot de passe ne sont stockés, seulement une empreinte PBKDF2 salée des deux.
-const OWNER={salt:'2a9d13ec0b1652303d7b95c7e0e7c34c',iter:310000,hash:'2088bb0deed65bbe6b9039548b60ca703f89ef15703ca47b8d73d11ced7b5648'};
-const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
-async function pbk(email,pw,saltHex,iter){
- if(!window.crypto?.subtle)throw new Error('nocrypto');
- const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(email+'\n'+pw),'PBKDF2',false,['deriveBits']);
- const salt=new Uint8Array(saltHex.match(/../g).map(x=>parseInt(x,16)));
- return hex(await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt,iterations:iter},key,256))}
-// accès supplémentaires : stockés dans la base partagée de la page (empreintes seulement), créés par le propriétaire
-let DB=null,USER=null;
-const dbReady=(async()=>{try{DB=await window.claude?.use?.('db')||null;USER=await window.claude?.use?.('user')||null}catch(e){}})();
-async function emailId(email){return hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('bove:'+email)))}
-const maskEmail=e=>{const [u,d]=e.split('@');return (u.length<=2?u[0]+'…':u.slice(0,2)+'…')+'@'+d};
-// renvoie 'owner', 'acces' ou ''
-async function checkLogin(email,pw){
- if(await pbk(email,pw,OWNER.salt,OWNER.iter)===OWNER.hash)return'owner';
- await dbReady;if(!DB)return'';
- try{const snap=await DB.doc('acces/'+await emailId(email)).get();if(!snap.exists)return'';const a=snap.data();
-  return await pbk(email,pw,a.salt,a.iter)===a.hash?'acces':''}catch(e){return''}}
-// Session : « se souvenir » garde la session ouverte sur cet appareil (le mot de passe n'est jamais enregistré).
-// chaque accès au stockage est protégé séparément : si le navigateur bloque le stockage, la session reste ouverte tant que la page l'est
+// connexion : comptes Supabase (voir « Supabase : connexion et accès » plus bas)
 function sGet(st,k){try{return window[st].getItem(k)}catch(e){return null}}
 function sSet(st,k,v){try{const S=window[st];v==null?S.removeItem(k):S.setItem(k,v);return true}catch(e){return false}}
-function role(){if(CLOUD)return window._role||'';if(window._auth===0)return'';if(window._role)return window._role;const v=sGet('sessionStorage','bove-auth')||sGet('localStorage','bove-auth');return v==='1'?'owner':v==='2'?'acces':''}
+const maskEmail=e=>{const [u,d]=e.split('@');return (u.length<=2?u[0]+'…':u.slice(0,2)+'…')+'@'+d};
+function role(){return window._role||''}
 function logged(){return!!role()}
-function setLogged(v,remember){window._auth=v?1:0;window._role=v||'';sSet('sessionStorage','bove-auth',null);sSet('localStorage','bove-auth',null);
- if(!v)return true;const code=v==='owner'?'1':'2';const okS=sSet('sessionStorage','bove-auth',code);return remember?sSet('localStorage','bove-auth',code):okS}
 {const em=sGet('localStorage','bove-email');if(em){$('l-email').value=em;$('l-remember').checked=true}}
-let remWarn='';
-$('login').addEventListener('submit',async e=>{e.preventDefault();if(CLOUD)return cloudLogin();
- const em=$('l-email').value.replace(/\s+/g,'').toLowerCase(),pw=$('l-pass').value,err=$('l-err'),btn=$('l-btn');
- if(!em||!pw){err.textContent='Saisissez votre e-mail et votre mot de passe.';err.hidden=false;return}
- btn.disabled=true;btn.textContent='Vérification…';err.hidden=true;let ok=false;
- try{ok=await checkLogin(em,pw)||(pw.trim()!==pw?await checkLogin(em,pw.trim()):'')}
- catch(x){btn.disabled=false;btn.textContent='Se connecter';err.textContent='Ce navigateur bloque la vérification sécurisée. Ouvrez le site dans Safari ou Chrome à jour.';err.hidden=false;return}
- btn.disabled=false;btn.textContent='Se connecter';
- if(!ok){err.textContent='E-mail ou mot de passe incorrect. Attention aux majuscules du mot de passe.';err.hidden=false;return}
- const rem=$('l-remember').checked,stored=setLogged(ok,rem);
- sSet('localStorage','bove-email',rem?em:null);
- remWarn=rem&&!stored?'Connecté. Ce navigateur ne permet pas de garder la session : il faudra vous reconnecter à la prochaine visite.':'';
- $('l-pass').value='';route()});
-$('logout').onclick=()=>{if(CLOUD){SB.auth.signOut();window._role='';C.reqs=[];C.kv={};remWarn='';route();return}setLogged(false);remWarn='';route()};
+$('login').addEventListener('submit',e=>{e.preventDefault();if(CLOUD)return cloudLogin();
+ const err=$('l-err');err.textContent="Connexion impossible : la base de données n'a pas pu être chargée. Vérifiez la connexion internet puis rechargez la page.";err.hidden=false});
+$('logout').onclick=()=>{if(CLOUD)SB.auth.signOut();window._role='';C.reqs=[];C.kv={};route()};
 function accMsg(id,t){const e=$(id);e.textContent=t;e.hidden=!t}
-async function renderAccess(){if(CLOUD)return cloudAccess();await dbReady;const owner=USER?await USER.isOwner().catch(()=>false):false;
- if(!DB||!owner){$('acc-form').hidden=true;$('acc-note').textContent=!DB?'La création d\'accès fonctionne sur le site publié, quand vous êtes connecté à votre compte. Elle n\'est pas disponible dans cet aperçu.':'Seul le propriétaire du site peut créer ou retirer un accès.';return}
- $('acc-form').hidden=false;
- try{const snap=await DB.collection('acces').orderBy('cree').get();
-  const own=el('li',{},el('span',{},'Vous (propriétaire)'),el('span',{},'Principal'));
-  $('acc-list').replaceChildren(own,...snap.docs.map(d=>{const a=d.data();const rm=el('button',{type:'button',class:'unblock'},'Retirer');
-   rm.onclick=async()=>{if(rm.dataset.sure!=='1'){rm.dataset.sure='1';rm.textContent='Confirmer le retrait';return}rm.disabled=true;try{await DB.doc('acces/'+d.id).delete();renderAccess()}catch(e){rm.textContent='Échec, réessayez';rm.disabled=false;rm.dataset.sure=''}};
-   return el('li',{},el('span',{},a.label||'Accès',el('br'),el('small',{class:'tag',style:'margin:0'},'créé le '+fmt(a.cree))),el('span',{},rm))}))}
- catch(e){accMsg('acc-err','Impossible de lire la liste des accès pour le moment.')}}
-$('acc-form').addEventListener('submit',async e=>{e.preventDefault();if(CLOUD)return cloudAcc();accMsg('acc-err','');accMsg('acc-ok','');
- const em=$('acc-email').value.replace(/\s+/g,'').toLowerCase(),pw=$('acc-pass').value,pw2=$('acc-pass2').value;
- if(!/^\S+@\S+\.\S+$/.test(em))return accMsg('acc-err','Saisissez une adresse e-mail valide.');
- if(pw.length<8)return accMsg('acc-err','Le mot de passe doit faire au moins 8 caractères.');
- if(pw!==pw2)return accMsg('acc-err','Les deux mots de passe ne sont pas identiques.');
- await dbReady;if(!DB)return accMsg('acc-err','La création d\'accès n\'est pas disponible ici.');
- const btn=$('acc-btn');btn.disabled=true;btn.textContent='Création…';
- try{const salt=hex(crypto.getRandomValues(new Uint8Array(16))),iter=310000,id=await emailId(em);
-  const ex=await DB.doc('acces/'+id).get();
-  await DB.doc('acces/'+id).set({label:maskEmail(em),salt,iter,hash:await pbk(em,pw,salt,iter),cree:iso(new Date())});
-  $('acc-form').reset();accMsg('acc-ok',(ex.exists?'Mot de passe mis à jour pour ':'Accès créé pour ')+em+'. Communiquez-lui son mot de passe de vive voix.');renderAccess()}
- catch(x){accMsg('acc-err','L\'accès n\'a pas pu être créé. Vérifiez que vous êtes connecté à votre compte, puis réessayez.')}
- btn.disabled=false;btn.textContent='Créer l\'accès'});
+$('acc-form').addEventListener('submit',e=>{e.preventDefault();if(CLOUD)cloudAcc()});
 function route(){
  const adm=location.hash.startsWith('#admin');document.body.classList.toggle('admin',adm);$('admin').hidden=!adm;
  if(!adm)return;
@@ -1754,9 +1694,9 @@ function route(){
  const lk=location.hash.match(/^#admin\/(event|gite|appart)\/(\d{4}-\d{2})$/);
  if(lk){scope=lk[1];const sr=document.querySelector('input[name=scope][value='+lk[1]+']');if(sr)sr.checked=true;if(lk[1]==='event')calState.admin=lk[2]+'-01';else gState['admin'+lk[1]]=lk[2]+'-01'}window.scrollTo(0,0);
  const ok=logged();$('login-view').hidden=ok;$('dash-view').hidden=!ok;$('logout').hidden=!ok;
- $('rem-warn').textContent=remWarn;$('rem-warn').hidden=!(ok&&remWarn);
+ $('rem-warn').hidden=true;
  $('acc-sec').hidden=!(ok&&role()==='owner');
- if(ok){reqs=load();renderDash();if(CLOUD)cloudRefresh();if(role()==='owner')renderAccess()}else ($('l-email').value?$('l-pass'):$('l-email')).focus();
+ if(ok){reqs=load();renderDash();if(CLOUD)cloudRefresh();if(role()==='owner')cloudAccess()}else ($('l-email').value?$('l-pass'):$('l-email')).focus();
 }
 
 // ---------- gîte : calendrier indépendant (une clé = une nuit) ----------
@@ -1848,7 +1788,7 @@ $('g-f').addEventListener('submit',e=>{e.preventDefault();const miss=[];
  if(miss.length){$('g-err').textContent=manque(miss);$('g-err').hidden=false;return}
  if(PAY){payer();return}
  saveReq({id:'g'+Date.now(),type:gProp,recu:iso(new Date()),noms:$('g-nom').value.trim(),date:gSel.a,depart:gSel.b,invites:$('g-voy').value+' voyageur'+($('g-voy').value>1?'s':''),formule:'Séjour : '+LODG[gProp].nom+(gPrix()?' · '+euros(gPrix()):''),email:$('g-email').value.trim(),tel:$('g-tel').value.trim(),msg:$('g-msg').value.trim(),statut:'nouvelle'});
- const gst=$('g-stay').textContent;$('g-recap').textContent=tr(KLAB[gProp])+' · '+gst+(gst.includes(ES?'huésped':EN?'guest':'voyageur')?'':' · '+voyTxt($('g-voy').value))+'.';$('g-f').hidden=true;$('g-merci').hidden=false;voirMerci('g-merci')});
+ $('g-recap').textContent=gRecapTxt();$('g-f').hidden=true;$('g-merci').hidden=false;voirMerci('g-merci')});
 $('g-again').onclick=()=>{const v=$('g-voy').value;$('g-f').reset();$('g-voy').value=v;gSel={a:null,b:null};gStay();$('g-merci').hidden=true;$('g-f').hidden=false;renderGCal($('g-cal'),'client')};
 // ---------- paiement par carte des logements (Stripe, via la fonction Supabase « paiement ») ----------
 // Actif seulement si config.js contient paiementCarte: true (après l'installation décrite dans tools/supabase/INSTALLATION.md).
@@ -1900,9 +1840,8 @@ async function cloudLogin(){
  if(error||!r){if(!error)await SB.auth.signOut();
   err.textContent=error?(/confirm/i.test(error.message)?"Confirmez d'abord votre adresse e-mail avec le lien reçu.":'E-mail ou mot de passe incorrect. Attention aux majuscules du mot de passe.'):"Ce compte n'a pas accès à l'espace propriétaire.";err.hidden=false;return}
  const rem=$('l-remember').checked;sSet('localStorage','bove-noremember',rem?null:'1');sSet('sessionStorage','bove-live','1');
- sSet('localStorage','bove-email',rem?em:null);window._role=r;remWarn='';$('l-pass').value='';route()}
+ sSet('localStorage','bove-email',rem?em:null);window._role=r;$('l-pass').value='';route()}
 async function cloudAccess(){
- $('acc-note').textContent="Créez un accès pour une personne de confiance : elle se connectera avec son e-mail et son mot de passe. Si Supabase demande une confirmation, elle recevra un e-mail avec un lien à ouvrir avant sa première connexion. Vous seul pouvez créer ou retirer un accès.";
  $('acc-form').hidden=false;
  const{data,error}=await SB.from('equipe').select('email,role,cree').order('cree');
  if(error){accMsg('acc-err','Impossible de lire la liste des accès pour le moment.');return}
@@ -2038,14 +1977,14 @@ if(CLOUD){setInterval(occRefresh,120000);document.addEventListener('visibilitych
   new IntersectionObserver(es=>es.forEach(x=>{vis=x.isIntersecting;if(vis){rv.classList.add('go');if(st!==null&&pt)pause+=performance.now()-pt;if(!raf)raf=requestAnimationFrame(fr)}else pt=performance.now()}),{threshold:.3}).observe(rv)}
  // frise : la ligne dorée se remplit et chaque date s'allume au passage
  const fr=document.querySelector('.chrono');
- if(fr){const lis=[...fr.children];const hd=document.createElement('span');hd.className='ch-head';hd.setAttribute('aria-hidden','true');fr.append(hd);
+ if(fr&&!fr.hidden){const lis=[...fr.children];const hd=document.createElement('span');hd.className='ch-head';hd.setAttribute('aria-hidden','true');fr.append(hd);
   const dec=el=>{if(el.dataset.dc)return;el.dataset.dc=1;const fin=el.textContent,D='0123456789',L='ABCDEFGHIJKLMNOPRSTUVYZ',t0=performance.now();
    const st=n=>{const k=(n-t0)/650;let o='';for(let i=0;i<fin.length;i++){const c=fin[i];o+=(k*fin.length>i*1.0+fin.length*.35||!/[0-9A-Za-zÀ-ÿ]/.test(c))?c:(/[0-9]/.test(c)?D[Math.random()*10|0]:(c===c.toUpperCase()?L:L.toLowerCase())[Math.random()*23|0])}el.textContent=o;if(o!==fin)requestAnimationFrame(st);else el.textContent=fin};requestAnimationFrame(st)};
   const f=()=>{const r=fr.getBoundingClientRect(),lim=innerHeight*.62;fr.style.setProperty('--p',Math.max(0,Math.min(1,(lim-r.top)/r.height)).toFixed(3));lis.forEach(l=>{const on=l.getBoundingClientRect().top+24<lim;if(on&&!l.classList.contains('on')){const y=l.querySelector('.y');if(y)dec(y)}l.classList.toggle('on',on)})};
   let t2=false;addEventListener('scroll',()=>{if(!t2){t2=true;requestAnimationFrame(()=>{t2=false;f()})}},{passive:true});f()}
  // onglets : le fond vert glisse vers le choix
  document.querySelectorAll('.seg').forEach(g=>{if(!ok(g))return;g.classList.add('anim');const ind=document.createElement('span');ind.className='seg-ind';g.prepend(ind);
-  const place=()=>{const l=g.querySelector('label:has(input:checked)');if(!l){ind.style.width='0';return}ind.style.width=l.offsetWidth+'px';ind.style.transform='translateX('+l.offsetLeft+'px)';ind.style.top=l.offsetTop+'px';ind.style.height=l.offsetHeight+'px';ind.style.bottom='auto'};
+  const place=()=>{const l=[...g.querySelectorAll('label')].find(x=>x.querySelector('input:checked'));if(!l){ind.style.width='0';return}ind.style.width=l.offsetWidth+'px';ind.style.transform='translateX('+l.offsetLeft+'px)';ind.style.top=l.offsetTop+'px';ind.style.height=l.offsetHeight+'px';ind.style.bottom='auto'};
   g.addEventListener('change',place);addEventListener('resize',place);place();setTimeout(place,600)});
  // calendriers : vague à chaque changement de mois
  ['cal-client','g-cal'].forEach(id=>{const box=document.getElementById(id);if(!box)return;let last='';

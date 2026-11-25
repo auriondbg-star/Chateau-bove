@@ -173,8 +173,9 @@ async function payer(b: Record<string, unknown>) {
     metadata: { demande: id, logement: type, arrivee: a, depart: d },
     payment_intent_data: { description: `${L.nom} · ${a} → ${d} · ${v} voyageurs`, metadata: { demande: id } },
     line_items: { 0: { quantity: 1, price_data: { currency: 'eur', unit_amount: Math.round(total * 100), product_data: {
-      name: L.nom + (en ? ` · ${n.length} nights · ${v} guests` : ` · ${n.length} nuits · ${v} voyageurs`),
-      description: en ? `Arrival ${a}, departure ${d}. Cancellation more than ${JOURS_LIMITE} days before arrival: 90% refunded; ${JOURS_LIMITE} days or less: 40% refunded.`
+      name: L.nom + (es ? ` · ${n.length} noches · ${v} huéspedes` : en ? ` · ${n.length} nights · ${v} guests` : ` · ${n.length} nuits · ${v} voyageurs`),
+      description: es ? `Llegada el ${a}, salida el ${d}. Cancelación más de ${JOURS_LIMITE} días antes de la llegada: 90 % reembolsado; ${JOURS_LIMITE} días o menos: 40 % reembolsado.`
+        : en ? `Arrival ${a}, departure ${d}. Cancellation more than ${JOURS_LIMITE} days before arrival: 90% refunded; ${JOURS_LIMITE} days or less: 40% refunded.`
         : `Arrivée le ${a}, départ le ${d}. Annulation plus de ${JOURS_LIMITE} jours avant l'arrivée : 90 % remboursés ; ${JOURS_LIMITE} jours ou moins : 40 % remboursés.`,
     } } } },
   }, 'checkout-' + id);

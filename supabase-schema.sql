@@ -49,10 +49,11 @@ create policy equipe_ajouter on public.equipe for insert to authenticated with c
 drop policy if exists equipe_retirer on public.equipe;
 create policy equipe_retirer on public.equipe for delete to authenticated using (public.est_proprietaire() and role = 'acces');
 
--- demandes : tout visiteur peut en envoyer une nouvelle, seule l'équipe les lit et les modifie
+-- demandes : tout visiteur peut en envoyer une nouvelle (sans partie « paiement », que seule la fonction « paiement » écrit),
+-- seule l'équipe les lit et les modifie
 drop policy if exists demandes_envoyer on public.demandes;
 create policy demandes_envoyer on public.demandes for insert to anon, authenticated
-  with check (data ->> 'statut' = 'nouvelle' and coalesce(data ->> 'visite','') = '' and pg_column_size(data) < 20000);
+  with check (data ->> 'statut' = 'nouvelle' and coalesce(data ->> 'visite','') = '' and not (data ? 'paiement') and pg_column_size(data) < 20000);
 drop policy if exists demandes_lire on public.demandes;
 create policy demandes_lire on public.demandes for select to authenticated using (public.est_equipe());
 drop policy if exists demandes_modifier on public.demandes;

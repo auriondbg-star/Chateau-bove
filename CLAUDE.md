@@ -36,6 +36,7 @@ L'espace propriétaire, les e-mails reçus, les mentions légales et la brochure
 - `_headers` : protections du navigateur (pas d'affichage du site dans un autre site, HTTPS obligatoire, etc.).
 - Formulaires : piège à robots (champ invisible .hp « site_web » et envoi en moins de 3 secondes) vérifié dans saveReq : la demande n'est pas enregistrée, mais le robot voit « Merci ».
 - Base Supabase : les visiteurs peuvent seulement envoyer une demande et lire l'occupation sans nom (vérifié le 19/11).
+- Une demande envoyée par un visiteur ne peut pas contenir de partie « paiement » (règle `demandes_envoyer` de `supabase-schema.sql`) : seule la fonction « paiement » l’écrit.
 
 ## Autres règles (voir la passation du projet)
 - Répondre au propriétaire en français, phrases simples, sans estimation de temps.
