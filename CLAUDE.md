@@ -32,6 +32,14 @@ L'espace propriétaire, les e-mails reçus, les mentions légales et la brochure
 ## Menu
 - Au-dessus de 1300 px : liens dans la barre (#menu). En dessous : bouton ☰ (3 traits qui deviennent une croix) qui ouvre le panneau blanc, vert et or #drw (« option 2B ») : titre, liens avec petite phrase, partie en cours marquée d'un losange doré, motif patte d'oie, bouton « Demander une date », e-mail, langues. Fermeture : croix, fond sombre, Échap ou un lien.
 
+## Photos et performances
+- Chaque photo `x.jpg` a une version légère `m/x.jpg` (1000 px maximum) : vignettes de la galerie et des logements, `srcset` des images, fonds pâles (`m/fond-*.jpg`). La visionneuse et les grands écrans gardent l'original. Pour une nouvelle photo : créer aussi sa version `m/`.
+- Images sous le premier écran en `loading="lazy"` ; images du livre chargées à l'approche de la partie Histoire.
+- Petits textes dorés : `var(--gilt-ink)` (lisible sur la pierre) ; `--gilt` reste pour les traits et décors.
+
+## Tests
+- `python3 tools/tester-site.py` (serveur local sur le port 8765) : galerie, livre, menu, formulaires, 3 langues, 3 tailles d'écran, sans rien envoyer. Doit finir par « 0 échec(s) ».
+
 ## Sécurité
 - `_headers` : protections du navigateur (pas d'affichage du site dans un autre site, HTTPS obligatoire, etc.).
 - Formulaires : piège à robots (champ invisible .hp « site_web » et envoi en moins de 3 secondes) vérifié dans saveReq : la demande n'est pas enregistrée, mais le robot voit « Merci ».
