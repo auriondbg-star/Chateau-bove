@@ -1833,10 +1833,13 @@ async function cloudAcc(){accMsg('acc-err','');accMsg('acc-ok','');
  if(pw.length<8)return accMsg('acc-err','Le mot de passe doit faire au moins 8 caractères.');
  if(pw!==pw2)return accMsg('acc-err','Les deux mots de passe ne sont pas identiques.');
  const btn=$('acc-btn');btn.disabled=true;btn.textContent='Création…';
+ let ajoute=false;
  try{const ins=await SB.from('equipe').insert({email:em,role:'acces'});
-  if(ins.error&&ins.error.code!=='23505')throw ins.error;
+  if(ins.error&&ins.error.code!=='23505')throw ins.error;ajoute=!ins.error;
   const tmp=window.supabase.createClient(CFG.url,CFG.anonKey,{auth:{persistSession:false,autoRefreshToken:false,storageKey:'bove-tmp'}});
-  const{data,error}=await tmp.auth.signUp({email:em,password:pw});if(error)throw error;
+  const{data,error}=await tmp.auth.signUp({email:em,password:pw});
+  // compte non créé : on retire l'accès, sinon n'importe qui pourrait créer plus tard un compte avec cette adresse et entrer
+  if(error){if(ajoute)await SB.from('equipe').delete().eq('email',em);throw error}
   const existait=data.user&&Array.isArray(data.user.identities)&&data.user.identities.length===0;
   $('acc-form').reset();
   accMsg('acc-ok',existait?'Accès ouvert pour '+em+". Ce compte existait déjà : la personne garde son mot de passe actuel.":'Accès créé pour '+em+(data.session?'. Communiquez-lui son mot de passe de vive voix.':". Cette personne doit d'abord ouvrir le lien de confirmation reçu par e-mail. Communiquez-lui son mot de passe de vive voix."));
