@@ -1,9 +1,17 @@
 /**
- * Château de la Bôve : envoie un e-mail en français à chaque demande du site.
- * À coller dans un projet Google Apps Script créé avec le compte Gmail qui doit recevoir les demandes,
- * puis déployer en « Application Web » (Exécuter en tant que : moi ; Accès : tout le monde).
- * Le site envoie : sujet, champs [[libellé, valeur]], dates demandées, jours déjà occupés, e-mail du client.
+ * Château de la Bôve : script Google du compte chateaudelabove@gmail.com. Deux rôles :
+ * 1. doPost : envoie un e-mail en français à chaque demande du site (si déployé en « Application Web »,
+ *    Exécuter en tant que : moi ; Accès : tout le monde ; l'adresse /exec va dans config.js, ligne notifyUrl).
+ * 2. envoyerDemandesAvis : chaque matin, envoie aux clients dont le séjour, le séminaire ou le mariage
+ *    confirmé s'est terminé la veille un e-mail avec leur lien personnel pour laisser un avis.
+ *    Installation : coller la clé de l'onglet « Avis » de l'espace propriétaire dans CLE_AVIS ci-dessous,
+ *    enregistrer, puis lancer une fois la fonction « installerEnvoiQuotidien » (et accepter les autorisations).
  */
+var SITE = 'https://chateau-bove.pages.dev';
+var SUPABASE_URL = 'https://ytqmuoutvtpopzuymbhb.supabase.co';
+var SUPABASE_CLE_PUBLIQUE = 'sb_publishable_TlXrjpLgcVZ3XHaCQxWb2Q_JxNliAs6'; // clé publique du site (config.js)
+var CLE_AVIS = ''; // à coller depuis l'espace propriétaire › Avis › « Envoi automatique des e-mails »
+
 var MOIS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
 var JOURS = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
 var COUL = {
@@ -96,4 +104,72 @@ function unMois(m, demSet, occ, vus) {
   }
   h += '</tr></table>';
   return h;
+}
+
+/* ===================== Avis des clients ===================== */
+
+/** À lancer une seule fois : programme l'envoi tous les matins vers 10 h (heure de Paris). */
+function installerEnvoiQuotidien() {
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === 'envoyerDemandesAvis') ScriptApp.deleteTrigger(t);
+  });
+  ScriptApp.newTrigger('envoyerDemandesAvis').timeBased().everyDays(1).atHour(10).inTimezone('Europe/Paris').create();
+  envoyerDemandesAvis(); // premier passage tout de suite
+}
+
+/** Lancé chaque matin : prépare et envoie les e-mails d'avis du lendemain. */
+function envoyerDemandesAvis() {
+  if (!CLE_AVIS) throw new Error('Collez d’abord la clé CLE_AVIS (espace propriétaire › Avis).');
+  var liste = rpc('avis_a_envoyer', {p_cle: CLE_AVIS}) || [];
+  liste.forEach(function (a) {
+    if (!/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(a.email || '')) return;
+    var t = textesAvis(a);
+    MailApp.sendEmail({to: a.email, subject: t.sujet, htmlBody: mailAvis(t), name: 'Château de la Bôve'});
+    rpc('avis_envoye', {p_cle: CLE_AVIS, p_id: a.id});
+  });
+}
+
+function rpc(nom, corpsJson) {
+  var r = UrlFetchApp.fetch(SUPABASE_URL + '/rest/v1/rpc/' + nom, {
+    method: 'post', contentType: 'application/json', muteHttpExceptions: true,
+    headers: {apikey: SUPABASE_CLE_PUBLIQUE, Authorization: 'Bearer ' + SUPABASE_CLE_PUBLIQUE},
+    payload: JSON.stringify(corpsJson)
+  });
+  if (r.getResponseCode() >= 300) throw new Error(nom + ' : ' + r.getResponseCode() + ' ' + r.getContentText().slice(0, 300));
+  var txt = r.getContentText();
+  return txt ? JSON.parse(txt) : null;
+}
+
+function textesAvis(a) {
+  var l = a.langue === 'en' || a.langue === 'es' ? a.langue : 'fr';
+  var lien = SITE + '/?avis=' + encodeURIComponent(a.jeton) + (l !== 'fr' ? '&lang=' + l : '');
+  var nom = (a.nom || '').trim();
+  var quoi = {
+    fr: {gite: 'votre séjour au gîte de la Bôve', appart: 'votre séjour à l’appartement de la Bôve', mariage: 'votre mariage au Château de la Bôve', seminaire: 'votre séminaire au Château de la Bôve'},
+    en: {gite: 'your stay at the Bôve cottage', appart: 'your stay at the Bôve apartment', mariage: 'your wedding at the Château de la Bôve', seminaire: 'your seminar at the Château de la Bôve'},
+    es: {gite: 'su estancia en la casa rural de la Bôve', appart: 'su estancia en el apartamento de la Bôve', mariage: 'su boda en el Château de la Bôve', seminaire: 'su seminario en el Château de la Bôve'}
+  }[l][a.type] || {fr: 'votre venue au Château de la Bôve', en: 'your visit to the Château de la Bôve', es: 'su visita al Château de la Bôve'}[l];
+  if (l === 'en') return {lien: lien, sujet: 'Thank you for ' + quoi, titre: 'Thank you' + (nom ? ', ' + nom : ''),
+    p1: 'We hope you enjoyed ' + quoi + '.', p2: 'Would you have a minute to leave us a review? It will help others discover us.',
+    bouton: 'Leave my review', perso: 'This link is personal to you and can only be used once.', pied: 'You receive this email only once, after your booking.'};
+  if (l === 'es') return {lien: lien, sujet: 'Gracias por ' + quoi, titre: 'Gracias' + (nom ? ', ' + nom : ''),
+    p1: 'Esperamos que haya disfrutado de ' + quoi + '.', p2: '¿Tendría un minuto para dejarnos su opinión? Ayudará a otras personas a descubrirnos.',
+    bouton: 'Dejar mi opinión', perso: 'Este enlace es personal y solo puede usarse una vez.', pied: 'Recibe este correo una sola vez, después de su reserva.'};
+  return {lien: lien, sujet: 'Merci pour ' + quoi, titre: 'Merci' + (nom ? ', ' + nom : ''),
+    p1: 'Nous espérons que vous avez apprécié ' + quoi + '.', p2: 'Auriez-vous une minute pour nous laisser votre avis ? Il aidera d’autres personnes à nous découvrir.',
+    bouton: 'Laisser mon avis', perso: 'Ce lien vous est personnel et ne sert qu’une fois.', pied: 'Vous recevez cet e-mail une seule fois, après votre réservation.'};
+}
+
+function mailAvis(t) {
+  var b = '<a href="' + esc(t.lien) + '" style="';
+  return '<div style="font-family:Georgia,serif;color:#2b2622;max-width:560px;margin:0 auto;padding:28px 8px">' +
+    '<div style="font-family:Arial,sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#7D622B">Château de la Bôve</div>' +
+    '<h2 style="font-weight:normal;font-size:24px;margin:8px 0 16px">' + esc(t.titre) + '</h2>' +
+    '<p style="font-size:16px;line-height:1.5;margin:0 0 12px">' + esc(t.p1) + '</p>' +
+    '<p style="font-size:16px;line-height:1.5;margin:0 0 18px">' + esc(t.p2) + '</p>' +
+    '<p style="margin:0 0 6px">' + b + 'font-size:30px;letter-spacing:6px;color:#9A7B3F;text-decoration:none">★★★★★</a></p>' +
+    '<p style="margin:0 0 18px">' + b + 'display:inline-block;background:#2F4A35;color:#F7F2E4;font-family:Arial,sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;padding:14px 22px">' + esc(t.bouton) + '</a></p>' +
+    '<p style="font-size:13px;color:#776d63;margin:0">' + esc(t.perso) + '</p>' +
+    '<p style="font-family:Arial,sans-serif;font-size:12px;color:#8a8077;border-top:1px solid #e6dfd6;margin-top:26px;padding-top:12px">' +
+    'Château de la Bôve · 02860 Bouconville-Vauclair · <a href="' + SITE + '" style="color:#8a8077">chateau-bove.pages.dev</a><br>' + esc(t.pied) + '</p></div>';
 }

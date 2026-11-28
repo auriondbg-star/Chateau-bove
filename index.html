@@ -412,6 +412,30 @@ section.hero,.fenetre{background:transparent}
 
 /* galerie */
 .galerie{padding-block:96px}
+/* avis des clients : partie publique (cachée sans avis publié) et fenêtre de dépôt */
+.avc{padding-block:96px}
+.avc-moy{font-family:var(--sans);font-size:.9rem;color:var(--muted)}.avc-moy b{color:var(--gilt);letter-spacing:2px;font-weight:400}
+.avc-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),380px));justify-content:center;gap:18px}
+.avc-card{background:var(--card);padding:28px 26px 24px;position:relative;border-top:2px solid var(--gilt);display:flex;flex-direction:column;gap:12px;margin:0}
+.avc-card::after{content:"\201D";position:absolute;top:4px;right:18px;font-family:var(--display);font-size:4rem;line-height:1;color:var(--gilt);opacity:.45}
+.avs{color:var(--gilt);letter-spacing:3px}.avs .o{color:var(--line)}
+.avc-card blockquote{margin:0;font-family:var(--serif);font-size:1.12rem;line-height:1.55;white-space:pre-line}
+.avc-card figcaption{margin-top:auto;font-family:var(--sans);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.avc-legal{font-family:var(--sans);font-size:.76rem;color:var(--muted);text-align:center;margin-top:24px}.avc-legal a{color:inherit;text-underline-offset:3px}
+.avd{position:fixed;inset:0;z-index:60;background:rgba(15,22,17,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.avd-p{position:relative;width:min(520px,100%);max-height:100%;overflow-y:auto;background:var(--card);border-top:2px solid var(--gilt);box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.avd-f{grid-template-columns:1fr;background:transparent;gap:14px}
+.avd-f h2,.avd-msg h2{font-family:var(--display);font-weight:400;font-size:clamp(1.7rem,4vw,2.1rem);line-height:1.15;color:var(--buis);margin:0}
+.avd-sub,.avd-msg p{color:var(--muted);margin:0}
+.avd-rate{display:flex;gap:4px}
+.avd-rate button{all:unset;cursor:pointer;font-size:2.4rem;line-height:1;padding:2px;color:var(--line);transition:transform .15s,color .15s}
+.avd-rate button.on{color:var(--gilt)}.avd-rate button:active{transform:scale(1.18)}.avd-rate button:focus-visible{outline:2px solid var(--gilt);outline-offset:2px}
+.avd-lab{font-family:var(--sans);font-size:.8rem;color:var(--gilt-ink);margin:4px 0 0;min-height:1.3em}
+.avd-f .btn{justify-self:stretch;justify-content:center}
+.avd-note{font-family:var(--sans);font-size:.76rem;color:var(--muted);margin:0}
+.avd-x{position:absolute;top:6px;right:8px;border:0;background:none;font-size:1.8rem;line-height:1;color:var(--muted);cursor:pointer;padding:8px 12px;z-index:1}
+.avd-msg{padding:clamp(28px,5vw,44px);text-align:center;display:grid;gap:12px}
+.avd-big{font-size:2.8rem;color:var(--gilt);line-height:1}
 .top3{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:14px}
 .top3 button{all:unset;display:block;cursor:zoom-in;overflow:hidden;aspect-ratio:4/5;max-width:100%}
 .top3 button:first-child{aspect-ratio:auto}
@@ -625,6 +649,23 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 @media (max-width:900px){.cal-wrap{grid-template-columns:1fr}}
 @media (max-width:420px){.cal{padding:12px}.cal-g button,.cal-g .pad{min-height:42px;padding:4px}.cal-g small{font-size:.56rem;bottom:4px}}
 .adm-sec{display:flex;flex-direction:column;gap:16px}
+.av-kpis{grid-template-columns:repeat(4,1fr)}
+.av-list{display:grid;gap:12px}
+.av-item{background:var(--card);border:1px solid var(--line);padding:16px 18px;display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:start}
+.av-item .who{font-family:var(--display);font-size:1.2rem}
+.av-item .meta{font-family:var(--sans);font-size:.78rem;color:var(--muted)}
+.av-item .meta b{color:#A3412E;font-weight:500}
+.av-item blockquote{grid-column:1/-1;margin:0;font-family:var(--serif);font-size:1.02rem;white-space:pre-line}
+.av-acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.av-acts button{all:unset;cursor:pointer;font-family:var(--sans);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;padding:9px 12px;border:1px solid var(--buis);color:var(--buis)}
+.av-acts button.pub{background:var(--buis);color:#F7F2E4}.av-acts button.del{border-color:#A3412E;color:#A3412E}
+.av-acts button:disabled{opacity:.4;cursor:default}.av-acts button:focus-visible{outline:2px solid var(--gilt);outline-offset:2px}
+.av-badge{display:inline-block;font-family:var(--sans);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:20px;margin-left:8px;vertical-align:middle;background:var(--sem-soft);color:#6b5320}
+.av-badge.pub{background:var(--buis-soft);color:var(--buis)}
+.av-cfg{border:1px solid var(--line);background:var(--card);padding:12px 16px;font-family:var(--sans);font-size:.85rem}
+.av-cfg summary{cursor:pointer;color:var(--buis)}
+.av-cfg code{display:block;margin:10px 0;padding:10px;background:var(--stone);font-size:.9rem;word-break:break-all;user-select:all}
+@media (max-width:700px){.av-kpis{grid-template-columns:1fr 1fr}.av-item{grid-template-columns:1fr}.av-acts{justify-content:flex-start}}
 .acc-wrap{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}.acc-wrap>*{min-width:0}
 @media (max-width:900px){.acc-wrap{grid-template-columns:1fr}}
 .acc-form .btn{justify-self:start}
@@ -1111,6 +1152,18 @@ footer .mark{color:var(--ink);font-size:1.6rem}
   </div>
 </section>
 
+<section class="avc wrap" id="avc" aria-labelledby="avc-t" hidden>
+  <div class="inner">
+    <div class="head">
+      <span class="eyebrow">Avis</span>
+      <h2 id="avc-t">Ils ont séjourné au domaine</h2>
+      <p class="avc-moy" id="avc-moy"></p>
+    </div>
+    <div class="avc-cards" id="avc-cards"></div>
+    <p class="avc-legal">Avis laissés par nos clients après leur séjour ou leur événement, grâce à un lien personnel envoyé par e-mail. Chaque avis est lu avant publication. <a href="mentions-legales.html#avis">En savoir plus</a></p>
+  </div>
+</section>
+
 <section class="galerie wrap" id="galerie">
   <div class="inner">
     <div class="head">
@@ -1194,6 +1247,7 @@ footer .mark{color:var(--ink);font-size:1.6rem}
         <label><input type="radio" name="scope" value="event" checked>Mariages &amp; séminaires</label>
         <label><input type="radio" name="scope" value="gite">Gîte</label>
         <label><input type="radio" name="scope" value="appart">Appartement</label>
+        <label><input type="radio" name="scope" value="avis">Avis</label>
       </div>
       <div class="kpis" id="kpis"></div>
       <div class="typef" id="typef"></div>
@@ -1228,6 +1282,16 @@ footer .mark{color:var(--ink);font-size:1.6rem}
           <aside class="cal-side"><span class="eyebrow">Dates prises</span><ul id="cal-list"></ul></aside>
         </div>
       </section>
+      <section class="adm-sec" id="avis-sec" aria-labelledby="avis-adm-t" hidden>
+        <span class="eyebrow">Avis des clients</span>
+        <h3 id="avis-adm-t">Avis reçus</h3>
+        <p class="demo">Le lendemain de la fin d'un séjour, d'un séminaire ou d'un mariage confirmé, le client reçoit un e-mail avec un lien personnel pour laisser son avis. Rien n'est publié sur le site sans votre clic sur « Publier ». La partie « Avis » du site reste invisible tant qu'aucun avis n'est publié.</p>
+        <div class="kpis av-kpis" id="av-kpis"></div>
+        <div class="av-list" id="av-list"></div>
+        <details class="av-cfg" id="av-cfg"><summary>Envoi automatique des e-mails : clé du script Google</summary>
+          <div id="av-cfg-in"></div>
+        </details>
+      </section>
       <section class="adm-sec" id="acc-sec" aria-labelledby="acc-t" hidden>
         <span class="eyebrow">Sécurité</span>
         <h3 id="acc-t">Accès à l'espace propriétaire</h3>
@@ -1248,6 +1312,26 @@ footer .mark{color:var(--ink);font-size:1.6rem}
   </div>
 </div>
 
+<div class="avd" id="avd" hidden role="dialog" aria-modal="true" aria-labelledby="avd-t">
+  <div class="avd-p">
+    <button class="avd-x" id="avd-x" type="button" aria-label="Fermer">×</button>
+    <form class="avd-f" id="avd-f" novalidate>
+      <span class="eyebrow full">Votre avis</span>
+      <h2 class="full" id="avd-t">Comment s'est passé votre séjour ?</h2>
+      <p class="avd-sub full">Merci de prendre un moment pour nous répondre.</p>
+      <div class="full"><div class="avd-rate" id="avd-rate" role="radiogroup" aria-label="Votre note"></div><p class="avd-lab" id="avd-lab" aria-live="polite">Touchez les étoiles</p></div>
+      <label class="full">Votre avis<textarea id="avd-txt" rows="4" maxlength="3000" placeholder="Ce que vous avez aimé, ce qui vous a marqué…"></textarea></label>
+      <label class="full">Prénom affiché<input id="avd-nom" maxlength="80" autocomplete="given-name"></label>
+      <label class="chk full consent"><input id="avd-ok" type="checkbox" checked><span>J'accepte que mon avis et ce prénom soient publiés sur le site du château.</span></label>
+      <p class="err" id="avd-err" role="alert" hidden></p>
+      <button class="btn full" type="submit" id="avd-go">Envoyer mon avis</button>
+      <p class="avd-note full">Votre e-mail n'est jamais affiché.</p>
+    </form>
+    <div class="avd-msg" id="avd-merci" hidden><span class="avd-big" aria-hidden="true">★</span><h2>Merci beaucoup !</h2><p>Votre avis a bien été envoyé. Il sera lu par le propriétaire avant d'être publié.</p></div>
+    <div class="avd-msg" id="avd-deja" hidden><h2>Merci !</h2><p>Vous avez déjà donné votre avis avec ce lien.</p></div>
+    <div class="avd-msg" id="avd-invalide" hidden><h2>Lien non valable</h2><p>Ce lien n'est plus valable. Pour nous écrire : chateaudelabove@gmail.com</p></div>
+  </div>
+</div>
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Photo agrandie">
   <img id="lbimg" alt="">
   <button class="x" id="lbx" type="button">Fermer</button>
@@ -1471,6 +1555,62 @@ function notify(r){try{const L={mariage:'Mariage',seminaire:'Séminaire',visite:
  const mo=new Set(dem.map(x=>x.slice(0,7))),occ=[];try{(lodg?gMap(r.type):blockedMap()).forEach((v,d)=>{if(mo.has(d.slice(0,7)))occ.push([d,v.kind||r.type])})}catch(e){}
  if(dem.length)champs.push(['Voir le calendrier',location.origin+'/#admin/'+(lodg?r.type:'event')+'/'+dem[0].slice(0,7)]);
  sendMail(subj,tl+(r.noms?' · '+r.noms:''),champs,dem,occ,r.email||'')}catch(e){}}
+// ---------- avis des clients ----------
+// Données : Supabase (table avis + fonctions avis_*, voir supabase-schema.sql) ; en démonstration, cet appareil (lien ?avis=demo).
+const AV_KEY='bove-avis';
+const avLocal=()=>{try{const v=JSON.parse(localStorage.getItem(AV_KEY));return Array.isArray(v)?v:[]}catch(e){return[]}};
+const avKeep=a=>{try{localStorage.setItem(AV_KEY,JSON.stringify(a))}catch(e){}};
+const AV={
+ async info(j){if(CLOUD){const{data,error}=await SB.rpc('avis_info',{p_jeton:j});return error?null:data}
+  return j==='demo'?{type:'gite',nom:'Famille Exemple',fait:avLocal().some(a=>a.id==='demo')}:null},
+ async deposer(j,note,texte,auteur,accord){if(CLOUD){const{data,error}=await SB.rpc('avis_deposer',{p_jeton:j,p_note:note,p_texte:texte,p_auteur:auteur,p_accord:accord});return !error&&data===true}
+  const a=avLocal();if(j!=='demo'||a.some(x=>x.id==='demo'))return false;
+  a.unshift({id:'demo',type:'gite',nom:'Famille Exemple',email:'famille.exemple@mail.fr',note,texte,auteur,accord,fin:iso(new Date()),envoye_le:new Date().toISOString(),recu_le:new Date().toISOString(),publie:false});avKeep(a);return true},
+ async publies(){if(CLOUD){const{data,error}=await SB.rpc('avis_publies');return error?[]:data||[]}
+  return avLocal().filter(a=>a.publie&&a.accord).map(a=>({auteur:a.auteur||'Un client',type:a.type,note:a.note,texte:a.texte,quand:a.fin}))},
+ async liste(){if(CLOUD){const{data,error}=await SB.from('avis').select('*').order('cree',{ascending:false});return error?null:data||[]}return avLocal()},
+ async maj(id,p){if(CLOUD){const{error}=await SB.from('avis').update(p).eq('id',id);return !error}const a=avLocal(),x=a.find(v=>v.id===id);if(x)Object.assign(x,p);avKeep(a);return true},
+ async suppr(id){if(CLOUD){const{error}=await SB.from('avis').delete().eq('id',id);return !error}avKeep(avLocal().filter(v=>v.id!==id));return true},
+ async cle(){if(!CLOUD)return'';const{data}=await SB.rpc('cle_script');return data||''}
+};
+const AV_NOTE=['','Décevant','Moyen','Bien','Très bien','Exceptionnel'];
+const avType=t=>({gite:'Gîte',appart:'Appartement',mariage:'Mariage',seminaire:'Séminaire'})[t]||'';
+// étoiles pleines et vides, sans HTML injecté
+const avStars=(n,cls='avs')=>el('span',{class:cls,'aria-label':n+(ES?' de 5':EN?' out of 5':' sur 5')},'★'.repeat(n),el('span',{class:'o','aria-hidden':'true'},'★'.repeat(5-n)));
+const avQuand=d=>{if(!/^\d{4}-\d{2}-\d{2}/.test(d||''))return'';return moisAn(new Date(d.slice(0,10)+'T12:00'))};
+
+// partie publique : affichée seulement s'il y a au moins un avis publié
+(async()=>{const sec=$('avc');if(!sec)return;let L=[];try{L=await AV.publies()}catch(e){}
+ if(!L.length)return;
+ const m=L.reduce((t,a)=>t+a.note,0)/L.length;
+ $('avc-moy').replaceChildren(el('b',{},avStars(Math.round(m))),' '+m.toFixed(1).replace('.',EN?'.':',')+(ES?' de 5 · ':EN?' out of 5 · ':' sur 5 · ')+L.length+' '+tr(L.length>1?'avis publiés':'avis publié'));
+ $('avc-cards').replaceChildren(...L.map(a=>el('figure',{class:'avc-card'},avStars(a.note),el('blockquote',{},a.texte),
+   el('figcaption',{},[a.auteur,tr(avType(a.type)),avQuand(a.quand)].filter(Boolean).join(' · ')))));
+ sec.hidden=false})();
+
+// fenêtre de dépôt : ouverte par le lien personnel ?avis=…
+(async()=>{const j=new URLSearchParams(location.search).get('avis');if(!j||location.hash.startsWith('#admin'))return;
+ const box=$('avd'),f=$('avd-f'),show=id=>{['avd-f','avd-merci','avd-deja','avd-invalide'].forEach(x=>$(x).hidden=x!==id)};
+ const close=()=>{box.hidden=true;document.documentElement.style.overflow='';history.replaceState(null,'',location.pathname+(LANG!=='fr'?'?lang='+LANG:''))};
+ $('avd-x').onclick=close;box.addEventListener('click',e=>{if(e.target===box)close()});addEventListener('keydown',e=>{if(e.key==='Escape'&&!box.hidden)close()});
+ let info=null;if(/^([0-9a-f-]{36}|demo)$/i.test(j)){try{info=await AV.info(j)}catch(e){}}
+ box.hidden=false;document.documentElement.style.overflow='hidden';
+ if(!info){show('avd-invalide');return}if(info.fait){show('avd-deja');return}
+ show('avd-f');
+ $('avd-t').textContent=tr({gite:'Comment s\'est passé votre séjour au gîte ?',appart:'Comment s\'est passé votre séjour à l\'appartement ?',mariage:'Comment s\'est passé votre mariage au château ?',seminaire:'Comment s\'est passé votre séminaire au château ?'}[info.type]||'Comment s\'est passé votre séjour ?');
+ $('avd-nom').value=info.nom||'';
+ let note=0;const R=$('avd-rate'),bs=[];
+ const set=n=>{note=n;bs.forEach((b,i)=>{b.classList.toggle('on',i<n);b.setAttribute('aria-checked',String(i===n-1))});$('avd-lab').textContent=tr(AV_NOTE[n])};
+ for(let i=1;i<=5;i++){const b=el('button',{type:'button',role:'radio','aria-checked':'false','aria-label':i+(ES?' de 5':EN?' out of 5':' sur 5')},'★');b.onclick=()=>set(i);
+  b.onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='ArrowUp'){e.preventDefault();set(Math.min(5,note+1));bs[note-1].focus()}if(e.key==='ArrowLeft'||e.key==='ArrowDown'){e.preventDefault();set(Math.max(1,note-1));bs[note-1].focus()}};bs.push(b)}
+ R.replaceChildren(...bs);
+ f.addEventListener('submit',async e=>{e.preventDefault();const er=$('avd-err'),t=$('avd-txt').value.trim();
+  if(!note||!t){er.textContent=tr(!note?'Choisissez une note en touchant les étoiles.':'Écrivez quelques mots sur votre expérience.');er.hidden=false;return}
+  er.hidden=true;const go=$('avd-go');go.disabled=true;
+  let ok=false;try{ok=await AV.deposer(j,note,t,$('avd-nom').value.trim(),$('avd-ok').checked)}catch(e){}
+  go.disabled=false;
+  if(ok)show('avd-merci');else{er.textContent=tr("L'envoi n'a pas abouti. Réessayez dans un instant, ou écrivez-nous : chateaudelabove@gmail.com");er.hidden=false}});
+ setTimeout(()=>(info.nom?$('avd-rate').querySelector('button'):$('avd-nom')).focus(),50)})();
 // ---------- petite question (Contact) : envoyée directement par e-mail ----------
 (function(){const f=$('q-f');if(!f)return;const ok=$('q-ok'),er=$('q-err');
  f.addEventListener('submit',e=>{e.preventDefault();const m=$('q-mail').value.trim(),q=$('q-msg').value.trim();
@@ -1602,7 +1742,38 @@ function payBox(r){const p=r.paiement;if(!p||!p.etat||p.etat==='en attente')retu
   p.conflit?el('p',{class:'err'},'Attention : ces nuits étaient déjà prises au moment du paiement. Vérifiez le calendrier et remboursez si besoin.'):'',
   el('p',{style:'color:var(--muted)'},'Si le client annule aujourd\'hui ('+(part===REMB_AVANT?'plus de '+JOURS_LIMITE+' jours avant':JOURS_LIMITE+' jours ou moins avant')+' l\'arrivée) : remboursement de '+eur2(rb)+', vous gardez '+eur2(Math.round((p.montant-rb)*100)/100)+'. Si c\'est vous qui annulez, remboursez la totalité.'),
   el('div',{class:'row'},b1,b2),msg)}
+
+// ---------- espace propriétaire : avis ----------
+let avFiltre='lire';
+async function renderAvis(){
+ const L=await AV.liste();const list=$('av-list');
+ if(L===null){list.replaceChildren(el('p',{class:'err'},"Les avis n'ont pas pu être chargés. Si c'est la première fois, il faut d'abord ajouter la partie « Avis » dans Supabase (fichier supabase-schema.sql)."));$('av-kpis').replaceChildren();return}
+ const G={lire:a=>a.recu_le&&!a.publie,pub:a=>a.publie,att:a=>!a.recu_le&&a.envoye_le,prep:a=>!a.recu_le&&!a.envoye_le};
+ $('av-kpis').replaceChildren(...[['lire','À lire'],['pub','Publiés'],['att','En attente du client'],['prep',"E-mail à envoyer"]].map(([k,l])=>el('button',{type:'button','aria-pressed':String(avFiltre===k),onclick:()=>{avFiltre=k;renderAvis()}},el('b',{},String(L.filter(G[k]).length)),el('span',{},l))));
+ const act=(t,c,fn,dis)=>{const b=el('button',{type:'button',class:c||''},t);if(dis)b.disabled=true;b.onclick=async()=>{b.disabled=true;if(await fn()===false)b.disabled=false;renderAvis()};return b};
+ const typeL=t=>avType(t)||t;
+ const rows=L.filter(G[avFiltre]).map(a=>{
+  const meta=[typeL(a.type),a.fin?'fin le '+fmt(a.fin):'',a.recu_le?'avis du '+fmt(a.recu_le.slice(0,10)):a.envoye_le?'e-mail envoyé le '+fmt(a.envoye_le.slice(0,10)):'e-mail prévu le lendemain matin'].filter(Boolean).join(' · ');
+  if(!a.recu_le)return el('div',{class:'av-item'},el('div',{},el('div',{class:'who'},a.nom||'Client'),el('div',{class:'meta'},meta+(a.email?' · '+a.email:''))),
+    el('div',{class:'av-acts'},a.envoye_le?act('Renvoyer demain matin','',()=>AV.maj(a.id,{envoye_le:null})):'',act('Ne pas envoyer','del',()=>confirm("Ne pas demander d'avis à ce client ?")?AV.suppr(a.id):false)));
+  return el('div',{class:'av-item'},
+   el('div',{},el('div',{class:'who'},a.auteur||a.nom||'Client',el('span',{class:'av-badge'+(a.publie?' pub':'')},a.publie?'Publié':'À lire')),
+     el('div',{class:'meta'},avStars(a.note),' · '+meta+(a.auteur&&a.nom&&a.auteur!==a.nom?' · demande au nom de '+a.nom:''),a.accord?'':el('b',{},' · Le client ne souhaite pas que son avis soit publié'))),
+   el('div',{class:'av-acts'},a.publie?act('Retirer du site','',()=>AV.maj(a.id,{publie:false})):act('Publier','pub',()=>AV.maj(a.id,{publie:true}),!a.accord),
+     act('Supprimer','del',()=>confirm('Supprimer définitivement cet avis ?')?AV.suppr(a.id):false)),
+   el('blockquote',{},'« '+a.texte+' »'))});
+ list.replaceChildren(...(rows.length?rows:[el('p',{class:'empty'},{lire:'Aucun avis à lire pour le moment.',pub:'Aucun avis publié : la partie « Avis » du site reste invisible.',att:'Aucun client en attente.',prep:'Aucun e-mail en préparation.'}[avFiltre])]));
+ const cfg=$('av-cfg-in');
+ if(!CLOUD){cfg.replaceChildren(el('p',{},'Mode démonstration : pour essayer, ouvrez le site avec ?avis=demo à la fin de l\'adresse et laissez un avis.'));return}
+ if(role()!=='owner'){cfg.replaceChildren(el('p',{},'Réservé au propriétaire.'));return}
+ const k=await AV.cle();
+ cfg.replaceChildren(el('p',{},"Collez cette clé une seule fois dans le script Google (ligne CLE_AVIS), puis lancez « installerEnvoiQuotidien ». Ne la donnez à personne d'autre : elle permet seulement de préparer les e-mails d'avis."),
+  el('code',{},k||'Clé introuvable : ajoutez d\'abord la partie « Avis » dans Supabase.'),
+  k?el('button',{type:'button',class:'btn ghost',onclick:e=>{navigator.clipboard&&navigator.clipboard.writeText(k).then(()=>{e.target.textContent='Clé copiée ✓'})}},'Copier la clé'):'');
+}
 function renderDash(){
+ const AVS=scope==='avis';$('avis-sec').hidden=!AVS;$('kpis').hidden=AVS;document.querySelector('.adm-grid').style.display=AVS?'none':'';
+ if(AVS){$('typef').hidden=true;$('e-sec').hidden=true;$('g-sec').hidden=true;renderAvis();return}
  const inType=r=>isLodg(scope)?r.type===scope:!isLodg(r.type)&&(ftype==='tous'||r.type===ftype);
  $('typef').hidden=isLodg(scope);$('e-sec').hidden=isLodg(scope);$('g-sec').hidden=!isLodg(scope);
  if(isLodg(scope)){$('g-cal-t').textContent=scope==='gite'?'Séjours au gîte':"Séjours à l'appartement";$('g-eyebrow').textContent='Calendrier : '+(scope==='gite'?'Gîte de la Bôve':'Appartement de la Bôve')}
@@ -1623,6 +1794,7 @@ function renderDash(){
   if(status.value==='confirmee'){const G=isLodg(r.type),bm=G?gMap(r.type):blockedMap();const clash=reqKeys(r).map(k=>bm.get(k)).find(b=>b&&b.type==='conf'&&b.id!==r.id);
    if(clash){status.value=r.statut;alertMsg.textContent='Ces dates sont déjà confirmées pour '+clash.label+'.';alertMsg.hidden=false;return}
    const ks=reqKeys(r);if(G)gSaveBlocks(gLoadBlocks(r.type).filter(x=>!x.days.some(k=>ks.includes(k))),r.type);else saveBlocks(loadBlocks().filter(x=>!x.days.some(k=>ks.includes(k))))}
+  if(status.value==='confirmee'){const ks=reqKeys(r);r.fin=isLodg(r.type)?(r.depart||''):(ks[ks.length-1]||'')}
   r.statut=status.value;save(reqs);renderDash()};
  const visBox=el('input',{type:'checkbox'});visBox.checked=!!r.visite;if(r.statut==='confirmee'){visBox.disabled=true;visBox.title='Repassez la demande en « En cours » pour modifier'}
  visBox.onchange=()=>{r.visite=visBox.checked;save(reqs);renderDash()};

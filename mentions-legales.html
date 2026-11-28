@@ -76,16 +76,22 @@ a{color:var(--buis);text-underline-offset:3px}
   <h3>Données collectées</h3>
   <p>Par les formulaires de demande (événement, visite ou séjour) : noms, adresse e-mail, téléphone s'il est indiqué, dates souhaitées, nombre d'invités ou de voyageurs, type d'événement et message. Pour un séjour payé en ligne, le montant et la date du paiement (pas les données de carte, traitées par Stripe).</p>
 
+  <p>Après un séjour, un séminaire ou un mariage, si vous laissez un avis : votre note, votre texte et le prénom que vous choisissez d'afficher.</p>
+
   <h3>Finalité</h3>
-  <p>Répondre à votre demande et préparer votre réservation. Vos données ne sont jamais vendues ni utilisées à des fins publicitaires.</p>
+  <p>Répondre à votre demande et préparer votre réservation. Le lendemain de la fin de votre séjour, de votre séminaire ou de votre mariage, nous vous envoyons un seul e-mail pour vous proposer de laisser un avis (intérêt légitime : connaître votre avis sur une prestation que vous avez réservée). Vos données ne sont jamais vendues ni utilisées à des fins publicitaires.</p>
 
   <h3>Destinataires</h3>
   <p>Seul le propriétaire du domaine a accès à vos demandes. Pour fonctionner, elles transitent par des prestataires techniques :</p>
   <ul>
     <li>Supabase, qui enregistre les demandes et le calendrier des réservations ;</li>
     <li>FormSubmit, qui transmet la demande par e-mail au propriétaire ;</li>
+    <li>Google (Gmail), qui envoie l'e-mail vous proposant de laisser un avis ;</li>
     <li>Stripe, qui traite le paiement par carte des séjours réservés en ligne. Les données de carte sont saisies uniquement sur la page sécurisée de Stripe : le site ne les voit jamais.</li>
   </ul>
+
+  <h3 id="avis">Avis des clients</h3>
+  <p>Seules les personnes ayant réservé un séjour, un séminaire ou un mariage confirmé peuvent laisser un avis, grâce à un lien personnel valable une seule fois. Chaque avis est lu par le propriétaire avant publication. Il n'est publié que si son auteur l'a accepté ; seuls apparaissent la note, le texte, le prénom choisi, le type de prestation et le mois. Un avis peut ne pas être publié, ou être retiré, s'il est hors sujet, injurieux, contient des informations personnelles ou semble ne pas correspondre à une prestation réelle. Les avis publiés restent en ligne au plus 3 ans. Vous pouvez demander le retrait de votre avis à tout moment à <a href="mailto:chateaudelabove@gmail.com">chateaudelabove@gmail.com</a>. Aucune contrepartie n'est accordée en échange d'un avis.</p>
 
   <h3>Durée de conservation</h3>
   <p>3 ans après le dernier contact pour une demande sans suite ; 10 ans pour les documents liés à une réservation (obligations comptables).</p>

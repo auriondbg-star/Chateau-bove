@@ -37,6 +37,13 @@ L'espace propriétaire, les e-mails reçus, les mentions légales et la brochure
 - Images sous le premier écran en `loading="lazy"` ; images du livre chargées à l'approche de la partie Histoire.
 - Petits textes dorés : `var(--gilt-ink)` (lisible sur la pierre) ; `--gilt` reste pour les traits et décors.
 
+## Avis des clients
+- Table `avis` + fonctions `avis_*` / `cle_script` (fin de `supabase-schema.sql`, aussi seules dans `tools/supabase/ajout-avis.sql`, à coller une fois dans Supabase).
+- Chaque matin (10 h, Paris), le script Google `tools/gmail/Code.gs` (`envoyerDemandesAvis`, installé par `installerEnvoiQuotidien`) appelle `avis_a_envoyer` avec la clé `CLE_AVIS` : il crée les avis des demandes **confirmées** terminées la veille (jusqu'à 10 jours), envoie l'e-mail FR/EN/ES avec le lien `?avis=<jeton>`, puis `avis_envoye`. Le dernier jour est enregistré dans `fin` à la confirmation (sinon déduit).
+- Le client dépose son avis dans la fenêtre `#avd` (une seule fois, `avis_deposer`). Rien n'est publié sans clic du propriétaire (espace propriétaire › Avis) et sans accord du client.
+- Partie publique `#avc` « Ils ont séjourné au domaine » : **cachée tant qu'aucun avis n'est publié** (demande du propriétaire). Ne pas la confondre avec `#avis`, le bloc des avis Airbnb des logements.
+- Démonstration : `?avis=demo`.
+
 ## Tests
 - `python3 tools/tester-site.py` (serveur local sur le port 8765) : galerie, livre, menu, formulaires, 3 langues, 3 tailles d'écran, sans rien envoyer. Doit finir par « 0 échec(s) ».
 
