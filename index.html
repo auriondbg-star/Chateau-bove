@@ -751,7 +751,8 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 .kind-gite{background:color-mix(in srgb,var(--gilt) 18%,var(--card))}
 .cal-g button.conf.k-gite{background:color-mix(in srgb,var(--gilt) 22%,var(--card))}
 .cal-g button.man.k-gite{background:repeating-linear-gradient(-45deg,color-mix(in srgb,var(--gilt) 22%,var(--card)) 0 6px,var(--card) 6px 12px)}
-.scope{max-width:620px;grid-template-columns:1.6fr 1fr 1.3fr}
+.scope{max-width:820px;grid-template-columns:1.6fr 1fr 1.3fr 1fr}
+@media (max-width:560px){.scope{grid-template-columns:1fr 1fr}}
 @media (max-width:480px){.scope label{font-size:.66rem;letter-spacing:.08em;padding:10px 4px}}
 footer{padding-block:56px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;color:var(--muted);font-family:var(--sans);font-size:.85rem}
 footer .mark{color:var(--ink);font-size:1.6rem}
